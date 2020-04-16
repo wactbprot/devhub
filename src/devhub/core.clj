@@ -1,14 +1,19 @@
 (ns devhub.core
-  (:require [ring.adapter.jetty :refer [run-jetty]]
+  (:require [clojure.string :refer [lower-case]]
+            [clojure.java.io :refer [as-file]]
+            [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
-            [ring.util.response :refer [response]]))
+            [ring.util.response :as res]))
 
 (defonce srv (atom nil))
 
 (defn handler [req]
-  (let [acc (get-in req [:body :Action])]
-    (condp = (keyword acc)
-      :MODBUS (response (read-string (slurp "resources/modbus.edn"))))))
+  (if-let [task-name (get-in req [:body :TaskName])]
+    (let [file-name (str "resources/" (lower-case task-name) ".edn")]
+      (if (.exist (as-file file-name))
+        (res/response (read-string (slurp file-name)))
+        (res/bad-request {:error (str "unknown task name: " task-name)})))
+    (res/bad-request {:error "body don't contain a taskname"})))
 
 (def app
   (wrap-json-response
