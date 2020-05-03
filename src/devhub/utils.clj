@@ -1,5 +1,6 @@
 (ns devhub.utils
   (:require [clojure.string :refer [lower-case]]
+            [clojure.pprint :as pp]
             [clojure.java.io :refer [as-file]]))
 
 (defn file-name
@@ -41,3 +42,7 @@
   (assoc m
          :t_start t0
          :t_stop t1))
+
+(defn print-body
+  [req]
+  (pp/pprint (:body req)))

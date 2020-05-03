@@ -7,6 +7,7 @@
 
 (defn handler
   [req]
+  (u/print-body req)
   (let [t0          (u/ms)
         m-name      (u/by-name req)
         m-action    (u/by-action req)
