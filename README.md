@@ -5,6 +5,14 @@ Now a stub later a hub.
 
 ## curl examples
 
+## version
+
+```shell
+curl http://localhost:9009/version
+## {"version":"0.2.5"}
+´´´
+
+
 ### matching action
 
 ```shell
@@ -14,7 +22,7 @@ curl -d '{"Action":"MODBUS"}' -H "Content-Type: application/json"  -X POST http:
 ## Content-Type: application/json;charset=utf-8
 ## Content-Length: 147
 ## Server: Jetty(9.4.12.v20180830)
-## 
+##
 ## {"ToExchange":
 ## {"V1":
 ## {"Bool":1},
@@ -33,7 +41,7 @@ curl -d '{"Missing":true}' -H "Content-Type: application/json"  -X POST http://l
 ## Content-Type: application/json;charset=utf-8
 ## Content-Length: 70
 ## Server: Jetty(9.4.12.v20180830)
-## 
+##
 ## {"error":"body don't contain a action, body don't contain a taskname"}
 ```
 
@@ -47,7 +55,6 @@ curl -i -d '{"Action":"foo","TaskName":"bar"}' -H "Content-Type: application/jso
 ## Content-Type: application/json;charset=utf-8
 ## Content-Length: 61
 ## Server: Jetty(9.4.12.v20180830)
-## 
+##
 ##{"error":"no edn for action: foo, no edn for task name: xyz"}
 ```
-
