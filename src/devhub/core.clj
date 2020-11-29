@@ -1,13 +1,15 @@
 (ns devhub.core
   (:require
-    [compojure.core :as compojure :refer [GET POST]]
-    [compojure.route :as route]
-    [aleph.http :as aleph]
-    [byte-streams :as bs]
-    [manifold.stream :as s]
-    [manifold.deferred :as d]
-    [ring.middleware.json   :as middleware]
-])
+    [compojure.core       :as compojure :refer [GET POST]]
+    [compojure.route      :as route]
+    [compojure.handler    :as handler]
+    [devhub.handler       :as h]
+    [aleph.http           :as aleph]
+    [byte-streams         :as bs]
+    [manifold.stream      :as s]
+    [manifold.deferred    :as d]
+    [ring.middleware.json :as middleware]
+))
 
 (defonce server (atom nil))
 
@@ -22,12 +24,5 @@
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
 
-(defn stop
-  []
-  (when-not (nil? @server)
-    (.close @server)
-    (reset! server nil)))
-
- 
-
+(defn stop [] (when-not (nil? @server) (.close @server) (reset! server nil)))
 (defn start [] (reset! server (aleph/start-server handler {:port 10000})))
