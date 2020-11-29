@@ -1,16 +1,13 @@
 (ns devhub.core
-(:require [compojure.route        :as route]
-          [devhub.conf            :as c]
-          [devhub.utils           :as u]
-          [devhub.handler         :as h]
-          [clojure.edn            :as edn]
-          [clojure.java.io        :as io]
-          [clojure.tools.logging  :as log]
-          [ring.util.response     :as res]
-          [compojure.core         :refer :all]
-          [compojure.handler      :as handler]
-          [org.httpkit.server     :refer [run-server]]
-          [ring.middleware.json   :as middleware]))
+  (:require
+    [compojure.core :as compojure :refer [GET POST]]
+    [compojure.route :as route]
+    [aleph.http :as aleph]
+    [byte-streams :as bs]
+    [manifold.stream :as s]
+    [manifold.deferred :as d]
+
+])
 
 (defonce server (atom nil))
 
@@ -28,7 +25,9 @@
 (defn stop
   []
   (when-not (nil? @server)
-    (@server :timeout 100)
+    (.close @server)
     (reset! server nil)))
 
-(defn start [] (reset! server (run-server app {:port 9009})))
+ 
+
+(defn start [] (reset! server (aleph/start-server handler {:port 10000})))
