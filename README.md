@@ -13,10 +13,17 @@ curl http://localhost:9009/version
 ´´´
 
 
+## echo
+
+```shell
+curl -H "Content-Type: application/json" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
+´´´
+
+
 ### matching action
 
 ```shell
-curl -d '{"Action":"MODBUS"}' -H "Content-Type: application/json"  -X POST http://localhost:8008 -i
+curl -d '{"Action":"MODBUS"}' -H "Content-Type: application/json"  -X POST http://localhost:9009 -i
 ## HTTP/1.1 200 OK
 ## Date: Thu, 16 Apr 2020 11:54:46 GMT
 ## Content-Type: application/json;charset=utf-8
@@ -31,11 +38,10 @@ curl -d '{"Action":"MODBUS"}' -H "Content-Type: application/json"  -X POST http:
 ## "t_stop":"1587038086916"}
 ```
 
-
 ### no taskname an action
 
 ```shell
-curl -d '{"Missing":true}' -H "Content-Type: application/json"  -X POST http://localhost:8008 -i
+curl -d '{"Missing":true}' -H "Content-Type: application/json"  -X POST http://localhost:9009 -i
 ## HTTP/1.1 404 Not Found
 ## Date: Thu, 16 Apr 2020 12:07:21 GMT
 ## Content-Type: application/json;charset=utf-8
@@ -48,7 +54,7 @@ curl -d '{"Missing":true}' -H "Content-Type: application/json"  -X POST http://l
 ### no matches
 
 ```shell
-curl -i -d '{"Action":"foo","TaskName":"bar"}' -H "Content-Type: application/json"  -X POST http://localhost:8008
+curl -i -d '{"Action":"foo","TaskName":"bar"}' -H "Content-Type: application/json"  -X POST http://localhost:9009
 #
 ## HTTP/1.1 404 Not Found
 ## Date: Thu, 16 Apr 2020 11:32:35 GMT

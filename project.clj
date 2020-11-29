@@ -8,6 +8,7 @@
                  [aleph "0.4.7-alpha5"]
                  [manifold "0.1.9-alpha4"]
                  [ring/ring-json "0.5.0"]
+                 [ring/ring-defaults "0.3.2"]
                  [clojang/codox-theme "0.2.0-SNAPSHOT"]
                  ]
   :main ^:skip-aot devhub.core

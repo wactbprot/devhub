@@ -1,22 +1,22 @@
 (ns devhub.core
   (:require
-    [compojure.core       :as compojure :refer [GET POST]]
+    [compojure.core       :refer :all]
     [compojure.route      :as route]
     [compojure.handler    :as handler]
-    [devhub.handler       :as h]
+    [devhub.stub          :as stub]
+    [devhub.tcp           :as tcp]
+    [devhub.conf          :as c]
+    [devhub.utils         :as u]
     [aleph.http           :as aleph]
-    [byte-streams         :as bs]
-    [manifold.stream      :as s]
-    [manifold.deferred    :as d]
-    [ring.middleware.json :as middleware]
-))
-
-(defonce server (atom nil))
+    [ring.util.response   :as res]
+    [ring.middleware.json :as middleware]))
 
 (defroutes app-routes
-  (POST "/stub"   [:as req] (h/stub     (c/config) req))
-  (POST "/mirror" [:as req] (h/mirror     (c/config) req))
-  (POST "/prod"   [:as req] (h/dispatch (c/config) req))
+  (POST "/stub"   [:as req] (stub/handler (c/config) req))
+  (POST "/echo"   [:as req] (res/response (u/task req)))
+  (POST "/prod"   [:as req] (condp = (keyword (u/action req))
+                              :TCP          (tcp/handler (u/task req))
+                              (res/response {:error "not implemented"} )))
   (GET "/version" [:as req] (System/getProperty "devhub.version")))
 
 (def app
@@ -24,5 +24,12 @@
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
 
-(defn stop [] (when-not (nil? @server) (.close @server) (reset! server nil)))
-(defn start [] (reset! server (aleph/start-server handler {:port 10000})))
+(defonce server (atom nil))
+
+(defn start []
+  (reset! server (aleph/start-server app {:port 9009})))
+
+(defn stop []
+  (when-not (nil? @server)
+    (.close @server)
+    (reset! server nil)))
