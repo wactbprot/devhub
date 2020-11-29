@@ -6,7 +6,7 @@
     [byte-streams :as bs]
     [manifold.stream :as s]
     [manifold.deferred :as d]
-
+    [ring.middleware.json   :as middleware]
 ])
 
 (defonce server (atom nil))
