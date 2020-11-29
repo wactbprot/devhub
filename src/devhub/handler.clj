@@ -4,7 +4,6 @@
 
 (defn stub
   [conf req]
-  (u/print-body req)
   (let [t0          (u/ms)
         m-name      (u/by-name req)
         m-action    (u/by-action req)
@@ -24,3 +23,15 @@
                            (u/add-times data-name t0 (u/ms)))
       (map? data-action)  (res/response
                            (u/add-times data-action t0 (u/ms))))))
+
+(defn mirror [conf req] (res/response (task req)))
+
+(defn tcp-handler
+  [{wait :Wait repeat :Repeat port :Port host :Host value :Value }])
+
+(defn dispatch
+  [conf req]
+  (let [t0   (u/ms)] 
+    (condp = (keyword (u/action req))
+      :TCP  (tcp-handler (task req))
+      (res/response {:error "not implemented"} )))) 

@@ -15,9 +15,10 @@
 (defonce server (atom nil))
 
 (defroutes app-routes
-  (POST "/stub" [:as req] (h/stub (c/config) req))
-  (POST "/prod" [:as req] (h/stub (c/config) req))
-  (GET "/version" [:as req] (res/response {:version (some-> (io/resource "project.clj") slurp edn/read-string (nth 2))})))
+  (POST "/stub"   [:as req] (h/stub     (c/config) req))
+  (POST "/mirror" [:as req] (h/mirror     (c/config) req))
+  (POST "/prod"   [:as req] (h/dispatch (c/config) req))
+  (GET "/version" [:as req] (System/getProperty "devhub.version")))
 
 (def app
   (-> (handler/site app-routes)
