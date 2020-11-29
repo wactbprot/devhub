@@ -7,6 +7,7 @@
                  [compojure "1.6.1"]
                  [aleph "0.4.7-alpha5"]
                  [manifold "0.1.9-alpha4"]
+                 [ring/ring-json "0.5.0"]
                  [clojang/codox-theme "0.2.0-SNAPSHOT"]
                  ]
   :main ^:skip-aot devhub.core
