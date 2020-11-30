@@ -23,7 +23,7 @@ curl -H "Content-Type: application/json" -d '{"TaskName": "echo-test"}' -X POST 
 ## tcp
 
 ```shell
-curl -H "Content-Type: application/json" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496"}' -X POST http://localhost:9009/prod
+curl -H "Content-Type: application/json" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}' -X POST http://localhost:9009/prod
 ## {"TaskName": "echo-test"}
 
 

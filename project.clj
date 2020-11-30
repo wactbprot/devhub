@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [compojure "1.6.1"]
                  [aleph "0.4.7-alpha5"]
+                 [byte-streams "0.2.4"]
                  [manifold "0.1.9-alpha4"]
                  [ring/ring-defaults "0.3.2"]
                  [ring/ring-json "0.5.0"]
