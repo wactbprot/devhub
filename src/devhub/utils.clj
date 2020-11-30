@@ -1,6 +1,7 @@
 (ns devhub.utils
-  (:require [clojure.string :refer [lower-case]]
-            [clojure.pprint :as pp]
+  (:require [clojure.string  :refer [lower-case]]
+            [clojure.pprint  :as pp]
+            [clojure.edn     :as edn]
             [clojure.java.io :refer [as-file]]))
 
 (defn file-name [s] (when (string? s) (str "resources/" (lower-case s) ".edn")))
@@ -16,6 +17,26 @@
 (defn task-name [req] (:TaskName (task req)))
 
 (defn add-times [m t0 t1] (assoc m :t_start t0 :t_stop t1))
+
+(defn port
+  "Ensures the port to be a `number` or `nil`.
+
+  ```clojure
+  (port 1234)
+  ;; =>
+  ;; 1234
+  (port true)
+  ;; =>
+  nil
+  (port \"1234\")
+  ;; =>
+  1234
+  ```
+  "
+  [p]
+  (cond
+    (string? p) (edn/read-string p)
+    (number? p) p))
 
 (defn content
   [f]

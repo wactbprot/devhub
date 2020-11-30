@@ -20,6 +20,13 @@ curl -H "Content-Type: application/json" -d '{"TaskName": "echo-test"}' -X POST 
 ## {"TaskName": "echo-test"}
 ```
 
+## tcp
+
+```shell
+curl -H "Content-Type: application/json" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496"}' -X POST http://localhost:9009/prod
+## {"TaskName": "echo-test"}
+
+
 
 ### matching action
 

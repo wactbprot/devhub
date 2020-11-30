@@ -16,8 +16,9 @@
   (POST "/echo"   [:as req] (res/response (u/task req)))
   (POST "/prod"   [:as req] (condp = (keyword (u/action req))
                               :TCP          (tcp/handler (u/task req))
-                              (res/response {:error "not implemented"} )))
-  (GET "/version" [:as req] (System/getProperty "devhub.version")))
+                              (res/status {:error "not implemented"} 400)))
+  (GET "/version" [:as req] (System/getProperty "devhub.version"))
+  (route/not-found "No such service."))
 
 (def app
   (-> (handler/site app-routes)
