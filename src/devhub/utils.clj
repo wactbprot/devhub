@@ -19,7 +19,7 @@
 (defn add-times [m t0 t1] (assoc m :t_start t0 :t_stop t1))
 
 (defn port
-  "Ensures the port to be a `number` or `nil`.
+  "Ensures the `p`ort to be a `number` or `nil`.
 
   ```clojure
   (port 1234)
@@ -38,7 +38,7 @@
     (string? p) (edn/read-string p)
     (number? p) p))
 
-(defn content
+(defn file-content
   [f]
   (if (file? f) 
     (try
@@ -50,13 +50,13 @@
 (defn by-name
   [req]
   (if-let [n (task-name req)]
-    (content (file-name n))
+    (file-content (file-name n))
     {:msg "body don't contain a taskname"}))
 
 (defn by-action
   [req]
   (if-let [n (action req)]
-    (content (file-name  n))
+    (file-content (file-name  n))
     {:msg "body don't contain a action"}))
 
 (defn print-body [req] (pp/pprint (:body req)))
