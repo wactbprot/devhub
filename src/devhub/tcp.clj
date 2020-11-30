@@ -7,6 +7,5 @@
    [aleph.tcp          :as tcp]
    [devhub.utils       :as u]))
 
-
 (defn handler
-  [{wait :Wait repeat :Repeat port :Port host :Host value :Value }])
+  [{w :Wait r :Repeat p :Port h :Host v :Value }])
