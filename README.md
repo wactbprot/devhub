@@ -5,10 +5,15 @@ Now a stub later a hub.
 
 ## curl examples
 
+```shell
+export H="Content-Type: application/json"
+```
 ## version
 
 ```shell
 curl http://localhost:9009/version
+
+## =>
 ## {"version":"0.2.5"}
 ```
 
@@ -16,28 +21,31 @@ curl http://localhost:9009/version
 ## echo
 
 ```shell
-curl -H "Content-Type: application/json" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
+curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
+
+## =>
 ## {"TaskName": "echo-test"}
 ```
 
-## tcp
+## prod
+
+### tcp
 
 ```shell
-curl -H "Content-Type: application/json" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}' -X POST http://localhost:9009/prod
-## {"TaskName": "echo-test"}
+curl -H "$H" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}' -X POST http://localhost:9009/prod
 
+## =>
+## {"_x":"23.742259584,0.0018344406506,10,ch101\n","t_start":"1606812399642","t_stop":"1606812408754"}
+```
 
+## stub
 
 ### matching action
 
 ```shell
-curl -d '{"Action":"MODBUS"}' -H "Content-Type: application/json"  -X POST http://localhost:9009 -i
-## HTTP/1.1 200 OK
-## Date: Thu, 16 Apr 2020 11:54:46 GMT
-## Content-Type: application/json;charset=utf-8
-## Content-Length: 147
-## Server: Jetty(9.4.12.v20180830)
-##
+curl -d '{"Action":"MODBUS"}' -H "$H"  -X POST http://localhost:9009/stub 
+
+## =>
 ## {"ToExchange":
 ## {"V1":
 ## {"Bool":1},
@@ -49,26 +57,17 @@ curl -d '{"Action":"MODBUS"}' -H "Content-Type: application/json"  -X POST http:
 ### no taskname an action
 
 ```shell
-curl -d '{"Missing":true}' -H "Content-Type: application/json"  -X POST http://localhost:9009 -i
-## HTTP/1.1 404 Not Found
-## Date: Thu, 16 Apr 2020 12:07:21 GMT
-## Content-Type: application/json;charset=utf-8
-## Content-Length: 70
-## Server: Jetty(9.4.12.v20180830)
-##
+curl -d '{"Missing":true}' -H "$H"  -X POST http://localhost:9009/stub
+
+## =>
 ## {"error":"body don't contain a action, body don't contain a taskname"}
 ```
 
 ### no matches
 
 ```shell
-curl -i -d '{"Action":"foo","TaskName":"bar"}' -H "Content-Type: application/json"  -X POST http://localhost:9009
-#
-## HTTP/1.1 404 Not Found
-## Date: Thu, 16 Apr 2020 11:32:35 GMT
-## Content-Type: application/json;charset=utf-8
-## Content-Length: 61
-## Server: Jetty(9.4.12.v20180830)
-##
+curl -d '{"Action":"foo","TaskName":"bar"}' -H "$H"  -X POST http://localhost:9009/stub
+
+## =>
 ##{"error":"no edn for action: foo, no edn for task name: xyz"}
 ```

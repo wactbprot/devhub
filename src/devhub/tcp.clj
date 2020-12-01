@@ -1,6 +1,5 @@
 (ns devhub.tcp
   (:require
-
    [byte-streams       :as bs]
    [manifold.deferred  :as d]
    [ring.util.response :as res]
@@ -8,16 +7,31 @@
    [aleph.tcp          :as tcp]
    [devhub.utils       :as u]))
 
+(defn open-client [h p] @(tcp/client {:host h :port p}))
+
+(defn close-client [c] (.close c))
+
+(defn query
+  [c v]
+  (let [t0 (u/ms)
+        r  @(s/put! c v)
+        b  @(s/take! c)
+        t1 (u/ms)]
+    (u/add-times {:_x (bs/to-string b)} t0 t1)))
+
 (defn handler
+  "
+  Example:
+  ```clojure
+  (handler {:Port 5025  :Host \"e75496\"  :Value \"frs()\n\"})
+  ;; =>
+  
+  ```"
   [{w :Wait r :Repeat p :Port h :Host v :Value }]
   (if (and v h p )
-    (let [c  @(tcp/client {:host h :port p})
-          r  @(s/put! c v)]
-      (prn r)
-      (if r
-        (let [b @(s/take! c)]
-          (prn b)
-          (prn (bs/to-string b))
-          (res/response (res/status {:result (String. (byte-array b))} 200)))
-          (res/response (res/status {:error true :reason "on attempt to put value"} 400))))
-    (res/response (res/status {:error true :reason "no value, host or port given"} 400))))
+    (let [c (open-client h p)
+          m (query c v)]
+      (close-client c)
+      (res/response m))
+    (res/response {:error true :reason "no <value>, <host> or <port> given"})))
+  
