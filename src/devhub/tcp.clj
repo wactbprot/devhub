@@ -10,6 +10,7 @@
 ;; gloss --> g _ replace by octet
 ;; https://aleph.io/codox/gloss/gloss.core.html#var-compile-frame
 ;; http://funcool.github.io/octet/latest/
+;; https://troywest.com/2013/10/22/by-example-gloss.html
 ;; (def protocol
 ;;   (g/compile-frame (g/finite-frame :uint32 (g/string :utf-8))
 ;;                    pr-str ;; pre-encoder
