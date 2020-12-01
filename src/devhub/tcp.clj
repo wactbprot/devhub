@@ -7,6 +7,21 @@
    [aleph.tcp          :as tcp]
    [devhub.utils       :as u]))
 
+;; gloss --> g _ replace by octet
+;; https://aleph.io/codox/gloss/gloss.core.html#var-compile-frame
+;; http://funcool.github.io/octet/latest/
+;; (def protocol
+;;   (g/compile-frame (g/finite-frame :uint32 (g/string :utf-8))
+;;                    pr-str ;; pre-encoder
+;;                    edn/read-string ;;post-decoder
+;;                    ))
+;; 
+;; (defn wrap-duplex-stream
+;;   [protocol x]
+;;   (let [out (s/stream)]
+;;     (s/connect (s/map #(io/encode protocol %) out) x)
+;;     (s/splice out (io/decode-stream x protocol))))
+
 (defn open-client [h p] @(tcp/client {:host h :port p}))
 
 (defn close-client [c] (.close c))
