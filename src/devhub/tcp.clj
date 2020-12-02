@@ -1,39 +1,24 @@
 (ns devhub.tcp
   (:require
-   [byte-streams       :as bs]
-   [manifold.deferred  :as d]
+   [clojure.java.io    :as io]
    [ring.util.response :as res]
-   [manifold.stream    :as s]
-   [aleph.tcp          :as tcp]
-   [devhub.utils       :as u]))
+   [devhub.utils       :as u])
+  (:import
+   [java.io StringWriter]
+   [java.net Socket]))
 
-;; gloss --> g _ replace by octet
-;; https://aleph.io/codox/gloss/gloss.core.html#var-compile-frame
-;; http://funcool.github.io/octet/latest/
-;; https://troywest.com/2013/10/22/by-example-gloss.html
-;; (def protocol
-;;   (g/compile-frame (g/finite-frame :uint32 (g/string :utf-8))
-;;                    pr-str ;; pre-encoder
-;;                    edn/read-string ;;post-decoder
-;;                    ))
-;; 
-;; (defn wrap-duplex-stream
-;;   [protocol x]
-;;   (let [out (s/stream)]
-;;     (s/connect (s/map #(io/encode protocol %) out) x)
-;;     (s/splice out (io/decode-stream x protocol))))
-
-(defn open-client [h p] @(tcp/client {:host h :port p}))
-
-(defn close-client [c] (.close c))
-
-(defn query
-  [c v]
-  (let [t0 (u/ms)
-        r  @(s/put! c v)
-        b  @(s/take! c)
-        t1 (u/ms)]
-    (u/add-times {:_x (bs/to-string b)} t0 t1)))
+(defn send-request
+  "Sends an HTTP GET request to the specified host, port, and path"
+  [host port value]
+  (let [t0 (u/ms)]
+    (with-open [sock (Socket. host port)
+                writer (io/writer sock)
+                reader (io/reader sock)
+                response (StringWriter.)]
+      (.append writer value)
+      (.flush writer)
+      (io/copy reader response)
+      (u/add-times {:_x (str response)} t0 (u/ms)))))
 
 (defn handler
   "
@@ -45,9 +30,6 @@
   ```"
   [{w :Wait r :Repeat p :Port h :Host v :Value }]
   (if (and v h p )
-    (let [c (open-client h p)
-          m (query c v)]
-      (close-client c)
-      (res/response m))
+    (res/response (send-request h p v))
     (res/response {:error true :reason "no <value>, <host> or <port> given"})))
   
