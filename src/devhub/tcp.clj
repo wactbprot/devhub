@@ -33,20 +33,20 @@
       (range repeat))))
 
 (defn handler
-  "Handles TCP requests.
+  "Handles TCP queries.
   
   Example:
   ```clojure
-  (handler {:Port 5025  :Host \"e75496\"  :Value \"frs()\n\"})
+  (handler {:Wait 10 :Repeat 3 :Port 5025  :Host \"e75496\"  :Value \"frs()\n\"})
   ;; =>
   
   ```"
-  [{w :Wait r :Repeat p :Port h :Host v :Value }]
+  [tcp-conf {w :Wait r :Repeat p :Port h :Host v :Value }]
   (if (and v h p )
     (res/response (query h
                          (u/number p)
                          (if (string? v) [v] v)
-                         (if w (u/number w) 10)
-                         (if r (u/number r) 1)))
-    (res/response {:error true :reason "no <value>, <host> or <port> given"})))
+                         (if w (u/number w) (:min-wait tcp-conf))
+                         (if r (u/number r) (:repeat tcp-conf))))
+    (res/response {:error true :reason "missing <value>, <host> or <port>"})))
   
