@@ -1,27 +1,25 @@
 (ns devhub.tcp
   (:require
-   [clojure.java.io    :as io]
    [ring.util.response :as res]
    [devhub.utils       :as u])
   (:import
-   [java.io StringWriter]
+   [java.io DataInputStream DataOutputStream]
    [java.net Socket]))
 
 (defn send-request
-  "Sends an HTTP GET request to the specified host, port, and path"
-  [host port value]
+  "Sends an `cmd` a raw tcp socket with the specified `host` and
+  `port`."
+  [host port cmd]
   (let [t0 (u/ms)]
     (with-open [sock (Socket. host port)
-                writer (io/writer sock)
-                reader (io/reader sock)
-                response (StringWriter.)]
-      (.append writer value)
-      (.flush writer)
-      (io/copy reader response)
-      (u/add-times {:_x (str response)} t0 (u/ms)))))
+                out  (DataOutputStream. (.getOutputStream sock))
+                in   (DataInputStream. (.getInputStream sock))]
+      (.writeUTF out cmd)
+      (u/add-times {:_x (.readLine in)} t0 (u/ms)))))
 
 (defn handler
-  "
+  "Handles TCP requests.
+  
   Example:
   ```clojure
   (handler {:Port 5025  :Host \"e75496\"  :Value \"frs()\n\"})
