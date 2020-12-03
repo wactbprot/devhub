@@ -1,12 +1,9 @@
 (ns devhub.tcp
-  (:require
-   [ring.util.response :as res]
-   [devhub.utils       :as u]
-   [devhub.conf       :as c]
-   )
-  (:import
-   [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
-   [java.net Socket]))
+  (:require [ring.util.response :as res]
+            [devhub.utils       :as u]
+            [devhub.conf        :as c])
+  (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
+           [java.net Socket]))
 
 (defn send-receive
   "Sends the command `cmd` to the `out`put-stream. Receives data
@@ -27,13 +24,10 @@
               out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
               in  (BufferedReader. (InputStreamReader.  (.getInputStream sock)))]
     (mapv (fn [_]
-            (let [v (mapv (fn [cmd]
-                            (send-receive in out cmd))
-                          cmds)]
+            (let [v (mapv (fn [cmd] (send-receive in out cmd)) cmds)]
               (Thread/sleep wait)
               v))
       (range repeat))))
-
 
 (defn handler
   "Handles TCP queries.
@@ -42,13 +36,10 @@
   ```clojure
   (handler (:tcp (c/config))
            {:Wait 10 :Repeat 3 :Port 5025  :Host \"e75496\"  :Value \"frs()\n\"}) 
-    ```
-  "
+    ```"
   [tcp-conf {w :Wait r :Repeat p :Port h :Host v :Value }]
   (if (and v h p )
-    (if-let [data (query h
-                         (u/number p)
-                         (if (string? v) [v] v)
+    (if-let [data (query h (u/number p) (if (string? v) [v] v)
                          (if w (u/number w) (:min-wait tcp-conf))
                          (if r (u/number r) (:repeat tcp-conf)))]
       (res/response (u/meas-vec data))
