@@ -1,11 +1,4 @@
-//
-// TODO (RN): Überlegen, ob ggf. eines der Pakete geladen werden sollte:
-//
-// * https://github.com/jstat/jstat
-// * https://github.com/pseudosavant/psMathStats
-//
-
-var misc = require('./relay-add-MISC.js');
+var misc = require('./add-MISC.js');
 
 /**
  * Berechnet Mittelwert und Standardabweichung

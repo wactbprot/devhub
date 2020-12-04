@@ -1,5 +1,4 @@
-
-var misc = require('./relay-add-MISC.js');
+var misc = require('./add-MISC.js');
 
 /**
  * Extrahiert Float-Zahl aus String welcher von

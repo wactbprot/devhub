@@ -1,6 +1,5 @@
-
-var misc = require('./relay-add-MISC.js')
-  , stat = require('./relay-add-STATISTICS.js');
+var misc = require('./add-MISC.js')
+  , stat = require('./add-STATISTICS.js');
 
 /**
  * Extrahiert Float-Zahl aus Combivac Antwort

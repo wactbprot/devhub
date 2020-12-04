@@ -1,4 +1,4 @@
-var x = require('./relay-add-MISC.js');
+var x = require('./add-MISC.js');
 /**
  * Extrahiert Float-Zahl aus String welcher vom Phillips
  * 2535 geliefert wird

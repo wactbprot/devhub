@@ -118,7 +118,7 @@ exports.checkNumArr = checkNumArr;
 
 /**
  * Entfernt Einträge aus einer Datenreihe (array).
- * Bem.: Bie alte splice methode funktioniert plötzlich
+ * Bem.: Die alte splice methode funktioniert plötzlich
  * im _. relay-Kontext nicht mehr; Tests in der
  * node-Umgebung (auf Kommandozeile) verhalten sich
  * erwartungsgemäß (deshalb diese plumpere Umsetzung)

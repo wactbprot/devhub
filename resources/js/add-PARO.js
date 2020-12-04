@@ -1,5 +1,4 @@
-
-var x = require('./relay-add-MISC.js');
+var x = require('./add-MISC.js');
 
 /**
  * Extrahiert Float-Zahl aus Strings des Geräts Paroscientific
