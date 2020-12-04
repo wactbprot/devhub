@@ -13,10 +13,10 @@
   "
   [d]
   (let [v (flatten d)]
-    {:_x      (mapv :_x      v)
-     :t_start (mapv :t_start v)
-     :t_stop  (mapv :t_stop  v)
-     :dt      (mapv :dt      v)}))
+    {:_x       (mapv :_x      v)
+     :_t_start (mapv :_t_start v)
+     :_t_stop  (mapv :_t_stop  v)
+     :_dt      (mapv :_dt      v)}))
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.
@@ -53,9 +53,9 @@
 (defn add-times
   [m t0 t1]
   (assoc m
-         :t_start t0
-         :t_stop t1
-         :dt (- (number t1) (number t0))))
+         :_t_start t0
+         :_t_stop t1
+         :_dt (- (number t1) (number t0))))
 
 (defn file-content
   [f]

@@ -2,6 +2,7 @@
 (:require [compojure.route        :as route]
           [devhub.conf            :as c]
           [devhub.utils           :as u]
+          [devhub.post            :as post]
           [devhub.tcp             :as tcp]
           [devhub.stub             :as stub]
           [clojure.edn            :as edn]
@@ -18,9 +19,13 @@
 (defroutes app-routes
   (POST "/stub"   [:as req] (stub/handler (c/config) req))
   (POST "/echo"   [:as req] (res/response (u/task req)))
-  (POST "/prod"   [:as req] (condp = (keyword (u/action req))
-                              :TCP (tcp/handler (:tcp (c/config)) (u/task req))
-                              (res/status {:error "not implemented"} 400)))
+  (POST "/prod"   [:as req] (res/response
+                             (post/dispatch
+                              (:post (c/config))
+                              (u/task req)
+                              (condp = (keyword (u/action req))
+                                :TCP (tcp/handler (:tcp (c/config)) (u/task req))
+                                (res/status {:error "not implemented"} 400)))))
   (GET "/version" [:as req] (System/getProperty "devhub.version"))
   (route/not-found "No such service."))
 
