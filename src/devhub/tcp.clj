@@ -18,8 +18,8 @@
     (u/add-times {:_x res} t0 t1)))
 
 (defn query
-  "Sends an `cmd` a raw tcp socket with the specified `host` and
-  `port`."
+  "Sends the `cmds` a raw tcp socket with the specified `host` and
+  `port`. The connectionn is kept alive for `wait` x `repeat`"
   [host port cmds wait repeat]
   (with-open [sock (Socket. host port)
               out (PrintWriter. (OutputStreamWriter. (.getOutputStream sock)))
@@ -38,8 +38,6 @@
   Example:
   ```clojure
   (handler {:Wait 10 :Repeat 3 :Port 5025  :Host \"e75496\"  :Value \"frs()\n\"})
-  ;; =>
-  
   ```"
   [tcp-conf {w :Wait r :Repeat p :Port h :Host v :Value }]
   (if (and v h p )
