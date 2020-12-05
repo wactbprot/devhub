@@ -4,7 +4,20 @@
             [clojure.pprint  :as pp]
             [clojure.edn     :as edn]
             [clojure.java.io :refer [as-file]]))
- 
+
+
+(defn meas-vec
+  "Transforms the maps from a single measurement to a measurement vector.
+
+  REVIEW: There is a better solution (better than 4 times `mapv`).
+  "
+  [d]
+  (let [v (flatten d)]
+    {:_x       (mapv :_x      v)
+     :_t_start (mapv :_t_start v)
+     :_t_stop  (mapv :_t_stop  v)
+     :_dt      (mapv :_dt      v)}))
+
 (defn number
   "Ensures the `x` to be a `number` or `nil`.
 
@@ -40,9 +53,9 @@
 (defn add-times
   [m t0 t1]
   (assoc m
-         :t_start t0
-         :t_stop t1
-         :dt (- (number t1) (number t0))))
+         :_t_start t0
+         :_t_stop t1
+         :_dt (- (number t1) (number t0))))
 
 (defn file-content
   [f]
