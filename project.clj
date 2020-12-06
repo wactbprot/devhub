@@ -16,6 +16,11 @@
                  [org.clojure/tools.logging "1.1.0"]
                  [clojang/codox-theme       "0.2.0-SNAPSHOT"]
                  ]
-  :main ^:skip-aot devhub.core
+  :resource-paths ["../jvxi11/external/jrpcgen.jar"    
+                   "../jvxi11/external/oncrpc.jar"
+                   "../jvxi11/external/one-jar-ant-task-0.97.jar"
+                   "../jvxi11/external/portmap.jar"]
+  :java-source-paths ["../jvxi11/"]
+  :Main ^:skip-aot devhub.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
