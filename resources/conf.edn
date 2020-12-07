@@ -3,6 +3,8 @@
           :join? false}
  :tcp {:min-wait 10
        :repeat 1}
+ :vxi {:min-wait 10
+       :repeat 1}
  :post {:js-exec "exec.js"
         :js-path "./resources/js"
         :js-tmp "/tmp"

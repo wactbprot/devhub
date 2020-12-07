@@ -2,6 +2,17 @@
 
 Now a stub later a hub.
 
+## installation
+
+### vxi11
+
+```
+git clone https://github.com/wactbprot/jvxi11.git
+cd jvxi11/src/jvxi11
+./makerpc
+```
+See `:resource-paths` and  `:java-source-paths` in `devhub`s `project.clj`. 
+
 
 ## curl examples
 
