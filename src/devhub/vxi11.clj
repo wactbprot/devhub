@@ -20,30 +20,30 @@
     (string/starts-with? s "gpib") (parse-gpib-str s)
     :else (throw "imprement me")))
 
-
 (defn query
   [conf {h :host d :device pa :pri-adr sa :sec-adr} cmds wait repeat]
-  (let [ba  (byte-array 100)
+  (let [bs  (:read-buffer-size conf)
+        ba  (byte-array bs)
         ctrl (VXI11Factory/create h d)
         usr  (VXI11UserFactory/create)
         dev  (.createDevice ctrl pa sa)]
     (.connect ctrl usr)
     (.connect dev usr)
     (.remote dev usr)
-    (.lock dev usr)
+    ;;(.lock dev usr)
     (let [data (mapv (fn [_]
                        (let [v (mapv (fn [cmd]
                                        (let [bc (.getBytes cmd)
                                              lc (.length cmd)]
                                          (.write dev usr bc lc)
-                                         (.read dev usr ba 100)
+                                         (.read dev usr ba bs)
                                          (String. ba)))
                                      cmds)]
                          (Thread/sleep wait)
                          v))
                      (range repeat))]
       (.clear dev usr)
-      (.unlock dev usr)
+      ;;(.unlock dev usr)
       (.local dev usr)
       (.disconnect dev)
       data)))
