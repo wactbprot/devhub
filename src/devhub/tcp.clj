@@ -16,9 +16,9 @@
     (u/add-times {:_x res} t0 t1)))
 
 (defn query
-  "Sends a `cmd` a raw tcp socket with the specified `host` and
+  "Sends a `cmd` to a raw tcp socket with the specified `host` and
   `port`. `repeat`s and `wait`s in between."
-  [host port cmds wait repeat]
+  [conf {host :host port :port} cmds wait repeat]
   (with-open [sock (Socket. host port)
               out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
               in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
@@ -37,11 +37,13 @@
            {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"}) 
 
   ```"
-  [tcp-conf {w :Wait r :Repeat p :Port h :Host v :Value}]
-  (if (and v h p )
-    (if-let [data (query h (u/number p) (if (string? v) [v] v)
-                         (if w (u/number w) (:min-wait tcp-conf))
-                         (if r (u/number r) (:repeat tcp-conf)))]
-      {:data (u/meas-vec data)}
-      {:error true :reason "no data"})
+  [tcp-conf {w :Wait r :Repeat p :Port host :Host v :Value}]
+  (if (and host v p )
+    (let [conn    {:host host :port (u/number p)}
+          cmds    (if (string? v) [v] v)
+          wait    (if w (u/number w) (:min-wait tcp-conf))
+          repeat  (if r (u/number r) (:repeat tcp-conf))]
+      (if-let [data (query tcp-conf conn cmds wait repeat)]
+        {:data (u/meas-vec data)}
+        {:error true :reason "no data"}))
     {:error true :reason "missing <value>, <host> or <port>"}))

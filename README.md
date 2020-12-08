@@ -13,6 +13,13 @@ cd jvxi11/src/jvxi11
 ```
 See `:resource-paths` and  `:java-source-paths` in `devhub`s `project.clj`. 
 
+[org/epics/pvioc/pdrv/vxi11/package-tree](http://epics-pvdata.sourceforge.net/docbuild/pvIOCJava/2.0-BETA/documentation/html/org/epics/pvioc/pdrv/vxi11/package-tree.html)
+
+## modbus
+
+Maven repo:
+
+[com.digitalpetri.modbus/modbus-slave-tcp](https://mvnrepository.com/artifact/com.digitalpetri.modbus/modbus-slave-tcp)
 
 ## curl examples
 
