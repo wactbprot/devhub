@@ -1,15 +1,15 @@
 (ns devhub.modbus
   (:require [devhub.utils       :as u]
             [devhub.conf        :as c])
-  (:import [com.digitalpetri.modbus.slave
-            ModbusTcpSlaveConfig
-            ModbusTcpSlaveConfig$Builder
-            ModbusTcpSlave]))
+  (:import [com.digitalpetri.modbus.master
+            ModbusTcpMasterConfig$Builder
+            ModbusTcpMaster]))
 
 (defn query
   [conf task]
-  (let [config (.build (ModbusTcpSlaveConfig$Builder.))
-        slave  (ModbusTcpSlave. config)]))
+  
+  (let [config (.build (.setPort (ModbusTcpMasterConfig$Builder.) port))
+        master (ModbusTcpMaster. config)]))
 
 (defn safe
   [conf task]

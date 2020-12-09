@@ -15,7 +15,7 @@
                  [org.clojure/data.json     "1.0.0"]
                  [org.clojure/tools.logging "1.1.0"]
                  [clojang/codox-theme       "0.2.0-SNAPSHOT"]
-                 [com.digitalpetri.modbus/modbus-slave-tcp "1.2.0"]
+                 [com.digitalpetri.modbus/modbus-master-tcp "1.2.0"]
                  ]
   :resource-paths ["../jvxi11/external/jrpcgen.jar"    
                    "../jvxi11/external/oncrpc.jar"
