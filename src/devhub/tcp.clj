@@ -7,26 +7,33 @@
 (defn send-receive
   "Sends the command `cmd` to the `out`put-stream. Receives data
   from the `in`put-stream. Wraps time stamps around."
-  [in out cmd]
+  [in out norep cmd]
   (.print out cmd)
   (.flush out)
-  (let [t0  (u/ms)
-        res (.readLine in)
-        t1  (u/ms)]
+  (let [t0 (u/ms) res (if-not norep (.readLine in) "") t1 (u/ms)]
     (u/add-times {:_x res} t0 t1)))
 
 (defn query
-  "Sends a `cmd` to a raw tcp socket with the specified `host` and
-  `port`. `repeat`s and `wait`s in between."
-  [conf {host :host port :port} cmds wait repeat]
-  (with-open [sock (Socket. host port)
-              out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
-              in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-    (mapv (fn [_]
-            (let [v (mapv (fn [cmd] (send-receive in out cmd)) cmds)]
-              (Thread/sleep wait)
-              v))
-      (range repeat))))
+  "Sends the `cmds` to a raw tcp socket with the specified `host` and
+  `port`."
+  [conf task]
+  (let [{host :Host port :Port cmds :Value wait :Wait repeat :Repeat norep :NoReply} task]
+    (with-open [sock (Socket. host port)
+                out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
+                in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
+      (let [pf  (partial (fn [cmd] (send-receive in out norep cmd)))]
+        (u/run pf cmds wait repeat)))))
+
+(defn ensure
+  "Ensures the `task` values to be in the right shape."
+  [conf task]
+  (let [{h :Host p :Port v :Value w :Wait r :Repeat n :NoReply} task]
+    (when (and h v p) (assoc task
+                             :Port    (u/number p)
+                             :Wait    (if w (u/number w) (:min-wait conf))
+                             :Value   (if (string? v) [v] v)
+                             :Repeat  (if r (u/number r) (:repeat conf))
+                             :NoReply (if n n false)))))
 
 (defn handler
   "Handles TCP queries.
@@ -37,13 +44,9 @@
            {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"}) 
 
   ```"
-  [tcp-conf {w :Wait r :Repeat p :Port host :Host v :Value}]
-  (if (and host v p )
-    (let [conn    {:host host :port (u/number p)}
-          cmds    (if (string? v) [v] v)
-          wait    (if w (u/number w) (:min-wait tcp-conf))
-          repeat  (if r (u/number r) (:repeat tcp-conf))]
-      (if-let [data (query tcp-conf conn cmds wait repeat)]
-        {:data (u/meas-vec data)}
-        {:error true :reason "no data"}))
+  [conf task]
+  (if-let [task (ensure conf task)]
+    (if-let [data (query conf task)]
+      {:data (u/meas-vec data)}
+      {:error true :reason "no data"})
     {:error true :reason "missing <value>, <host> or <port>"}))

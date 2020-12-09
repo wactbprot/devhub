@@ -5,6 +5,15 @@
             [clojure.edn     :as edn]
             [clojure.java.io :refer [as-file]]))
 
+(defn run
+  "Executes the `partial` function `pf` with the commands
+  `cmd`.`repeat`s and `wait`s in between."
+  [pf cmds wait repeat]
+  (mapv (fn [i]
+          (let [data-vec (mapv pf cmds)]
+            (Thread/sleep wait)
+            data-vec))
+        (range repeat)))
 
 (defn meas-vec
   "Transforms the maps from a single measurement to a measurement vector.
