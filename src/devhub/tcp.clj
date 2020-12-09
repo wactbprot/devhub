@@ -24,7 +24,7 @@
       (let [pf  (partial (fn [cmd] (send-receive in out norep cmd)))]
         (u/run pf cmds wait repeat)))))
 
-(defn ensure
+(defn safe
   "Ensures the `task` values to be in the right shape."
   [conf task]
   (let [{h :Host p :Port v :Value w :Wait r :Repeat n :NoReply} task]
@@ -45,7 +45,7 @@
 
   ```"
   [conf task]
-  (if-let [task (ensure conf task)]
+  (if-let [task (safe conf task)]
     (if-let [data (query conf task)]
       {:data (u/meas-vec data)}
       {:error true :reason "no data"})
