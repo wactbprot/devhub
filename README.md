@@ -19,7 +19,7 @@ See `:resource-paths` and  `:java-source-paths` in `devhub`s `project.clj`.
 
 Maven repo:
 
-[com.digitalpetri.modbus/modbus-slave-tcp](https://mvnrepository.com/artifact/com.digitalpetri.modbus/modbus-slave-tcp)
+[com.github.kochedykov/jlibmodbus "1.2.9.0"](https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus/1.2.9.0)
 
 ## curl examples
 

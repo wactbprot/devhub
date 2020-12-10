@@ -6,7 +6,10 @@
  :vxi {:min-wait 10
        :repeat 1
        :read-buffer-size 1024}
- :modbus {:min-wait 10
+ :modbus {:port 502
+          :keep-alive false
+          :default-slave-address 255
+          :min-wait 10
           :repeat 1}
  :post {:js-exec "exec.js"
         :js-path "./resources/js"
