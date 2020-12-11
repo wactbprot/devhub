@@ -16,6 +16,7 @@
                  [org.clojure/tools.logging "1.1.0"]
                  [clojang/codox-theme       "0.2.0-SNAPSHOT"]
                  [com.intelligt.modbus/jlibmodbus "1.2.9.7"]
+                 [clojure-interop/java.nio  "1.0.5"]
                  ]
   :resource-paths ["../jvxi11/external/jrpcgen.jar"    
                    "../jvxi11/external/oncrpc.jar"
