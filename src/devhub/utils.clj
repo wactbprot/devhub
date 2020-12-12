@@ -1,9 +1,10 @@
-
 (ns devhub.utils
   (:require [clojure.string  :refer [lower-case]]
             [clojure.pprint  :as pp]
             [clojure.edn     :as edn]
             [clojure.java.io :refer [as-file]]))
+
+(defn version [] {:version (System/getProperty "devhub.version")})
 
 (defn run
   "Executes the `partial` function `pf` with the commands
@@ -22,7 +23,7 @@
   "
   [d]
   (let [v (flatten d)]
-    {:_x       (mapv :_x      v)
+    {:_x       (mapv :_x       v)
      :_t_start (mapv :_t_start v)
      :_t_stop  (mapv :_t_stop  v)
      :_dt      (mapv :_dt      v)}))

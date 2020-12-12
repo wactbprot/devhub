@@ -1,32 +1,32 @@
 (ns devhub.core
-(:require [compojure.route        :as route]
-          [devhub.conf            :as c]
-          [devhub.utils           :as u]
-          [devhub.post            :as post]
-          [devhub.tcp             :as tcp]
-          [devhub.stub             :as stub]
-          [clojure.edn            :as edn]
-          [clojure.java.io        :as io]
-          [clojure.tools.logging  :as log]
-          [ring.util.response     :as res]
-          [compojure.core         :refer :all]
-          [compojure.handler      :as handler]
-          [org.httpkit.server     :refer [run-server]]
-          [ring.middleware.json   :as middleware]))
+  (:require [compojure.route        :as route]
+            [devhub.conf            :as c]
+            [devhub.utils           :as u]
+            [devhub.post            :as post]
+            [devhub.tcp             :as tcp]
+            [devhub.vxi11           :as vxi]
+            [devhub.modbus          :as modbus]
+            [devhub.stub            :as stub]
+            [ring.util.response     :as res]
+            [compojure.core         :refer :all]
+            [compojure.handler      :as handler]
+            [org.httpkit.server     :refer [run-server]]
+            [ring.middleware.json   :as middleware]))
 
-(defonce server (atom nil))
+(defn production-dispatch
+  [conf task]
+  (res/response
+   (post/dispatch conf task (condp = (keyword (:Action task))
+                              :TCP    (tcp/handler    conf task)
+                              :MODBUS (modbus/handler conf task)
+                              :VXI11  (vxi/handler    conf task)
+                              (res/status {:error "not implemented"} 400)))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (stub/handler (c/config) req))
   (POST "/echo"   [:as req] (res/response (u/task req)))
-  (POST "/prod"   [:as req] (res/response
-                             (post/dispatch
-                              (:post (c/config))
-                              (u/task req)
-                              (condp = (keyword (u/action req))
-                                :TCP (tcp/handler (:tcp (c/config)) (u/task req))
-                                (res/status {:error "not implemented"} 400)))))
-  (GET "/version" [:as req] (System/getProperty "devhub.version"))
+  (POST "/prod"   [:as req] (production-dispatch (c/config) (u/task req)))
+  (GET "/version" [:as req] (res/response (u/version)))
   (route/not-found "No such service."))
 
 (def app
@@ -34,10 +34,12 @@
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
 
+(defonce server (atom nil))
+
 (defn stop
   []
   (when-not (nil? @server)
     (@server :timeout 100)
     (reset! server nil)))
 
-(defn start [] (reset! server (run-server app {:port 9009})))
+(defn start [] (reset! server (run-server app (:server (c/config)))))

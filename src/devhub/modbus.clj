@@ -20,7 +20,7 @@
   [conf task]
   (let [{host   :Host
          fc     :FunctionCode
-         val    :Value
+         value  :Value
          addr   :Address
          quant  :Quantity
          wait   :Wait
@@ -31,25 +31,29 @@
         master     (ModbusMasterFactory/createModbusMasterTCP param)]
     (Modbus/setAutoIncrementTransactionId true)
     (.connect master)
-    (let [data (condp = fc
-                 :ReadHoldingRegisters (.readHoldingRegisters master slave-addr addr quant)
-                 :ReadInputRegisters   (.readInputRegisters   master slave-addr addr quant)
-                 :ReadCoils            (.readCoils            master slave-addr addr quant)
-                 :ReadDiscreteInputs   (.readDiscreteInputs   master slave-addr addr quant)
-                 :writeSingleRegister  (.writeSingleRegister  master slave-addr addr val))]
+    (let [rhr (partial (fn [_] (.readHoldingRegisters master slave-addr addr quant)))
+          rir (partial (fn [_] (.readInputRegisters   master slave-addr addr quant)))
+          rc  (partial (fn [_] (.readCoils            master slave-addr addr quant)))
+          rdi (partial (fn [_] (.readDiscreteInputs   master slave-addr addr quant)))
+          wsr (partial (fn [x] (.writeSingleRegister  master slave-addr addr x)))
+          data (condp = fc
+                 :ReadHoldingRegisters (u/run rhr [:nop]  wait repeat) 
+                 :ReadInputRegisters   (u/run rir [:nop]  wait repeat) 
+                 :ReadCoils            (u/run rc  [:nop]  wait repeat) 
+                 :ReadDiscreteInputs   (u/run rdi [:nop]  wait repeat) 
+                 :writeSingleRegister  (u/run wsr [value] wait repeat))]
       (.disconnect master)
       data)))
 
 (defn safe
   [conf task]
-  (let [{h :Host a :Address q :Quantity fc :FunctionCode w :Wait r :Repeat n :NoReply} task]
+  (let [{h :Host a :Address q :Quantity fc :FunctionCode w :Wait r :Repeat} task]
     (when (and h a fc q) (assoc task
                                 :FunctionCode (keyword fc)
                                 :Address      (u/number a)
                                 :Quantity     (u/number q)
                                 :Wait         (if w (u/number w) (:min-wait conf))
-                                :Repeat       (if r (u/number r) (:repeat conf))
-                                :NoReply      (if n n false)))))
+                                :Repeat       (if r (u/number r) (:repeat conf))))))
 
 (defn handler
   "Handles Modbus queries.
@@ -59,9 +63,9 @@
    (def mc (:modbus (c/config)))
   (handler mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
   ```"
-  [conf task]
+  [{conf :modbus} task]
   (if-let [task (safe conf task)]
     (if-let [data (query conf task)]
       {:data (u/meas-vec data)}
       {:error true :reason "no data"})
-    {:error true :reason "missing <value>, <host> or <device>"}))
+    {:error true :reason "missing <functioncode>, <host>, <address> or <quantity>"}))

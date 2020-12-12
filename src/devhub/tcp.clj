@@ -43,7 +43,7 @@
   (handler (:tcp (c/config))
            {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"})
   ```"
-  [conf task]
+  [{conf :tcp} task]
   (if-let [task (safe conf task)]
     (if-let [data (query conf task)]
       {:data (u/meas-vec data)}

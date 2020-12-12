@@ -16,7 +16,7 @@
      #";" ";\n")))
 
 (defn exec
-  [conf task-name pp data]
+  [{conf :post} task-name pp data]
   (let [path    (:js-path conf)
         exec    (str path "/" (:js-exec conf))
         pp-file (str (:js-tmp conf) "/" task-name ".js")]
