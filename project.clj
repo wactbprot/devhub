@@ -26,7 +26,7 @@
   :plugins [[lein-codox  "0.10.7"]]
   :codox {:themes [:clojang]
           :metadata {:doc/format :markdown}
-          :source-uri "https://github.com/wactbprot/aoc/blob/master/{filepath}#L{line}"}
+          :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"}
   :Main ^:skip-aot devhub.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
