@@ -33,10 +33,9 @@ fs.readFile(exec_script, 'utf8', (err, s) => {
 		    ret[v] = ctx[v];
 		}
 	    }
-	    console.log(ret)
+	    console.log(JSON.stringify(ret))
 	} catch(err) {
 	    console.log({"error": err.toString()});
 	}
     }
 });
-

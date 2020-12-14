@@ -16,9 +16,22 @@
      #";" ";\n")))
 
 (defn exec
+  "Executes the js pp.
+
+  Example:
+  ```shell
+  node resources/js/exec.js resources/js/ /tmp/MKT50-exec.js
+  ```
+  "
   [{conf :post} task-name pp data]
   (let [path    (:js-path conf)
         exec    (str path "/" (:js-exec conf))
         pp-file (str (:js-tmp conf) "/" task-name ".js")]
     (spit pp-file (pp-str pp data))
-    (sh "node" exec path pp-file)))
+    (let [res (sh "node" exec path pp-file)]
+      (if (:out res)
+        (try
+          (che/decode (:out res) true)
+          (catch Exception e
+            {:error (str "caught exception: " (.getMessage e))}))
+        {:error (:err res)}))))

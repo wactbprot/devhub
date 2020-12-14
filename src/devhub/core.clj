@@ -20,7 +20,7 @@
                               :TCP    (tcp/handler    conf task)
                               :MODBUS (modbus/handler conf task)
                               :VXI11  (vxi/handler    conf task)
-                              (res/status {:error "not implemented"} 400)))))
+                              (res/status {:error "not implemented"} 400))))) 
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (stub/handler (c/config) req))
