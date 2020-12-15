@@ -5,7 +5,8 @@
    [com.intelligt.modbus.jlibmodbus Modbus]
    [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
    [com.intelligt.modbus.jlibmodbus.master ModbusMasterFactory]
-   [com.intelligt.modbus.jlibmodbus.tcp TcpParameters]))
+   [com.intelligt.modbus.jlibmodbus.tcp TcpParameters]
+   [java.net InetAddress]))
 
 (defn query
   "Executes the query depending on the `FunctionCode`.
@@ -15,7 +16,7 @@
   (def mc (:modbus (c/config)))
   (query mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode :ReadHoldingRegisters})
 
-  (query mc {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
+  (query (c/config) {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
   ```"
   [conf task]
   (let [{host   :Host
@@ -24,27 +25,23 @@
          addr   :Address
          quant  :Quantity
          wait   :Wait
-         repeat :Repeat
+         rep    :Repeat
          norep  :NoReply} task
         slave-addr (:default-slave-address conf)
+        ip     (InetAddress/getByName host)
         param      (TcpParameters. host (:port conf) (:keep-alive conf))
         master     (ModbusMasterFactory/createModbusMasterTCP param)]
     (Modbus/setAutoIncrementTransactionId true)
     (.connect master)
-    (let [rhr (partial (fn [_] (.readHoldingRegisters master slave-addr addr quant)))
-          rir (partial (fn [_] (.readInputRegisters   master slave-addr addr quant)))
-          rc  (partial (fn [_] (.readCoils            master slave-addr addr quant)))
-          rdi (partial (fn [_] (.readDiscreteInputs   master slave-addr addr quant)))
-          wsr (partial (fn [x] (.writeSingleRegister  master slave-addr addr x)))
-          data (condp = fc
-                 :ReadHoldingRegisters (u/run rhr [:nop]  wait repeat) 
-                 :ReadInputRegisters   (u/run rir [:nop]  wait repeat) 
-                 :ReadCoils            (u/run rc  [:nop]  wait repeat) 
-                 :ReadDiscreteInputs   (u/run rdi [:nop]  wait repeat) 
-                 :writeSingleRegister  (u/run wsr [value] wait repeat))]
+    (let [data (condp = fc
+                  :ReadHoldingRegisters (.readHoldingRegisters master slave-addr addr quant) 
+                  :ReadInputRegisters   (.readInputRegisters   master slave-addr addr quant)
+                  :ReadCoils            (.readCoils            master slave-addr addr quant) 
+                  :ReadDiscreteInputs   (.readDiscreteInputs   master slave-addr addr quant)
+                  :writeSingleRegister  (.writeSingleRegister  master slave-addr addr value))]
       (.disconnect master)
       data)))
-
+    
 (defn safe
   [conf task]
   (let [{h :Host a :Address q :Quantity fc :FunctionCode w :Wait r :Repeat} task]
@@ -60,8 +57,7 @@
 
   Example:
   ```clojure
-   (def mc (:modbus (c/config)))
-  (handler mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
+  (handler (c/config) {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
   ```"
   [{conf :modbus} task]
   (if-let [task (safe conf task)]

@@ -18,7 +18,6 @@
   `port`."
   [conf task]
   (let [{host :Host port :Port cmds :Value wait :Wait repeat :Repeat norep :NoReply} task]
-    (prn cmds)
     (with-open [sock (Socket. host port)
                 out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
                 in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
