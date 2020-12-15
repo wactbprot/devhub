@@ -15,4 +15,6 @@
         :js-path "./resources/js"
         :js-tmp "/tmp"
         :py-script-path "py_script"}
+ :execute {:shell "sh"
+           :param "-c"}
  }

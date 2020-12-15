@@ -6,6 +6,7 @@
             [devhub.tcp             :as tcp]
             [devhub.vxi11           :as vxi]
             [devhub.modbus          :as modbus]
+            [devhub.execute         :as execute]
             [devhub.stub            :as stub]
             [ring.util.response     :as res]
             [compojure.core         :refer :all]
@@ -17,9 +18,10 @@
   [conf task]
   (res/response
    (post/dispatch conf task (condp = (keyword (:Action task))
-                              :TCP    (tcp/handler    conf task)
-                              :MODBUS (modbus/handler conf task)
-                              :VXI11  (vxi/handler    conf task)
+                              :TCP     (tcp/handler    conf task)
+                              :MODBUS  (modbus/handler conf task)
+                              :VXI11   (vxi/handler    conf task)
+                              :EXECUTE (execute/handler conf task)
                               (res/status {:error "not implemented"} 400))))) 
 
 (defroutes app-routes

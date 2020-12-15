@@ -17,16 +17,16 @@
         (range rep)))
 
 (defn meas-vec
-  "Transforms the maps from a single measurement to a measurement vector.
+  "Returns `data` if `data` is a map. Transforms `data` from a single measurement to a measurement.
 
   REVIEW: There is a better solution (better than 4 times `mapv`).
   "
-  [d]
-  (let [v (flatten d)]
-    {:_x       (mapv :_x       v)
-     :_t_start (mapv :_t_start v)
-     :_t_stop  (mapv :_t_stop  v)
-     :_dt      (mapv :_dt      v)}))
+  [data]
+  (if (map? data) data (let [v (flatten data)]
+                         {:_x       (mapv :_x       v)
+                          :_t_start (mapv :_t_start v)
+                          :_t_stop  (mapv :_t_stop  v)
+                          :_dt      (mapv :_dt      v)})))
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.
