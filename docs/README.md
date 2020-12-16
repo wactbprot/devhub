@@ -8,6 +8,16 @@ Now a stub later a hub.
 
 ## installation
 
+```shell
+git clone git@github.com:wactbprot/devhub.git
+cd devhub
+lein deps
+```
+
+### tcp
+
+The `TCP` action works out of the box.
+
 ### vxi11
 
 ```
@@ -19,11 +29,21 @@ See `:resource-paths` and  `:java-source-paths` in `devhub`s `project.clj`.
 
 [org/epics/pvioc/pdrv/vxi11/package-tree](http://epics-pvdata.sourceforge.net/docbuild/pvIOCJava/2.0-BETA/documentation/html/org/epics/pvioc/pdrv/vxi11/package-tree.html)
 
-## modbus
+### modbus
 
-Maven repo:
+`modbus` works out of the box. The used library is:
 
-[com.github.kochedykov/jlibmodbus "1.2.9.0"](https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus/1.2.9.0)
+[jlibmodbus](https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus/1.2.9.0)
+
+
+### javascript post processing
+
+The [vacom protocoll]()
+
+```shell
+npm install crc 
+```
+
 
 ## curl examples
 
