@@ -36,9 +36,9 @@ See `:resource-paths` and  `:java-source-paths` in `devhub`s `project.clj`.
 [jlibmodbus](https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus/1.2.9.0)
 
 
-### javascript post processing
+### javascript post processing (js-pp)
 
-The [vacom protocoll]()
+The js-pp of vacom gauges depend on crc module:
 
 ```shell
 npm install crc 
