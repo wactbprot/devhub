@@ -24,6 +24,18 @@
 (defn switches-open   [x] (check x (:switch-open    (config))))
 (defn switches-closed [x] (check x (:switch-closed  (config))))
 
+(defn first-key [m] (when (map? m) (first (keys m))))
+(defn first-val [m] (when (map? m) (first (vals m))))
+
+(defn bool->exch-map [b] (if b {:Bool 1} {:Bool 0})) 
+
+(defn exch-valves
+  [vs]
+  (mapv (fn [m]
+          {(first-key m)
+           (bool->exch-map (first-val m))})
+        vs)) 
+
 (defn valves
   "Returns exchange structures like
 
@@ -35,9 +47,9 @@
   ```clojure
   (valves {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
   ```"
-  [input data]
-  (if-let [vs (valves-state (:_x data))]
-    {:ToExchange (reduce merge {:valve-register data}  vs)}
+  [input {data :_x}]
+  (if-let [vs (valves-state data)]
+    {:ToExchange (reduce merge {:valve-register data} (exch-valves vs))}
     {:error "wrong data"}))
 
 
