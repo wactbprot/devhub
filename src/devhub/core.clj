@@ -2,35 +2,57 @@
   (:require [compojure.route        :as route]
             [devhub.conf            :as c]
             [devhub.utils           :as u]
-            [devhub.post            :as post]
+            [devhub.post-scripts.core :as clj]
+            [devhub.js-pp           :as js]
             [devhub.tcp             :as tcp]
             [devhub.vxi11           :as vxi]
             [devhub.modbus          :as modbus]
             [devhub.execute         :as execute]
-            [devhub.stub            :as stub]
             [ring.util.response     :as res]
             [compojure.core         :refer :all]
             [compojure.handler      :as handler]
             [org.httpkit.server     :refer [run-server]]
             [ring.middleware.json   :as middleware]))
 
+
+(defn post-dispatch
+  [conf task data]
+  (let [{pp :PostProcessing
+         ps :PostScript
+         py :PostScriptPy} task]
+    (cond
+      pp (js/exec conf task pp data)
+      ps (clj/dispatch conf task data)
+      :else data)))
+
+(defn pre-dispatch
+  [conf task]
+  (let [{pp :PreProcessing
+         ps :PreScript
+         py :PostScriptPy} task
+        task (cond
+               pp (js/exec conf task)
+               ;; ps (clj-pp ps data)
+               :else task)]))
+
 (defn dispatch
   [conf task]
-  (let [action (keyword (:Action task))
+  (let [task   (pre-dispatch conf task)
+        action (keyword (:Action task))
         data   (condp = action 
-                 :TCP     (tcp/handler    conf task)
-                 :MODBUS  (modbus/handler conf task)
-                 :VXI11   (vxi/handler    conf task)
+                 :TCP     (tcp/handler     conf task)
+                 :MODBUS  (modbus/handler  conf task)
+                 :VXI11   (vxi/handler     conf task)
                  :EXECUTE (execute/handler conf task)
-                 {:error "not implemented"})]
+                 {:error "wrong action"})
+        data    (post-dispatch conf task data)]
     (if (:error data)
       (res/response data)
-      (post/dispatch conf task data)))) 
+      (post-dispatch conf task data)))) 
 
 (defroutes app-routes
-  (POST "/stub"   [:as req] (stub/handler (c/config) req))
+  (POST "/"       [:as req] (dispatch (c/config) (u/task req)))
   (POST "/echo"   [:as req] (res/response (u/task req)))
-  (POST "/prod"   [:as req] (dispatch (c/config) (u/task req)))
   (GET "/version" [:as req] (res/response (u/version)))
   (route/not-found "No such service."))
 

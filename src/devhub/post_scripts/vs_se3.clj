@@ -27,14 +27,14 @@
   "Returns exchange structures like
 
   ```json
-  ToExchange:{V1:{ Bool:1}, V2:{ Bool:0}
+  ToExchange:{V1:{ Bool: true}, V2:{ Bool:false}
   ```
   
   Example:
   ```clojure
   (valves {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
   ```"
-  [input {rs :_x}]
+  [task {rs :_x}]
   (if (registers-ok? rs)
     (let [vs (u/exch-bool-map (check rs (:valve-position conf)))]
       {:ToExchange (reduce merge {:registers rs} vs)})
@@ -52,7 +52,7 @@
   ```clojure
   (switches {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
   ```"
-  [input {rs :_x}]
+  [task {rs :_x}]
   (if (registers-ok? rs)
     (let [so (u/exch-bool-map (check rs (:switch-open    conf)))
           sc (u/exch-bool-map (check rs (:switch-closed  conf)))]

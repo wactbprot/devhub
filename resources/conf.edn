@@ -1,4 +1,5 @@
 {
+ :stub true
  :server {:port 9009
           :join? false}
  :tcp {:min-wait 10

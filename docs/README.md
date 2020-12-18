@@ -4,6 +4,12 @@ Now a stub later a hub.
 
 # documentation
 
+what todo next:
+* conf: stub true: use stub data as raw data for the entire pre-> request-> post chain
+* stub data in stub-responses.edn
+* post proc.: legacy js, first citizen clojure, later python
+* same for pre proc.
+
 * [API](./api)
 
 ## installation
