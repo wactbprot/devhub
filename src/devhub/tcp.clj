@@ -1,6 +1,5 @@
 (ns devhub.tcp
-  (:require [devhub.utils       :as u]
-            [devhub.conf        :as c])
+  (:require [devhub.utils :as u])
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
 
@@ -40,7 +39,7 @@
   
   Example:
   ```clojure
-  (handler (c/config) {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"})
+  (handler (u/config) {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"})
   ```"
   [{conf :tcp} task]
   (if-let [task (safe conf task)]

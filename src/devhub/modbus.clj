@@ -1,6 +1,5 @@
 (ns devhub.modbus
-  (:require [devhub.utils       :as u]
-            [devhub.conf        :as c])
+  (:require [devhub.utils :as u])
   (:import
    [com.intelligt.modbus.jlibmodbus Modbus]
    [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
@@ -13,10 +12,10 @@
 
   Example:
   ```clojure
-  (def mc (:modbus (c/config)))
+  (def mc (:modbus (u/config)))
   (query mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode :ReadHoldingRegisters})
 
-  (query (c/config) {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
+  (query (u/config) {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
   ```"
   [conf task]
   (let [{host   :Host
@@ -33,15 +32,18 @@
         master     (ModbusMasterFactory/createModbusMasterTCP param)]
     (Modbus/setAutoIncrementTransactionId true)
     (.connect master)
-    (let [data (condp = fc
-                  :ReadHoldingRegisters (.readHoldingRegisters master slave-addr addr quant) 
-                  :ReadInputRegisters   (.readInputRegisters   master slave-addr addr quant)
-                  :ReadCoils            (.readCoils            master slave-addr addr quant) 
-                  :ReadDiscreteInputs   (.readDiscreteInputs   master slave-addr addr quant)
-                  :writeSingleRegister  (.writeSingleRegister  master slave-addr addr value))]
+    (let [t0  (u/ms)
+          res (condp = fc
+                :ReadHoldingRegisters (.readHoldingRegisters master slave-addr addr quant) 
+                :ReadInputRegisters   (.readInputRegisters   master slave-addr addr quant)
+                :ReadCoils            (.readCoils            master slave-addr addr quant) 
+                :ReadDiscreteInputs   (.readDiscreteInputs   master slave-addr addr quant)
+                :writeSingleRegister  (.writeSingleRegister  master slave-addr addr value))
+          t1  (u/ms)]
       (.disconnect master)
-      data)))
-    
+      (u/add-times {:_x res} t0 t1))))
+
+
 (defn safe
   [conf task]
   (let [{h :Host a :Address q :Quantity fc :FunctionCode w :Wait r :Repeat} task]
@@ -57,11 +59,13 @@
 
   Example:
   ```clojure
-  (handler (c/config) {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
+  (handler (u/config) {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
   ```"
-  [{conf :modbus} task]
-  (if-let [task (safe conf task)]
-    (if-let [data (query conf task)]
-      {:data (u/meas-vec data)}
-      {:error true :reason "no data"})
-    {:error true :reason "missing <functioncode>, <host>, <address> or <quantity>"}))
+  [conf task]
+  (if (:on (:stub conf))
+    (u/stub-response conf task)
+    (if-let [task (safe (:modbus conf) task)]
+      (if-let [data (query (:modbus conf) task)]
+        {:data (u/meas-vec data)}
+        {:error true :reason "no data"})
+      {:error true :reason "missing <functioncode>, <host>, <address> or <quantity>"})))

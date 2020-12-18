@@ -1,9 +1,11 @@
 (ns devhub.post-scripts.utils
-  (:require [clojure.edn  :as edn]))
+  (:require [clojure.edn  :as edn]
+            [devhub.utils :as u]))
 
 (defn config [f] (-> f slurp edn/read-string))
 
 (defn open? [r n] (bit-test r n))
+
 (defn first-key [m] (when (map? m) (first (keys m))))
 (defn first-val [m] (when (map? m) (first (vals m))))
 

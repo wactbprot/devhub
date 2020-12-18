@@ -1,5 +1,11 @@
 {
- :stub true
+ :stub {;; default is false, swiched to true if
+        ;; request hits /stub endpoint
+        :on false
+        :response-file "resources/stub-response.edn"
+        ;; :first|:last|:rand
+        :mode :rand
+        }
  :server {:port 9009
           :join? false}
  :tcp {:min-wait 10
@@ -7,7 +13,8 @@
  :vxi {:min-wait 10
        :repeat 1
        :read-buffer-size 1024}
- :modbus {:port 502
+ :modbus {:min-wait 10
+          :port 502
           :keep-alive false
           :default-slave-address 255
           :min-wait 10

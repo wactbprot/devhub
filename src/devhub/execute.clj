@@ -1,6 +1,5 @@
 (ns devhub.execute
-  (:require [devhub.conf        :as c]
-            [clojure.java.shell :refer [sh]]
+  (:require [clojure.java.shell :refer [sh]]
             [devhub.utils       :as u]))
 
 (defn execute
@@ -8,7 +7,7 @@
 
   Example:
   ```clojure
-  (execute (:execute (c/config)) {:Cmd \"ls\"})
+  (execute (:execute (u/config)) {:Cmd \"ls\"})
   ```
   "
   [{s :shell p :param} {cmd :Cmd}]
@@ -31,7 +30,7 @@
   
   Example:
   ```clojure
-  (handler (c/config) {:Cmd \"ls\"})
+  (handler (u/config) {:Cmd \"ls\"})
   ```"
   [{conf :execute} task]
   (if-let [task (safe conf task)]

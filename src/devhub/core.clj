@@ -1,6 +1,5 @@
 (ns devhub.core
   (:require [compojure.route        :as route]
-            [devhub.conf            :as c]
             [devhub.utils           :as u]
             [devhub.post-scripts.core :as clj]
             [devhub.js-pp           :as js]
@@ -51,9 +50,14 @@
       (post-dispatch conf task data)))) 
 
 (defroutes app-routes
-  (POST "/"       [:as req] (dispatch (c/config) (u/task req)))
-  (POST "/echo"   [:as req] (res/response (u/task req)))
   (GET "/version" [:as req] (res/response (u/version)))
+  (POST "/echo"   [:as req] (res/response (u/task req)))
+  (POST "/stub"   [:as req] (dispatch
+                             (assoc-in (u/config) [:stub :on] true)
+                             (u/task req)))
+  (POST "/"       [:as req] (dispatch
+                             (u/config)
+                             (u/task req)))
   (route/not-found "No such service."))
 
 (def app
@@ -69,4 +73,4 @@
     (@server :timeout 100)
     (reset! server nil)))
 
-(defn start [] (reset! server (run-server app (:server (c/config)))))
+(defn start [] (reset! server (run-server app (:server (u/config)))))

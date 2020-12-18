@@ -2,8 +2,7 @@
   (:require [clojure.string     :as string]
             [cheshire.core      :as che]
             [clojure.java.shell :refer [sh]]
-            [devhub.utils       :as u]
-            [devhub.conf        :as c]))
+            [devhub.utils       :as u]))
 
 (defn pp-str
   [pp data]
