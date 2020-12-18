@@ -5,15 +5,15 @@
                    :V9  [4 4] :V10 [4 2] :V11 [4 0] :V12 [4 6]
                    :V13 [6 0] :V14 [6 2] :V15 [6 4] :V16 [6 6]
                    :V17 [8 0] :V18 [8 1] :V19 [8 2] :V20 [8 3]}
- :switch-open     {:V1  [0 0] :V2  [0 2] :V3  [0 4] :V4  [0 6]
-                   :V5  [2 0] :V6  [2 2] :V7  [2 4] :V8  [2 6]
-                   :V9  [4 4] :V10 [4 2] :V11 [4 0] :V12 [4 6]
-                   :V13 [6 0] :V14 [6 2] :V15 [6 4] :V16 [6 6]
-                   :V17 [8 0] :V18 [8 2] :V19 [8 4] :V20 [8 6]}
- :switch-closed   {:V1  [0 1] :V2  [0 3] :V3  [0 5] :V4  [0 7]
-                   :V5  [2 1] :V6  [2 3] :V7  [2 5] :V8  [2 7]
-                   :V9  [4 5] :V10 [4 3] :V11 [4 1] :V12 [4 7]
-                   :V13 [6 1] :V14 [6 3] :V15 [6 5] :V16 [6 7]
-                   :V17 [8 1] :V18 [8 3] :V19 [8 5] :V20 [8 7]}
- ;;; quantity to get all valves at once
- :all-block-count 9}
+ :switch-open     {:E1_open  [0 0] :E2_open  [0 2] :E3_open  [0 4] :E4_open  [0 6]
+                   :E5_open  [2 0] :E6_open  [2 2] :E7_open  [2 4] :E8_open  [2 6]
+                   :E9_open  [4 4] :E10_open [4 2] :E11_open [4 0] :E12_open [4 6]
+                   :E13_open [6 0] :E14_open [6 2] :E15_open [6 4] :E16_open [6 6]
+                   :E17_open [8 0] :E18_open [8 2] :E19_open [8 4] :E20_open [8 6]}
+ :switch-closed   {:E1_closed  [0 1] :E2_closed  [0 3] :E3_closed  [0 5] :E4_closed  [0 7]
+                   :E5_closed  [2 1] :E6_closed  [2 3] :E7_closed  [2 5] :E8_closed  [2 7]
+                   :E9_closed  [4 5] :E10_closed [4 3] :E11_closed [4 1] :E12_closed [4 7]
+                   :E13_closed [6 1] :E14_closed [6 3] :E15_closed [6 5] :E16_closed [6 7]
+                   :E17_closed [8 1] :E18_closed [8 3] :E19_closed [8 5] :E20_closed [8 7]}
+ ;;; quantity is the number of registers to get all valves at once
+ :register-count 9}

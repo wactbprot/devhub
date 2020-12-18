@@ -1,40 +1,27 @@
 (ns devhub.post-scripts.vs_se3
-  (:require [clojure.edn  :as edn]
-            [devhub.utils :as u]
+  (:require [devhub.post-scripts.utils :as u]
             [devhub.conf  :as c]))
 
-(defn config [] (-> "resources/vs_se3.edn" slurp edn/read-string))
+(def conf (u/config "resources/vs_se3.edn"))
 
-(defn open? [x n] (bit-test x n))
-
-(defn input-ok?
-  [x]
-  (and (vector? x)
-       (= (:all-block-count (config))
-          (count x))))
+(defn registers-ok?
+  "Checks `rs` for type vector and checks the length to be `(:register-count conf)`."
+  [rs] (and (vector? rs) (=  (count rs) (:register-count conf))))
 
 (defn check
-  [x m]
-  (when (input-ok? x)
-    (mapv
-     (fn [[kw [block position]]] {kw (open? (nth x block) position)})
-     (seq m))))
-
-(defn valves-state    [x] (check x (:valve-position (config))))
-(defn switches-open   [x] (check x (:switch-open    (config))))
-(defn switches-closed [x] (check x (:switch-closed  (config))))
-
-(defn first-key [m] (when (map? m) (first (keys m))))
-(defn first-val [m] (when (map? m) (first (vals m))))
-
-(defn bool->exch-map [b] (if b {:Bool 1} {:Bool 0})) 
-
-(defn exch-valves
-  [vs]
-  (mapv (fn [m]
-          {(first-key m)
-           (bool->exch-map (first-val m))})
-        vs)) 
+  "Returns a vector of maps.
+  
+  Example:
+  ```clojure
+  (check [1025] {:ThingA [0 0] :ThingB [0 1]})
+  ;; =>
+  ;; [{:ThingA true} {:ThingB false}]
+  ```
+  "
+  [rs m]
+  (mapv
+   (fn [[kw [block position]]] {kw (u/open? (nth rs block) position)})
+   m))
 
 (defn valves
   "Returns exchange structures like
@@ -47,11 +34,11 @@
   ```clojure
   (valves {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
   ```"
-  [input {data :_x}]
-  (if-let [vs (valves-state data)]
-    {:ToExchange (reduce merge {:valve-register data} (exch-valves vs))}
-    {:error "wrong data"}))
-
+  [input {rs :_x}]
+  (if (registers-ok? rs)
+    (let [vs (u/exch-bool-map (check rs (:valve-position conf)))]
+      {:ToExchange (reduce merge {:registers rs} vs)})
+    {:error "wrong register format"}))
 
 (defn switches
   "Returns exchange structures like
@@ -65,5 +52,10 @@
   ```clojure
   (switches {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
   ```"
-    [input data]
-  {})
+  [input {rs :_x}]
+  (if (registers-ok? rs)
+    (let [so (u/exch-bool-map (check rs (:switch-open    conf)))
+          sc (u/exch-bool-map (check rs (:switch-closed  conf)))]
+      {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)})
+    {:error "wrong register format"}))
+

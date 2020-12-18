@@ -14,20 +14,23 @@
             [org.httpkit.server     :refer [run-server]]
             [ring.middleware.json   :as middleware]))
 
-(defn production-dispatch
+(defn dispatch
   [conf task]
-  (res/response
-   (post/dispatch conf task (condp = (keyword (:Action task))
-                              :TCP     (tcp/handler    conf task)
-                              :MODBUS  (modbus/handler conf task)
-                              :VXI11   (vxi/handler    conf task)
-                              :EXECUTE (execute/handler conf task)
-                              (res/status {:error "not implemented"} 400))))) 
+  (let [action (keyword (:Action task))
+        data   (condp = action 
+                 :TCP     (tcp/handler    conf task)
+                 :MODBUS  (modbus/handler conf task)
+                 :VXI11   (vxi/handler    conf task)
+                 :EXECUTE (execute/handler conf task)
+                 {:error "not implemented"})]
+    (if (:error data)
+      (res/response data)
+      (post/dispatch conf task data)))) 
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (stub/handler (c/config) req))
   (POST "/echo"   [:as req] (res/response (u/task req)))
-  (POST "/prod"   [:as req] (production-dispatch (c/config) (u/task req)))
+  (POST "/prod"   [:as req] (dispatch (c/config) (u/task req)))
   (GET "/version" [:as req] (res/response (u/version)))
   (route/not-found "No such service."))
 

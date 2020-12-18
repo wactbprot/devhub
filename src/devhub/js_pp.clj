@@ -8,30 +8,30 @@
 (defn pp-str
   [pp data]
   (when (and (map? data) (vector? pp) (:_x data))
-    (string/replace
      (-> (string/join pp)
          (string/replace (re-pattern "_x")       (che/encode (:_x       data)))
          (string/replace (re-pattern "_t_start") (che/encode (:_t_start data)))
-         (string/replace (re-pattern "_t_stop")  (che/encode (:_t_stop  data))))
-     #";" ";\n")))
+         (string/replace (re-pattern "_t_stop")  (che/encode (:_t_stop  data))))))
+
+(defn pp-fn [conf task] (str (:js-tmp conf)  "/" (:TaskName task) ".js"))
+(defn exec-fn [conf]    (str (:js-path conf) "/" (:js-exec conf)))
 
 (defn exec
-  "Executes the js pp.
+  "Executes the js `:PostProcessing` (pp).
 
   Example:
   ```shell
+  ;; (sh node (exec-fn conf) (:js-path conf) pf)
+  ;; means e.g.:
   node resources/js/exec.js resources/js/ /tmp/MKT50-exec.js
   ```
   "
-  [{conf :post} task-name pp data]
-  (let [path    (:js-path conf)
-        exec    (str path "/" (:js-exec conf))
-        pp-file (str (:js-tmp conf) "/" task-name ".js")]
-    (spit pp-file (pp-str pp data))
-    (let [res (sh "node" exec path pp-file)]
-      (if (:out res)
-        (try
-          (che/decode (:out res) true)
-          (catch Exception e
-            {:error (str "caught exception: " (.getMessage e))}))
-        {:error (:err res)}))))
+  [{conf :post} task pp data]
+  (let [pf  (pp-fn conf task)
+        _   (spit pf (pp-str pp data))
+        res (sh "node" (exec-fn conf) (:js-path conf) pf)]
+    (if (:out res)
+      (try (che/decode (:out res) true)
+           (catch Exception e
+             {:error (str "caught exception: " (.getMessage e))}))
+      {:error (:err res)})))

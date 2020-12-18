@@ -8,11 +8,12 @@
             [devhub.conf        :as c]))
 
 (defn dispatch
-  [conf {task-name :TaskName pp :PostProcessing ps :PostScript py :PyPostScript} {data :data error :error}]
-  (if error
-    error
+  [conf task data]
+  (let [{pp :PostProcessing
+         ps :PostScript
+         py :PyPostScript} task]
     (cond
-      pp (js/exec conf task-name pp data)
+      pp (js/exec conf task pp data)
       ;; ps (clj-pp ps data)
       ;; py (py-pp py data)
       )))
