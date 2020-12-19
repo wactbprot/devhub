@@ -3,8 +3,11 @@
         ;; request hits /stub endpoint
         :on false
         :response-file "resources/stub-response.edn"
+        ;; which of the values should be used
         ;; :first|:last|:rand
         :mode :rand
+        :min-wait 10
+        :repeat 1
         }
  :server {:port 9009
           :join? false}
@@ -17,7 +20,6 @@
           :port 502
           :keep-alive false
           :default-slave-address 255
-          :min-wait 10
           :repeat 1}
  :post {:js-exec "exec.js"
         :js-path "./resources/js"

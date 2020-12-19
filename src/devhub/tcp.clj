@@ -20,8 +20,7 @@
     (with-open [sock (Socket. host port)
                 out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
                 in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-      (let [pf  (partial (fn [cmd] (send-receive in out norep cmd)))]
-        (u/run pf cmds wait repeat)))))
+      (u/run (fn [cmd] (send-receive in out norep cmd)) cmds wait repeat))))
 
 (defn safe
   "Ensures the `task` values to be in the right shape."
@@ -40,6 +39,7 @@
   Example:
   ```clojure
   (handler (u/config) {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"})
+  (handler (u/config) {:Wait 10 :Repeat 1 :Port 5000 :Host \"localhost\" :Value \"frs()\n\"})
   ```"
   [{conf :tcp} task]
   (if-let [task (safe conf task)]

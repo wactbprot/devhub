@@ -75,7 +75,7 @@ curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
 ## {"TaskName": "echo-test"}
 ```
 
-## prod
+## prod 
 
 ### tcp
 
@@ -88,34 +88,16 @@ curl -H "$H" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e
 
 ## stub
 
-### matching action
+The default configuration for the `stub` endpoint is:
 
-```shell
-curl -d '{"Action":"MODBUS"}' -H "$H"  -X POST http://localhost:9009/stub 
-
-## =>
-## {"ToExchange":
-## {"V1":
-## {"Bool":1},
-## "Vraw_block1":[1,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0]},
-## "t_start":"1587038086886",
-## "t_stop":"1587038086916"}
+```clojure
+:stub {
+     :mode :rand
+     ;; ...
+}
 ```
-
-### no taskname an action
-
-```shell
-curl -d '{"Missing":true}' -H "$H"  -X POST http://localhost:9009/stub
-
-## =>
-## {"error":"body don't contain a action, body don't contain a taskname"}
-```
-
-### no matches
+No `TaskName` means `:missing` is selected in `resources/
 
 ```shell
-curl -d '{"Action":"foo","TaskName":"bar"}' -H "$H"  -X POST http://localhost:9009/stub
-
-## =>
-##{"error":"no edn for action: foo, no edn for task name: xyz"}
+curl -H "$H" -d '{"Wait":1 , "Repeat":10}' -X POST http://localhost:9009/stub
 ```

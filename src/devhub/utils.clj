@@ -60,7 +60,9 @@
 
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
-(defn task [req] (:body req))
+(defn task [req]
+  (prn req)
+  (:body req))
 
 (defn action [req] (:Action (task req)))
 
@@ -95,28 +97,3 @@
     {:msg "body don't contain a action"}))
 
 (defn print-body [req] (pp/pprint (:body req)))
-
-(defn select-response
-  [resp mode]
-  (when (vector? resp)
-    (condp = mode
-      :first (first resp)
-      :last  (last  resp)
-      :rand  (nth resp (rand-int (count resp)))
-      (first resp))))
-
-(defn stub-response
-  "Gets and returns a stub response if one is registered in `:stub-response-file`.
-
-  Example:
-  ```clojure
-  (stub-response (config) {:TaskName \":VS_SE3-get-valves-pos\"})
-  ```"
-  [{conf :stub} task]
-  (let [t0 (ms)
-        kw   (keyword (:TaskName task))
-        resp (kw (config (:response-file conf)))
-        mode (:mode conf)]
-    (if-let [res (select-response resp mode)]
-      (add-times {:_x res} t0 (ms))
-      {:error (str "no stub data for " kw)})))
