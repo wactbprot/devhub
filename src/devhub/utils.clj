@@ -14,14 +14,15 @@
 (defn version [] {:version (System/getProperty "devhub.version")})
 
 (defn run
-  "Executes the `partial` function `pf` with the commands
-  `cmd`.`repeat`s and `wait`s in between."
-  [pf cmds wait rep]
-  (mapv (fn [i]
-          (let [data-vec (mapv pf cmds)]
-            (Thread/sleep wait)
-            data-vec))
-        (range rep)))
+  "Calls the function `f` with a all commands in `cmds` (vector of
+  strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
+  repeat 1)`."
+  [f cmds wait rep]
+  (let [rep? (> rep 1)]
+    (mapv (fn [i] (let [v (mapv f cmds)]
+                    (when rep? (Thread/sleep wait))
+                    v))
+          (range rep))))
 
 (defn meas-vec
   "Returns `data` if `data` is a map. Transforms `data` from a single measurement to a measurement.

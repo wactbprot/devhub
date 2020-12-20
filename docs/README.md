@@ -1,6 +1,7 @@
 # documentation
 
 what todo next:
+* decision made: [µ-log](https://github.com/BrunoBonacci/mulog) 
 * post proc.: legacy js, first class citizen clojure, later python
 * same for pre proc.
 
@@ -104,3 +105,7 @@ The js-pp of vacom gauges depend on crc module:
 ```shell
 npm install crc 
 ```
+
+## notes
+
+* `[clojure-interop/java.nio "1.0.5"]`

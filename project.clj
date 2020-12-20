@@ -1,4 +1,4 @@
-(defproject devhub "0.5.0"
+(defproject devhub "0.6.0"
   :description "Now a stub later a hub."
   :url "https://github.com/wactbprot/devhub"
   :license {:name "BSD 2-Clause"
@@ -13,11 +13,8 @@
                  [ring/ring-devel                 "1.7.1"]
                  [ring/ring-json                  "0.5.0"]
                  [org.clojure/data.json           "1.0.0"]
-                 [org.clojure/tools.logging       "1.1.0"]
                  [clojang/codox-theme             "0.2.0-SNAPSHOT"]
                  [com.intelligt.modbus/jlibmodbus "1.2.9.7"]
-                 [clojure-interop/java.nio        "1.0.5"]
-                 [tcp-server                      "0.1.0"]
                  ]
   :resource-paths ["../jvxi11/external/jrpcgen.jar"    
                    "../jvxi11/external/oncrpc.jar"
