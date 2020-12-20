@@ -13,17 +13,6 @@
 
 (defn version [] {:version (System/getProperty "devhub.version")})
 
-(defn run
-  "Calls the function `f` with a all commands in `cmds` (vector of
-  strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
-  repeat 1)`."
-  [f cmds wait rep]
-  (let [rep? (> rep 1)]
-    (mapv (fn [i] (let [v (mapv f cmds)]
-                    (when rep? (Thread/sleep wait))
-                    v))
-          (range rep))))
-
 (defn meas-vec
   "Returns `data` if `data` is a map. Transforms `data` from a single measurement to a measurement.
 
@@ -67,18 +56,10 @@
     (string? x) (edn/read-string x)
     (number? x) x))
 
-(defn file-name [s] (when (string? s) (str "resources/" (lower-case s) ".edn")))
-
-(defn file? [f] (.exists (as-file f)))
-
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
-(defn task [req]
-  (prn req)
-  (:body req))
-
+(defn task [req] (:body req))
 (defn action [req] (:Action (task req)))
-
 (defn task-name [req] (:TaskName (task req)))
 
 (defn add-times
@@ -88,25 +69,22 @@
          :_t_stop t1
          :_dt (- (number t1) (number t0))))
 
-(defn file-content
+(defn wrap-times
   [f]
-  (if (file? f) 
-    (try
-      {:data (read-string (slurp f))}
-      (catch Exception e
-        {:error (.getMessage e)}))
-    {:msg (str "no edn resource for: " f)}))
-
-(defn by-name
-  [req]
-  (if-let [n (task-name req)]
-    (file-content (file-name n))
-    {:msg "body don't contain a taskname"}))
-
-(defn by-action
-  [req]
-  (if-let [n (action req)]
-    (file-content (file-name  n))
-    {:msg "body don't contain a action"}))
+  (fn [cmd]
+    (let [t0 (ms)]
+      (add-times {:_x (f cmd)} t0 (ms)))))
+ 
+(defn run
+  "Calls the function `f` with a all commands in `cmds` (vector of
+  strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
+  repeat 1)`."
+  [f cmds wait rep]
+  (let [rep? (> rep 1)
+        tf   (wrap-times f)]
+    (mapv (fn [i] (let [v (mapv tf cmds)]
+                    (when rep? (Thread/sleep wait))
+                    v))
+          (range rep))))
 
 (defn print-body [req] (pp/pprint (:body req)))

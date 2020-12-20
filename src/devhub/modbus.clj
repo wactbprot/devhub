@@ -38,9 +38,7 @@
                  :ReadCoils            (fn [x] (.readCoils            master s-addr addr q)) 
                  :ReadDiscreteInputs   (fn [x] (.readDiscreteInputs   master s-addr addr q))
                  :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
-          data    (u/run (fn [cmd] (let [t0  (u/ms)
-                                         res (f cmd)]
-                                     (u/add-times {:_x res} t0 (u/ms)))) cmds wait rep)]
+          data (u/run f cmds wait rep)]
       (.disconnect master)
       data)))
 
@@ -68,6 +66,6 @@
   [{conf :modbus} task]
   (if-let [task (safe conf task)]
     (if-let [data (query conf task)]
-      {:data (u/meas-vec data)}
+      (u/meas-vec data)
       {:error true :reason "no data"})
     {:error true :reason "missing <functioncode>, <host>, <address> or <quantity>"}))

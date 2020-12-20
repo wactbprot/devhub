@@ -11,15 +11,6 @@
       (first r))))
 
 (defn all-responses [conf] (u/config (:response-file conf))) 
-
-(defn query-fn
-  "Returns a function `f` that can be used in `(u/run f cmds wait rep)`"
-  [conf task]
-  (fn [_]
-    (let [t0 (u/ms)]
-      (u/add-times
-       {:_x (select-response (:select task) (all-responses conf) (:mode conf))}
-       t0 (u/ms)))))
     
 (defn safe
   [conf task]
@@ -42,7 +33,8 @@
   ```"
   [{conf :stub} task]
   (if-let [task (safe conf task)]
-    (if-let [data (u/run (query-fn conf task) (:Value task) (:Wait task) (:Repeat task))]
-      {:data (u/meas-vec data)}
-      {:error true :reason "no data"})
-    {:error "can not derive keyword fron task name"}))
+    (let [f (fn [_] (select-response (:select task) (all-responses conf) (:mode conf)))]
+      (if-let [data (u/run f (:Value task) (:Wait task) (:Repeat task))]
+        (u/meas-vec data)
+        {:error true :reason "no data"}))
+    {:error "can not derive keyword fron task name"})) 

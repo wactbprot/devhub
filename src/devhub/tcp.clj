@@ -9,8 +9,7 @@
   [in out norep cmd]
   (.print out cmd)
   (.flush out)
-  (let [t0 (u/ms) res (if-not norep (.readLine in) "") t1 (u/ms)]
-    (u/add-times {:_x res} t0 t1)))
+  (if-not norep (.readLine in) ""))
 
 (defn query
   "Sends the `cmds` to a raw tcp socket with the specified `host` and
@@ -44,6 +43,6 @@
   [{conf :tcp} task]
   (if-let [task (safe conf task)]
     (if-let [data (query conf task)]
-      {:data (u/meas-vec data)}
+      (u/meas-vec data)
       {:error true :reason "no data"})
     {:error true :reason "missing <value>, <host> or <port>"}))
