@@ -13,7 +13,7 @@
 (defn sel    [conf t] (if t (keyword t) :missing))
 (defn port   [conf p] (u/number p))
 (defn norepl [conf n] (if n n false))
-(defn cmd    [conf c](if (string? c) [c] c))
+(defn cmd    [conf c] (if (string? c) [c] c))
 
 (defn stub
   "Ensures `task`s to be in the right shape."
@@ -51,7 +51,7 @@
   "Ensures the `task` values to be in the right shape.
   TODO: safe-cmd"
   [conf task]
-  (let [{c :Cmd w :Wait r :repeat} task]
+  (let [{c :Cmd w :Wait r :Repeat} task]
     (when c (assoc task
                    :Repeat (rep conf r)
                    :Wait   (wait conf w)

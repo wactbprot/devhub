@@ -29,6 +29,7 @@
   (let [{pp :PostProcessing
          ps :PostScript
          py :PostScriptPy} task]
+    (prn data)
     (cond
       pp (js/exec conf task pp data)
       ps (clj/dispatch conf task data)
@@ -46,6 +47,7 @@
 (defn thread
   [conf task stub?]
   (let [task (pre-dispatch  conf task)]
+    (prn task)
     (if (:error task)
       task
       (let [data (if stub?

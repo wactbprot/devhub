@@ -26,5 +26,8 @@
         :js-tmp "/tmp"
         :py-script-path "py_script"}
  :execute {:shell "sh"
-           :param "-c"}
+           :param "-c"
+           :min-wait 10
+           :repeat 1
+           }
  }
