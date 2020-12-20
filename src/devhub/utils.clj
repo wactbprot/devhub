@@ -26,8 +26,20 @@
 (defn meas-vec
   "Returns `data` if `data` is a map. Transforms `data` from a single measurement to a measurement.
 
-  REVIEW: There is a better solution (better than 4 times `mapv`).
-  "
+  REVIEW: There is a better solution (better than 4 times `mapv`). However, n=10 takes 0.217172 msecs
+
+  solution one (1.41838 msecs):
+  ```clojure
+  (reduce (fn [n o] (update-in
+                     (update-in
+                      (update-in
+                       (update-in n [:_t_stop] conj (:_t_stop o))
+                     [:_t_start] conj (:_t_start o))
+                    [:_x] conj (:_x o))
+                   [:_dt] conj (:_dt o)))
+        {:_x [] :_dt [] :_t_start [] :_t_stop []}
+        (flatten v))
+  ```"
   [data]
   (if (map? data) data (let [v (flatten data)]
                          {:_x       (mapv :_x       v)
