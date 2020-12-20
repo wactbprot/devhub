@@ -1,19 +1,9 @@
 (ns devhub.execute
   (:require [clojure.java.shell :refer [sh]]
+            [devhub.safe        :as safe]
             [devhub.utils       :as u]))
 
 (defn safe-cmd [conf cmd] cmd)
-
-(defn safe
-  "Ensures the `task` values to be in the right shape.
-  TODO: safe-cmd"
-  [conf task]
-  (let [{cmd :Cmd w :Wait r :repeat} task]
-    (when cmd 
-      (assoc task
-             :Repeat (if r (u/number r) (:repeat conf))
-             :Wait   (if w (u/number w) (:min-wait conf))
-             :Cmd    (if (string? cmd) [cmd] cmd)))))
 
 (defn handler
   "Handles Execute tasks.
@@ -23,7 +13,7 @@
   (handler (u/config) {:Cmd \"ls\"})
   ```"
   [{conf :execute} task]
-  (if-let [task (safe conf task)]
+  (if-let [task (safe/execute conf task)]
     (let [f (fn [cmd]
               (try
                 (sh (:shell conf) (:param conf) cmd)

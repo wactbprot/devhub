@@ -1,5 +1,6 @@
 (ns devhub.tcp
-  (:require [devhub.utils :as u])
+  (:require [devhub.utils :as u]
+            [devhub.safe  :as safe])
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
 
@@ -21,17 +22,6 @@
                 in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
       (u/run (fn [cmd] (send-receive in out norep cmd)) cmds wait repeat))))
 
-(defn safe
-  "Ensures the `task` values to be in the right shape."
-  [conf task]
-  (let [{h :Host p :Port v :Value w :Wait r :Repeat n :NoReply} task]
-    (when (and h v p) (assoc task
-                             :Port    (u/number p)
-                             :Wait    (if w (u/number w) (:min-wait conf))
-                             :Value   (if (string? v) [v] v)
-                             :Repeat  (if r (u/number r) (:repeat conf))
-                             :NoReply (if n n false)))))
-
 (defn handler
   "Handles TCP queries.
   
@@ -41,7 +31,7 @@
   (handler (u/config) {:Wait 10 :Repeat 1 :Port 5000 :Host \"localhost\" :Value \"frs()\n\"})
   ```"
   [{conf :tcp} task]
-  (if-let [task (safe conf task)]
+  (if-let [task (safe/tcp conf task)]
     (if-let [data (query conf task)]
       (u/meas-vec data)
       {:error true :reason "no data"})

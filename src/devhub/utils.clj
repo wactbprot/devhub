@@ -1,5 +1,6 @@
 (ns devhub.utils
-  (:require [clojure.string  :refer [lower-case]]
+  (:require [clojure.string  :refer [lower-case
+                                     starts-with?]]
             [clojure.pprint  :as pp]
             [clojure.edn     :as edn]
             [clojure.java.io :refer [as-file]]))
@@ -88,3 +89,20 @@
           (range rep))))
 
 (defn print-body [req] (pp/pprint (:body req)))
+
+(defn parse-gpib-str
+  [s]
+  (when-let [v (re-find (re-matcher #"(gpib[0-9]*),([0-9]*)(,?[0-9]*)" s))]
+    {:DeviceName       (nth v 1)
+     :PrimaryAddress   (number (nth v 2))
+     :SecondaryAddress (if (= "" (nth v 3)) 0 (number (nth v 3)))}))
+
+(defn parse-inst-str [s] {:DeviceName s :PrimaryAddress -1 :SecondaryAddress -1})
+      
+(defn parse-device-str
+  [s]
+  (when (string? s)
+    (cond
+      (starts-with? s "inst") (parse-inst-str s)
+      (starts-with? s "gpib") (parse-gpib-str s)
+      :else (throw "not a device string"))))
