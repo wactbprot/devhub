@@ -12,50 +12,64 @@
             [compojure.core         :refer :all]
             [compojure.handler      :as handler]
             [org.httpkit.server     :refer [run-server]]
-            [ring.middleware.json   :as middleware]))
+            [ring.middleware.json   :as middleware]
+            [com.brunobonacci.mulog :as μ]))
+
+;;(μ/start-publisher! {:type :console :pretty? true})
+(μ/start-publisher!
+  {:type :elasticsearch
+   :url  "http://localhost:9200/"})
 
 (defn pre-dispatch
   [conf task]
+  (μ/with-context {:fn (meta #'pre-dispatch)}
   (let [{pp :PreProcessing
          ps :PreScript
-         py :PostScriptPy} task]
+         py :PreScriptPy} task]
+    (μ/log ::call :PreProcessing pp :PreScript ps :PreScriptPy py)
     (cond
       pp (js/exec conf task)
       ;; ps (clj-pp ps data)
-      :else task)))
+      :else task))))
 
 (defn post-dispatch
   [conf task data]
-  (let [{pp :PostProcessing
-         ps :PostScript
-         py :PostScriptPy} task]
-    (prn data)
-    (cond
-      pp (js/exec conf task pp data)
-      ps (clj/dispatch conf task data)
-      :else data)))
+  (μ/with-context {:fn (meta #'post-dispatch)}
+    (let [{pp :PostProcessing
+           ps :PostScript
+           py :PostScriptPy} task]
+      (μ/log ::call :PostProcessing pp :PostScript ps :PostScriptPy py)
+      (prn data)
+      (cond
+        pp (js/exec conf task pp data)
+        ps (clj/dispatch conf task data)
+        :else data))))
 
 (defn dispatch
   [conf task]
-  (condp = (keyword (:Action task)) 
-    :TCP     (tcp/handler     conf task)
-    :MODBUS  (modbus/handler  conf task)
-    :VXI11   (vxi/handler     conf task)
-    :EXECUTE (execute/handler conf task)
-    {:error "wrong action"}))
+  (μ/with-context {:fn (meta #'dispatch)}
+    (let [action (keyword (:Action task))]
+      (μ/log ::call :Action action)
+      (condp = action 
+        :TCP     (tcp/handler     conf task)
+        :MODBUS  (modbus/handler  conf task)
+        :VXI11   (vxi/handler     conf task)
+        :EXECUTE (execute/handler conf task)
+        {:error "wrong action"}))))
 
 (defn thread
   [conf task stub?]
-  (let [task (pre-dispatch  conf task)]
-    (prn task)
-    (if (:error task)
-      task
-      (let [data (if stub?
-                   (stub/response conf task)
-                   (dispatch      conf task))]
-        (if (:error data)
-          data
-          (post-dispatch conf task data))))))
+  (μ/with-context {:fn (meta #'thread)}
+    (μ/log ::call :stub stub? :task-name (:TaskName task))
+    (let [task (pre-dispatch conf task)]
+      (if (:error task)
+        task
+        (let [data (if stub?
+                     (stub/response conf task)
+                     (dispatch      conf task))]
+          (if (:error data)
+            data
+            (post-dispatch conf task data)))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

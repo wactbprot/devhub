@@ -2,18 +2,18 @@
   (:require [devhub.utils :as u]))
 
 (defn value
-  [conf v]
+  [conf x]
   (cond
-    (nil? v)    [:no-value]
-    (string? v) [v]
-    (vector? v) v))
+    (nil? x)    [:no-value]
+    (string? x) [x]
+    (vector? x) x))
 
-(defn wait   [conf w] (if w (u/number w) (:min-wait conf)))
-(defn rep    [conf r] (if r (u/number r) (:repeat conf)))
-(defn sel    [conf t] (if t (keyword t) :missing))
-(defn port   [conf p] (u/number p))
-(defn norepl [conf n] (if n n false))
-(defn cmd    [conf c] (if (string? c) [c] c))
+(defn wait   [conf x] (if x (u/number x) (:min-wait conf)))
+(defn rep    [conf x] (if x (u/number x) (:repeat conf)))
+(defn sel    [conf x] (if x (keyword x) :missing))
+(defn port   [conf x] (u/number x))
+(defn norepl [conf x] (if x x false))
+(defn cmd    [conf x] (if (string? x) [x] x))
 
 (defn stub
   "Ensures `task`s to be in the right shape."
