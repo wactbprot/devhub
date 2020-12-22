@@ -15,52 +15,42 @@
             [ring.middleware.json   :as middleware]
             [com.brunobonacci.mulog :as μ]))
 
-;;(μ/start-publisher! {:type :console :pretty? true})
-(μ/start-publisher!
-  {:type :elasticsearch
-   :url  "http://localhost:9200/"})
-
 (defn pre-dispatch
   [conf task]
-  (μ/with-context {:fn (meta #'pre-dispatch)}
   (let [{pp :PreProcessing
          ps :PreScript
          py :PreScriptPy} task]
-    (μ/log ::call :PreProcessing pp :PreScript ps :PreScriptPy py)
+    (μ/log ::pre-dispatch :PreProcessing pp :PreScript ps :PreScriptPy py)
     (cond
       pp (js/exec conf task)
       ;; ps (clj-pp ps data)
-      :else task))))
+      :else task)))
 
 (defn post-dispatch
   [conf task data]
-  (μ/with-context {:fn (meta #'post-dispatch)}
     (let [{pp :PostProcessing
            ps :PostScript
            py :PostScriptPy} task]
-      (μ/log ::call :PostProcessing pp :PostScript ps :PostScriptPy py)
-      (prn data)
+      (μ/log ::post-dispatch :PostProcessing pp :PostScript ps :PostScriptPy py)
       (cond
         pp (js/exec conf task pp data)
         ps (clj/dispatch conf task data)
-        :else data))))
+        :else data)))
 
 (defn dispatch
   [conf task]
-  (μ/with-context {:fn (meta #'dispatch)}
     (let [action (keyword (:Action task))]
-      (μ/log ::call :Action action)
+      (μ/log ::dispatch :Action action)
       (condp = action 
         :TCP     (tcp/handler     conf task)
         :MODBUS  (modbus/handler  conf task)
         :VXI11   (vxi/handler     conf task)
         :EXECUTE (execute/handler conf task)
-        {:error "wrong action"}))))
+        {:error "wrong action"})))
 
 (defn thread
   [conf task stub?]
-  (μ/with-context {:fn (meta #'thread)}
-    (μ/log ::call :stub stub? :task-name (:TaskName task))
+    (μ/log ::thread :stub stub? :task-name (:TaskName task))
     (let [task (pre-dispatch conf task)]
       (if (:error task)
         task
@@ -69,7 +59,7 @@
                      (dispatch      conf task))]
           (if (:error data)
             data
-            (post-dispatch conf task data)))))))
+            (post-dispatch conf task data))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
@@ -83,6 +73,24 @@
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
 
+
+(defn init-log!
+  [{conf :mulog }]
+  (μ/set-global-context!
+   {:app-name "devhub" :version (:version (u/version)) :env "local"})
+  (μ/start-publisher! conf))
+
 (defonce server (atom nil))
-(defn stop  [] (@server :timeout 100) (reset! server nil))
-(defn start [] (reset! server (run-server app (:server (u/config)))))
+(defonce logger (atom nil))
+
+(defn stop
+  []
+  (@server :timeout 100)
+  (reset! server nil)
+  (@logger)
+  (reset! logger nil))
+
+(defn start
+  []
+  (reset! server (run-server app (:server (u/config))))
+  (reset! logger (init-log! (u/config))))

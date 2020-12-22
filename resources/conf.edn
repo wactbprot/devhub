@@ -1,4 +1,19 @@
 {
+ :mulog
+ {:type :multi
+  :publishers
+  [;; send events to the stdout
+   {:type :console
+    :pretty? true}
+   ;; send events to a file
+   {:type :simple-file
+    :filename "/tmp/mulog/events.log"}
+   ;; send events to ELS
+   {:type :elasticsearch
+    :url  "http://localhost:9200/"
+    :els-version  :v7.x
+    :data-stream  "mulog-stream"}]
+  }
  :stub {;; default is false, swiched to true if
         ;; request hits /stub endpoint
         :on false
