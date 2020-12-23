@@ -141,6 +141,100 @@ The js-pp of vacom gauges depend on crc module:
 npm install crc 
 ```
 
+## µlog
+
+```PUT /devhub-stream```
+```json
+{
+  "mappings": {
+    "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "PreProcessing": {"type": "text"},
+        "PreScript": {"type": "text"},
+        "PreScriptPy": {"type": "text"},
+        "Action": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "app-name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "env": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "mulog/event-name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "mulog/namespace": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "mulog/trace-id": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "req-id": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "stub": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        }
+      }
+    }
+}
+```
+
 ## notes
 
 * `[clojure-interop/java.nio "1.0.5"]`
+

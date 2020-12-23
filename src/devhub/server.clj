@@ -1,4 +1,4 @@
-(ns devhub.core
+(ns devhub.server
   (:require [compojure.route        :as route]
             [devhub.utils           :as u]
             [devhub.post-scripts.core :as clj]
@@ -20,7 +20,7 @@
   (let [{pp :PreProcessing
          ps :PreScript
          py :PreScriptPy} task]
-    (μ/log ::pre-dispatch :PreProcessing pp :PreScript ps :PreScriptPy py)
+    (μ/log ::pre-dispatch :req-id (:req-id task) :PreProcessing pp :PreScript ps :PreScriptPy py)
     (cond
       pp (js/exec conf task)
       ;; ps (clj-pp ps data)
@@ -31,7 +31,7 @@
     (let [{pp :PostProcessing
            ps :PostScript
            py :PostScriptPy} task]
-      (μ/log ::post-dispatch :PostProcessing pp :PostScript ps :PostScriptPy py)
+      (μ/log ::post-dispatch :req-id (:req-id task)  :PostProcessing pp :PostScript ps :PostScriptPy py)
       (cond
         pp (js/exec conf task pp data)
         ps (clj/dispatch conf task data)
@@ -40,7 +40,7 @@
 (defn dispatch
   [conf task]
     (let [action (keyword (:Action task))]
-      (μ/log ::dispatch :Action action)
+      (μ/log ::dispatch :req-id (:req-id task) :Action action)
       (condp = action 
         :TCP     (tcp/handler     conf task)
         :MODBUS  (modbus/handler  conf task)
@@ -50,7 +50,7 @@
 
 (defn thread
   [conf task stub?]
-    (μ/log ::thread :stub stub? :task-name (:TaskName task))
+    (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
     (let [task (pre-dispatch conf task)]
       (if (:error task)
         task
@@ -92,5 +92,5 @@
 
 (defn start
   []
-  (reset! server (run-server app (:server (u/config))))
-  (reset! logger (init-log! (u/config))))
+  (reset! logger (init-log! (u/config)))
+  (reset! server (run-server app (:server (u/config)))))

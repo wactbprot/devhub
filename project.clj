@@ -28,5 +28,6 @@
           :metadata {:doc/format :markdown}
           :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"}
   :Main ^:skip-aot devhub.core
+  :repl-options {:init-ns devhub.server}
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

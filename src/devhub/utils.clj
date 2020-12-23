@@ -59,7 +59,8 @@
 
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
-(defn task [req] (:body req))
+
+(defn task [req] (assoc (:body req) :req-id (ms)))
 (defn action [req] (:Action (task req)))
 (defn task-name [req] (:TaskName (task req)))
 
