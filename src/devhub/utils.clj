@@ -1,9 +1,10 @@
 (ns devhub.utils
-  (:require [clojure.string  :refer [lower-case
-                                     starts-with?]]
-            [clojure.pprint  :as pp]
-            [clojure.edn     :as edn]
-            [clojure.java.io :refer [as-file]]))
+  (:require [clojure.string         :refer [lower-case
+                                            starts-with?]]
+            [clojure.pprint         :as pp]
+            [clojure.edn            :as edn]
+            [clojure.java.io        :refer [as-file]]
+            [com.brunobonacci.mulog :as μ]))
 
 (defn config
   "Reads a `edn` configuration in file `f`."
@@ -32,11 +33,13 @@
         (flatten v))
   ```"
   [data]
-  (if (map? data) data (let [v (flatten data)]
-                         {:_x       (mapv :_x       v)
-                          :_t_start (mapv :_t_start v)
-                          :_t_stop  (mapv :_t_stop  v)
-                          :_dt      (mapv :_dt      v)})))
+  (if (map? data)
+      data
+      (let [v (flatten data)]
+        {:_x       (mapv :_x       v)
+         :_t_start (mapv :_t_start v)
+         :_t_stop  (mapv :_t_stop  v)
+         :_dt      (mapv :_dt      v)})))
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.
@@ -71,6 +74,13 @@
          :_t_stop t1
          :_dt (- (number t1) (number t0))))
 
+(defn wrap-log
+  [f]
+  (fn [cmd]
+    (let [raw-result (f cmd)]
+     (μ/log ::wrap-log :raw-result-str (str raw-result))
+     raw-result)))
+
 (defn wrap-times
   [f]
   (fn [cmd]
@@ -82,12 +92,11 @@
   strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
   repeat 1)`."
   [f cmds wait rep]
-  (let [rep? (> rep 1)
-        tf   (wrap-times f)]
-    (mapv (fn [i] (let [v (mapv tf cmds)]
-                    (when rep? (Thread/sleep wait))
-                    v))
-          (range rep))))
+  (mapv (fn [i]
+          (let [v (mapv (wrap-times (wrap-log f)) cmds)]
+            (when (> rep 1) (Thread/sleep wait))
+            v))
+        (range rep)))
 
 (defn print-body [req] (pp/pprint (:body req)))
 

@@ -143,6 +143,14 @@ npm install crc
 
 ## µlog
 
+### kibana
+
+* mapping: stack management > dev tools
+* index pattern: stack management > kibana > index pattern
+* search: discover
+
+#### mapping
+
 ```PUT /devhub-stream```
 ```json
 {
@@ -154,6 +162,7 @@ npm install crc
         "PreProcessing": {"type": "text"},
         "PreScript": {"type": "text"},
         "PreScriptPy": {"type": "text"},
+        "raw-result-str":{"type": "text"},
         "Action": {
           "type": "text",
           "fields": {

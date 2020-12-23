@@ -1,5 +1,7 @@
 (ns devhub.modbus
-  (:require [devhub.utils :as u])
+  (:require [devhub.utils           :as u]
+            [devhub.safe            :as safe]
+            [com.brunobonacci.mulog :as μ])
   (:import
    [com.intelligt.modbus.jlibmodbus Modbus]
    [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
@@ -15,7 +17,7 @@
   (def mc (:modbus (u/config)))
   (query mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode :ReadHoldingRegisters})
 
-  (query (u/config) {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
+  (query mc {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
   ```"
   [conf task]
   (let [{host   :Host
@@ -42,20 +44,6 @@
       (.disconnect master)
       data)))
 
-(defn safe
-  [conf task]
-  (let [{h :Host a :Address q :Quantity fc :FunctionCode w :Wait r :Repeat v :Value} task]
-    (when (and h a fc q) (assoc task
-                                :FunctionCode (keyword fc)
-                                :Value        (cond
-                                                (nil? v)    [:no-value]
-                                                (string? v) [v]
-                                                (vector? v) v)
-                                :Address      (u/number a)
-                                :Quantity     (u/number q)
-                                :Wait         (if w (u/number w) (:min-wait conf))
-                                :Repeat       (if r (u/number r) (:repeat conf))))))
-
 (defn handler
   "Handles Modbus queries.
 
@@ -64,7 +52,7 @@
   (handler (u/config) {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
   ```"
   [{conf :modbus} task]
-  (if-let [task (safe conf task)]
+  (if-let [task (safe/modbus conf task)]
     (if-let [data (query conf task)]
       (u/meas-vec data)
       {:error true :reason "no data"})
