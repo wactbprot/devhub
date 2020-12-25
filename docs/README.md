@@ -1,8 +1,9 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [introduction](#introduction)
-- [documentation](#documentation)
+- [Introduction](#introduction)
+- [Documentation](#documentation)
+- [Examples](#examples)
     - [stub [POST /stub]](#stub-post-stub)
     - [version [POST /version]](#version-post-version)
     - [echo [POST /echo]](#echo-post-echo)
@@ -10,9 +11,7 @@
         - [tcp](#tcp)
         - [EXECUTE](#execute)
         - [vxi](#vxi)
-            - [curl examples](#curl-examples)
         - [modbus](#modbus)
-            - [curl examples](#curl-examples-1)
 - [pre processing](#pre-processing)
     - [:PreScript](#prescript)
     - [:PreProcessing](#preprocessing)
@@ -21,7 +20,7 @@
     - [:PostScript](#postscript)
     - [:PostProcessing](#postprocessing)
     - [:PostScriptPy](#postscriptpy)
-- [installation](#installation)
+- [Installation](#installation)
     - [tcp](#tcp-1)
     - [vxi11](#vxi11)
     - [modbus](#modbus-1)
@@ -33,11 +32,15 @@
 
 <!-- markdown-toc end -->
 
-# introduction
+# Introduction
 
-# documentation
+![request-response](./req-res.png)
+
+# Documentation
+
 * [API](./api)
 
+# Examples
 
 For the `curl` examples, the *environment variable*:
 
@@ -142,11 +145,9 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ### vxi
 
-#### curl examples
 
 ### modbus
 
-#### curl examples
 
 # pre processing
 
@@ -170,7 +171,7 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ## =>
 ## {"ToExchange":{"FileAmount":[12,12,12,12,12]}}
 ```
-# installation
+# Installation
 
 ```shell
 git clone git@github.com:wactbprot/devhub.git
@@ -213,7 +214,6 @@ npm install crc
 ## kibana
 
 ![kibana](./kibana.png)
-
 
 * http://localhost:5601/app/discover
 * mapping: stack management > dev tools

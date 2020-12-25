@@ -1,0 +1,10 @@
+digraph regexp { 
+ req [label="request", URL="", tooltip="incomming request"];
+ res [label="response", URL="", tooltip="outgoing response"];  
+ j2m [label="json->map", URL="", tooltip="decode json to clojure map"];
+ m2j [label="json->map", URL="", tooltip="clojure map to decode json"];
+
+ req -> j2m
+ j2m -> m2j
+ m2j -> res
+}
