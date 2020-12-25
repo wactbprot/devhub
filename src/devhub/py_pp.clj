@@ -10,7 +10,7 @@
 (defn exec
   "Executes a predefined *python3* script given with `:PostScriptPy`.
 
-  Example:
+    Example:
   ```clojure
   (time (exec (u/config) {:PostScriptPy \"ls-demo\"} {:_x [\"a\nb\" \"a\nb\nc\"]}))
   ;; => 
