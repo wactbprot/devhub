@@ -1,8 +1,5 @@
 (ns devhub.post-scripts.utils
-  (:require [clojure.edn  :as edn]
-            [devhub.utils :as u]))
-
-(defn config [f] (-> f slurp edn/read-string))
+  (:require [clojure.edn  :as edn]))
 
 (defn open? [r n] (bit-test r n))
 

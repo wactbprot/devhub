@@ -15,7 +15,7 @@
 (defn sel    [conf x] (if x (keyword x) :missing))
 (defn port   [conf x] (u/number x))
 (defn norepl [conf x] (if x x false))
-(defn cmd    [conf x] (if (string? x) [x] x))
+(defn cmd    [conf x] (value conf x))
 (defn fnc    [conf x] (keyword x))
 (defn addr   [conf x] (u/number x))
 (defn quant  [conf x] (u/number x))
@@ -74,4 +74,4 @@
     (when c (assoc task
                    :Repeat (rep conf r)
                    :Wait   (wait conf w)
-                   :Cmd    (cmd conf c)))))
+                   :Value  (cmd conf c)))))

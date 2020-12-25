@@ -16,11 +16,11 @@
   "Sends the `cmds` to a raw tcp socket with the specified `host` and
   `port`."
   [conf task]
-  (let [{host :Host port :Port cmds :Value wait :Wait repeat :Repeat norep :NoReply} task]
+  (let [{host :Host port :Port cmds :Value norep :NoReply} task]
     (with-open [sock (Socket. host port)
                 out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
                 in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-      (u/run (fn [cmd] (send-receive in out norep cmd)) cmds wait repeat))))
+      (u/run (fn [cmd] (send-receive in out norep cmd)) conf task))))
 
 (defn handler
   "Handles TCP queries.

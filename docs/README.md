@@ -1,22 +1,26 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
+- [introduction](#introduction)
 - [documentation](#documentation)
     - [stub [POST /stub]](#stub-post-stub)
-        - [curl examples](#curl-examples)
     - [version [POST /version]](#version-post-version)
-        - [curl examples](#curl-examples-1)
     - [echo [POST /echo]](#echo-post-echo)
-        - [curl examples](#curl-examples-2)
     - [production [POST /]](#production-post-)
         - [tcp](#tcp)
-            - [curl examples](#curl-examples-3)
         - [EXECUTE](#execute)
-            - [curl examples](#curl-examples-4)
         - [vxi](#vxi)
-            - [curl examples](#curl-examples-5)
+            - [curl examples](#curl-examples)
         - [modbus](#modbus)
-            - [curl examples](#curl-examples-6)
+            - [curl examples](#curl-examples-1)
+- [pre processing](#pre-processing)
+    - [:PreScript](#prescript)
+    - [:PreProcessing](#preprocessing)
+    - [:PreScriptPy](#prescriptpy)
+- [post processing](#post-processing)
+    - [:PostScript](#postscript)
+    - [:PostProcessing](#postprocessing)
+    - [:PostScriptPy](#postscriptpy)
 - [installation](#installation)
     - [tcp](#tcp-1)
     - [vxi11](#vxi11)
@@ -29,19 +33,18 @@
 
 <!-- markdown-toc end -->
 
+# introduction
+
 # documentation
-
-
 * [API](./api)
 
 
-For the examples in the following sections, the following *environment
-variable* is useful:
+For the `curl` examples, the *environment variable*:
 
 ```shell
 export H="Content-Type: application/json"
 ```
-It is used as follows:
+is useful. It is used as follows:
 
 ```shell
 curl -H "$H" ...
@@ -61,8 +64,6 @@ The default configuration for the `stub` endpoint is:
 }
 ```
 
-### curl examples
-
 No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 
 ```shell
@@ -72,8 +73,6 @@ curl -H "$H" -d '{"Wait":1 , "Repeat":10}' -X POST http://localhost:9009/stub
 ## version [POST /version]
 
 Returns the current **devhub** version.
-
-### curl examples
 
 ```shell
 curl http://localhost:9009/version
@@ -86,8 +85,6 @@ curl http://localhost:9009/version
 
 You get your request echoed. 
 
-### curl examples
-
 ```shell
 curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
 
@@ -99,18 +96,20 @@ curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
 
 ### tcp
 
-#### curl examples
 ```shell
-curl -H "$H" -d '{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}' -X POST http://localhost:9009/
+D='{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}'
+
+curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ## =>
 ## {"_x":"23.742259584,0.0018344406506,10,ch101\n","t_start":"1606812399642","t_stop":"1606812408754"}
 ```
+
 ### EXECUTE
 
-#### curl examples
 ```shell
-curl -H "$H" -d '{"Action":"EXECUTE","Cmd":"ls", "Wait":100 , "Repeat":2}' -X POST http://localhost:9009/
+D='{"Action":"EXECUTE","Cmd":"ls", "Wait":100 , "Repeat":2}'
+curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ## =>
 ## {
@@ -149,7 +148,28 @@ curl -H "$H" -d '{"Action":"EXECUTE","Cmd":"ls", "Wait":100 , "Repeat":2}' -X PO
 
 #### curl examples
 
+# pre processing
 
+## :PreScript
+
+## :PreProcessing
+
+## :PreScriptPy
+
+# post processing
+
+## :PostScript
+
+## :PostProcessing
+
+## :PostScriptPy
+
+```shell
+D='{"Action":"EXECUTE", "Cmd":"ls", "Wait":100, "Repeat":5, "PostScriptPy": "ls-demo"}'
+curl -H "$H" -d "$D" -X POST http://localhost:9009/
+## =>
+## {"ToExchange":{"FileAmount":[12,12,12,12,12]}}
+```
 # installation
 
 ```shell
@@ -191,6 +211,9 @@ npm install crc
 # µlog
 
 ## kibana
+
+![kibana](./kibana.png)
+
 
 * http://localhost:5601/app/discover
 * mapping: stack management > dev tools

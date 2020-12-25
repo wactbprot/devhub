@@ -1,8 +1,9 @@
 (ns devhub.js-pp
-  (:require [clojure.string     :as string]
-            [cheshire.core      :as che]
-            [clojure.java.shell :refer [sh]]
-            [devhub.utils       :as u]))
+  (:require [clojure.string         :as string]
+            [cheshire.core          :as che]
+            [clojure.java.shell     :refer [sh]]
+            [devhub.utils           :as u]
+            [com.brunobonacci.mulog :as µ]))
 
 (defn pp-str
   [pp data]
@@ -12,7 +13,7 @@
          (string/replace (re-pattern "_t_start") (che/encode (:_t_start data)))
          (string/replace (re-pattern "_t_stop")  (che/encode (:_t_stop  data))))))
 
-(defn pp-fn [conf task] (str (:js-tmp conf)  "/" (:TaskName task) ".js"))
+(defn pp-fn [conf task] (str (:tmp conf)     "/" (:TaskName task) ".js"))
 (defn exec-fn [conf]    (str (:js-path conf) "/" (:js-exec conf)))
 
 (defn exec
@@ -25,12 +26,14 @@
   node resources/js/exec.js resources/js/ /tmp/MKT50-exec.js
   ```
   "
-  [{conf :post} task pp data]
+  [{conf :post} task data]
   (let [pf  (pp-fn conf task)
-        _   (spit pf (pp-str pp data))
+        _   (spit pf (pp-str (:PostProcessing task) data))
         res (sh "node" (exec-fn conf) (:js-path conf) pf)]
-    (if (:out res)
-      (try (che/decode (:out res) true)
-           (catch Exception e
-             {:error (str "caught exception: " (.getMessage e))}))
+    (if (= 0 (:exit res))
+      (try
+        (che/decode (:out res) true)
+        (catch Exception e
+          (µ/log ::exec :exception e :status :failed)
+          {:error (str "caught exception: " (.getMessage e))}))
       {:error (:err res)})))

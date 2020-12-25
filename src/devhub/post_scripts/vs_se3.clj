@@ -1,11 +1,14 @@
 (ns devhub.post-scripts.vs_se3
-  (:require [devhub.post-scripts.utils :as u]))
+  (:require [devhub.post-scripts.utils :as pu]
+            [devhub.utils              :as u]))
 
 (def conf (u/config "resources/vs_se3.edn"))
 
 (defn registers-ok?
-  "Checks `rs` for type vector and checks the length to be `(:register-count conf)`."
-  [rs] (and (vector? rs) (=  (count rs) (:register-count conf))))
+  "Checks `rs` for type vector and checks the length to
+  be `(:register-count conf)`."
+  [rs]
+  (and (vector? rs) (=  (count rs) (:register-count conf))))
 
 (defn check
   "Returns a vector of maps.
@@ -19,7 +22,7 @@
   "
   [rs m]
   (mapv
-   (fn [[kw [block position]]] {kw (u/open? (nth rs block) position)})
+   (fn [[kw [block position]]] {kw (pu/open? (nth rs block) position)})
    m))
 
 (defn valves
@@ -35,7 +38,7 @@
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)
-    (let [vs (u/exch-bool-map (check rs (:valve-position conf)))]
+    (let [vs (pu/exch-bool-map (check rs (:valve-position conf)))]
       {:ToExchange (reduce merge {:registers rs} vs)})
     {:error "wrong register format"}))
 
@@ -53,8 +56,8 @@
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)
-    (let [so (u/exch-bool-map (check rs (:switch-open    conf)))
-          sc (u/exch-bool-map (check rs (:switch-closed  conf)))]
+    (let [so (pu/exch-bool-map (check rs (:switch-open    conf)))
+          sc (pu/exch-bool-map (check rs (:switch-closed  conf)))]
       {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)})
     {:error "wrong register format"}))
 

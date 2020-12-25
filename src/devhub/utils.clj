@@ -6,6 +6,8 @@
             [clojure.java.io        :refer [as-file]]
             [com.brunobonacci.mulog :as μ]))
 
+(defn file? [f] (.exists (as-file f)))
+
 (defn config
   "Reads a `edn` configuration in file `f`."
   ([]
@@ -62,23 +64,25 @@
 
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
-
 (defn task [req] (assoc (:body req) :req-id (ms)))
 (defn action [req] (:Action (task req)))
 (defn task-name [req] (:TaskName (task req)))
 
+;;------------------------------------------------------------
+;; run with wait and repeat
+;;------------------------------------------------------------
 (defn add-times
   [m t0 t1]
   (assoc m
          :_t_start t0
-         :_t_stop t1
+         :_t_stop  t1
          :_dt (- (number t1) (number t0))))
 
 (defn wrap-log
-  [f]
+  [req-id f]
   (fn [cmd]
     (let [raw-result (f cmd)]
-     (μ/log ::wrap-log :raw-result-str (str raw-result))
+     (μ/log ::wrap-log :req-id req-id :raw-result-str (str raw-result))
      raw-result)))
 
 (defn wrap-times
@@ -88,21 +92,36 @@
       (add-times {:_x (f cmd)} t0 (ms)))))
  
 (defn run
-  "Calls the function `f` with a all commands in `cmds` (vector of
+  "Calls the function `f` with  all commands in `cmds` (vector of
   strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
   repeat 1)`."
-  [f cmds wait rep]
-  (mapv (fn [i]
-          (let [v (mapv (wrap-times (wrap-log f)) cmds)]
+  [f conf {cmds :Value wait :Wait rep :Repeat req-id :req-id}]
+  (mapv (fn [_]
+          (let [v (mapv (wrap-log req-id (wrap-times f)) cmds)]
             (when (> rep 1) (Thread/sleep wait))
             v))
         (range rep)))
 
 (defn print-body [req] (pp/pprint (:body req)))
 
+;;------------------------------------------------------------
+;; vxi utils
+;;------------------------------------------------------------
 (defn parse-gpib-str
+  "Returns a map with `:DeviceName` `:PrimaryAddress` and `:SecondaryAddress`.
+  
+  Example:
+  ```clojure
+  (parse-gpib-str \"gpib0,9\")
+  ;; =>
+  ;; {:DeviceName \"gpib0\", :PrimaryAddress 9, :SecondaryAddress 0}
+ 
+  (parse-gpib-str \"gpib0,9,1\")
+  ;; =>
+  ;; {:DeviceName \"gpib0\", :PrimaryAddress 9, :SecondaryAddress 1}
+  ``` "
   [s]
-  (when-let [v (re-find (re-matcher #"(gpib[0-9]*),([0-9]*)(,?[0-9]*)" s))]
+  (when-let [v (re-find (re-matcher #"(gpib[0-9]*),([0-9]*),?([0-9]*)" s))]
     {:DeviceName       (nth v 1)
      :PrimaryAddress   (number (nth v 2))
      :SecondaryAddress (if (= "" (nth v 3)) 0 (number (nth v 3)))}))

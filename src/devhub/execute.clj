@@ -16,9 +16,9 @@
   (if-let [task (safe/execute conf task)]
     (let [f (fn [cmd]
               (try
-                (sh (:shell conf) (:param conf) cmd)
+                (:out (sh (:shell conf) (:param conf) cmd))
                 (catch Exception e {:err (.getMessage e)})))]
-      (if-let [data (u/run f (:Cmd task) (:Wait task) (:Repeat task))]
+      (if-let [data (u/run f conf task)]
         (u/meas-vec data)
         {:error true :reason "no data"}))
     {:error true :reason "missing <value>, <host> or <port>"}))

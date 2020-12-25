@@ -43,8 +43,9 @@
           }
  :post {:js-exec "exec.js"
         :js-path "./resources/js"
-        :js-tmp "/tmp"
-        :py-script-path "py_script"
+        :tmp "/tmp"
+        :py-path "./resources/py"
+        :py-exec "exec.py"
         }
  :execute {:shell "sh"
            :param "-c"

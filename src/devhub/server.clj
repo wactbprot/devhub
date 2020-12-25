@@ -3,6 +3,7 @@
             [devhub.utils           :as u]
             [devhub.post-scripts.core :as clj]
             [devhub.js-pp           :as js]
+            [devhub.py-pp           :as py]
             [devhub.tcp             :as tcp]
             [devhub.stub            :as stub]
             [devhub.vxi11           :as vxi]
@@ -33,10 +34,11 @@
            py :PostScriptPy} task]
       (μ/log ::post-dispatch :req-id (:req-id task)  :PostProcessing pp :PostScript ps :PostScriptPy py)
       (cond
-        pp (js/exec conf task pp data)
+        pp (js/exec      conf task data)
         ps (clj/dispatch conf task data)
+        py (py/exec conf task data)
         :else data)))
-
+ 
 (defn dispatch
   [conf task]
     (let [action (keyword (:Action task))]

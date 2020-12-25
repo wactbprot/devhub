@@ -3,6 +3,12 @@
             [devhub.safe :as safe]))
 
 (defn select-response
+  "Selects the response depending on the configuration. Implemented
+  methods are:
+  
+  * `:rand` (default)  
+  * `:first` (fallback)
+  * `:last`"
   [kw rs mode]
   (let [r  (kw rs)]
     (condp = mode
@@ -23,7 +29,7 @@
   [{conf :stub} task]
   (if-let [task (safe/stub conf task)]
     (let [f (fn [_] (select-response (:select task) (all-responses conf) (:mode conf)))]
-      (if-let [data (u/run f (:Value task) (:Wait task) (:Repeat task))]
+      (if-let [data (u/run f conf task)]
         (u/meas-vec data)
         {:error true :reason "no data"}))
     {:error "can not derive keyword fron task name"})) 

@@ -20,18 +20,11 @@
   (query mc {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
   ```"
   [conf task]
-  (let [{host   :Host
-         fc     :FunctionCode
-         cmds   :Value
-         addr   :Address
-         q      :Quantity
-         wait   :Wait
-         rep    :Repeat
-         norep  :NoReply} task
-        s-addr (:default-slave-address conf)
-        ip     (InetAddress/getByName host)
-        param      (TcpParameters. host (:port conf) (:keep-alive conf))
-        master     (ModbusMasterFactory/createModbusMasterTCP param)]
+  (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task
+        s-addr  (:default-slave-address conf)
+        ip      (InetAddress/getByName host)
+        param   (TcpParameters. host (:port conf) (:keep-alive conf))
+        master  (ModbusMasterFactory/createModbusMasterTCP param)]
     (Modbus/setAutoIncrementTransactionId true)
     (.connect master)
     (let [f    (condp = fc
@@ -40,7 +33,7 @@
                  :ReadCoils            (fn [x] (.readCoils            master s-addr addr q)) 
                  :ReadDiscreteInputs   (fn [x] (.readDiscreteInputs   master s-addr addr q))
                  :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
-          data (u/run f cmds wait rep)]
+          data (u/run f conf task)]
       (.disconnect master)
       data)))
 
