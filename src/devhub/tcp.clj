@@ -24,11 +24,16 @@
 
 (defn handler
   "Handles TCP queries.
-  
+    
   Example:
   ```clojure
-  (handler (u/config) {:Wait 10 :Repeat 3 :Port 5025 :Host \"e75496\" :Value \"frs()\n\"})
-  (handler (u/config) {:Wait 10 :Repeat 1 :Port 5000 :Host \"localhost\" :Value \"frs()\n\"})
+  (def c (u/config))
+  ;;
+  (def t1 {:Port 5025 :Host \"e75496\" :Value \"frs()\\n\"}
+  (handler c t1)
+  ;;
+  (def t2 {:Port 5000 :Host \"localhost\" :Value \"frs()\\n\"}
+  (handler c t2)
   ```"
   [{conf :tcp} task]
   (if-let [task (safe/tcp conf task)]
