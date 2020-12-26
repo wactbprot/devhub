@@ -55,7 +55,7 @@
 
 # Data flow graph
 
-![request-response](./req-res.png)
+![request-response](./req-res.svg)
 
 # Documentation
 

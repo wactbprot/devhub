@@ -1,8 +1,8 @@
 digraph  regexp {
         
         bgcolor=transparent                                                             
-        node[color=lightgray,
-             fontcolor=white,
+        node[//color=lightgray,
+             //fontcolor=white,
              fontname="Ubuntu",
 	     fontsize=12]
         edge[color=lightgray]
