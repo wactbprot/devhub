@@ -1,7 +1,8 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Introduction](#introduction)
+- [Features](#features)
+- [Data flow graph](#data-flow-graph)
 - [Documentation](#documentation)
 - [Examples](#examples)
     - [stub [POST /stub]](#stub-post-stub)
@@ -32,7 +33,27 @@
 
 <!-- markdown-toc end -->
 
-# Introduction
+# Features
+
+* `TCP`, `VXI11`, `MODBUS`
+* `EXECUTE`
+* `/echo` endpoint
+* `/stub` endpoint
+    * `first`
+    * `last`
+    * `rand`
+* `:Value: "IDN?"` or `:Value: ["PR1?" "<ENQ>"]` 
+* pre-processing
+    * `javascript`
+    * `python3`
+    * `clojure`
+* post-processing
+    * `javascript`
+    * `python3`
+    * `clojure`
+* [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
+
+# Data flow graph
 
 ![request-response](./req-res.png)
 
