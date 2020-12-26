@@ -1,30 +1,33 @@
 digraph  regexp {
         
         bgcolor=transparent                                                             
-        node[color=lightgray, fontcolor=white]
+        node[color=lightgray,
+             fontcolor=white,
+             fontname="Ubuntu",
+	     fontsize=12]
         edge[color=lightgray]
 
         req [label="request", URL="", tooltip="incomming request"];
         res [label="response", URL="", tooltip="outgoing response"];  
         j2m [label="json->map", URL="", tooltip="decode json to clojure map"];
 
-        pre [label="pre dispatch", URL="", tooltip="pre-scripts or pre-processing"];
-        pre_js [label=":PreProcessing", URL="", tooltip="pre-processing of js code"];
-        pre_clj [label=":PreScript", URL="", tooltip="clojure functions"]; 
-        pre_py  [label=":PreScriptPy", URL="", tooltip="pre-scripts with python3"]; 
+        pre [shape=diamond, label="pre dispatch", URL="", tooltip="pre-scripts or pre-processing"];
+        pre_js [shape=box, label=":PreProcessing", URL="", tooltip="pre-processing of js code"];
+        pre_clj [shape=box, label=":PreScript", URL="", tooltip="clojure functions"]; 
+        pre_py  [shape=box, label=":PreScriptPy", URL="", tooltip="pre-scripts with python3"]; 
 
-        disp [label="dispatch", URL="", tooltip="dispatch"];
-        stub [label="stub", URL="", tooltip="pre defind responses"];
-        tcp [label="TCP", URL="", tooltip="requests to tcp devices"];
-        vxi [label="VXI", URL="", tooltip="requests to vxi devices"];
-        modbus [label="MODBUS", URL="", tooltip="requests to modbus devices"];
-        exec [label="EXECUTE", URL="", tooltip="execution of commands"];
+        disp [shape=diamond, label="dispatch", URL="", tooltip="dispatch"];
+        stub [shape=box, label="stub", URL="", tooltip="pre defind responses"];
+        tcp [shape=box, label="TCP", URL="", tooltip="requests to tcp devices"];
+        vxi [shape=box, label="VXI", URL="", tooltip="requests to vxi devices"];
+        modbus [shape=box, label="MODBUS", URL="", tooltip="requests to modbus devices"];
+        exec [shape=box, label="EXECUTE", URL="", tooltip="execution of commands"];
         
         
-        post [label="post dispatch", URL="", tooltip="post-scripts or post-processing"];
-        post_js [label=":PostProcessing", URL="", tooltip="post-processing of js code"];
-        post_clj [label=":PostScript", URL="", tooltip="clojure functions"]; 
-        post_py  [label=":PostScriptPy", URL="", tooltip="post-scripts with python3"]; 
+        post [shape=diamond, label="post dispatch", URL="", tooltip="post-scripts or post-processing"];
+        post_js [shape=box, label=":PostProcessing", URL="", tooltip="post-processing of js code"];
+        post_clj [shape=box, label=":PostScript", URL="", tooltip="clojure functions"]; 
+        post_py  [shape=box, label=":PostScriptPy", URL="", tooltip="post-scripts with python3"]; 
 
         m2j [label="map->json", URL="", tooltip="clojure map to decode json"];
         
