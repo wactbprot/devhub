@@ -5,7 +5,10 @@ digraph  regexp {
              //fontcolor=white,
              fontname="Ubuntu",
 	     fontsize=12]
-        edge[color=lightgray]
+        edge[
+             fontname="Ubuntu",
+             //color=lightgray
+             ]
 
         req [label="request", URL="", tooltip="incomming request"];
         res [label="response", URL="", tooltip="outgoing response"];  
