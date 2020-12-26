@@ -46,11 +46,7 @@
   ```"
   [{conf :modbus} task]
   (if-let [task (safe/modbus conf task)]
-    (if-let [data (try         
-                    (query conf task)
-                    (catch Exception e
-                      (µ/log ::exec :exception e :status :failed :req-id (:req-id task))
-                      {:error (str "caught exception: " (.getMessage e))}))]
+    (if-let [data (u/exec-with-try (fn [] (query conf task)))]
       (u/meas-vec data)
       {:error true :reason "no data"})
     {:error true :reason "missing <functioncode>, <host>, <address> or <quantity>"}))
