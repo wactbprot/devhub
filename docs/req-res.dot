@@ -19,6 +19,8 @@ digraph  regexp {
         pre_clj [shape=box, label=":PreScript", URL="", tooltip="clojure functions"]; 
         pre_py  [shape=box, label=":PreScriptPy", URL="", tooltip="pre-scripts with python3"]; 
 
+        echo [shape=box, label="echo", URL="", tooltip="echo"];
+        
         disp [shape=diamond, label="dispatch", URL="", tooltip="dispatch"];
         stub [shape=box, label="stub", URL="", tooltip="pre defind responses"];
         tcp [shape=box, label="TCP", URL="", tooltip="requests to tcp devices"];
@@ -36,6 +38,9 @@ digraph  regexp {
         
         req -> j2m
         j2m -> disp
+
+        j2m -> echo
+        echo -> m2j
         
         j2m -> pre
         pre -> pre_js
