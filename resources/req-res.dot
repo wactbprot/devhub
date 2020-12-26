@@ -7,9 +7,63 @@ digraph  regexp {
         req [label="request", URL="", tooltip="incomming request"];
         res [label="response", URL="", tooltip="outgoing response"];  
         j2m [label="json->map", URL="", tooltip="decode json to clojure map"];
-        m2j [label="json->map", URL="", tooltip="clojure map to decode json"];
+
+        pre [label="pre dispatch", URL="", tooltip="pre-scripts or pre-processing"];
+        pre_js [label=":PreProcessing", URL="", tooltip="pre-processing of js code"];
+        pre_clj [label=":PreScript", URL="", tooltip="clojure functions"]; 
+        pre_py  [label=":PreScriptPy", URL="", tooltip="pre-scripts with python3"]; 
+
+        disp [label="dispatch", URL="", tooltip="dispatch"];
+        stub [label="stub", URL="", tooltip="pre defind responses"];
+        tcp [label="TCP", URL="", tooltip="requests to tcp devices"];
+        vxi [label="VXI", URL="", tooltip="requests to vxi devices"];
+        modbus [label="MODBUS", URL="", tooltip="requests to modbus devices"];
+        exec [label="EXECUTE", URL="", tooltip="execution of commands"];
+        
+        
+        post [label="post dispatch", URL="", tooltip="post-scripts or post-processing"];
+        post_js [label=":PostProcessing", URL="", tooltip="post-processing of js code"];
+        post_clj [label=":PostScript", URL="", tooltip="clojure functions"]; 
+        post_py  [label=":PostScriptPy", URL="", tooltip="post-scripts with python3"]; 
+
+        m2j [label="map->json", URL="", tooltip="clojure map to decode json"];
         
         req -> j2m
+        j2m -> disp
+        
+        j2m -> pre
+        pre -> pre_js
+        pre -> pre_py
+        pre -> pre_clj
+        
+        pre_js ->disp
+        pre_py ->disp
+        pre_clj->disp
+
+        disp -> stub
+
+        disp -> tcp
+        disp -> vxi
+        disp -> exec
+        disp -> modbus
+
+        tcp   -> post
+        vxi   -> post
+        exec  -> post
+        modbus-> post        
+        stub -> post
+
+        post -> m2j
+        post -> post_js
+        post -> post_py
+        post -> post_clj
+
+        post_js -> m2j
+        post_py -> m2j
+        post_clj-> m2j
+        
         j2m -> m2j
+
+        
         m2j -> res
 }
