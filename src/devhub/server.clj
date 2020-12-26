@@ -52,13 +52,13 @@
 
 (defn thread
   [conf task stub?]
-    (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
-    (let [task (pre-dispatch conf task)]
-      (if (:error task)
-        task
-        (let [data (if stub?
-                     (stub/response conf task)
-                     (dispatch      conf task))]
+  (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
+  (let [task (pre-dispatch conf task)]
+    (if (:error task)
+      task
+      (let [data (if stub?
+                   (stub/response conf task)
+                   (dispatch      conf task))]
           (if (:error data)
             data
             (post-dispatch conf task data))))))

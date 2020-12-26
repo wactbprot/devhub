@@ -35,7 +35,14 @@
 
 # Features
 
-* `TCP`, `VXI11`, `MODBUS`
+* `TCP`
+* `VXI11`
+* `MODBUS`
+    * `:ReadHoldingRegisters` 
+    * `:ReadInputRegisters`
+    * `:ReadCoils`
+    * `:ReadDiscreteInputs`
+    * `:writeSingleRegister` 
 * `EXECUTE`
 * `/echo` endpoint
 * `/stub` endpoint
@@ -127,6 +134,16 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ## =>
 ## {"_x":"23.742259584,0.0018344406506,10,ch101\n","t_start":"1606812399642","t_stop":"1606812408754"}
+```
+
+Returns `error` on invalid host: 
+
+```shell
+D='{"Action":"TCP", "Host": "invalid", "Value":"IDN?", "Port":20}'
+
+curl -H "$H" -d "D" -X POST http://localhost:9009/
+## =>
+## {"error":"caught exception: No matching field found ..."}
 ```
 
 ### EXECUTE

@@ -1,26 +1,23 @@
 (ns devhub.tcp
   (:require [devhub.utils :as u]
-            [devhub.safe  :as safe])
+            [devhub.safe  :as safe]
+            [com.brunobonacci.mulog :as µ])
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
-
-(defn send-receive
-  "Sends the command `cmd` to the `out`put-stream. Receives data
-  from the `in`put-stream. Wraps time stamps around."
-  [in out norep cmd]
-  (.print out cmd)
-  (.flush out)
-  (if-not norep (.readLine in) ""))
 
 (defn query
   "Sends the `cmds` to a raw tcp socket with the specified `host` and
   `port`."
   [conf task]
-  (let [{host :Host port :Port cmds :Value norep :NoReply} task]
+  (let [{host :Host port :Port norep :NoReply} task]
     (with-open [sock (Socket. host port)
-                out (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
-                in  (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-      (u/run (fn [cmd] (send-receive in out norep cmd)) conf task))))
+                out  (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
+                in   (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
+      (u/run (fn [cmd]
+               (.print out cmd)
+               (.flush out)
+               (if-not norep (.readLine in) "")) conf task))))
+            
 
 (defn handler
   "Handles TCP queries.
@@ -37,7 +34,11 @@
   ```"
   [{conf :tcp} task]
   (if-let [task (safe/tcp conf task)]
-    (if-let [data (query conf task)]
+    (if-let [data (try         
+                    (query conf task)
+                    (catch Exception e
+                      (µ/log ::exec :exception e :status :failed :req-id (:req-id task))
+                      {:error (str "caught exception: " (.getMessage e))}))]
       (u/meas-vec data)
       {:error true :reason "no data"})
     {:error true :reason "missing <value>, <host> or <port>"}))

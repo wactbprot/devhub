@@ -1,7 +1,7 @@
 (ns devhub.modbus
   (:require [devhub.utils           :as u]
             [devhub.safe            :as safe]
-            [com.brunobonacci.mulog :as μ])
+            [com.brunobonacci.mulog :as µ])
   (:import
    [com.intelligt.modbus.jlibmodbus Modbus]
    [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
@@ -46,7 +46,11 @@
   ```"
   [{conf :modbus} task]
   (if-let [task (safe/modbus conf task)]
-    (if-let [data (query conf task)]
+    (if-let [data (try         
+                    (query conf task)
+                    (catch Exception e
+                      (µ/log ::exec :exception e :status :failed :req-id (:req-id task))
+                      {:error (str "caught exception: " (.getMessage e))}))]
       (u/meas-vec data)
       {:error true :reason "no data"})
     {:error true :reason "missing <functioncode>, <host>, <address> or <quantity>"}))
