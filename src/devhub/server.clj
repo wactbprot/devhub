@@ -1,20 +1,22 @@
 (ns devhub.server
-  (:require [compojure.route        :as route]
-            [devhub.utils           :as u]
+  ^{:author "wactbprot"
+    :doc "Start and stop the devhub server. Routing and dispatching."}
+  (:require [compojure.route          :as route]
+            [devhub.utils             :as u]
             [devhub.post-scripts.core :as clj]
-            [devhub.js-pp           :as js]
-            [devhub.py-pp           :as py]
-            [devhub.tcp             :as tcp]
-            [devhub.stub            :as stub]
-            [devhub.vxi11           :as vxi]
-            [devhub.modbus          :as modbus]
-            [devhub.execute         :as execute]
-            [ring.util.response     :as res]
-            [compojure.core         :refer :all]
-            [compojure.handler      :as handler]
-            [org.httpkit.server     :refer [run-server]]
-            [ring.middleware.json   :as middleware]
-            [com.brunobonacci.mulog :as μ]))
+            [devhub.js-pp             :as js]
+            [devhub.py-pp             :as py]
+            [devhub.tcp               :as tcp]
+            [devhub.stub              :as stub]
+            [devhub.vxi11             :as vxi]
+            [devhub.modbus            :as modbus]
+            [devhub.execute           :as execute]
+            [ring.util.response       :as res]
+            [compojure.core           :refer :all]
+            [compojure.handler        :as handler]
+            [org.httpkit.server       :refer [run-server]]
+            [ring.middleware.json     :as middleware]
+            [com.brunobonacci.mulog   :as μ]))
 
 (defn pre-dispatch
   [conf task]
@@ -29,7 +31,7 @@
 
 (defn post-dispatch
   [conf task data]
-    (let [{pp :PostProcessing
+  (let [{pp :PostProcessing
            ps :PostScript
            py :PostScriptPy} task]
       (μ/log ::post-dispatch :req-id (:req-id task)  :PostProcessing pp :PostScript ps :PostScriptPy py)
@@ -52,6 +54,7 @@
 
 (defn thread
   [conf task stub?]
+  (prn "ww")
   (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
   (let [task (pre-dispatch conf task)]
     (if (:error task)

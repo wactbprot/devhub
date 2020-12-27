@@ -1,4 +1,6 @@
 (ns devhub.py-pp
+  ^{:author "wactbprot"
+    :doc "Handles python post-processing."}
   (:require [clojure.string     :as string]
             [cheshire.core      :as che]
             [clojure.java.shell :refer [sh]]

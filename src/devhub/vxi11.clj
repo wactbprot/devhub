@@ -1,4 +1,6 @@
 (ns devhub.vxi11
+  ^{:author "wactbprot"
+    :doc "Handles VXI11 Actions."}
   (:require [devhub.utils           :as u]
             [devhub.safe            :as safe]
             [com.brunobonacci.mulog :as µ])
@@ -11,24 +13,26 @@
   TODO: Calculate and set TimeOut.
   "
   [conf task]
-  (let [{host :Host       device :DeviceName
-         pa   :PrimaryAddress sa :SecondaryAddress
-         norep :NoReply} task
+  (let [{pa :PrimaryAddress sa :SecondaryAddress host :Host device :DeviceName} task
         ctrl (VXI11Factory/create host device)
-        usr  (VXI11UserFactory/create)]
-    (.connect ctrl usr)
-    (let [dev (.createDevice ctrl pa sa)]
-      (.connect dev usr)
-      (let [bs   (:read-buffer-size conf)
-            bb   (byte-array bs) 
-            f    (fn [cmd]
-                   (.write dev usr (.getBytes cmd) (.length cmd))
-                   (when-not norep
-                     (.read dev usr bb bs))
-                   (u/bb->string bb))
-            data (u/run f conf task)]
-        (.disconnect dev)
-        data))))
+        usr  (VXI11UserFactory/create)
+        _    (.connect ctrl usr)]
+    (let [dev-or-err (try (.createDevice ctrl pa sa)
+                          (catch Exception e
+                            {:error "can not connect to device"}))]
+      (if (:error dev-or-err)
+        dev-or-err
+        (let [dev  dev-or-err
+              _    (.connect dev usr)
+              bs   (:read-buffer-size conf)
+              bb   (byte-array bs) 
+              f    (fn [cmd]
+                     (.write dev usr (.getBytes cmd) (.length cmd))
+                     (when-not (:NoReply task) (.read dev usr bb bs))
+                     (u/bb->string bb))
+              data (u/run f conf task)]
+          (.disconnect dev)
+          data)))))
 
 (defn handler
   "Handles VXI11 queries.
@@ -45,9 +49,14 @@
   ;; :_dt [27]}}
   ```"
   [{conf :vxi} task]
-  (prn task)
   (if-let [task (safe/vxi conf task)]
-    (if-let [data (u/exec-with-try (fn [] (query conf task)))]
-      (u/meas-vec data)
-      {:error true :reason "no data"})
-    {:error true :reason "missing <value>, <host> or <device>"}))
+    (let [data-or-err (query conf task)]
+      (if (:error data-or-err)
+        (let [error   data-or-err
+              err-msg (:error error)]
+          (µ/log ::handler :error err-msg :req-id (:req-id task))
+          error)
+        (let [data (u/meas-vec data-or-err)]
+          (µ/log ::handler :data data  :req-id (:req-id task))
+          data)))
+    {:error "missing <value>, <host> or <device>"}))

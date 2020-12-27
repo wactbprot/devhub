@@ -1,4 +1,6 @@
 (ns devhub.tcp
+  ^{:author "wactbprot"
+    :doc "Handles TCP Actions."}
   (:require [devhub.utils :as u]
             [devhub.safe  :as safe]
             [com.brunobonacci.mulog :as µ])
@@ -9,15 +11,17 @@
   "Sends the `cmds` to a raw tcp socket with the specified `host` and
   `port`."
   [conf task]
-  (let [{host :Host port :Port norep :NoReply} task]
-    (with-open [sock (Socket. host port)
-                out  (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
-                in   (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-      (u/run (fn [cmd]
-               (.print out cmd)
-               (.flush out)
-               (if-not norep (.readLine in) "")) conf task))))
-            
+  (let [{host :Host port :Port} task]
+    (try
+      (with-open [sock (Socket. host port)
+                  out  (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
+                  in   (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
+        (u/run (fn [cmd]
+                 (.print out cmd)
+                 (.flush out)
+                 (if-not (:NoReply task) (.readLine in) "")) conf task))
+      (catch  Exception e
+      {:error "can not connect to host"}))))
 
 (defn handler
   "Handles TCP queries.
@@ -26,15 +30,21 @@
   ```clojure
   (def c (u/config))
   ;;
-  (def t1 {:Port 5025 :Host \"e75496\" :Value \"frs()\\n\"}
+  (def t1 {:Port 5025 :Host \"e75496\" :Value \"frs()\\n\"})
   (handler c t1)
   ;;
-  (def t2 {:Port 5000 :Host \"localhost\" :Value \"frs()\\n\"}
+  (def t2 {:Port 5000 :Host \"localhost\" :Value \"frs()\\n\"})
   (handler c t2)
   ```"
   [{conf :tcp} task]
   (if-let [task (safe/tcp conf task)]
-    (if-let [data (u/exec-with-try (fn [] (query conf task)))]
-      (u/meas-vec data)
-      {:error true :reason "no data"})
+    (let [data-or-err (query conf task)]
+      (if (:error data-or-err)
+        (let [error   data-or-err
+              err-msg (:error error)]
+          (µ/log ::handler :error err-msg :req-id (:req-id task))
+          error)
+        (let [data (u/meas-vec data-or-err)]
+          (µ/log ::handler :data data  :req-id (:req-id task))
+          data)))
     {:error true :reason "missing <value>, <host> or <port>"}))

@@ -1,4 +1,6 @@
 (ns devhub.safe
+  ^{:author "wactbprot"
+    :doc "Ensure task values."}
   (:require [devhub.utils           :as u]
             [com.brunobonacci.mulog :as μ]))
 
