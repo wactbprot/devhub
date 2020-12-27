@@ -1,6 +1,6 @@
-(ns devhub.post-test
+(ns devhub.js-pp-test
   (:require [clojure.test :refer :all]
-            [devhub.post :refer :all]
+            [devhub.js-pp :refer :all]
             ))
 (def pp [
          "var _vec=_x.map(function(s){return s.split(' ')[1]}).map(parseFloat),",
@@ -16,6 +16,6 @@
          ])
 
 (deftest js-pp-i
-  (testing " returns (i)"
-    (is (nil? (js-pp nil nil))
+  (testing " returns nil (i)"
+    (is (nil? (pp-str nil nil))
         "nil .")))

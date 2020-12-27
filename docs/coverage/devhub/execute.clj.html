@@ -1,0 +1,89 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../coverage.css"/>  <title> devhub/execute.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.execute
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;^{:author&nbsp;&quot;wactbprot&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:doc&nbsp;&quot;Handles&nbsp;EXECUTE&nbsp;Actions.&quot;}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.java.shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;[sh]]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.safe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;safe]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;µ]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                008&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 2 forms covered">
+                009&nbsp;&nbsp;(defn&nbsp;safe-cmd&nbsp;[conf&nbsp;cmd]&nbsp;cmd)
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                010&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                011&nbsp;&nbsp;(defn&nbsp;handler
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;Execute&nbsp;tasks.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                013&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;(handler&nbsp;(u&#x2F;config)&nbsp;{:Cmd&nbsp;\&quot;ls\&quot;})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:execute}&nbsp;task]
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[task&nbsp;(safe&#x2F;execute&nbsp;conf&nbsp;task)]
+                </span><br/>
+<span class="not-covered" title="0 out of 13 forms covered">
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[f&nbsp;(fn&nbsp;[cmd]&nbsp;(:out&nbsp;(sh&nbsp;(:shell&nbsp;conf)&nbsp;(:param&nbsp;conf)&nbsp;cmd)))]
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[data&nbsp;(try&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;Exception&nbsp;e
+                </span><br/>
+<span class="not-covered" title="0 out of 16 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:exception&nbsp;(.getMessage&nbsp;e)&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;(.getMessage&nbsp;e)}))]
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;meas-vec&nbsp;data)
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;true&nbsp;:reason&nbsp;&quot;no&nbsp;data&quot;}))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;true&nbsp;:reason&nbsp;&quot;missing&nbsp;&lt;value&gt;,&nbsp;&lt;host&gt;&nbsp;or&nbsp;&lt;port&gt;&quot;}))
+                </span><br/>
+ </body>
+</html>

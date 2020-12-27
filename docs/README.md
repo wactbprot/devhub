@@ -2,8 +2,8 @@
 **Table of Contents**
 
 - [Features](#features)
-- [Data flow graph](#data-flow-graph)
-- [Documentation](#documentation)
+- [Data flow-response](./req-res.svg)](#data-flow-responsereq-ressvg)
+- [Code documentation](#code-documentation)
 - [Examples](#examples)
     - [stub [POST /stub]](#stub-post-stub)
     - [version [POST /version]](#version-post-version)
@@ -60,13 +60,12 @@
     * `clojure`
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
 
-# Data flow graph
+# Data flow-response](./req-res.svg)
 
-![request-response](./req-res.svg)
-
-# Documentation
+# Code documentation
 
 * [API](./api)
+* [coverage](./coverage)
 
 # Examples
 

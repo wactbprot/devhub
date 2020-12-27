@@ -1,0 +1,200 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../coverage.css"/>  <title> devhub/modbus.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.modbus
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;^{:author&nbsp;&quot;wactbprot&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:doc&nbsp;&quot;Handles&nbsp;MODBUS&nbsp;Actions.&quot;}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.safe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;safe]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;µ])
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;(:import&nbsp;[com.intelligt.modbus.jlibmodbus&nbsp;Modbus]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.intelligt.modbus.jlibmodbus.master&nbsp;ModbusMaster]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.intelligt.modbus.jlibmodbus.master&nbsp;ModbusMasterFactory]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.intelligt.modbus.jlibmodbus.tcp&nbsp;TcpParameters]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[java.net&nbsp;InetAddress]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                013&nbsp;&nbsp;(defn&nbsp;query
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;&quot;Executes&nbsp;the&nbsp;query&nbsp;depending&nbsp;on&nbsp;the&nbsp;`FunctionCode`.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;mc&nbsp;(:modbus&nbsp;(u&#x2F;config)))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;mc&nbsp;{:Host&nbsp;\&quot;e75446\&quot;&nbsp;:Quantity&nbsp;5&nbsp;:Address&nbsp;45407&nbsp;:FunctionCode&nbsp;:ReadHoldingRegisters})
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                020&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;mc&nbsp;{:Host&nbsp;\&quot;e75480\&quot;&nbsp;:Quantity&nbsp;1&nbsp;:Address&nbsp;0&nbsp;:FunctionCode&nbsp;:ReadInputRegisters})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{host&nbsp;:Host&nbsp;fc&nbsp;:FunctionCode&nbsp;addr&nbsp;:Address&nbsp;q&nbsp;:Quantity}&nbsp;task
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok-or-err&nbsp;(try
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(InetAddress&#x2F;getByName&nbsp;host)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;&nbsp;Exception&nbsp;e
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&nbsp;to&nbsp;host&quot;}))]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;ok-or-err)
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok-or-err
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[param&nbsp;&nbsp;(TcpParameters.&nbsp;host&nbsp;(:port&nbsp;conf)&nbsp;(:keep-alive&nbsp;conf))
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;(ModbusMasterFactory&#x2F;createModbusMasterTCP&nbsp;param)
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s-addr&nbsp;(:default-slave-address&nbsp;conf)]
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Modbus&#x2F;setAutoIncrementTransactionId&nbsp;true)
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.connect&nbsp;master)
+                </span><br/>
+<span class="not-covered" title="0 out of 35 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[f&nbsp;(condp&nbsp;=&nbsp;fc
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadHoldingRegisters&nbsp;(fn&nbsp;[x]&nbsp;(.readHoldingRegisters&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q))&nbsp;
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadInputRegisters&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(.readInputRegisters&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadCoils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(.readCoils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q))&nbsp;
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadDiscreteInputs&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(.readDiscreteInputs&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:writeSingleRegister&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(.writeSingleRegister&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;x)))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)]
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.disconnect&nbsp;master)
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data)))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                045&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                046&nbsp;&nbsp;(defn&nbsp;handler
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;Modbus&nbsp;queries.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                048&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                049&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                050&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                051&nbsp;&nbsp;&nbsp;&nbsp;(handler&nbsp;(u&#x2F;config)&nbsp;{:Host&nbsp;\&quot;e75446\&quot;&nbsp;:Quantity&nbsp;5&nbsp;:Address&nbsp;45407&nbsp;:FunctionCode&nbsp;\&quot;ReadHoldingRegisters\&quot;})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                052&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                053&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:modbus}&nbsp;task]
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                054&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[task&nbsp;(safe&#x2F;modbus&nbsp;conf&nbsp;task)]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data-or-err&nbsp;(query&nbsp;conf&nbsp;task)]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;data-or-err)
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[error&nbsp;&nbsp;&nbsp;data-or-err
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err-msg&nbsp;(:error&nbsp;error)]
+                </span><br/>
+<span class="not-covered" title="0 out of 16 forms covered">
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;err-msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data&nbsp;(u&#x2F;meas-vec&nbsp;data-or-err)]
+                </span><br/>
+<span class="not-covered" title="0 out of 16 forms covered">
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:data&nbsp;data&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data)))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&nbsp;&quot;missing&nbsp;&lt;functioncode&gt;,&nbsp;&lt;host&gt;,&nbsp;&lt;address&gt;&nbsp;or&nbsp;&lt;quantity&gt;&quot;}))
+                </span><br/>
+ </body>
+</html>

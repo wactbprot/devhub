@@ -23,7 +23,8 @@
                    "../jvxi11/external/one-jar-ant-task-0.97.jar"
                    "../jvxi11/external/portmap.jar"]
   :java-source-paths ["../jvxi11/"]
-  :plugins [[lein-codox  "0.10.7"]]
+  :plugins [[lein-codox  "0.10.7"]
+            [lein-cloverage  "1.1.2"]]
   :codox {:themes [:clojang]
           :metadata {:doc/format :markdown}
           :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"}
