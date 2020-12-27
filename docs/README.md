@@ -2,7 +2,7 @@
 **Table of Contents**
 
 - [Features](#features)
-- [Data flow-response](./req-res.svg)](#data-flow-responsereq-ressvg)
+- [Data flow](#data-flow)
 - [Code documentation](#code-documentation)
 - [Examples](#examples)
     - [stub [POST /stub]](#stub-post-stub)
@@ -60,7 +60,9 @@
     * `clojure`
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
 
-# Data flow-response](./req-res.svg)
+# Data flow
+
+![request-response](./req-res.svg)
 
 # Code documentation
 
