@@ -28,7 +28,6 @@ digraph  regexp {
         modbus [shape=box, label="MODBUS", URL="", tooltip="requests to modbus devices"];
         exec [shape=box, label="EXECUTE", URL="", tooltip="execution of commands"];
         
-        
         post [shape=diamond, label="post dispatch", URL="", tooltip="post-scripts or post-processing"];
         post_js [shape=box, label=":PostProcessing", URL="", tooltip="post-processing of js code"];
         post_clj [shape=box, label=":PostScript", URL="", tooltip="clojure functions"]; 
@@ -72,9 +71,6 @@ digraph  regexp {
         post_js -> m2j
         post_py -> m2j
         post_clj-> m2j
-        
-        j2m -> m2j
-
-        
+               
         m2j -> res
 }
