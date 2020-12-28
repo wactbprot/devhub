@@ -17,11 +17,9 @@ x = data.get("_x")
 
 ## ---------------------------------------------------
 ## do whatever
-ret = []
-for s in x:
-    ret.append(len(s.split("\n")))
+ret = x.split("\n")
     
 ## ---------------------------------------------------
 ## print writes to standard out
 ## and should be json
-print(json.dumps({"ToExchange": {"FileAmount": ret}}))
+print(json.dumps({"ToExchange": {"FilesVector": ret}}))

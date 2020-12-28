@@ -31,7 +31,7 @@
 <span class="blank" title="0 out of 0 forms covered">
                 009&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 11 forms covered">
+<span class="covered" title="11 out of 11 forms covered">
                 010&nbsp;&nbsp;(defn&nbsp;pp-file&nbsp;[conf&nbsp;task]&nbsp;(str&nbsp;(:py-path&nbsp;conf)&nbsp;&nbsp;&quot;&#x2F;&quot;&nbsp;(:PostScriptPy&nbsp;task)&nbsp;&nbsp;&quot;.py&quot;))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -56,7 +56,7 @@
                 017&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;pc&nbsp;(u&#x2F;config))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;data&nbsp;{:_x&nbsp;[\&quot;a\\nb\&quot;&nbsp;\&quot;a\\nb\\nc\&quot;]})
+                018&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;data&nbsp;{:_x&nbsp;\&quot;a\\nba\\nb\\ncb\&quot;})
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 019&nbsp;&nbsp;&nbsp;&nbsp;(time
@@ -68,10 +68,10 @@
                 021&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;Elapsed&nbsp;time:&nbsp;116.616146&nbsp;msecs
+                022&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;Elapsed&nbsp;time:&nbsp;31.680355&nbsp;msecs
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:ToExchange&nbsp;{:FileAmount&nbsp;[2&nbsp;3]}}
+                023&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:ToExchange&nbsp;{:FilesVector&nbsp;[a&nbsp;ba&nbsp;b&nbsp;cb]}}
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 024&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
@@ -79,22 +79,22 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 025&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:post}&nbsp;task&nbsp;data]
                 </span><br/>
-<span class="not-covered" title="0 out of 5 forms covered">
+<span class="covered" title="5 out of 5 forms covered">
                 026&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ps&nbsp;(pp-file&nbsp;conf&nbsp;task)]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(u&#x2F;file?&nbsp;ps)
                 </span><br/>
-<span class="not-covered" title="0 out of 11 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[res&nbsp;(sh&nbsp;&quot;python3&quot;&nbsp;ps&nbsp;(che&#x2F;encode&nbsp;data)&nbsp;(che&#x2F;encode&nbsp;task))]
+<span class="covered" title="13 out of 13 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[res&nbsp;(sh&nbsp;(:py-interpreter&nbsp;conf)&nbsp;ps&nbsp;(che&#x2F;encode&nbsp;data)&nbsp;(che&#x2F;encode&nbsp;task))]
                 </span><br/>
-<span class="not-covered" title="0 out of 6 forms covered">
+<span class="covered" title="6 out of 6 forms covered">
                 029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(=&nbsp;0&nbsp;(:exit&nbsp;res))
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(try
                 </span><br/>
-<span class="not-covered" title="0 out of 6 forms covered">
+<span class="covered" title="6 out of 6 forms covered">
                 031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(che&#x2F;decode&nbsp;(:out&nbsp;res)&nbsp;true)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">

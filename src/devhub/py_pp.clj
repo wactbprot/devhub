@@ -15,17 +15,17 @@
   Example:
   ```clojure
   (def pc (u/config))
-  (def data {:_x [\"a\\nb\" \"a\\nb\\nc\"]})
+  (def data {:_x \"a\\nba\\nb\\ncb\"})
   (time
     (exec pc {:PostScriptPy \"ls-demo\"} data))
   ;; =>
-  ;; Elapsed time: 116.616146 msecs
-  ;; {:ToExchange {:FileAmount [2 3]}}
+  ;; Elapsed time: 31.680355 msecs
+  ;; {:ToExchange {:FilesVector [a ba b cb]}}
   ```"
   [{conf :post} task data]
   (let [ps (pp-file conf task)]
     (if (u/file? ps)
-      (let [res (sh "python3" ps (che/encode data) (che/encode task))]
+      (let [res (sh (:py-interpreter conf) ps (che/encode data) (che/encode task))]
         (if (= 0 (:exit res))
           (try
             (che/decode (:out res) true)

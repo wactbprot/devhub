@@ -41,11 +41,13 @@
           :default-slave-address 255
           :repeat 1
           }
- :post {:js-exec "exec.js"
+ :post {:tmp "/tmp"
+        :js-exec "exec.js"
         :js-path "./resources/js"
-        :tmp "/tmp"
+        :js-interpreter "node"
         :py-path "./resources/py"
         :py-exec "exec.py"
+        :py-interpreter "python3"
         }
  :execute {:shell "sh"
            :param "-c"

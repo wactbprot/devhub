@@ -31,7 +31,7 @@
   [{conf :post} task data]
   (let [pf  (pp-fn conf task)
         _   (spit pf (pp-str (:PostProcessing task) data))
-        res (sh "node" (exec-fn conf) (:js-path conf) pf)]
+        res (sh (:js-interpreter conf) (exec-fn conf) (:js-path conf) pf)]
     (if (= 0 (:exit res))
       (try
         (che/decode (:out res) true)

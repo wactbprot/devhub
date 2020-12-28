@@ -63,4 +63,9 @@
     (is (string? (:_x (thread (u/config) {:Action "EXECUTE"
                                           :Cmd "ls"} false)))
         "real return value")
+    (is (map? (:ToExchange (thread (u/config) {:Action "EXECUTE"
+                                          :Cmd "ls"
+                                          :PostScriptPy "ls-demo"} false)))
+        "real return value")
     ))
+
