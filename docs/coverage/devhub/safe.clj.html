@@ -14,232 +14,328 @@
                 003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:doc&nbsp;&quot;Ensure&nbsp;task&nbsp;values.&quot;}
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                004&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]
+                004&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;string]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;μ]))
+                005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;μ]))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                006&nbsp;&nbsp;
+                007&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                007&nbsp;&nbsp;(defn&nbsp;value
+                008&nbsp;&nbsp;(defn&nbsp;value
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                008&nbsp;&nbsp;&nbsp;&nbsp;&quot;Function&nbsp;ensures&nbsp;that&nbsp;a&nbsp;`vector`&nbsp;is&nbsp;returned.&quot;&nbsp;
+                009&nbsp;&nbsp;&nbsp;&nbsp;&quot;Function&nbsp;ensures&nbsp;that&nbsp;a&nbsp;`vector`&nbsp;is&nbsp;returned.&quot;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                009&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]
+                010&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]
                 </span><br/>
 <span class="partial" title="3 out of 4 forms covered">
-                010&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                011&nbsp;&nbsp;&nbsp;&nbsp;(cond
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nil?&nbsp;&nbsp;&nbsp;&nbsp;x)&nbsp;[:no-value]
+                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nil?&nbsp;&nbsp;&nbsp;&nbsp;x)&nbsp;[:no-value]
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string?&nbsp;x)&nbsp;[x]
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string?&nbsp;x)&nbsp;[x]
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(vector?&nbsp;x)&nbsp;&nbsp;x))
+                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(vector?&nbsp;x)&nbsp;&nbsp;x))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                014&nbsp;&nbsp;
+                015&nbsp;&nbsp;
                 </span><br/>
 <span class="partial" title="6 out of 9 forms covered">
-                015&nbsp;&nbsp;(defn&nbsp;wait&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(u&#x2F;number&nbsp;x)&nbsp;(:min-wait&nbsp;conf)))
+                016&nbsp;&nbsp;(defn&nbsp;wait&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(u&#x2F;number&nbsp;x)&nbsp;(:min-wait&nbsp;conf)))
                 </span><br/>
 <span class="partial" title="6 out of 9 forms covered">
-                016&nbsp;&nbsp;(defn&nbsp;rep&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(u&#x2F;number&nbsp;x)&nbsp;(:repeat&nbsp;conf)))
+                017&nbsp;&nbsp;(defn&nbsp;rep&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(u&#x2F;number&nbsp;x)&nbsp;(:repeat&nbsp;conf)))
                 </span><br/>
 <span class="partial" title="4 out of 7 forms covered">
-                017&nbsp;&nbsp;(defn&nbsp;sel&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(keyword&nbsp;x)&nbsp;:missing))
+                018&nbsp;&nbsp;(defn&nbsp;sel&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(keyword&nbsp;x)&nbsp;:missing))
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                018&nbsp;&nbsp;(defn&nbsp;port&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(u&#x2F;number&nbsp;x))
+                019&nbsp;&nbsp;(defn&nbsp;port&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(u&#x2F;number&nbsp;x))
                 </span><br/>
 <span class="partial" title="4 out of 5 forms covered">
-                019&nbsp;&nbsp;(defn&nbsp;norepl&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;x&nbsp;false))
+                020&nbsp;&nbsp;(defn&nbsp;norepl&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;x&nbsp;false))
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                020&nbsp;&nbsp;(defn&nbsp;fnc&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(keyword&nbsp;x))
+                021&nbsp;&nbsp;(defn&nbsp;fnc&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(keyword&nbsp;x))
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                021&nbsp;&nbsp;(defn&nbsp;addr&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(u&#x2F;number&nbsp;x))
+                022&nbsp;&nbsp;(defn&nbsp;addr&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(u&#x2F;number&nbsp;x))
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                022&nbsp;&nbsp;(defn&nbsp;quant&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(u&#x2F;number&nbsp;x))
+                023&nbsp;&nbsp;(defn&nbsp;quant&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(u&#x2F;number&nbsp;x))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;
+                024&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                024&nbsp;&nbsp;(defn&nbsp;safe-cmd&nbsp;[conf&nbsp;cmd]&nbsp;cmd)
+                025&nbsp;&nbsp;(defn&nbsp;safe-cmd&nbsp;[conf&nbsp;cmd]&nbsp;cmd)
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;
+                026&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                026&nbsp;&nbsp;(defmulti&nbsp;task&nbsp;(fn&nbsp;[conf&nbsp;task]&nbsp;(keyword&nbsp;(:Action&nbsp;task))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                027&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                028&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:TCP
+<span class="covered" title="1 out of 1 forms covered">
+                027&nbsp;&nbsp;(defn&nbsp;parse-gpib-str
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                028&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;map&nbsp;with&nbsp;`:DeviceName`&nbsp;`:PrimaryAddress`&nbsp;and&nbsp;`:SecondaryAddress`.
                 </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                030&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;&nbsp;&nbsp;p&nbsp;:Port&nbsp;v&nbsp;:Value&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;n&nbsp;:NoReply}&nbsp;task]
+<span class="not-tracked" title="0 out of 0 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;(parse-gpib-str&nbsp;\&quot;gpib0,9\&quot;)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:DeviceName&nbsp;\&quot;gpib0\&quot;,&nbsp;:PrimaryAddress&nbsp;9,&nbsp;:SecondaryAddress&nbsp;0}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                035&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;(parse-gpib-str&nbsp;\&quot;gpib0,9,1\&quot;)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:DeviceName&nbsp;\&quot;gpib0\&quot;,&nbsp;:PrimaryAddress&nbsp;9,&nbsp;:SecondaryAddress&nbsp;1}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;```&nbsp;&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;[s]
                 </span><br/>
 <span class="covered" title="12 out of 12 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(and&nbsp;h&nbsp;v&nbsp;p)
-                </span><br/>
-<span class="covered" title="8 out of 8 forms covered">
-                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Port&nbsp;&nbsp;&nbsp;&nbsp;(port&nbsp;conf&nbsp;p)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;&nbsp;(rep&nbsp;conf&nbsp;r)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:NoReply&nbsp;(norepl&nbsp;conf&nbsp;n))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;:Host&gt;,&nbsp;&lt;:Value&gt;&nbsp;or&nbsp;&lt;:Port&gt;&quot;})))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                039&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                040&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:VXI11
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;&nbsp;&nbsp;d&nbsp;:Device&nbsp;v&nbsp;:Value&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;n&nbsp;:NoReply}&nbsp;task
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m&nbsp;(u&#x2F;parse-device-str&nbsp;d)]
-                </span><br/>
-<span class="partial" title="11 out of 12 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(and&nbsp;v&nbsp;h&nbsp;m)
-                </span><br/>
-<span class="covered" title="10 out of 10 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;(merge&nbsp;task&nbsp;m)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;&nbsp;(rep&nbsp;conf&nbsp;r)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:NoReply&nbsp;(norepl&nbsp;conf&nbsp;n))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;:Host&gt;,&nbsp;&lt;:Value&gt;&nbsp;or&nbsp;&lt;:Device&gt;&quot;})))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                051&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                052&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:MODBUS
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;a&nbsp;:Address&nbsp;q&nbsp;:Quantity&nbsp;fc&nbsp;:FunctionCode
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;&nbsp;v&nbsp;:Value&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;:NoReply}&nbsp;task]
-                </span><br/>
-<span class="partial" title="15 out of 17 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(and&nbsp;h&nbsp;a&nbsp;fc&nbsp;q)
-                </span><br/>
-<span class="covered" title="9 out of 9 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;(fnc&nbsp;conf&nbsp;fc)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(addr&nbsp;conf&nbsp;a)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(quant&nbsp;conf&nbsp;q)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(rep&nbsp;conf&nbsp;r)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:NoReply&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(norepl&nbsp;conf&nbsp;n))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:error&nbsp;&quot;missing&nbsp;&lt;:Host&gt;,&nbsp;&lt;:Address&gt;,&nbsp;&lt;:FuctionCode&gt;&nbsp;&quot;))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                065&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                066&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:EXECUTE
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                067&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                068&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{c&nbsp;:Cmd}&nbsp;task]
-                </span><br/>
-<span class="covered" title="11 out of 11 forms covered">
-                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;c&nbsp;(assoc&nbsp;task&nbsp;:Cmd&nbsp;&nbsp;(safe-cmd&nbsp;conf&nbsp;c)))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                070&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                071&nbsp;&nbsp;(defn&nbsp;stub&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                072&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                073&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{t&nbsp;:TaskName&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;v&nbsp;:Value}&nbsp;task]
+                041&nbsp;&nbsp;&nbsp;&nbsp;(when-let&nbsp;[v&nbsp;(re-find&nbsp;(re-matcher&nbsp;#&quot;(gpib[0-9]*),([0-9]*),?([0-9]*)&quot;&nbsp;s))]
                 </span><br/>
 <span class="covered" title="7 out of 7 forms covered">
-                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:DeviceName&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nth&nbsp;v&nbsp;1)
                 </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:select&nbsp;(sel&nbsp;conf&nbsp;t)&nbsp;
+<span class="covered" title="5 out of 5 forms covered">
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:PrimaryAddress&nbsp;&nbsp;&nbsp;(u&#x2F;number&nbsp;(nth&nbsp;v&nbsp;2))
                 </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                078&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;(rep&nbsp;conf&nbsp;r))))
+<span class="partial" title="7 out of 12 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SecondaryAddress&nbsp;(if&nbsp;(=&nbsp;&quot;&quot;&nbsp;(nth&nbsp;v&nbsp;3))&nbsp;0&nbsp;(u&#x2F;number&nbsp;(nth&nbsp;v&nbsp;3)))}))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                079&nbsp;&nbsp;
+                045&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 8 forms covered">
+                046&nbsp;&nbsp;(defn&nbsp;parse-inst-str&nbsp;[s]&nbsp;{:DeviceName&nbsp;s&nbsp;:PrimaryAddress&nbsp;-1&nbsp;:SecondaryAddress&nbsp;-1})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                048&nbsp;&nbsp;(defn&nbsp;parse-device-str
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                049&nbsp;&nbsp;&nbsp;&nbsp;[s]
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                050&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(string?&nbsp;s)
+                </span><br/>
+<span class="partial" title="2 out of 3 forms covered">
+                051&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                </span><br/>
+<span class="partial" title="4 out of 7 forms covered">
+                052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;starts-with?&nbsp;s&nbsp;&quot;inst&quot;)&nbsp;(parse-inst-str&nbsp;s)
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;starts-with?&nbsp;s&nbsp;&quot;gpib&quot;)&nbsp;(parse-gpib-str&nbsp;s)
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;{:error&nbsp;&quot;not&nbsp;a&nbsp;device&nbsp;string&quot;})))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                055&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                056&nbsp;&nbsp;(defmulti&nbsp;task&nbsp;(fn&nbsp;[conf&nbsp;task]&nbsp;(keyword&nbsp;(:Action&nbsp;task))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                057&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                058&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:TCP
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                059&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                060&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;&nbsp;&nbsp;p&nbsp;:Port&nbsp;v&nbsp;:Value&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;n&nbsp;:NoReply}&nbsp;task]
+                </span><br/>
+<span class="covered" title="12 out of 12 forms covered">
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(and&nbsp;h&nbsp;v&nbsp;p)
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Port&nbsp;&nbsp;&nbsp;&nbsp;(port&nbsp;conf&nbsp;p)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;&nbsp;(rep&nbsp;conf&nbsp;r)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:NoReply&nbsp;(norepl&nbsp;conf&nbsp;n))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                068&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;:Host&gt;,&nbsp;&lt;:Value&gt;&nbsp;or&nbsp;&lt;:Port&gt;&quot;})))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                069&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                070&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:VXI11
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                071&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                072&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;d&nbsp;:Device&nbsp;v&nbsp;:Value&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;n&nbsp;:NoReply}&nbsp;task]
+                </span><br/>
+<span class="partial" title="11 out of 12 forms covered">
+                073&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(and&nbsp;v&nbsp;h&nbsp;d)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[m&nbsp;(parse-device-str&nbsp;d)]
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;m)
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;(merge&nbsp;task&nbsp;m)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                078&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                079&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                080&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;&nbsp;(rep&nbsp;conf&nbsp;r)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                081&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:NoReply&nbsp;(norepl&nbsp;conf&nbsp;n))))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                082&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;:Host&gt;,&nbsp;&lt;:Value&gt;,&nbsp;&lt;:Device&gt;&nbsp;or&nbsp;invalid&nbsp;&lt;:Device&gt;&quot;})))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                083&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                084&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:MODBUS
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                085&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                086&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;a&nbsp;:Address&nbsp;q&nbsp;:Quantity&nbsp;fc&nbsp;:FunctionCode
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                087&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;&nbsp;v&nbsp;:Value&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;:NoReply}&nbsp;task]
+                </span><br/>
+<span class="partial" title="15 out of 17 forms covered">
+                088&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(and&nbsp;h&nbsp;a&nbsp;fc&nbsp;q)
+                </span><br/>
+<span class="covered" title="9 out of 9 forms covered">
+                089&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                090&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;(fnc&nbsp;conf&nbsp;fc)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                091&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                092&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(addr&nbsp;conf&nbsp;a)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(quant&nbsp;conf&nbsp;q)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(rep&nbsp;conf&nbsp;r)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:NoReply&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(norepl&nbsp;conf&nbsp;n))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:error&nbsp;&quot;missing&nbsp;&lt;:Host&gt;,&nbsp;&lt;:Address&gt;,&nbsp;&lt;:FuctionCode&gt;&nbsp;&quot;))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                097&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                098&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:EXECUTE
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                099&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                100&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{c&nbsp;:Cmd}&nbsp;task]
+                </span><br/>
+<span class="covered" title="11 out of 11 forms covered">
+                101&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;c&nbsp;(assoc&nbsp;task&nbsp;:Cmd&nbsp;&nbsp;(safe-cmd&nbsp;conf&nbsp;c)))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                102&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                103&nbsp;&nbsp;(defn&nbsp;stub&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                104&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                105&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{t&nbsp;:TaskName&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;v&nbsp;:Value}&nbsp;task]
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                106&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                107&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:select&nbsp;(sel&nbsp;conf&nbsp;t)&nbsp;
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                109&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;(rep&nbsp;conf&nbsp;r))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                111&nbsp;&nbsp;
                 </span><br/>
  </body>
 </html>

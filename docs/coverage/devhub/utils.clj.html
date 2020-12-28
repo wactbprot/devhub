@@ -119,25 +119,25 @@
                 038&nbsp;&nbsp;&nbsp;&nbsp;[data]
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(map?&nbsp;data)
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data
+                039&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(vector?&nbsp;data)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[v&nbsp;(flatten&nbsp;data)]
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[v&nbsp;(flatten&nbsp;data)]
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:_x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v)
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:_x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_start&nbsp;(mapv&nbsp;:_t_start&nbsp;v)
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_start&nbsp;(mapv&nbsp;:_t_start&nbsp;v)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_stop&nbsp;&nbsp;(mapv&nbsp;:_t_stop&nbsp;&nbsp;v)
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_stop&nbsp;&nbsp;(mapv&nbsp;:_t_stop&nbsp;&nbsp;v)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:_dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v)})))
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:_dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v)})
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 046&nbsp;&nbsp;
@@ -328,137 +328,44 @@
 <span class="blank" title="0 out of 0 forms covered">
                 108&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                109&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                110&nbsp;&nbsp;;;&nbsp;vxi&nbsp;utils
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                111&nbsp;&nbsp;;;------------------------------------------------------------
+<span class="blank" title="0 out of 0 forms covered">
+                109&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                112&nbsp;&nbsp;(defn&nbsp;parse-gpib-str
+                110&nbsp;&nbsp;(defn&nbsp;bb-&gt;string
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                113&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;map&nbsp;with&nbsp;`:DeviceName`&nbsp;`:PrimaryAddress`&nbsp;and&nbsp;`:SecondaryAddress`.
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                114&nbsp;&nbsp;&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                115&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                116&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                117&nbsp;&nbsp;&nbsp;&nbsp;(parse-gpib-str&nbsp;\&quot;gpib0,9\&quot;)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                118&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                119&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:DeviceName&nbsp;\&quot;gpib0\&quot;,&nbsp;:PrimaryAddress&nbsp;9,&nbsp;:SecondaryAddress&nbsp;0}
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                120&nbsp;&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                121&nbsp;&nbsp;&nbsp;&nbsp;(parse-gpib-str&nbsp;\&quot;gpib0,9,1\&quot;)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                122&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                123&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:DeviceName&nbsp;\&quot;gpib0\&quot;,&nbsp;:PrimaryAddress&nbsp;9,&nbsp;:SecondaryAddress&nbsp;1}
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                124&nbsp;&nbsp;&nbsp;&nbsp;```&nbsp;&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                125&nbsp;&nbsp;&nbsp;&nbsp;[s]
-                </span><br/>
-<span class="covered" title="12 out of 12 forms covered">
-                126&nbsp;&nbsp;&nbsp;&nbsp;(when-let&nbsp;[v&nbsp;(re-find&nbsp;(re-matcher&nbsp;#&quot;(gpib[0-9]*),([0-9]*),?([0-9]*)&quot;&nbsp;s))]
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:DeviceName&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nth&nbsp;v&nbsp;1)
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:PrimaryAddress&nbsp;&nbsp;&nbsp;(number&nbsp;(nth&nbsp;v&nbsp;2))
-                </span><br/>
-<span class="partial" title="7 out of 12 forms covered">
-                129&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SecondaryAddress&nbsp;(if&nbsp;(=&nbsp;&quot;&quot;&nbsp;(nth&nbsp;v&nbsp;3))&nbsp;0&nbsp;(number&nbsp;(nth&nbsp;v&nbsp;3)))}))
+                111&nbsp;&nbsp;&nbsp;&nbsp;&quot;Turns&nbsp;the&nbsp;byte&nbsp;buffer&nbsp;`b`&nbsp;into&nbsp;a&nbsp;string.
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                130&nbsp;&nbsp;
-                </span><br/>
-<span class="partial" title="1 out of 8 forms covered">
-                131&nbsp;&nbsp;(defn&nbsp;parse-inst-str&nbsp;[s]&nbsp;{:DeviceName&nbsp;s&nbsp;:PrimaryAddress&nbsp;-1&nbsp;:SecondaryAddress&nbsp;-1})
+                112&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                132&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                133&nbsp;&nbsp;(defn&nbsp;parse-device-str
+                113&nbsp;&nbsp;&nbsp;&nbsp;Example:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                134&nbsp;&nbsp;&nbsp;&nbsp;[s]
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                135&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(string?&nbsp;s)
-                </span><br/>
-<span class="partial" title="2 out of 3 forms covered">
-                136&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
-                </span><br/>
-<span class="partial" title="4 out of 7 forms covered">
-                137&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;starts-with?&nbsp;s&nbsp;&quot;inst&quot;)&nbsp;(parse-inst-str&nbsp;s)
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                138&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;starts-with?&nbsp;s&nbsp;&quot;gpib&quot;)&nbsp;(parse-gpib-str&nbsp;s)
-                </span><br/>
-<span class="not-covered" title="0 out of 2 forms covered">
-                139&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(throw&nbsp;&quot;not&nbsp;a&nbsp;device&nbsp;string&quot;))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                140&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                141&nbsp;&nbsp;(defn&nbsp;bb-&gt;string
+                114&nbsp;&nbsp;&nbsp;&nbsp;```clojure
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                142&nbsp;&nbsp;&nbsp;&nbsp;&quot;Turns&nbsp;the&nbsp;byte&nbsp;buffer&nbsp;`b`&nbsp;into&nbsp;a&nbsp;string.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                143&nbsp;&nbsp;
+                115&nbsp;&nbsp;&nbsp;&nbsp;(time&nbsp;(bb-&gt;string&nbsp;(byte-array&nbsp;1024)))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                144&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                116&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                145&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                117&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;Elapsed&nbsp;time:&nbsp;0.347679&nbsp;msecs
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                146&nbsp;&nbsp;&nbsp;&nbsp;(time&nbsp;(bb-&gt;string&nbsp;(byte-array&nbsp;1024)))
+                118&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;\&quot;\&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                147&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                119&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                148&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;Elapsed&nbsp;time:&nbsp;0.347679&nbsp;msecs
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                149&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;\&quot;\&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                150&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                151&nbsp;&nbsp;&nbsp;&nbsp;[b]
+                120&nbsp;&nbsp;&nbsp;&nbsp;[b]
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                152&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;replace&nbsp;(slurp&nbsp;b)&nbsp;#&quot; &quot;&nbsp;&quot;&quot;))
+                121&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;replace&nbsp;(slurp&nbsp;b)&nbsp;#&quot; &quot;&nbsp;&quot;&quot;))
                 </span><br/>
  </body>
 </html>
