@@ -1,4 +1,4 @@
-(ns devhub.js-pp-test
+(ns devhub.server-test
   (:require [clojure.test  :refer :all]
             [devhub.server :refer :all]
             [devhub.utils  :as u]
