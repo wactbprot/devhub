@@ -8,7 +8,7 @@
                 001&nbsp;&nbsp;(ns&nbsp;devhub.vxi11
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                002&nbsp;&nbsp;&nbsp;&nbsp;^{:author&nbsp;&quot;wactbprot&quot;
+                002&nbsp;&nbsp;&nbsp;&nbsp;^{:author&nbsp;&quot;Wact&nbsp;B.&nbsp;Prot&nbsp;&lt;wactbprot@gmail.com&gt;&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:doc&nbsp;&quot;Handles&nbsp;VXI11&nbsp;Actions.&quot;}
@@ -157,38 +157,32 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 051&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:vxi}&nbsp;task]
                 </span><br/>
-<span class="partial" title="7 out of 9 forms covered">
-                052&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[task&nbsp;(safe&#x2F;vxi&nbsp;conf&nbsp;task)]
-                </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data-or-err&nbsp;(query&nbsp;conf&nbsp;task)]
+                052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data-or-err&nbsp;(query&nbsp;conf&nbsp;task)]
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;data-or-err)
+                053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;data-or-err)
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[error&nbsp;&nbsp;&nbsp;data-or-err
+                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[error&nbsp;&nbsp;&nbsp;data-or-err
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err-msg&nbsp;(:error&nbsp;error)]
+                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err-msg&nbsp;(:error&nbsp;error)]
                 </span><br/>
 <span class="not-covered" title="0 out of 16 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;err-msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;err-msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error)
+                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data&nbsp;(u&#x2F;meas-vec&nbsp;data-or-err)]
+                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data&nbsp;(u&#x2F;meas-vec&nbsp;data-or-err)]
                 </span><br/>
 <span class="not-covered" title="0 out of 16 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:data&nbsp;data&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:data&nbsp;data&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data)))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;value&gt;,&nbsp;&lt;host&gt;&nbsp;or&nbsp;&lt;device&gt;&quot;}))
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))))
                 </span><br/>
  </body>
 </html>

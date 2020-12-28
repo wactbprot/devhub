@@ -8,7 +8,7 @@
                 001&nbsp;&nbsp;(ns&nbsp;devhub.tcp
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                002&nbsp;&nbsp;&nbsp;&nbsp;^{:author&nbsp;&quot;wactbprot&quot;
+                002&nbsp;&nbsp;&nbsp;&nbsp;^{:author&nbsp;&quot;Wact&nbsp;B.&nbsp;Prot&nbsp;&lt;wactbprot@gmail.com&gt;&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:doc&nbsp;&quot;Handles&nbsp;TCP&nbsp;Actions.&quot;}
@@ -121,38 +121,32 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 039&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:tcp}&nbsp;task]
                 </span><br/>
-<span class="partial" title="7 out of 9 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[task&nbsp;(safe&#x2F;tcp&nbsp;conf&nbsp;task)]
-                </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data-or-err&nbsp;(query&nbsp;conf&nbsp;task)]
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data-or-err&nbsp;(query&nbsp;conf&nbsp;task)]
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;data-or-err)
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;data-or-err)
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[error&nbsp;&nbsp;&nbsp;data-or-err
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[error&nbsp;&nbsp;&nbsp;data-or-err
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err-msg&nbsp;(:error&nbsp;error)]
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err-msg&nbsp;(:error&nbsp;error)]
                 </span><br/>
 <span class="not-covered" title="0 out of 16 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;err-msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;err-msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error)
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data&nbsp;(u&#x2F;meas-vec&nbsp;data-or-err)]
+                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data&nbsp;(u&#x2F;meas-vec&nbsp;data-or-err)]
                 </span><br/>
 <span class="not-covered" title="0 out of 16 forms covered">
-                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:data&nbsp;data&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:data&nbsp;data&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data)))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;value&gt;,&nbsp;&lt;host&gt;&nbsp;or&nbsp;&lt;port&gt;&quot;}))
+                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))))
                 </span><br/>
  </body>
 </html>
