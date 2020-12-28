@@ -54,7 +54,6 @@
 
 (defn thread
   [conf task stub?]
-  (prn "ww")
   (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
   (let [task (pre-dispatch conf task)]
     (if (:error task)

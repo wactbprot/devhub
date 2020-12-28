@@ -47,4 +47,4 @@
         (let [data (u/meas-vec data-or-err)]
           (µ/log ::handler :data data  :req-id (:req-id task))
           data)))
-    {:error true :reason "missing <value>, <host> or <port>"}))
+    {:error "missing <value>, <host> or <port>"}))
