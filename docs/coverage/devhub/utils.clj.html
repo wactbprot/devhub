@@ -118,25 +118,25 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 038&nbsp;&nbsp;&nbsp;&nbsp;[data]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 039&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(map?&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
                 040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[v&nbsp;(flatten&nbsp;data)]
                 </span><br/>
-<span class="not-covered" title="0 out of 9 forms covered">
+<span class="covered" title="9 out of 9 forms covered">
                 042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:_x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v)
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_start&nbsp;(mapv&nbsp;:_t_start&nbsp;v)
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_stop&nbsp;&nbsp;(mapv&nbsp;:_t_stop&nbsp;&nbsp;v)
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:_dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v)})))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -187,19 +187,19 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 061&nbsp;&nbsp;&nbsp;&nbsp;[x]
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
+<span class="partial" title="2 out of 3 forms covered">
                 062&nbsp;&nbsp;&nbsp;&nbsp;(cond
                 </span><br/>
-<span class="not-covered" title="0 out of 6 forms covered">
+<span class="covered" title="6 out of 6 forms covered">
                 063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string?&nbsp;x)&nbsp;(edn&#x2F;read-string&nbsp;x)
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(number?&nbsp;x)&nbsp;x))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 065&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 6 forms covered">
+<span class="covered" title="6 out of 6 forms covered">
                 066&nbsp;&nbsp;(defn&nbsp;ms&nbsp;[]&nbsp;(str&nbsp;(inst-ms&nbsp;(java.util.Date.))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -235,16 +235,16 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 077&nbsp;&nbsp;&nbsp;&nbsp;[m&nbsp;t0&nbsp;t1]
                 </span><br/>
-<span class="not-covered" title="0 out of 6 forms covered">
+<span class="covered" title="6 out of 6 forms covered">
                 078&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 079&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_start&nbsp;t0
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 080&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_t_stop&nbsp;&nbsp;t1
                 </span><br/>
-<span class="not-covered" title="0 out of 7 forms covered">
+<span class="covered" title="7 out of 7 forms covered">
                 081&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:_dt&nbsp;(-&nbsp;(number&nbsp;t1)&nbsp;(number&nbsp;t0))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -256,16 +256,16 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 084&nbsp;&nbsp;&nbsp;&nbsp;[req-id&nbsp;f]
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 085&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[cmd]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 086&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[raw-result&nbsp;(f&nbsp;cmd)]
                 </span><br/>
-<span class="not-covered" title="0 out of 16 forms covered">
+<span class="covered" title="16 out of 16 forms covered">
                 087&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::wrap-log&nbsp;:req-id&nbsp;req-id&nbsp;:raw-result-str&nbsp;(str&nbsp;raw-result))
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 088&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raw-result)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -277,13 +277,13 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 091&nbsp;&nbsp;&nbsp;&nbsp;[f]
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 092&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[cmd]
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
+<span class="covered" title="3 out of 3 forms covered">
                 093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[t0&nbsp;(ms)]
                 </span><br/>
-<span class="not-covered" title="0 out of 10 forms covered">
+<span class="covered" title="10 out of 10 forms covered">
                 094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(add-times&nbsp;{:_x&nbsp;(f&nbsp;cmd)}&nbsp;t0&nbsp;(ms)))))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
@@ -304,19 +304,19 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 100&nbsp;&nbsp;&nbsp;&nbsp;[f&nbsp;conf&nbsp;{cmds&nbsp;:Value&nbsp;wait&nbsp;:Wait&nbsp;rep&nbsp;:Repeat&nbsp;req-id&nbsp;:req-id}]
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
+<span class="covered" title="3 out of 3 forms covered">
                 101&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[_]
                 </span><br/>
-<span class="not-covered" title="0 out of 10 forms covered">
+<span class="covered" title="10 out of 10 forms covered">
                 102&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[v&nbsp;(mapv&nbsp;(wrap-log&nbsp;req-id&nbsp;(wrap-times&nbsp;f))&nbsp;cmds)]
                 </span><br/>
-<span class="not-covered" title="0 out of 7 forms covered">
+<span class="partial" title="4 out of 7 forms covered">
                 103&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(&gt;&nbsp;rep&nbsp;1)&nbsp;(Thread&#x2F;sleep&nbsp;wait))
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v))
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
+<span class="covered" title="3 out of 3 forms covered">
                 105&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(range&nbsp;rep)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -379,16 +379,16 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 125&nbsp;&nbsp;&nbsp;&nbsp;[s]
                 </span><br/>
-<span class="not-covered" title="0 out of 12 forms covered">
+<span class="covered" title="12 out of 12 forms covered">
                 126&nbsp;&nbsp;&nbsp;&nbsp;(when-let&nbsp;[v&nbsp;(re-find&nbsp;(re-matcher&nbsp;#&quot;(gpib[0-9]*),([0-9]*),?([0-9]*)&quot;&nbsp;s))]
                 </span><br/>
-<span class="not-covered" title="0 out of 7 forms covered">
+<span class="covered" title="7 out of 7 forms covered">
                 127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:DeviceName&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nth&nbsp;v&nbsp;1)
                 </span><br/>
-<span class="not-covered" title="0 out of 5 forms covered">
+<span class="covered" title="5 out of 5 forms covered">
                 128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:PrimaryAddress&nbsp;&nbsp;&nbsp;(number&nbsp;(nth&nbsp;v&nbsp;2))
                 </span><br/>
-<span class="not-covered" title="0 out of 12 forms covered">
+<span class="partial" title="7 out of 12 forms covered">
                 129&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SecondaryAddress&nbsp;(if&nbsp;(=&nbsp;&quot;&quot;&nbsp;(nth&nbsp;v&nbsp;3))&nbsp;0&nbsp;(number&nbsp;(nth&nbsp;v&nbsp;3)))}))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -406,16 +406,16 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 134&nbsp;&nbsp;&nbsp;&nbsp;[s]
                 </span><br/>
-<span class="not-covered" title="0 out of 5 forms covered">
+<span class="covered" title="5 out of 5 forms covered">
                 135&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(string?&nbsp;s)
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
+<span class="partial" title="2 out of 3 forms covered">
                 136&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
                 </span><br/>
-<span class="not-covered" title="0 out of 7 forms covered">
+<span class="partial" title="4 out of 7 forms covered">
                 137&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;starts-with?&nbsp;s&nbsp;&quot;inst&quot;)&nbsp;(parse-inst-str&nbsp;s)
                 </span><br/>
-<span class="not-covered" title="0 out of 7 forms covered">
+<span class="covered" title="7 out of 7 forms covered">
                 138&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string&#x2F;starts-with?&nbsp;s&nbsp;&quot;gpib&quot;)&nbsp;(parse-gpib-str&nbsp;s)
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
