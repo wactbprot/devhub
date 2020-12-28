@@ -13,6 +13,7 @@
                                              :Port 10} false)))
         "string")
     (is (vector? (:_x (thread (u/config) {:Action "TCP"
+                                          :Value "some"
                                           :Host "invalid"
                                           :Port 10} true)))
         "stub")))
@@ -46,9 +47,9 @@
         "string")
     (is (vector? (:_x (thread (u/config) {:Action "VXI11"
                                           :Host "invalid"
+                                          :Value "some"
                                           :Device "gpib0,9"} true)))
         "stub")))
-
 
 (deftest thread-execute-i
   (testing " returns error (i)"

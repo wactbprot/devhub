@@ -1,5 +1,5 @@
 (ns devhub.modbus
-  ^{:author "wactbprot"
+  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles MODBUS Actions."}
   (:require [devhub.utils           :as u]
             [devhub.safe            :as safe]
@@ -51,14 +51,12 @@
   (handler (u/config) {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode \"ReadHoldingRegisters\"})
   ```"
   [{conf :modbus} task]
-  (if-let [task (safe/modbus conf task)]
-    (let [data-or-err (query conf task)]
-      (if (:error data-or-err)
-        (let [error   data-or-err
-              err-msg (:error error)]
-          (µ/log ::handler :error err-msg :req-id (:req-id task))
-          error)
+  (let [data-or-err (query conf task)]
+    (if (:error data-or-err)
+      (let [error   data-or-err
+            err-msg (:error error)]
+        (µ/log ::handler :error err-msg :req-id (:req-id task))
+        error)
         (let [data (u/meas-vec data-or-err)]
           (µ/log ::handler :data data  :req-id (:req-id task))
-          data)))
-    {:error  "missing <functioncode>, <host>, <address> or <quantity>"}))
+          data))))

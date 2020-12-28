@@ -1,5 +1,5 @@
 (ns devhub.server
-  ^{:author "wactbprot"
+  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Start and stop the devhub server. Routing and dispatching."}
   (:require [compojure.route          :as route]
             [devhub.utils             :as u]
@@ -8,6 +8,7 @@
             [devhub.py-pp             :as py]
             [devhub.tcp               :as tcp]
             [devhub.stub              :as stub]
+            [devhub.safe              :as safe]
             [devhub.vxi11             :as vxi]
             [devhub.modbus            :as modbus]
             [devhub.execute           :as execute]
@@ -55,16 +56,19 @@
 (defn thread
   [conf task stub?]
   (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
-  (let [task (pre-dispatch conf task)]
+  (let [task (safe/task conf task)]
     (if (:error task)
       task
-      (let [data (if stub?
-                   (stub/response conf task)
-                   (dispatch      conf task))]
-          (if (:error data)
-            data
-            (post-dispatch conf task data))))))
-
+      (let [task (pre-dispatch conf task)]
+        (if (:error task)
+          task
+          (let [data (if stub?
+                       (stub/response conf task)
+                       (dispatch      conf task))]
+            (if (:error data)
+              data
+              (post-dispatch conf task data))))))))
+  
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
   (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))

@@ -1,5 +1,5 @@
 (ns devhub.js-pp
-  ^{:author "wactbprot"
+  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles javascript post-processing."}
   (:require [clojure.string         :as string]
             [cheshire.core          :as che]

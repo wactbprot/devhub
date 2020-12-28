@@ -1,5 +1,5 @@
 (ns devhub.execute
-  ^{:author "wactbprot"
+  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles EXECUTE Actions."}
   (:require [clojure.java.shell     :refer [sh]]
             [devhub.safe            :as safe]
@@ -14,7 +14,7 @@
   (handler (u/config) {:Cmd \"ls\"})
   ```"
   [{conf :execute} task]
-  (if-let [task (safe/execute conf task)]
+  (if-let [task (safe/task conf task)]
     (let [t0  (u/ms)
           res (sh (:shell conf) (:param conf) (:Cmd task))
           t1  (u/ms)]

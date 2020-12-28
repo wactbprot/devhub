@@ -1,8 +1,7 @@
 (ns devhub.py-pp
-  ^{:author "wactbprot"
+  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles python post-processing."}
-  (:require [clojure.string     :as string]
-            [cheshire.core      :as che]
+  (:require [cheshire.core      :as che]
             [clojure.java.shell :refer [sh]]
             [devhub.utils       :as u]
             [com.brunobonacci.mulog :as µ]))
