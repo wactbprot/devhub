@@ -68,7 +68,7 @@
             (if (:error data)
               data
               (post-dispatch conf task data))))))))
-  
+
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
   (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))

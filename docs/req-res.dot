@@ -50,6 +50,7 @@ digraph  regexp {
         pre_py ->disp
         pre_clj->disp
 
+        pre -> disp
         disp -> stub
 
         disp -> tcp
