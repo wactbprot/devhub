@@ -17,7 +17,6 @@
 (defn sel    [conf x] (if x (keyword x) :missing))
 (defn port   [conf x] (u/number x))
 (defn norepl [conf x] (if x x false))
-(defn cmd    [conf x] (value conf x))
 (defn fnc    [conf x] (keyword x))
 (defn addr   [conf x] (u/number x))
 (defn quant  [conf x] (u/number x))
@@ -68,12 +67,12 @@
                                 :Repeat       (rep conf r)
                                 :NoReply      (norepl conf n)))))
 
+
+(defn safe-cmd [conf cmd] cmd)
+
 (defn execute
   "Ensures the `task` values to be in the right shape.
   TODO: safe-cmd"
   [conf task]
-  (let [{c :Cmd w :Wait r :Repeat} task]
-    (when c (assoc task
-                   :Repeat (rep conf r)
-                   :Wait   (wait conf w)
-                   :Value  (cmd conf c)))))
+  (let [{c :Cmd} task]
+    (when c (assoc task :Cmd  (safe-cmd conf c)))))

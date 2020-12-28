@@ -6,8 +6,6 @@
             [devhub.utils           :as u]
             [com.brunobonacci.mulog :as µ]))
 
-(defn safe-cmd [conf cmd] cmd)
-
 (defn handler
   "Handles Execute tasks.
   
@@ -17,11 +15,10 @@
   ```"
   [{conf :execute} task]
   (if-let [task (safe/execute conf task)]
-    (let [f (fn [cmd] (:out (sh (:shell conf) (:param conf) cmd)))]
-      (if-let [data (try (u/run f conf task)
-                         (catch Exception e
-                           (µ/log ::handler :exception (.getMessage e) :req-id (:req-id task))
-                           {:error (.getMessage e)}))]
-        (u/meas-vec data)
-        {:error "no data"}))
+    (let [t0  (u/ms)
+          res (sh (:shell conf) (:param conf) (:Cmd task))
+          t1  (u/ms)]
+      (if (= 0 (:exit res))
+        {:_x (:out res) :_t_start t0 :_t_stop t1} 
+        {:error (:err res)}))
     {:error "missing <command>"}))

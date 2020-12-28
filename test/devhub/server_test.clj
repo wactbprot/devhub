@@ -29,11 +29,11 @@
                                              :Host "invalid"} false)))
         "string")
     (is (vector? (:_x (thread (u/config) {:Action "MODBUS"
-                                             :FunctionCode :ReadHoldingRegisters
-                                             :Value [:no-value]
-                                             :Address 0
-                                             :Quantity 9
-                                             :Host "invalid"} true)))
+                                          :FunctionCode :ReadHoldingRegisters
+                                          :Value [:no-value]
+                                          :Address 0
+                                          :Quantity 9
+                                          :Host "invalid"} true)))
         "stub")))
 
 (deftest thread-vxi-i
@@ -45,8 +45,8 @@
                                              :Device "gpib0,9"} false)))
         "string")
     (is (vector? (:_x (thread (u/config) {:Action "VXI11"
-                                             :Host "invalid"
-                                             :Device "gpib0,9"} true)))
+                                          :Host "invalid"
+                                          :Device "gpib0,9"} true)))
         "stub")))
 
 
@@ -55,10 +55,12 @@
     (is (string? (:error (thread (u/config) {:Action "EXECUTE"} false)))
         "string")
     (is (string? (:error (thread (u/config) {:Action "EXECUTE"
-                                             :Cmd "invalid"
-                                             } false)))
+                                             :Cmd "invalid"} false)))
         "string")
-    (is (vector? (:_x (thread (u/config) {:Action "VXI11"
-                                             :Cmd "invalid"
-                                             } true)))
-        "stub")))
+    (is (vector? (:_x (thread (u/config) {:Action "EXECUTE"
+                                          :Cmd "invalid"} true)))
+        "stub")
+    (is (string? (:_x (thread (u/config) {:Action "EXECUTE"
+                                          :Cmd "ls"} false)))
+        "real return value")
+    ))
