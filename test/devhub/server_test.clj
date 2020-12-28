@@ -13,8 +13,8 @@
                                              :Port 10} false)))
         "string")
     (is (vector? (:_x (thread (u/config) {:Action "TCP"
-                                             :Host "invalid"
-                                             :Port 10} true)))
+                                          :Host "invalid"
+                                          :Port 10} true)))
         "stub")))
 
 (deftest thread-modbus-i
@@ -47,4 +47,18 @@
     (is (vector? (:_x (thread (u/config) {:Action "VXI11"
                                              :Host "invalid"
                                              :Device "gpib0,9"} true)))
+        "stub")))
+
+
+(deftest thread-execute-i
+  (testing " returns error (i)"
+    (is (string? (:error (thread (u/config) {:Action "EXECUTE"} false)))
+        "string")
+    (is (string? (:error (thread (u/config) {:Action "EXECUTE"
+                                             :Cmd "invalid"
+                                             } false)))
+        "string")
+    (is (vector? (:_x (thread (u/config) {:Action "VXI11"
+                                             :Cmd "invalid"
+                                             } true)))
         "stub")))

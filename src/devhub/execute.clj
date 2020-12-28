@@ -23,5 +23,5 @@
                            (µ/log ::handler :exception (.getMessage e) :req-id (:req-id task))
                            {:error (.getMessage e)}))]
         (u/meas-vec data)
-        {:error true :reason "no data"}))
-    {:error true :reason "missing <value>, <host> or <port>"}))
+        {:error "no data"}))
+    {:error "missing <command>"}))
