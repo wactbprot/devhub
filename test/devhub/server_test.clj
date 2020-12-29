@@ -4,6 +4,20 @@
             [devhub.utils  :as u]
             ))
 
+
+(deftest start-stop-server-i
+  (testing "server starts and stops at test port 9010"
+    (let [c (assoc-in (u/config) [:server :port] 9010)]
+      (is (function? (start c))
+          "start up")
+      (is (nil? (stop))
+          "shut down"))))
+
+(deftest thread-invalid-action-i
+  (testing " returns error  (i)"
+    (is (string? (:error (thread (u/config) {:Action "INVALID"} false)))
+        "string")))
+
 (deftest thread-tcp-i
   (testing " returns error  (i)"
     (is (string? (:error (thread (u/config) {:Action "TCP"} false)))

@@ -88,8 +88,8 @@
    {:app-name "devhub" :version (:version (u/version)) :env "local"})
   (μ/start-publisher! conf))
 
-(defonce server (atom nil))
-(defonce logger (atom nil))
+(def server (atom nil))
+(def logger (atom nil))
 
 (defn stop
   []
@@ -99,6 +99,8 @@
   (reset! logger nil))
 
 (defn start
-  []
-  (reset! logger (init-log! (u/config)))
-  (reset! server (run-server app (:server (u/config)))))
+  ([]
+   (start (u/config)))
+  ([conf]
+   (reset! logger (init-log! conf))
+   (reset! server (run-server app (:server conf)))))

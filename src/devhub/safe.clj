@@ -100,6 +100,8 @@
   (let [{c :Cmd} task]
     (when c (assoc task :Cmd  (safe-cmd conf c)))))
 
+(defmethod task :default [conf task] {:error "unsupported action"})
+
 (defn stub  
   [conf task]
   (let [{t :TaskName w :Wait r :Repeat v :Value} task]
