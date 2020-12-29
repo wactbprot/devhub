@@ -35,118 +35,85 @@
                 010&nbsp;&nbsp;(defn&nbsp;query
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                011&nbsp;&nbsp;&nbsp;&nbsp;&quot;Sends&nbsp;the&nbsp;`cmds`&nbsp;to&nbsp;a&nbsp;raw&nbsp;tcp&nbsp;socket&nbsp;with&nbsp;the&nbsp;specified&nbsp;`host`&nbsp;and
+                011&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;TCP&nbsp;queries.&nbsp;Sends&nbsp;the&nbsp;`cmds`&nbsp;to&nbsp;a&nbsp;raw&nbsp;tcp&nbsp;socket&nbsp;with&nbsp;the&nbsp;specified&nbsp;`host`&nbsp;and
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                012&nbsp;&nbsp;&nbsp;&nbsp;`port`.&quot;
+                012&nbsp;&nbsp;&nbsp;&nbsp;`port`.
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                013&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="not-covered" title="0 out of 2 forms covered">
-                014&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{host&nbsp;:Host&nbsp;port&nbsp;:Port}&nbsp;task]
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(try
-                </span><br/>
-<span class="not-covered" title="0 out of 13 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(with-open&nbsp;[sock&nbsp;(Socket.&nbsp;host&nbsp;port)
-                </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out&nbsp;&nbsp;(PrintWriter.&nbsp;&nbsp;&nbsp;&nbsp;(OutputStreamWriter.&nbsp;(.getOutputStream&nbsp;sock)))
-                </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;(BufferedReader.&nbsp;(InputStreamReader.&nbsp;(.getInputStream&nbsp;sock)))]
-                </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;run&nbsp;(fn&nbsp;[cmd]
-                </span><br/>
-<span class="not-covered" title="0 out of 2 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.print&nbsp;out&nbsp;cmd)
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.flush&nbsp;out)
-                </span><br/>
-<span class="not-covered" title="0 out of 10 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(:NoReply&nbsp;task)&nbsp;(.readLine&nbsp;in)&nbsp;&quot;&quot;))&nbsp;conf&nbsp;task))
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;&nbsp;Exception&nbsp;e
+                014&nbsp;&nbsp;&nbsp;&nbsp;Example:
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&nbsp;to&nbsp;host&quot;}))))
+<span class="not-tracked" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;```clojure
                 </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;
+<span class="not-tracked" title="0 out of 0 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;c&nbsp;(u&#x2F;config))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t1&nbsp;{:Port&nbsp;5025&nbsp;:Host&nbsp;\&quot;e75496\&quot;&nbsp;:Value&nbsp;\&quot;frs()\\n\&quot;})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t1)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                020&nbsp;&nbsp;&nbsp;&nbsp;;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t2&nbsp;{:Port&nbsp;5000&nbsp;:Host&nbsp;\&quot;localhost\&quot;&nbsp;:Value&nbsp;\&quot;frs()\\n\&quot;})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t2)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:tcp}&nbsp;task]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{host&nbsp;:Host&nbsp;port&nbsp;:Port}&nbsp;task]
+                </span><br/>
+<span class="covered" title="18 out of 18 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::query&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:Host&nbsp;host&nbsp;:Port&nbsp;port)
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                026&nbsp;&nbsp;(defn&nbsp;handler
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(try
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                027&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;TCP&nbsp;queries.
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                030&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;c&nbsp;(u&#x2F;config))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                032&nbsp;&nbsp;&nbsp;&nbsp;;;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t1&nbsp;{:Port&nbsp;5025&nbsp;:Host&nbsp;\&quot;e75496\&quot;&nbsp;:Value&nbsp;\&quot;frs()\\n\&quot;})
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;(handler&nbsp;c&nbsp;t1)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                035&nbsp;&nbsp;&nbsp;&nbsp;;;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t2&nbsp;{:Port&nbsp;5000&nbsp;:Host&nbsp;\&quot;localhost\&quot;&nbsp;:Value&nbsp;\&quot;frs()\\n\&quot;})
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;(handler&nbsp;c&nbsp;t2)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:tcp}&nbsp;task]
-                </span><br/>
-<span class="not-covered" title="0 out of 5 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data-or-err&nbsp;(query&nbsp;conf&nbsp;task)]
-                </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;data-or-err)
-                </span><br/>
-<span class="not-covered" title="0 out of 2 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[error&nbsp;&nbsp;&nbsp;data-or-err
+<span class="partial" title="4 out of 13 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(with-open&nbsp;[sock&nbsp;(Socket.&nbsp;host&nbsp;port)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err-msg&nbsp;(:error&nbsp;error)]
+                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out&nbsp;&nbsp;(PrintWriter.&nbsp;&nbsp;&nbsp;&nbsp;(OutputStreamWriter.&nbsp;(.getOutputStream&nbsp;sock)))
                 </span><br/>
-<span class="not-covered" title="0 out of 16 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;err-msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+<span class="not-covered" title="0 out of 3 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;(BufferedReader.&nbsp;(InputStreamReader.&nbsp;(.getInputStream&nbsp;sock)))]
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error)
+<span class="not-covered" title="0 out of 3 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;run&nbsp;(fn&nbsp;[cmd]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[data&nbsp;(u&#x2F;meas-vec&nbsp;data-or-err)]
-                </span><br/>
-<span class="not-covered" title="0 out of 16 forms covered">
-                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:data&nbsp;data&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+<span class="not-covered" title="0 out of 2 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.print&nbsp;out&nbsp;cmd)
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))))
+                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.flush&nbsp;out)
+                </span><br/>
+<span class="not-covered" title="0 out of 10 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(:NoReply&nbsp;task)&nbsp;(.readLine&nbsp;in)&nbsp;&quot;&quot;))&nbsp;conf&nbsp;task))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;&nbsp;Exception&nbsp;e
+                </span><br/>
+<span class="covered" title="16 out of 16 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::query&nbsp;:error&nbsp;&quot;connection&nbsp;error&quot;&nbsp;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&nbsp;to&nbsp;host&quot;}))))
                 </span><br/>
  </body>
 </html>

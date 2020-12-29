@@ -47,9 +47,9 @@
     (let [action (keyword (:Action task))]
       (μ/log ::dispatch :req-id (:req-id task) :Action action)
       (condp = action 
-        :TCP     (tcp/handler     conf task)
-        :MODBUS  (modbus/handler  conf task)
-        :VXI11   (vxi/handler     conf task)
+        :TCP     (tcp/query       conf task)
+        :MODBUS  (modbus/query    conf task)
+        :VXI11   (vxi/query       conf task)
         :EXECUTE (execute/handler conf task)
         {:error "wrong action"})))
 
@@ -67,7 +67,7 @@
                        (dispatch      conf task))]
             (if (:error data)
               data
-              (post-dispatch conf task data))))))))
+              (post-dispatch conf task (u/meas-vec data)))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

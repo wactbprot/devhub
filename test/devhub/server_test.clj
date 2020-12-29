@@ -12,6 +12,11 @@
                                              :Host "invalid"
                                              :Port 10} false)))
         "string")
+    (is (string? (:error (thread (u/config) {:Action "TCP"
+                                          :Value "some"
+                                          :Host "invalid"
+                                          :Port 10} false)))
+        "stub")
     (is (vector? (:_x (thread (u/config) {:Action "TCP"
                                           :Value "some"
                                           :Host "invalid"
@@ -43,6 +48,7 @@
         "string")
     (is (string? (:error (thread (u/config) {:Action "VXI11"
                                              :Host "invalid"
+                                             :Value "invalid"
                                              :Device "gpib0,9"} false)))
         "string")
     (is (vector? (:_x (thread (u/config) {:Action "VXI11"

@@ -7,35 +7,10 @@
   (:import  [jvxi11 VXI11Factory VXI11UserFactory]))
 
 (defn query
-  "Sends the `cmds` to a vxi11 device. Data is read out by means of the
-  byte buffer `bb` with the size `bs`.
+  "Handles VXI11 queries. Sends the `cmds` to a vxi11 device. Data is
+  read out by means of the byte buffer `bb` with the size `bs`.
 
   TODO: Calculate and set TimeOut.
-  "
-  [conf task]
-  (let [{pa :PrimaryAddress sa :SecondaryAddress host :Host device :DeviceName} task
-        ctrl (VXI11Factory/create host device)
-        usr  (VXI11UserFactory/create)
-        _    (.connect ctrl usr)]
-    (let [dev-or-err (try (.createDevice ctrl pa sa)
-                          (catch Exception e
-                            {:error "can not connect to device"}))]
-      (if (:error dev-or-err)
-        dev-or-err
-        (let [dev  dev-or-err
-              _    (.connect dev usr)
-              bs   (:read-buffer-size conf)
-              bb   (byte-array bs) 
-              f    (fn [cmd]
-                     (.write dev usr (.getBytes cmd) (.length cmd))
-                     (when-not (:NoReply task) (.read dev usr bb bs))
-                     (u/bb->string bb))
-              data (u/run f conf task)]
-          (.disconnect dev)
-          data)))))
-
-(defn handler
-  "Handles VXI11 queries.
   
   Example:
   ```clojure
@@ -47,14 +22,27 @@
   ;; :_t_start [1607513740001],
   ;; :_t_stop [1607513740028],
   ;; :_dt [27]}}
-  ```"
+  ```
+  "
   [{conf :vxi} task]
-    (let [data-or-err (query conf task)]
-      (if (:error data-or-err)
-        (let [error   data-or-err
-              err-msg (:error error)]
-          (µ/log ::handler :error err-msg :req-id (:req-id task))
-          error)
-        (let [data (u/meas-vec data-or-err)]
-          (µ/log ::handler :data data  :req-id (:req-id task))
-          data))))
+  (let [{host :Host device :DeviceName pa :PrimaryAddress sa :SecondaryAddress} task]
+    (µ/log ::query :req-id (:req-id task) :Host host :DeviceName device)
+    (let [ctrl (VXI11Factory/create host device)
+          usr  (VXI11UserFactory/create)
+          _    (.connect ctrl usr)
+          dev  (.createDevice ctrl pa sa)
+          conn-or-err (try (.connect dev usr) 
+                           (catch Exception e
+                             (µ/log ::query :error "connection error" :req-id (:req-id task))
+                             {:error "can not connect"}))]
+      (if (:error conn-or-err)
+        conn-or-err
+        (let [bs (:read-buffer-size conf)
+              bb (byte-array bs) 
+              f  (fn [cmd]
+                   (.write dev usr (.getBytes cmd) (.length cmd))
+                   (when-not (:NoReply task) (.read dev usr bb bs))
+                   (u/bb->string bb))
+              data (u/run f conf task)]
+          (.disconnect dev)
+          data)))))

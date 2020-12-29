@@ -8,10 +8,22 @@
            [java.net Socket]))
 
 (defn query
-  "Sends the `cmds` to a raw tcp socket with the specified `host` and
-  `port`."
-  [conf task]
+  "Handles TCP queries. Sends the `cmds` to a raw tcp socket with the specified `host` and
+  `port`.
+    
+  Example:
+  ```clojure
+  (def c (u/config))
+  ;;
+  (def t1 {:Port 5025 :Host \"e75496\" :Value \"frs()\\n\"})
+  (query c t1)
+  ;;
+  (def t2 {:Port 5000 :Host \"localhost\" :Value \"frs()\\n\"})
+  (query c t2)
+  ```"
+  [{conf :tcp} task]
   (let [{host :Host port :Port} task]
+    (µ/log ::query :req-id (:req-id task) :Host host :Port port)
     (try
       (with-open [sock (Socket. host port)
                   out  (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
@@ -21,28 +33,5 @@
                  (.flush out)
                  (if-not (:NoReply task) (.readLine in) "")) conf task))
       (catch  Exception e
-      {:error "can not connect to host"}))))
-
-(defn handler
-  "Handles TCP queries.
-    
-  Example:
-  ```clojure
-  (def c (u/config))
-  ;;
-  (def t1 {:Port 5025 :Host \"e75496\" :Value \"frs()\\n\"})
-  (handler c t1)
-  ;;
-  (def t2 {:Port 5000 :Host \"localhost\" :Value \"frs()\\n\"})
-  (handler c t2)
-  ```"
-  [{conf :tcp} task]
-    (let [data-or-err (query conf task)]
-      (if (:error data-or-err)
-        (let [error   data-or-err
-              err-msg (:error error)]
-          (µ/log ::handler :error err-msg :req-id (:req-id task))
-          error)
-        (let [data (u/meas-vec data-or-err)]
-          (µ/log ::handler :data data  :req-id (:req-id task))
-          data))))
+        (µ/log ::query :error "connection error"  :req-id (:req-id task))
+        {:error "can not connect to host"}))))
