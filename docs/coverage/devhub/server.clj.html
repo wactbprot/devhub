@@ -289,38 +289,44 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 095&nbsp;&nbsp;&nbsp;&nbsp;[]
                 </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                096&nbsp;&nbsp;&nbsp;&nbsp;(μ&#x2F;log&nbsp;::stop)
+                </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                096&nbsp;&nbsp;&nbsp;&nbsp;(@server&nbsp;:timeout&nbsp;100)
+                097&nbsp;&nbsp;&nbsp;&nbsp;(@server&nbsp;:timeout&nbsp;100)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                097&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;nil)
+                098&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;nil)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                098&nbsp;&nbsp;&nbsp;&nbsp;(@logger)
+                099&nbsp;&nbsp;&nbsp;&nbsp;(@logger)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                099&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;nil))
+                100&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;nil))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                100&nbsp;&nbsp;
+                101&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                101&nbsp;&nbsp;(defn&nbsp;start
+                102&nbsp;&nbsp;(defn&nbsp;start
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                102&nbsp;&nbsp;&nbsp;&nbsp;([]
+                103&nbsp;&nbsp;&nbsp;&nbsp;([]
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                103&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(start&nbsp;(u&#x2F;config)))
+                104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(start&nbsp;(u&#x2F;config)))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                104&nbsp;&nbsp;&nbsp;&nbsp;([conf]
+                105&nbsp;&nbsp;&nbsp;&nbsp;([conf]
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                106&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(μ&#x2F;log&nbsp;::start)
                 </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                105&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;(init-log!&nbsp;conf))
+                107&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;(init-log!&nbsp;conf))
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                106&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;(run-server&nbsp;app&nbsp;(:server&nbsp;conf)))))
+                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;(run-server&nbsp;app&nbsp;(:server&nbsp;conf)))))
                 </span><br/>
  </body>
 </html>

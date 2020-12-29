@@ -34,7 +34,7 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 010&nbsp;&nbsp;&nbsp;&nbsp;[rs]
                 </span><br/>
-<span class="not-covered" title="0 out of 13 forms covered">
+<span class="partial" title="12 out of 13 forms covered">
                 011&nbsp;&nbsp;&nbsp;&nbsp;(and&nbsp;(vector?&nbsp;rs)&nbsp;(=&nbsp;&nbsp;(count&nbsp;rs)&nbsp;(:register-count&nbsp;conf))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -73,13 +73,13 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 023&nbsp;&nbsp;&nbsp;&nbsp;[rs&nbsp;m]
                 </span><br/>
-<span class="not-covered" title="0 out of 2 forms covered">
+<span class="covered" title="2 out of 2 forms covered">
                 024&nbsp;&nbsp;&nbsp;&nbsp;(mapv
                 </span><br/>
-<span class="not-covered" title="0 out of 9 forms covered">
+<span class="covered" title="9 out of 9 forms covered">
                 025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[[kw&nbsp;[block&nbsp;position]]]&nbsp;{kw&nbsp;(pu&#x2F;open?&nbsp;(nth&nbsp;rs&nbsp;block)&nbsp;position)})
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
+<span class="covered" title="1 out of 1 forms covered">
                 026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -121,13 +121,13 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 039&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;{rs&nbsp;:_x}]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 040&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
                 </span><br/>
-<span class="not-covered" title="0 out of 9 forms covered">
+<span class="covered" title="9 out of 9 forms covered">
                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[vs&nbsp;(pu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:valve-position&nbsp;conf)))]
                 </span><br/>
-<span class="not-covered" title="0 out of 9 forms covered">
+<span class="covered" title="9 out of 9 forms covered">
                 042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;vs)})
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
@@ -175,16 +175,16 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 057&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;{rs&nbsp;:_x}]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
+<span class="covered" title="4 out of 4 forms covered">
                 058&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
                 </span><br/>
-<span class="not-covered" title="0 out of 9 forms covered">
+<span class="covered" title="9 out of 9 forms covered">
                 059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[so&nbsp;(pu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-open&nbsp;&nbsp;&nbsp;&nbsp;conf)))
                 </span><br/>
-<span class="not-covered" title="0 out of 8 forms covered">
+<span class="covered" title="8 out of 8 forms covered">
                 060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sc&nbsp;(pu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-closed&nbsp;&nbsp;conf)))]
                 </span><br/>
-<span class="not-covered" title="0 out of 13 forms covered">
+<span class="covered" title="13 out of 13 forms covered">
                 061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;so)&nbsp;sc)})
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">

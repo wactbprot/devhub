@@ -93,6 +93,7 @@
 
 (defn stop
   []
+  (μ/log ::stop)
   (@server :timeout 100)
   (reset! server nil)
   (@logger)
@@ -102,5 +103,6 @@
   ([]
    (start (u/config)))
   ([conf]
+   (μ/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server app (:server conf)))))
