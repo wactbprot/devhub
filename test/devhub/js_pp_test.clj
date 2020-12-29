@@ -1,6 +1,7 @@
 (ns devhub.js-pp-test
   (:require [clojure.test :refer :all]
-            [devhub.js-pp :refer :all]))
+            [devhub.js-pp :refer :all]
+            [devhub.utils :as u]))
 
 (def pp [
          "var _vec=_x.map(function(s){return s.split(' ')[1]}).map(parseFloat),",
@@ -24,4 +25,6 @@
     (is (nil? (pp-str nil nil))
         "nil .")
     (is (string? (pp-str pp data))
-        "string")))
+        "string")
+    (is (map? (:ToExchange (exec (u/config) {:PostProcessing pp} data)))
+        "exec")))

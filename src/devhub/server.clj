@@ -57,17 +57,12 @@
   [conf task stub?]
   (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
   (let [task (safe/task conf task)]
-    (if (:error task)
-      task
-      (let [task (pre-dispatch conf task)]
-        (if (:error task)
-          task
-          (let [data (if stub?
-                       (stub/response conf task)
-                       (dispatch      conf task))]
-            (if (:error data)
-              data
-              (post-dispatch conf task (u/meas-vec data)))))))))
+    (if (:error task) task
+        (let [task (pre-dispatch conf task)]
+          (if (:error task) task
+              (let [data (if stub? (stub/response conf task) (dispatch conf task))]
+                (if (:error data) data
+                    (post-dispatch conf task (u/meas-vec data)))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

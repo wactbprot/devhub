@@ -26,8 +26,7 @@
   ;; (sh node (exec-fn conf) (:js-path conf) pf)
   ;; means e.g.:
   node resources/js/exec.js resources/js/ /tmp/MKT50-exec.js
-  ```
-  "
+  ```"
   [{conf :post} task data]
   (let [pf  (pp-fn conf task)
         _   (spit pf (pp-str (:PostProcessing task) data))
@@ -36,6 +35,6 @@
       (try
         (che/decode (:out res) true)
         (catch Exception e
-          (µ/log ::exec :exception e :status :failed)
+          (µ/log ::exec :error "decode error" :req-id (:req-id task))
           {:error (str "caught exception: " (.getMessage e))}))
       {:error (:err res)})))
