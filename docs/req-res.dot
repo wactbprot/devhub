@@ -22,11 +22,11 @@ digraph  regexp {
         echo [shape=box, label="echo", URL="", tooltip="echo"];
         
         disp [shape=diamond, label="dispatch", URL="", tooltip="dispatch"];
-        stub [shape=box, label="stub", URL="", tooltip="pre defind responses"];
-        tcp [shape=box, label="TCP", URL="", tooltip="requests to tcp devices"];
-        vxi [shape=box, label="VXI", URL="", tooltip="requests to vxi devices"];
-        modbus [shape=box, label="MODBUS", URL="", tooltip="requests to modbus devices"];
-        exec [shape=box, label="EXECUTE", URL="", tooltip="execution of commands"];
+        stub [shape=box, label="stub", URL="https://github.com/wactbprot/devhub/blob/master/src/devhub/stub.clj", tooltip="pre defind responses"];
+        tcp [shape=box, label="TCP", URL="https://github.com/wactbprot/devhub/blob/master/src/devhub/tcp.clj", tooltip="requests to tcp devices"];
+        vxi [shape=box, label="VXI", URL="https://github.com/wactbprot/devhub/blob/master/src/devhub/vxi.clj", tooltip="requests to vxi devices"];
+        modbus [shape=box, label="MODBUS", URL="https://github.com/wactbprot/devhub/blob/master/src/devhub/modbus.clj", tooltip="requests to modbus devices"];
+        exec [shape=box, label="EXECUTE", URL="https://github.com/wactbprot/devhub/blob/master/src/devhub/execute.clj", tooltip="execution of commands"];
         
         post [shape=diamond, label="post dispatch", URL="", tooltip="post-scripts or post-processing"];
         post_js [shape=box, label=":PostProcessing", URL="", tooltip="post-processing of js code"];

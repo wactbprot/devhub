@@ -173,7 +173,7 @@
 <!-- stub -->
 <g id="node10" class="node">
 <title>stub</title>
-<g id="a_node10"><a xlink:title="pre defind responses">
+<g id="a_node10"><a xlink:href="https://github.com/wactbprot/devhub/blob/master/src/devhub/stub.clj" xlink:title="pre defind responses">
 <polygon fill="none" stroke="black" points="297,-324 243,-324 243,-288 297,-288 297,-324"/>
 <text text-anchor="middle" x="270" y="-302.9" font-family="Ubuntu" font-size="12.00">stub</text>
 </a>
@@ -188,7 +188,7 @@
 <!-- tcp -->
 <g id="node11" class="node">
 <title>tcp</title>
-<g id="a_node11"><a xlink:title="requests to tcp devices">
+<g id="a_node11"><a xlink:href="https://github.com/wactbprot/devhub/blob/master/src/devhub/tcp.clj" xlink:title="requests to tcp devices">
 <polygon fill="none" stroke="black" points="369,-324 315,-324 315,-288 369,-288 369,-324"/>
 <text text-anchor="middle" x="342" y="-302.9" font-family="Ubuntu" font-size="12.00">TCP</text>
 </a>
@@ -203,7 +203,7 @@
 <!-- vxi -->
 <g id="node12" class="node">
 <title>vxi</title>
-<g id="a_node12"><a xlink:title="requests to vxi devices">
+<g id="a_node12"><a xlink:href="https://github.com/wactbprot/devhub/blob/master/src/devhub/vxi.clj" xlink:title="requests to vxi devices">
 <polygon fill="none" stroke="black" points="54,-324 0,-324 0,-288 54,-288 54,-324"/>
 <text text-anchor="middle" x="27" y="-302.9" font-family="Ubuntu" font-size="12.00">VXI</text>
 </a>
@@ -218,7 +218,7 @@
 <!-- modbus -->
 <g id="node13" class="node">
 <title>modbus</title>
-<g id="a_node13"><a xlink:title="requests to modbus devices">
+<g id="a_node13"><a xlink:href="https://github.com/wactbprot/devhub/blob/master/src/devhub/modbus.clj" xlink:title="requests to modbus devices">
 <polygon fill="none" stroke="black" points="139.5,-324 72.5,-324 72.5,-288 139.5,-288 139.5,-324"/>
 <text text-anchor="middle" x="106" y="-302.9" font-family="Ubuntu" font-size="12.00">MODBUS</text>
 </a>
@@ -233,7 +233,7 @@
 <!-- exec -->
 <g id="node14" class="node">
 <title>exec</title>
-<g id="a_node14"><a xlink:title="execution of commands">
+<g id="a_node14"><a xlink:href="https://github.com/wactbprot/devhub/blob/master/src/devhub/execute.clj" xlink:title="execution of commands">
 <polygon fill="none" stroke="black" points="224.5,-324 157.5,-324 157.5,-288 224.5,-288 224.5,-324"/>
 <text text-anchor="middle" x="191" y="-302.9" font-family="Ubuntu" font-size="12.00">EXECUTE</text>
 </a>
