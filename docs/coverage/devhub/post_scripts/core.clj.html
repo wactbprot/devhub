@@ -17,19 +17,22 @@
                 004&nbsp;&nbsp;(defn&nbsp;dispatch
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                005&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;data&nbsp;ps]
+                005&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;data]
                 </span><br/>
-<span class="not-covered" title="0 out of 10 forms covered">
-                006&nbsp;&nbsp;&nbsp;&nbsp;(cond&nbsp;=&nbsp;(keyword&nbsp;ps)
+<span class="partial" title="12 out of 17 forms covered">
+                006&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;task&nbsp;data)
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
-                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;task&nbsp;data)))
+<span class="not-covered" title="0 out of 1 forms covered">
+                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
  </body>
 </html>
