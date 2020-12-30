@@ -41,7 +41,7 @@
         ps (clj/dispatch conf task data)
         py (py/exec conf task data)
         :else data)))
- 
+  
 (defn dispatch
   [conf task]
     (let [action (keyword (:Action task))]
