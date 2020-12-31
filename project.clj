@@ -18,7 +18,10 @@
                  [clojang/codox-theme                  "0.2.0-SNAPSHOT"]
                  [com.intelligt.modbus/jlibmodbus      "1.2.9.7"]
                  ]
-  :resource-paths ["../jvxi11/external/jrpcgen.jar"    
+  :resource-paths ["resources"
+                   "resources/js"
+                   "resources/py"
+                   "../jvxi11/external/jrpcgen.jar"    
                    "../jvxi11/external/oncrpc.jar"
                    "../jvxi11/external/one-jar-ant-task-0.97.jar"
                    "../jvxi11/external/portmap.jar"]

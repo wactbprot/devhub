@@ -18,7 +18,7 @@
  :stub {;; default is false, swiched to true if
         ;; request hits /stub endpoint
         :on false
-        :response-file "resources/stub-response.edn"
+        :response-file "stub-response.edn"
         ;; which of the values should be used
         ;; :first|:last|:rand
         :mode :rand
@@ -46,7 +46,6 @@
         :js-path "./resources/js"
         :js-interpreter "node"
         :py-path "./resources/py"
-        :py-exec "exec.py"
         :py-interpreter "python3"
         }
  :execute {:shell "sh"

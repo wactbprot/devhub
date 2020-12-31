@@ -2,7 +2,7 @@
   (:require [devhub.post-scripts.utils :as pu]
             [devhub.utils              :as u]))
 
-(def conf (u/config "resources/vs_se3.edn"))
+(def conf (u/config "vs_se3.edn"))
 
 (defn registers-ok?
   "Checks `rs` for type vector and checks the length to

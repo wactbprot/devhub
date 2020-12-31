@@ -100,4 +100,4 @@
   ([conf]
    (μ/log ::start)
    (reset! logger (init-log! conf))
-   (reset! server (run-server app (:server conf)))))
+   (reset! server (run-server #'app (:server conf)))))

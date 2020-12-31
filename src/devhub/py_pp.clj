@@ -1,12 +1,12 @@
 (ns devhub.py-pp
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles python post-processing."}
-  (:require [cheshire.core      :as che]
-            [clojure.java.shell :refer [sh]]
-            [devhub.utils       :as u]
+  (:require [cheshire.core          :as che]
+            [clojure.java.shell     :refer [sh]]
+            [devhub.utils           :as u]
             [com.brunobonacci.mulog :as µ]))
 
-(defn pp-file [conf task] (str (:py-path conf)  "/" (:PostScriptPy task)  ".py"))
+(defn pp-file [conf task] (str (:PostScriptPy task)  ".py"))
 
 (defn exec
   "Executes a predefined *python3* script given with the `:PostScriptPy` key.
@@ -24,7 +24,8 @@
   [{conf :post} task data]
   (let [ps (pp-file conf task)]
     (if (u/file? ps)
-      (let [res (sh (:py-interpreter conf) ps (che/encode data) (che/encode task))]
+      (let [res (sh (:py-interpreter conf) ps (che/encode data) (che/encode task)
+                    :dir (:py-path conf))]
         (if (= 0 (:exit res))
           (try
             (che/decode (:out res) true)
