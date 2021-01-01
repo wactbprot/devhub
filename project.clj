@@ -28,7 +28,7 @@
   :java-source-paths ["../jvxi11/"]
   :plugins [[lein-codox  "0.10.7"]
             [lein-cloverage  "1.1.2"]]
-  :codox {:themes [:clojang]
+  :codox {;:themes [:clojang]
           :metadata {:doc/format :markdown}
           :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"}
   :repl-options {:init-ns devhub.server}
