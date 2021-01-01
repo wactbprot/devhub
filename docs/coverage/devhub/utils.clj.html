@@ -23,7 +23,7 @@
                 006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.edn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;edn]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.java.io&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;[as-file]]
+                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.java.io&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;io]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;µ]))
@@ -31,8 +31,8 @@
 <span class="blank" title="0 out of 0 forms covered">
                 009&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                010&nbsp;&nbsp;(defn&nbsp;file?&nbsp;[f]&nbsp;(.exists&nbsp;(as-file&nbsp;f)))
+<span class="covered" title="6 out of 6 forms covered">
+                010&nbsp;&nbsp;(defn&nbsp;file?&nbsp;[f]&nbsp;(some?&nbsp;(io&#x2F;resource&nbsp;f)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 011&nbsp;&nbsp;
@@ -47,13 +47,13 @@
                 014&nbsp;&nbsp;&nbsp;&nbsp;([]
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(config&nbsp;&quot;resources&#x2F;conf.edn&quot;))
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(config&nbsp;&quot;conf.edn&quot;))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 016&nbsp;&nbsp;&nbsp;&nbsp;([f]
                 </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&nbsp;f&nbsp;slurp&nbsp;edn&#x2F;read-string)))
+<span class="covered" title="7 out of 7 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&nbsp;(io&#x2F;resource&nbsp;f)&nbsp;&nbsp;slurp&nbsp;edn&#x2F;read-string)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 018&nbsp;&nbsp;

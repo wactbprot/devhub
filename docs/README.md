@@ -59,6 +59,7 @@
     * `python3`
     * `clojure`
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
+* Runs on linux, windows and macOS
 
 # Data flow
 
@@ -212,6 +213,58 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ```
 # Installation
 
+## Standalone version
+
+Is generated with.
+
+```shell
+git clone git@github.com:wactbprot/devhub.git
+cd devhub
+lein uberjar
+
+## =>
+## Compiling 37 source files to /home/wact/clojure/devhub/target/uberjar/classes
+## Compiling devhub.execute
+## Compiling devhub.js-pp
+## Compiling devhub.modbus
+## Compiling devhub.post-scripts.core
+## Compiling devhub.post-scripts.utils
+## Compiling devhub.post-scripts.vs_se3
+## Compiling devhub.py-pp
+## Compiling devhub.safe
+## Compiling devhub.server
+## Compiling devhub.stub
+## Compiling devhub.tcp
+## Compiling devhub.utils
+## Compiling devhub.vxi11
+## Created /home/wact/clojure/devhub/target/uberjar/devhub-x.y.z.jar
+## Created /home/wact/clojure/devhub/target/uberjar/devhub-x.y.z-standalone.jar
+```
+
+Distribute `devhub-x.y.z-standalone.jar` and run with:
+
+```shell
+java -jar devhub-0.8.0-standalone.jar
+
+## =>
+##                    __                           
+##                    \ \                          
+##                     \ \                         
+##                      > \                        
+##                     / ^ \                       
+##                    /_/ \_\                      
+##      _                  _               _       
+##   __| |   ___  __   __ | |__    _   _  | |__    
+##  / _` |  / _ \ \ \ / / | '_ \  | | | | | '_ \   
+## | (_| | |  __/  \ V /  | | | | | |_| | | |_) |  
+##  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/   
+##                                                 
+## 
+```
+
+
+## Development version
+
 ```shell
 git clone git@github.com:wactbprot/devhub.git
 cd devhub
@@ -249,6 +302,8 @@ npm install crc
 ```
 
 # µlog
+
+* https://github.com/BrunoBonacci/mulog
 
 ## kibana
 

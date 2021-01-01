@@ -15,7 +15,7 @@
                  [org.clojure/data.json                "1.0.0"]
                  [com.brunobonacci/mulog               "0.6.0"]
                  [com.brunobonacci/mulog-elasticsearch "0.6.0"]
-                 [clojang/codox-theme                  "0.2.0-SNAPSHOT"]
+                 ;[clojang/codox-theme                  "0.2.0-SNAPSHOT"]
                  [com.intelligt.modbus/jlibmodbus      "1.2.9.7"]
                  ]
   :resource-paths ["resources"
@@ -31,7 +31,9 @@
   :codox {:themes [:clojang]
           :metadata {:doc/format :markdown}
           :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"}
-  :Main ^:skip-aot devhub.core
   :repl-options {:init-ns devhub.server}
+  ;;:Main ^:skip-aot devhub.core
+  :main devhub.server
+  :aot [devhub.server]
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

@@ -17,7 +17,8 @@
             [compojure.handler        :as handler]
             [org.httpkit.server       :refer [run-server]]
             [ring.middleware.json     :as middleware]
-            [com.brunobonacci.mulog   :as μ]))
+            [com.brunobonacci.mulog   :as μ])
+  (:gen-class))
 
 (defn pre-dispatch
   [conf task]
@@ -101,3 +102,19 @@
    (μ/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
+
+
+(defn -main [& args]
+  (println "                   __                           ")   
+  (println "                   \\ \\                          ")
+  (println "                    \\ \\                         ")
+  (println "                     > \\                        ")
+  (println "                    / ^ \\                       ")
+  (println "                   /_/ \\_\\                      ")
+  (println "     _                  _               _       ")
+  (println "  __| |   ___  __   __ | |__    _   _  | |__    ")
+  (println " / _` |  / _ \\ \\ \\ / / | '_ \\  | | | | | '_ \\   ")
+  (println "| (_| | |  __/  \\ V /  | | | | | |_| | | |_) |  ")
+  (println " \\__,_|  \\___|   \\_/   |_| |_|  \\__,_| |_.__/   ")
+  (println "                                                ")
+  (start))
