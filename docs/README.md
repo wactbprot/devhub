@@ -22,6 +22,8 @@
     - [:PostProcessing](#postprocessing)
     - [:PostScriptPy](#postscriptpy)
 - [Installation](#installation)
+    - [Standalone version](#standalone-version)
+    - [Development version](#development-version)
     - [tcp](#tcp-1)
     - [vxi11](#vxi11)
     - [modbus](#modbus-1)
@@ -60,6 +62,7 @@
     * `clojure`
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
 * Runs on linux, windows and macOS
+* ~80% test coverage
 
 # Data flow
 
@@ -215,7 +218,7 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ## Standalone version
 
-Is generated with.
+A Standalone version of **devhub** is generated with:
 
 ```shell
 git clone git@github.com:wactbprot/devhub.git
@@ -245,7 +248,6 @@ Distribute `devhub-x.y.z-standalone.jar` and run with:
 
 ```shell
 java -jar devhub-0.8.0-standalone.jar
-
 ## =>
 ##                    __                           
 ##                    \ \                          
@@ -258,8 +260,6 @@ java -jar devhub-0.8.0-standalone.jar
 ##  / _` |  / _ \ \ \ / / | '_ \  | | | | | '_ \   
 ## | (_| | |  __/  \ V /  | | | | | |_| | | |_) |  
 ##  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/   
-##                                                 
-## 
 ```
 
 
