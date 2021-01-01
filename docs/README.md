@@ -191,7 +191,16 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ### modbus
 
-
+```shell
+D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
+curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
+## =>
+## {"ToExchange":{"V6":{"Bool":false},
+##                "V9":{"Bool":false},
+##                ...
+##                "registers":[1025,0,21760,0,1,0,1024,0,7]
+##                ...}}
+```
 # pre processing
 
 ## :PreScript
@@ -200,9 +209,50 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ## :PreScriptPy
 
+```shell
+D='{"Action":"EXECUTE","Cmd":"ls","PostScriptPy":"ls-demo"}'
+curl -H "$H" -d "D" -X POST http://localhost:9009/
+## =>
+## {"ToExchange":{"FilesVector":["CHANGELOG.md",
+##                               "doc",
+##                               "docs",
+##                               "LICENSE",
+##                               "pre-commit.sh",
+##                               "project.clj",
+##                               "README.md",
+##                               "resources",
+##                               "src",
+##                               "target",
+##                               "test",""]}}
+```
+
 # post processing
 
+The post-processing of the `data` returned by a *devices*  or by the  *stub* interface
+can be managed with the help of
+
+* `:PostScript`: `clojure` functions placed in the `src/devhub/post_scripts` 
+    folder. Function signature is `(fn-name task data)`. Should return a `map`
+* `:PostProcessing`: `javascript` code given as an array of source
+    lines. The strings `_x`, `_t_start` and `_t_stop` are replaced on
+    string level. The resulting string is evaluated. Should return valid json.
+* `:PostScriptPy`: `python` scripts placed in the `resources/py`
+    folder.  The scripts receive the json encoded `task` as 2nd and
+    the json encoded `data` as 3rd argument. Should return valid json.
+
 ## :PostScript
+
+```shell
+D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
+curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
+## =>
+## {"ToExchange":{"V6":{"Bool":false},
+##                "V9":{"Bool":false},
+##                ...
+##                "registers":[1025,0,21760,0,1,0,1024,0,7]
+##                ...}}
+```
+
 
 ## :PostProcessing
 

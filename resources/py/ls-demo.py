@@ -4,12 +4,12 @@ import sys
 import json
 
 ## ---------------------------------------------------
-## 2nd arg is data:
-data = json.loads(sys.argv[1])
+## 2rd arg is task:
+task = json.loads(sys.argv[2])
 
 ## ---------------------------------------------------
-## 3rd arg is task:
-task = json.loads(sys.argv[2])
+## 3nd arg is data:
+data = json.loads(sys.argv[1])
 
 ## ---------------------------------------------------
 ## data consist of _x, _t_start and _t_stop

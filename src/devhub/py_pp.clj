@@ -24,7 +24,7 @@
   [{conf :post} task data]
   (let [ps (pp-file conf task)]
     (if (u/file? ps)
-      (let [res (sh (:py-interpreter conf) ps (che/encode data) (che/encode task)
+      (let [res (sh (:py-interpreter conf) ps (che/encode task) (che/encode data)
                     :dir (:py-path conf))]
         (if (= 0 (:exit res))
           (try
