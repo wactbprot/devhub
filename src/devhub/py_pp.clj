@@ -8,6 +8,7 @@
 
 (defn pp-file [conf task] (str (:PostScriptPy task)  ".py"))
 
+
 (defn exec
   "Executes a predefined *python3* script given with the `:PostScriptPy` key.
 
@@ -23,16 +24,12 @@
   ```"
   [{conf :post} task data]
   (let [ps (pp-file conf task)]
-    (if (u/file? ps)
-      (let [res (sh (:py-interpreter conf) ps (che/encode task) (che/encode data)
-                    :dir (:py-path conf))]
-        (if (= 0 (:exit res))
-          (try
-            (che/decode (:out res) true)
-            (catch Exception e
-              (µ/log ::exec :exception e :status :failed)
-              {:error (str "caught exception: " (.getMessage e))}))
-          {:error (:err res)}))
-      {:error (str "no such file: " ps)})))
+    (if-not (u/file? ps) {:error (str "no such postscript file: " ps)}
+            (let [res (sh (:py conf) ps (che/encode task) (che/encode data) :dir (:py-path conf))]
+              (if-not (= 0 (:exit res)) {:error (:err res)}
+                      (try (che/decode (:out res) true)
+                           (catch Exception e
+                             (µ/log ::exec :error "decode error" :req-id (:req-id task))
+                             {:error (str "decode error, caught exception: " (.getMessage e))})))))))
 
 

@@ -5,11 +5,11 @@ import json
 
 ## ---------------------------------------------------
 ## 2rd arg is task:
-task = json.loads(sys.argv[2])
+task = json.loads(sys.argv[1])
 
 ## ---------------------------------------------------
 ## 3nd arg is data:
-data = json.loads(sys.argv[1])
+data = json.loads(sys.argv[2])
 
 ## ---------------------------------------------------
 ## data consist of _x, _t_start and _t_stop

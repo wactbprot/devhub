@@ -44,9 +44,9 @@
  :post {:tmp "/tmp"
         :js-exec "exec.js"
         :js-path "./resources/js"
-        :js-interpreter "node"
+        :js "node"
         :py-path "./resources/py"
-        :py-interpreter "python3"
+        :py "python3"
         }
  :execute {:shell "sh"
            :param "-c"

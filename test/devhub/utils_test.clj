@@ -10,3 +10,6 @@
         "nil")
     (is (empty? (:_x (meas-vec [])))
         "nil")))
+
+(deftest ascii-logo-i
+  (testing "" (is (= "" (ascii-logo)) "")))

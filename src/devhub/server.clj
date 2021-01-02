@@ -21,6 +21,15 @@
   (:gen-class))
 
 (defn pre-dispatch
+  "Dispatches the pre-processing. The following processing paths are
+  implemented:
+
+  * `:PreProcessing`: eval javascript strings
+  * `:PreScript`: clojure functions
+  * `:PreScriptPy`: python scripts
+  
+  The pre-processing returns the **task**.
+  "
   [conf task]
   (let [{pp :PreProcessing
          ps :PreScript
@@ -32,18 +41,35 @@
       :else task)))
 
 (defn post-dispatch
+  "Dispatches the post-processing. The following processing paths are
+  implemented:
+
+  * `:PostProcessing`: javascript strings
+  * `:PostScript`: clojure functions
+  * `:PostScriptPy`: python scripts
+
+  The pre-processing returns the **data**.
+  "
   [conf task data]
   (let [{pp :PostProcessing
-           ps :PostScript
-           py :PostScriptPy} task]
-      (μ/log ::post-dispatch :req-id (:req-id task)  :PostProcessing pp :PostScript ps :PostScriptPy py)
-      (cond
-        pp (js/exec      conf task data)
-        ps (clj/dispatch conf task data)
-        py (py/exec conf task data)
-        :else data)))
-  
+         ps :PostScript
+         py :PostScriptPy} task]
+    (μ/log ::post-dispatch :req-id (:req-id task)  :PostProcessing pp :PostScript ps :PostScriptPy py)
+    (cond
+      pp (js/exec      conf task data)
+      ps (clj/dispatch conf task data)
+      py (py/exec conf task data)
+      :else data)))
+
 (defn dispatch
+  "Dispatches depending on the `:Action`. The following protocols paths are
+  implemented:
+
+  * `:TCP`
+  * `:MODBUS`
+  * `:VXI11`
+  * `:EXECUTE`
+  "     
   [conf task]
     (let [action (keyword (:Action task))]
       (μ/log ::dispatch :req-id (:req-id task) :Action action)
@@ -103,18 +129,4 @@
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
 
-
-(defn -main [& args]
-  (println "                   __                           ")   
-  (println "                   \\ \\                          ")
-  (println "                    \\ \\                         ")
-  (println "                     > \\                        ")
-  (println "                    / ^ \\                       ")
-  (println "                   /_/ \\_\\                      ")
-  (println "     _                  _               _       ")
-  (println "  __| |   ___  __   __ | |__    _   _  | |__    ")
-  (println " / _` |  / _ \\ \\ \\ / / | '_ \\  | | | | | '_ \\   ")
-  (println "| (_| | |  __/  \\ V /  | | | | | |_| | | |_) |  ")
-  (println " \\__,_|  \\___|   \\_/   |_| |_|  \\__,_| |_.__/   ")
-  (println "                                                ")
-  (start))
+(defn -main [& args] (u/ascii-logo)(start))
