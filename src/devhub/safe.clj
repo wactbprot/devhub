@@ -6,12 +6,13 @@
             [com.brunobonacci.mulog :as μ]))
 
 (defn value
-  "Function ensures that a `vector` is returned." 
+  "Function ensures that a `vector` is returned. Fallback value is
+  `[:no-value]`." 
   [conf x]
   (cond
-    (nil?    x) [:no-value]
     (string? x) [x]
-    (vector? x)  x))
+    (vector? x)  x
+    :else [:no-value]))
 
 (defn wait   [conf x] (if x (u/number x) (:min-wait conf)))
 (defn rep    [conf x] (if x (u/number x) (:repeat conf)))

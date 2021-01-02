@@ -64,17 +64,14 @@
 <span class="covered" title="2 out of 2 forms covered">
                 020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t1&nbsp;&nbsp;(u&#x2F;ms)]
                 </span><br/>
-<span class="covered" title="6 out of 6 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(=&nbsp;0&nbsp;(:exit&nbsp;res))
+<span class="covered" title="13 out of 13 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(=&nbsp;0&nbsp;(:exit&nbsp;res))&nbsp;{:error&nbsp;(:err&nbsp;res)}
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;(:out&nbsp;res)&nbsp;:_t_start&nbsp;t0&nbsp;:_t_stop&nbsp;t1}&nbsp;
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;(:err&nbsp;res)}))
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;(:out&nbsp;res)&nbsp;:_t_start&nbsp;t0&nbsp;:_t_stop&nbsp;t1}))
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;command&gt;&quot;}))
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;command&gt;&quot;}))
                 </span><br/>
  </body>
 </html>
