@@ -18,7 +18,6 @@
     (let [t0  (u/ms)
           res (sh (:shell conf) (:param conf) (:Cmd task))
           t1  (u/ms)]
-      (if (= 0 (:exit res))
-        {:_x (:out res) :_t_start t0 :_t_stop t1} 
-        {:error (:err res)}))
+      (if-not (= 0 (:exit res)) {:error (:err res)}
+              {:_x (:out res) :_t_start t0 :_t_stop t1}))
     {:error "missing <command>"}))

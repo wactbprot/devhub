@@ -37,20 +37,24 @@
 
 # Features
 
-* `TCP`
-* `VXI11`
-* `MODBUS`
-    * `:ReadHoldingRegisters` 
-    * `:ReadInputRegisters`
-    * `:ReadCoils`
-    * `:ReadDiscreteInputs`
-    * `:writeSingleRegister` 
-* `EXECUTE`
-* `/echo` endpoint
-* `/stub` endpoint
-    * `first`
-    * `last`
-    * `rand`
+* Supported protocols:
+    * `TCP`
+    * `VXI11`
+    * `MODBUS`
+        * `:ReadHoldingRegisters` 
+        * `:ReadInputRegisters`
+        * `:ReadCoils`
+        * `:ReadDiscreteInputs`
+        * `:writeSingleRegister` 
+    * `EXECUTE`
+* endpoints:
+    * `/` (production)
+    * `/echo`
+    * `/version`
+    * `/stub` 
+        * `first`
+        * `last`
+        * `rand`
 * `:Value: "IDN?"` or `:Value: ["PR1?" "<ENQ>"]` 
 * pre-processing
     * `javascript`
@@ -61,7 +65,7 @@
     * `python3`
     * `clojure`
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
-* Runs on linux, windows and macOS
+* linux, windows and macOS support
 * ~80% test coverage
 
 # Data flow
