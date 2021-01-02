@@ -20,9 +20,9 @@
   
 (deftest js-pp-i
   (testing " returns nil (i)"
-    (is (nil? (pp-str nil nil))
+    (is (nil? (pp-source nil nil))
         "nil .")
-    (is (string? (pp-str pp data))
+    (is (string? (pp-source pp data))
         "string")
     (is (map? (:ToExchange (exec (u/config) {:PostProcessing pp} data)))
         "exec")))
