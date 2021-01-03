@@ -15,12 +15,19 @@
     :else [:no-value]))
 
 (defn wait   [conf x] (if x (u/number x) (:min-wait conf)))
+
 (defn rep    [conf x] (if x (u/number x) (:repeat conf)))
+
 (defn sel    [conf x] (if x (keyword x) :missing))
+
 (defn port   [conf x] (u/number x))
-(defn norepl [conf x] (if x x false))
+
+(defn norepl [conf x] (or x false))
+
 (defn fnc    [conf x] (keyword x))
+
 (defn addr   [conf x] (u/number x))
+
 (defn quant  [conf x] (u/number x))
 
 (defn safe-cmd [conf cmd] cmd)
@@ -55,6 +62,8 @@
       :else {:error "not a device string"})))
 
 (defmulti task (fn [conf task] (keyword (:Action task))))
+
+(defmethod task :default [conf task] task)
 
 (defmethod task :TCP
   [conf task]
@@ -100,8 +109,6 @@
   [conf task]
   (let [{c :Cmd} task]
     (when c (assoc task :Cmd  (safe-cmd conf c)))))
-
-(defmethod task :default [conf task] task)
 
 (defn stub  
   [conf task]

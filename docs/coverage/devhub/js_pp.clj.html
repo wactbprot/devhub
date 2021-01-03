@@ -103,8 +103,8 @@
 <span class="covered" title="15 out of 15 forms covered">
                 033&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[res&nbsp;(sh&nbsp;(:js&nbsp;conf)&nbsp;(exec-fn&nbsp;conf)&nbsp;(:js-path&nbsp;conf)&nbsp;(pp-file&nbsp;task))]
                 </span><br/>
-<span class="partial" title="8 out of 13 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(=&nbsp;0&nbsp;(:exit&nbsp;res))&nbsp;{:error&nbsp;(:err&nbsp;res)}
+<span class="partial" title="7 out of 12 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(zero?&nbsp;(:exit&nbsp;res))&nbsp;{:error&nbsp;(:err&nbsp;res)}
                 </span><br/>
 <span class="covered" title="7 out of 7 forms covered">
                 035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(try&nbsp;(che&#x2F;decode&nbsp;(:out&nbsp;res)&nbsp;true)

@@ -1,5 +1,5 @@
-(ns devhub.post-scripts.vs_se3
-  (:require [devhub.post-scripts.utils :as pu]
+(ns devhub.pp-scripts.vs_se3
+  (:require [devhub.pp-scripts.utils :as pu]
             [devhub.utils              :as u]))
 
 (def conf (u/config "vs_se3.edn"))

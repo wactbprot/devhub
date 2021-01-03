@@ -3,7 +3,7 @@
     :doc "Start and stop the devhub server. Routing and dispatching."}
   (:require [compojure.route          :as route]
             [devhub.utils             :as u]
-            [devhub.post-scripts.core :as clj]
+            [devhub.pp-scripts.core   :as clj]
             [devhub.js-pp             :as js]
             [devhub.py-pp             :as py]
             [devhub.tcp               :as tcp]

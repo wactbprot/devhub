@@ -31,7 +31,7 @@
   [{conf :post} task data]
   (spit (pp-file task) (pp-source (:PostProcessing task) data))
   (let [res (sh (:js conf) (exec-fn conf) (:js-path conf) (pp-file task))]
-    (if-not (= 0 (:exit res)) {:error (:err res)}
+    (if-not (zero? (:exit res)) {:error (:err res)}
             (try (che/decode (:out res) true)
                  (catch Exception e
                    (µ/log ::exec :error "decode error" :req-id (:req-id task))

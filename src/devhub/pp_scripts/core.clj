@@ -1,5 +1,5 @@
-(ns devhub.post-scripts.core
-  (:require [devhub.post-scripts.vs_se3 :as vs-se3]))
+(ns devhub.pp-scripts.core
+  (:require [devhub.pp-scripts.vs_se3 :as vs-se3]))
 
 (defn dispatch
   [conf task data]

@@ -24,7 +24,8 @@
                    "../jvxi11/external/portmap.jar"]
   :java-source-paths ["../jvxi11/"]
   :plugins [[lein-codox  "0.10.7"]
-            [lein-cloverage  "1.1.2"]]
+            [lein-cloverage  "1.1.2"]
+            [lein-kibit "0.1.8"]]
   :codox {:metadata {:doc/format :markdown}
           :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"}
   :repl-options {:init-ns devhub.server}

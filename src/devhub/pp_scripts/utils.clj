@@ -1,4 +1,4 @@
-(ns devhub.post-scripts.utils
+(ns devhub.pp-scripts.utils
   (:require [clojure.edn  :as edn]))
 
 (defn open? [r n] (bit-test r n))

@@ -1,6 +1,6 @@
-(ns devhub.post-scripts.vs_se3-test
+(ns devhub.pp-scripts.vs_se3-test
   (:require [clojure.test :refer :all]
-            [devhub.post-scripts.vs_se3 :refer :all]))
+            [devhub.pp-scripts.vs_se3 :refer :all]))
 
 (deftest switches-i
   (testing " returns nil (i)"

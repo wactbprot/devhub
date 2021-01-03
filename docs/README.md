@@ -205,7 +205,21 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
 ##                "registers":[1025,0,21760,0,1,0,1024,0,7]
 ##                ...}}
 ```
+
 # pre processing
+
+The pre-processing of the `task` `POST`ed to the **devhub** server
+can be managed with the following techniques:
+
+* `:PreScript`: `clojure` functions placed in the
+    `src/devhub/pp_scripts` folder. Function signature is `(fn-name
+    task)`. Should return the task as a `map`.
+* `:PreProcessing`: `javascript` code given as an array of source
+    lines. 
+* `:PreScriptPy`: `python` scripts placed in the `resources/py`
+    folder.  The scripts receive the json encoded `task` as 2nd 
+    
+Use the key `:PreInput` to provide data structures to work on.
 
 ## :PreScript
 
@@ -235,7 +249,7 @@ curl -H "$H" -d "D" -X POST http://localhost:9009/
 The post-processing of the `data` returned by a *devices*  or by the  *stub* interface
 can be managed with the help of
 
-* `:PostScript`: `clojure` functions placed in the `src/devhub/post_scripts` 
+* `:PostScript`: `clojure` functions placed in the `src/devhub/pp_scripts` 
     folder. Function signature is `(fn-name task data)`. Should return a `map`
 * `:PostProcessing`: `javascript` code given as an array of source
     lines. The strings `_x`, `_t_start` and `_t_stop` are replaced on
@@ -284,9 +298,9 @@ lein uberjar
 ## Compiling devhub.execute
 ## Compiling devhub.js-pp
 ## Compiling devhub.modbus
-## Compiling devhub.post-scripts.core
-## Compiling devhub.post-scripts.utils
-## Compiling devhub.post-scripts.vs_se3
+## Compiling devhub.pp-scripts.core
+## Compiling devhub.pp-scripts.utils
+## Compiling devhub.pp-scripts.vs_se3
 ## Compiling devhub.py-pp
 ## Compiling devhub.safe
 ## Compiling devhub.server
