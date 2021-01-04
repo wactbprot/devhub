@@ -28,17 +28,15 @@
   * `:PreScript`: clojure functions
   * `:PreScriptPy`: python scripts
   
-  The pre-processing returns the **task**.
-  "
+  The pre-processing returns the **task**."
   [conf task]
-  (let [{pp :PreProcessing
-         ps :PreScript
-         py :PreScriptPy} task]
-    (μ/log ::pre-dispatch :req-id (:req-id task) :PreProcessing pp :PreScript ps :PreScriptPy py)
-    (cond
-      pp (js/exec conf task)
-      ;; ps (clj-pp ps data)
-      :else task)))
+  (cond
+    (:PreProcessing task) (js/exec      conf task)
+    (:PreScript     task) (clj/dispatch conf task)
+    (:PreScriptPy   task) (py/exec      conf task)
+    :else (do
+            (μ/log ::post-dispatch :req-id (:req-id task) :message "no pre-processing")
+            task)))
 
 (defn post-dispatch
   "Dispatches the post-processing. The following processing paths are
@@ -51,15 +49,13 @@
   The pre-processing returns the **data**.
   "
   [conf task data]
-  (let [{pp :PostProcessing
-         ps :PostScript
-         py :PostScriptPy} task]
-    (μ/log ::post-dispatch :req-id (:req-id task)  :PostProcessing pp :PostScript ps :PostScriptPy py)
-    (cond
-      pp (js/exec      conf task data)
-      ps (clj/dispatch conf task data)
-      py (py/exec conf task data)
-      :else data)))
+  (cond
+    (:PostScript     task) (clj/dispatch conf task data)
+    (:PostProcessing task) (js/exec      conf task data)
+    (:PostScriptPy   task) (py/exec      conf task data)
+    :else (do
+            (μ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
+            data)))
 
 (defn dispatch
   "Dispatches depending on the `:Action`. The following protocols paths are
