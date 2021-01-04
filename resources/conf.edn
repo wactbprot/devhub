@@ -1,20 +1,56 @@
 {
+ :mulog {:type :multi
+         :publishers[
+                     ;; send events to the stdout
+                     ;; {:type :console
+                     ;;  :pretty? true}
+                     ;; send events to a file
+                     ;; {:type :simple-file
+                     ;;  :filename "/tmp/mulog/events.log"}
+                     ;; send events to ELS
+                     {:type :elasticsearch
+                      :url  "http://localhost:9200/"
+                      :els-version  :v7.x
+                      :data-stream  "devhub-stream"
+                      :name-mangling false
+                      }]
+         }
+ :stub {;; default is false, swiched to true if
+        ;; request hits /stub endpoint
+        :on false
+        :response-file "stub-response.edn"
+        ;; which of the values should be used
+        ;; :first|:last|:rand
+        :mode :rand
+        :min-wait 10
+        :repeat 1
+        }
  :server {:port 9009
-          :join? false}
+          :join? false
+          }
  :tcp {:min-wait 10
-       :repeat 1}
+       :repeat 1
+       }
  :vxi {:min-wait 10
        :repeat 1
-       :read-buffer-size 1024}
- :modbus {:port 502
+       :read-buffer-size 1024
+       }
+ :modbus {:min-wait 10
+          :port 502
           :keep-alive false
           :default-slave-address 255
-          :min-wait 10
-          :repeat 1}
- :post {:js-exec "exec.js"
+          :repeat 1
+          }
+ :post {:tmp "/tmp"
+        :js-exec "exec.js"
         :js-path "./resources/js"
-        :js-tmp "/tmp"
-        :py-script-path "py_script"}
+        :js "node"
+        :py-path "./resources/py"
+        :py "python3"
+        }
  :execute {:shell "sh"
-           :param "-c"}
+           :param "-c"
+           :min-wait 10
+           :repeat 1
+           }
  }
