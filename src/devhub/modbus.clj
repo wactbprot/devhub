@@ -13,10 +13,10 @@
 
   Example:
   ```clojure
-  (def mc (:modbus (c/config)))
-  (query mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode :ReadHoldingRegisters})
+  (def m (:modbus (c/config)))
+  (query m {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode :ReadHoldingRegisters})
 
-  (query (c/config) {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
+  (query m {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
   ```"
   [conf task]
   (let [{host   :Host
