@@ -27,7 +27,7 @@
   * `:PreProcessing`: eval javascript strings
   * `:PreScript`: clojure functions
   * `:PreScriptPy`: python scripts
-  
+
   The pre-processing returns the **task**."
   [conf task]
   (cond
@@ -46,8 +46,7 @@
   * `:PostScript`: clojure functions
   * `:PostScriptPy`: python scripts
 
-  The pre-processing returns the **data**.
-  "
+  The pre-processing returns the **data**."
   [conf task data]
   (cond
     (:PostScript     task) (clj/dispatch conf task data)
@@ -64,12 +63,11 @@
   * `:TCP`
   * `:MODBUS`
   * `:VXI11`
-  * `:EXECUTE`
-  "     
+  * `:EXECUTE`"
   [conf task]
     (let [action (keyword (:Action task))]
       (μ/log ::dispatch :req-id (:req-id task) :Action action)
-      (condp = action 
+      (condp = action
         :TCP     (tcp/query       conf task)
         :MODBUS  (modbus/query    conf task)
         :VXI11   (vxi/query       conf task)
@@ -84,8 +82,9 @@
         (let [task (pre-dispatch conf task)]
           (if (:error task) task
               (let [data (if stub? (stub/response conf task) (dispatch conf task))]
+                (prn data)
                 (if (:error data) data
-                    (post-dispatch conf task (u/meas-vec data)))))))))
+                    (post-dispatch conf task (u/meas-vec (stub/record conf task data))))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
