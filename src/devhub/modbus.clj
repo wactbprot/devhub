@@ -15,10 +15,19 @@
 
   Example:
   ```clojure
-  (def mc (:modbus (u/config)))
-  (query mc {:Host \"e75446\" :Quantity 5 :Address 45407 :FunctionCode :ReadHoldingRegisters})
-
-  (query mc {:Host \"e75480\" :Quantity 1 :Address 0 :FunctionCode :ReadInputRegisters})
+  (def c (u/config))
+  (def t {:Host \"e75446\" :Quantity 9 :Address 45407 :FunctionCode :ReadHoldingRegisters
+         :Value [:no-value] :Wait 10 :Repeat 2})
+  (query c t)
+  ;; =>
+  ;; [[{:_x [5, 0, 4, 0, 20, 0, 1024, 0, 3],
+  ;; :_t_start 1609750368503,
+  ;; :_t_stop 1609750368513,
+  ;; :_dt 10}]
+  ;; [{:_x [5, 0, 4, 0, 20, 0, 1024, 0, 3],
+  ;; :_t_start 1609750368524,
+  ;; :_t_stop 1609750368528,
+  ;; :_dt 4}]]
   ```"
   [{conf :modbus} task]
   (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task]
@@ -27,19 +36,18 @@
                          (catch  Exception e
                            (µ/log ::query :error "connection error" :req-id (:req-id task))
                            {:error "can not connect to host"}))]
-      (if (:error ok-or-err)
-        ok-or-err
-        (let [param  (TcpParameters. host (:port conf) (:keep-alive conf))
-              master (ModbusMasterFactory/createModbusMasterTCP param)
-              s-addr (:default-slave-address conf)]
-          (Modbus/setAutoIncrementTransactionId true)
-          (.connect master)
-          (let [f (condp = fc
-                  :ReadHoldingRegisters (fn [x] (.readHoldingRegisters master s-addr addr q)) 
-                  :ReadInputRegisters   (fn [x] (.readInputRegisters   master s-addr addr q))
-                  :ReadCoils            (fn [x] (.readCoils            master s-addr addr q)) 
-                  :ReadDiscreteInputs   (fn [x] (.readDiscreteInputs   master s-addr addr q))
-                  :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
-                data (u/run f conf task)]
-            (.disconnect master)
-            data))))))
+      (if (:error ok-or-err) ok-or-err
+          (let [param  (TcpParameters. host (:port conf) (:keep-alive conf))
+                master (ModbusMasterFactory/createModbusMasterTCP param)
+                s-addr (:default-slave-address conf)]
+            (Modbus/setAutoIncrementTransactionId true)
+            (.connect master)
+            (let [f (condp = fc
+                      :ReadHoldingRegisters (fn [x] (.readHoldingRegisters master s-addr addr q)) 
+                      :ReadInputRegisters   (fn [x] (.readInputRegisters   master s-addr addr q))
+                      :ReadCoils            (fn [x] (.readCoils            master s-addr addr q)) 
+                      :ReadDiscreteInputs   (fn [x] (.readDiscreteInputs   master s-addr addr q))
+                      :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
+                  data (u/run f conf task)]
+              (.disconnect master)
+              data))))))

@@ -373,7 +373,19 @@ npm install crc
 
 * https://github.com/BrunoBonacci/mulog
 
+## elasticsearch (els)
+
+* [install-and-configure-elasticsearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-18-04-de)
+
 ## kibana
+
+The **kibana** pkg  comes with *els*:
+
+```shell
+sudo apt install kibana
+sudo systemctl enable kibana
+sudo systemctl start kibana
+```
 
 ![kibana](./kibana.png)
 

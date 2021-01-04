@@ -9,21 +9,23 @@
 (defn query
   "Handles VXI11 queries. Sends the `cmds` to a vxi11 device. Data is
   read out by means of the byte buffer `bb` with the size `bs`.
-
-  TODO: Calculate and set TimeOut.
   
   Example:
   ```clojure
   (def c (u/config))
-  (handler c {:Device \"gpib0,8\" :Host \"e75465\" :Value \":meas:func\"})
+  (def t {:Host \"e75465\" :Value [\":meas:func\"] :Wait 10 :Repeat 2
+          :DeviceName \"gpib0\" :PrimaryAddress 8 :SecondaryAddress 0})
+  (query c t)
   ;; =>
-  ;; {:data
-  ;; {:_x [MEASURING  1.015],
-  ;; :_t_start [1607513740001],
-  ;; :_t_stop [1607513740028],
-  ;; :_dt [27]}}
-  ```
-  "
+  ;; [[{:_x MEASURING  2.006,
+  ;;  :_t_start 1609749524988,
+  ;;  :_t_stop 1609749525020,
+  ;;  :_dt 32}]
+  ;; [{:_x MEASURING  2.006,
+  ;;  :_t_start 1609749525031,
+  ;;  :_t_stop 1609749525064,
+  ;;  :_dt 33}]]
+  ```"
   [{conf :vxi} task]
   (let [{host :Host device :DeviceName pa :PrimaryAddress sa :SecondaryAddress} task]
     (µ/log ::query :req-id (:req-id task) :Host host :DeviceName device)
@@ -35,14 +37,13 @@
                            (catch Exception e
                              (µ/log ::query :error "connection error" :req-id (:req-id task))
                              {:error "can not connect"}))]
-      (if (:error conn-or-err)
-        conn-or-err
-        (let [bs (:read-buffer-size conf)
-              bb (byte-array bs) 
-              f  (fn [cmd]
-                   (.write dev usr (.getBytes cmd) (.length cmd))
-                   (when-not (:NoReply task) (.read dev usr bb bs))
-                   (u/bb->string bb))
-              data (u/run f conf task)]
-          (.disconnect dev)
-          data)))))
+      (if (:error conn-or-err) conn-or-err
+          (let [bs (:read-buffer-size conf)
+                bb (byte-array bs) 
+                f  (fn [cmd]
+                     (.write dev usr (.getBytes cmd) (.length cmd))
+                     (when-not (:NoReply task) (.read dev usr bb bs))
+                     (u/bb->string bb))
+                data (u/run f conf task)]
+            (.disconnect dev)
+            data)))))
