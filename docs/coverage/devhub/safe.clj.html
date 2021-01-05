@@ -32,7 +32,7 @@
                 009&nbsp;&nbsp;&nbsp;&nbsp;&quot;Function&nbsp;ensures&nbsp;that&nbsp;a&nbsp;`vector`&nbsp;is&nbsp;returned.&nbsp;Fallback&nbsp;value&nbsp;is
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                010&nbsp;&nbsp;&nbsp;&nbsp;`[:no-value]`.&quot;&nbsp;
+                010&nbsp;&nbsp;&nbsp;&nbsp;`[:no-value]`.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 011&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;x]
@@ -52,7 +52,7 @@
 <span class="blank" title="0 out of 0 forms covered">
                 016&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="6 out of 9 forms covered">
+<span class="covered" title="9 out of 9 forms covered">
                 017&nbsp;&nbsp;(defn&nbsp;wait&nbsp;&nbsp;&nbsp;[conf&nbsp;x]&nbsp;(if&nbsp;x&nbsp;(u&#x2F;number&nbsp;x)&nbsp;(:min-wait&nbsp;conf)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -112,8 +112,8 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 036&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;map&nbsp;with&nbsp;`:DeviceName`&nbsp;`:PrimaryAddress`&nbsp;and&nbsp;`:SecondaryAddress`.
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="blank" title="0 out of 0 forms covered">
+                037&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 038&nbsp;&nbsp;&nbsp;&nbsp;Example:
@@ -130,8 +130,8 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 042&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:DeviceName&nbsp;\&quot;gpib0\&quot;,&nbsp;:PrimaryAddress&nbsp;9,&nbsp;:SecondaryAddress&nbsp;0}
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                043&nbsp;&nbsp;&nbsp;
+<span class="blank" title="0 out of 0 forms covered">
+                043&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 044&nbsp;&nbsp;&nbsp;&nbsp;(parse-gpib-str&nbsp;\&quot;gpib0,9,1\&quot;)
@@ -166,8 +166,8 @@
 <span class="partial" title="1 out of 8 forms covered">
                 054&nbsp;&nbsp;(defn&nbsp;parse-inst-str&nbsp;[s]&nbsp;{:DeviceName&nbsp;s&nbsp;:PrimaryAddress&nbsp;-1&nbsp;:SecondaryAddress&nbsp;-1})
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="blank" title="0 out of 0 forms covered">
+                055&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
                 056&nbsp;&nbsp;(defn&nbsp;parse-device-str
@@ -209,7 +209,7 @@
                 068&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:TCP
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                069&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                069&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:tcp}&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
                 070&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;&nbsp;&nbsp;p&nbsp;:Port&nbsp;v&nbsp;:Value&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;n&nbsp;:NoReply}&nbsp;task]
@@ -245,7 +245,7 @@
                 080&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:VXI11
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                081&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                081&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:vxi}&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
                 082&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;d&nbsp;:Device&nbsp;v&nbsp;:Value&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;n&nbsp;:NoReply}&nbsp;task]
@@ -287,7 +287,7 @@
                 094&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:MODBUS
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                095&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                095&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:modbus}&nbsp;task]
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
                 096&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{h&nbsp;:Host&nbsp;a&nbsp;:Address&nbsp;q&nbsp;:Quantity&nbsp;fc&nbsp;:FunctionCode
@@ -329,7 +329,7 @@
                 108&nbsp;&nbsp;(defmethod&nbsp;task&nbsp;:EXECUTE
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                109&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                109&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:execute}&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
                 110&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{c&nbsp;:Cmd}&nbsp;task]
@@ -341,10 +341,10 @@
                 112&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                113&nbsp;&nbsp;(defn&nbsp;stub&nbsp;&nbsp;
+                113&nbsp;&nbsp;(defn&nbsp;stub
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                114&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                114&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:stub}&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
                 115&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{t&nbsp;:TaskName&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;v&nbsp;:Value}&nbsp;task]
@@ -353,7 +353,7 @@
                 116&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:select&nbsp;(sel&nbsp;conf&nbsp;t)&nbsp;
+                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:select&nbsp;(sel&nbsp;conf&nbsp;t)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
                 118&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
@@ -363,9 +363,6 @@
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
                 120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;(rep&nbsp;conf&nbsp;r))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                121&nbsp;&nbsp;
                 </span><br/>
  </body>
 </html>

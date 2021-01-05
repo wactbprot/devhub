@@ -7,7 +7,7 @@
 
 (defn value
   "Function ensures that a `vector` is returned. Fallback value is
-  `[:no-value]`." 
+  `[:no-value]`."
   [conf x]
   (cond
     (string? x) [x]
@@ -34,13 +34,13 @@
 
 (defn parse-gpib-str
   "Returns a map with `:DeviceName` `:PrimaryAddress` and `:SecondaryAddress`.
-  
+
   Example:
   ```clojure
   (parse-gpib-str \"gpib0,9\")
   ;; =>
   ;; {:DeviceName \"gpib0\", :PrimaryAddress 9, :SecondaryAddress 0}
- 
+
   (parse-gpib-str \"gpib0,9,1\")
   ;; =>
   ;; {:DeviceName \"gpib0\", :PrimaryAddress 9, :SecondaryAddress 1}
@@ -52,7 +52,7 @@
      :SecondaryAddress (if (= "" (nth v 3)) 0 (u/number (nth v 3)))}))
 
 (defn parse-inst-str [s] {:DeviceName s :PrimaryAddress -1 :SecondaryAddress -1})
-      
+
 (defn parse-device-str
   [s]
   (when (string? s)
@@ -66,7 +66,7 @@
 (defmethod task :default [conf task] task)
 
 (defmethod task :TCP
-  [conf task]
+  [{conf :tcp} task]
   (let [{h :Host   p :Port v :Value w :Wait r :Repeat n :NoReply} task]
     (if (and h v p)
       (assoc task
@@ -78,7 +78,7 @@
       {:error "missing <:Host>, <:Value> or <:Port>"})))
 
 (defmethod task :VXI11
-  [conf task]
+  [{conf :vxi} task]
   (let [{h :Host d :Device v :Value w :Wait r :Repeat n :NoReply} task]
     (if (and v h d)
       (let [m (parse-device-str d)]
@@ -92,7 +92,7 @@
       {:error "missing <:Host>, <:Value>, <:Device> or invalid <:Device>"})))
 
 (defmethod task :MODBUS
-  [conf task]
+  [{conf :modbus} task]
   (let [{h :Host a :Address q :Quantity fc :FunctionCode
          w :Wait r :Repeat  v :Value    n :NoReply} task]
     (if (and h a fc q)
@@ -106,16 +106,15 @@
       (:error "missing <:Host>, <:Address>, <:FuctionCode> "))))
 
 (defmethod task :EXECUTE
-  [conf task]
+  [{conf :execute} task]
   (let [{c :Cmd} task]
     (when c (assoc task :Cmd  (safe-cmd conf c)))))
 
-(defn stub  
-  [conf task]
+(defn stub
+  [{conf :stub} task]
   (let [{t :TaskName w :Wait r :Repeat v :Value} task]
     (assoc task
-           :select (sel conf t) 
+           :select (sel conf t)
            :Value  (value conf v)
            :Wait   (wait conf w)
            :Repeat (rep conf r))))
-

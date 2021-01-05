@@ -9,6 +9,7 @@
             [devhub.tcp               :as tcp]
             [devhub.stub              :as stub]
             [devhub.safe              :as safe]
+            [devhub.sample            :as sample]
             [devhub.vxi11             :as vxi]
             [devhub.modbus            :as modbus]
             [devhub.execute           :as execute]
@@ -82,10 +83,8 @@
         (let [task (pre-dispatch conf task)]
           (if (:error task) task
               (let [data (if stub? (stub/response conf task) (dispatch conf task))]
-                (prn data)
                 (if (:error data) data
-                    ;;(stub/record conf task data)
-                    (post-dispatch conf task (u/meas-vec data)))))))))
+                    (post-dispatch conf task (sample/record conf task (u/meas-vec data))))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

@@ -1,4 +1,4 @@
-(defproject devhub "0.9.0"
+(defproject devhub "0.10.0"
   :description "Now a stub later a hub."
   :url "https://github.com/wactbprot/devhub"
   :license {:name "BSD 2-Clause"
@@ -18,7 +18,7 @@
   :resource-paths ["resources"
                    "resources/js"
                    "resources/py"
-                   "../jvxi11/external/jrpcgen.jar"    
+                   "../jvxi11/external/jrpcgen.jar"
                    "../jvxi11/external/oncrpc.jar"
                    "../jvxi11/external/one-jar-ant-task-0.97.jar"
                    "../jvxi11/external/portmap.jar"]
