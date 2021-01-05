@@ -64,6 +64,7 @@
     * `javascript`
     * `python3`
     * `clojure`
+* record sample data
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
 * linux, windows and macOS support
 * ~80% test coverage

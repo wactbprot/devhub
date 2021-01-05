@@ -32,9 +32,9 @@
   The pre-processing returns the **task**."
   [conf task]
   (cond
-    (:PreProcessing task) (js/exec      conf task)
-    (:PreScript     task) (clj/dispatch conf task)
-    (:PreScriptPy   task) (py/exec      conf task)
+    (:PreScript     task) (clj/pre-dispatch conf task)
+    (:PreProcessing task) (js/exec          conf task)
+    (:PreScriptPy   task) (py/exec          conf task)
     :else (do
             (μ/log ::post-dispatch :req-id (:req-id task) :message "no pre-processing")
             task)))
@@ -50,9 +50,9 @@
   The pre-processing returns the **data**."
   [conf task data]
   (cond
-    (:PostScript     task) (clj/dispatch conf task data)
-    (:PostProcessing task) (js/exec      conf task data)
-    (:PostScriptPy   task) (py/exec      conf task data)
+    (:PostScript     task) (clj/post-dispatch conf task data)
+    (:PostProcessing task) (js/exec           conf task data)
+    (:PostScriptPy   task) (py/exec           conf task data)
     :else (do
             (μ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
             data)))

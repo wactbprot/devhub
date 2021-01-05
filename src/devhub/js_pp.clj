@@ -28,11 +28,13 @@
   ;; means e.g.:
   node resources/js/exec.js resources/js/ /tmp/MKT50-exec.js
   ```"
-  [{conf :post} task data]
+  ([{conf :post} task]
+   task)
+  ([{conf :post} task data]
   (spit (pp-file task) (pp-source (:PostProcessing task) data))
   (let [res (sh (:js conf) (exec-fn conf) (:js-path conf) (pp-file task))]
     (if-not (zero? (:exit res)) {:error (:err res)}
             (try (che/decode (:out res) true)
                  (catch Exception e
                    (µ/log ::exec :error "decode error" :req-id (:req-id task))
-                   {:error (str "caught exception: " (.getMessage e))})))))
+                   {:error (str "caught exception: " (.getMessage e))}))))))

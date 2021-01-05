@@ -21,14 +21,16 @@
   ;; Elapsed time: 31.680355 msecs
   ;; {:ToExchange {:FilesVector [a ba b cb]}}
   ```"
-  [{conf :post} task data]
-  (let [ps (pp-file conf task)]
-    (if-not (u/file? ps) {:error (str "no such postscript file: " ps)}
+  ([{conf :post} task]
+   task)
+  ([{conf :post} task data]
+   (let [ps (pp-file conf task)]
+     (if-not (u/file? ps) {:error (str "no such postscript file: " ps)}
             (let [res (sh (:py conf) ps (che/encode task) (che/encode data) :dir (:py-path conf))]
               (if-not (zero? (:exit res)) {:error (:err res)}
                       (try (che/decode (:out res) true)
                            (catch Exception e
                              (µ/log ::exec :error "decode error" :req-id (:req-id task))
-                             {:error (str "decode error, caught exception: " (.getMessage e))})))))))
+                             {:error (str "decode error, caught exception: " (.getMessage e))}))))))))
 
 
