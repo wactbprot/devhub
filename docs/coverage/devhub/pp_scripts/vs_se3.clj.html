@@ -8,10 +8,10 @@
                 001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.vs_se3
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-scripts.utils&nbsp;:as&nbsp;pu]
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-scripts.utils&nbsp;:as&nbsp;ppu]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]))
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 004&nbsp;&nbsp;
@@ -77,7 +77,7 @@
                 024&nbsp;&nbsp;&nbsp;&nbsp;(mapv
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[[kw&nbsp;[block&nbsp;position]]]&nbsp;{kw&nbsp;(pu&#x2F;open?&nbsp;(nth&nbsp;rs&nbsp;block)&nbsp;position)})
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[[kw&nbsp;[block&nbsp;position]]]&nbsp;{kw&nbsp;(ppu&#x2F;open?&nbsp;(nth&nbsp;rs&nbsp;block)&nbsp;position)})
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
                 026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m))
@@ -125,7 +125,7 @@
                 040&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[vs&nbsp;(pu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:valve-position&nbsp;conf)))]
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[vs&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:valve-position&nbsp;conf)))]
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
                 042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;vs)})
@@ -179,10 +179,10 @@
                 058&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[so&nbsp;(pu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-open&nbsp;&nbsp;&nbsp;&nbsp;conf)))
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[so&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-open&nbsp;&nbsp;&nbsp;&nbsp;conf)))
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sc&nbsp;(pu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-closed&nbsp;&nbsp;conf)))]
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sc&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-closed&nbsp;&nbsp;conf)))]
                 </span><br/>
 <span class="covered" title="13 out of 13 forms covered">
                 061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;so)&nbsp;sc)})

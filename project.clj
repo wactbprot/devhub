@@ -14,6 +14,7 @@
                  [org.clojure/data.json                "1.0.0"]
                  [com.brunobonacci/mulog               "0.6.0"]
                  [com.brunobonacci/mulog-elasticsearch "0.6.0"]
+                 [clojure-interop/java.nio             "1.0.5"]
                  [com.intelligt.modbus/jlibmodbus      "1.2.9.7"]]
   :resource-paths ["resources"
                    "resources/js"
