@@ -207,8 +207,15 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
 ##                ...}}
 ```
 ```shell
-D='{"Action": "MODBUS", "TaskName": "Inficon Modbus CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 125, "Host":"e75480"}'
+D='{"Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 68, "Host":"e75480"}'
 curl -H "$H" -d "$D" -X POST http://localhost:9009/
+## =>
+## {"_x":[63,81,0,0,63,62,0,0,63,124,0,0,63,-86,0,1,
+## 63,34,0,1,63,-127,0,1,63,-21,0,1,63,98,0,1,
+## 63,-21,0,1,63,81,0,1,63,-89,0,1,63,-4,0,1,
+## 63,115,0,1,63,30,0,1,63,-89,0,1,0,0,5,1,
+## 0,0,0,0],"_t_start":"1609929639156","_t_stop":"1609929639158","_dt":2}
+## -- ca.130 Pa 
 ```
 
 # pre processing
