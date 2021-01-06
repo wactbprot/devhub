@@ -91,7 +91,7 @@
 <span class="blank" title="0 out of 0 forms covered">
                 029&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
+<span class="partial" title="1 out of 7 forms covered">
                 030&nbsp;&nbsp;(defn&nbsp;record-sample?&nbsp;[conf]&nbsp;(get-in&nbsp;conf&nbsp;[:sample&nbsp;:record]))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -451,50 +451,65 @@
 <span class="blank" title="0 out of 0 forms covered">
                 149&nbsp;&nbsp;
                 </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                150&nbsp;&nbsp;(defn&nbsp;i-&gt;v
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                151&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;vector&nbsp;of&nbsp;integers&nbsp;made&nbsp;from&nbsp;the&nbsp;input&nbsp;`[I`&nbsp;type.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                152&nbsp;&nbsp;&nbsp;&nbsp;[i]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                153&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;int&nbsp;(byte-array&nbsp;i)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                154&nbsp;&nbsp;
+                </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                150&nbsp;&nbsp;(defn&nbsp;ascii-logo
+                155&nbsp;&nbsp;(defn&nbsp;ascii-logo
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                151&nbsp;&nbsp;&nbsp;&nbsp;[]
+                156&nbsp;&nbsp;&nbsp;&nbsp;[]
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                152&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                157&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                153&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                158&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                154&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                159&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                155&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                160&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                156&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2F;&nbsp;^&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                161&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2F;&nbsp;^&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                157&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2F;_&#x2F;&nbsp;\\_\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                162&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2F;_&#x2F;&nbsp;\\_\\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                158&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                163&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                159&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;__|&nbsp;|&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;__&nbsp;|&nbsp;|__&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;|&nbsp;|__&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                164&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;__|&nbsp;|&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;__&nbsp;|&nbsp;|__&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;|&nbsp;|__&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                160&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&#x2F;&nbsp;_`&nbsp;|&nbsp;&nbsp;&#x2F;&nbsp;_&nbsp;\\&nbsp;\\&nbsp;\\&nbsp;&#x2F;&nbsp;&#x2F;&nbsp;|&nbsp;&#x27;_&nbsp;\\&nbsp;&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&#x27;_&nbsp;\\&nbsp;&nbsp;&nbsp;&quot;)
+                165&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&#x2F;&nbsp;_`&nbsp;|&nbsp;&nbsp;&#x2F;&nbsp;_&nbsp;\\&nbsp;\\&nbsp;\\&nbsp;&#x2F;&nbsp;&#x2F;&nbsp;|&nbsp;&#x27;_&nbsp;\\&nbsp;&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&#x27;_&nbsp;\\&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                161&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;&nbsp;__&#x2F;&nbsp;&nbsp;\\&nbsp;V&nbsp;&#x2F;&nbsp;&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|_|&nbsp;|&nbsp;|&nbsp;|_)&nbsp;|&nbsp;&nbsp;&quot;)
+                166&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;&nbsp;__&#x2F;&nbsp;&nbsp;\\&nbsp;V&nbsp;&#x2F;&nbsp;&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|_|&nbsp;|&nbsp;|&nbsp;|_)&nbsp;|&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                162&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;\\__,_|&nbsp;&nbsp;\\___|&nbsp;&nbsp;&nbsp;\\_&#x2F;&nbsp;&nbsp;&nbsp;|_|&nbsp;|_|&nbsp;&nbsp;\\__,_|&nbsp;|_.__&#x2F;&nbsp;&nbsp;&nbsp;&quot;)
+                167&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;\\__,_|&nbsp;&nbsp;\\___|&nbsp;&nbsp;&nbsp;\\_&#x2F;&nbsp;&nbsp;&nbsp;|_|&nbsp;|_|&nbsp;&nbsp;\\__,_|&nbsp;|_.__&#x2F;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                163&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
+                168&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                164&nbsp;&nbsp;&nbsp;&nbsp;&quot;&quot;)
+                169&nbsp;&nbsp;&nbsp;&nbsp;&quot;&quot;)
                 </span><br/>
  </body>
 </html>

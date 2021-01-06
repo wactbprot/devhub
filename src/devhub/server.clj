@@ -84,7 +84,8 @@
           (if (:error task) task
               (let [data (if stub? (stub/response conf task) (dispatch conf task))]
                 (if (:error data) data
-                    (post-dispatch conf task (sample/record conf task (u/meas-vec data))))))))))
+                    ;; (sample/record conf task (u/meas-vec data))
+                    (post-dispatch conf task (u/meas-vec data)))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
@@ -97,7 +98,6 @@
   (-> (handler/site app-routes)
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
-
 
 (defn init-log!
   [{conf :mulog }]

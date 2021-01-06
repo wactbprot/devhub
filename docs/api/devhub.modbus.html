@@ -7,12 +7,30 @@
        :Value [:no-value] :Wait 10 :Repeat 2})
 (query c t)
 ;; =&gt;
-;; [[{:_x [5, 0, 4, 0, 20, 0, 1024, 0, 3],
-;; :_t_start 1609750368503,
-;; :_t_stop 1609750368513,
-;; :_dt 10}]
-;; [{:_x [5, 0, 4, 0, 20, 0, 1024, 0, 3],
-;; :_t_start 1609750368524,
-;; :_t_stop 1609750368528,
-;; :_dt 4}]]
+;; [[{:_x [80 0 17 0 16 0 21 0 3],
+;;  :_t_start 1609917641895
+;;  :_t_stop 1609917641898
+;;  :_dt 3}]
+;; [{:_x [80 0 17 0 16 0 21 0 3]
+;;  :_t_start 1609917641908
+;;  :_t_stop 1609917641912
+;;  :_dt 4}]]
+
+(def t {:Host "e75480" :Quantity 125 :Address 0
+         :FunctionCode :ReadInputRegisters
+          :Value [:no-value] :Wait 10 :Repeat 1})
+(query c t)
+ ;; =&gt;
+ ;; {:_x 
+ ;; [60  44  0  1  60  -25  0  1  60  113  0  1  60  78  0  1
+ ;;  60  -56  0  1  60  78  0  1  0  0  5  1  0  0  5  1  0
+ ;;  0  5  1  0  0  5  1  0  0  5  1  0  0  5  1
+ ;;  60  33  0  1  0  0  5  1  0  0  5  1  0  0  5  1  0
+ ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+ ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+ ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+ ;;  0  0  0  0  0  0  0  0  0]
+ ;;  :_t_start 1609917864255
+ ;;  :_t_stop 1609917864257
+ ;;  :_dt 2}
 </code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/modbus.clj#L13">view source</a></div></div></div></body></html>

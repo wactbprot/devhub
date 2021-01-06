@@ -20,14 +20,32 @@
          :Value [:no-value] :Wait 10 :Repeat 2})
   (query c t)
   ;; =>
-  ;; [[{:_x [5, 0, 4, 0, 20, 0, 1024, 0, 3],
-  ;; :_t_start 1609750368503,
-  ;; :_t_stop 1609750368513,
-  ;; :_dt 10}]
-  ;; [{:_x [5, 0, 4, 0, 20, 0, 1024, 0, 3],
-  ;; :_t_start 1609750368524,
-  ;; :_t_stop 1609750368528,
-  ;; :_dt 4}]]
+  ;; [[{:_x [80 0 17 0 16 0 21 0 3],
+  ;;  :_t_start 1609917641895
+  ;;  :_t_stop 1609917641898
+  ;;  :_dt 3}]
+  ;; [{:_x [80 0 17 0 16 0 21 0 3]
+  ;;  :_t_start 1609917641908
+  ;;  :_t_stop 1609917641912
+  ;;  :_dt 4}]]
+
+  (def t {:Host \"e75480\" :Quantity 125 :Address 0
+           :FunctionCode :ReadInputRegisters
+            :Value [:no-value] :Wait 10 :Repeat 1})
+  (query c t)
+   ;; =>
+   ;; {:_x 
+   ;; [60  44  0  1  60  -25  0  1  60  113  0  1  60  78  0  1
+   ;;  60  -56  0  1  60  78  0  1  0  0  5  1  0  0  5  1  0
+   ;;  0  5  1  0  0  5  1  0  0  5  1  0  0  5  1
+   ;;  60  33  0  1  0  0  5  1  0  0  5  1  0  0  5  1  0
+   ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+   ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+   ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+   ;;  0  0  0  0  0  0  0  0  0]
+   ;;  :_t_start 1609917864255
+   ;;  :_t_stop 1609917864257
+   ;;  :_dt 2}
   ```"
   [{conf :modbus} task]
   (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task]
@@ -43,10 +61,10 @@
             (Modbus/setAutoIncrementTransactionId true)
             (.connect master)
             (let [f (condp = fc
-                      :ReadHoldingRegisters (fn [x] (.readHoldingRegisters master s-addr addr q)) 
-                      :ReadInputRegisters   (fn [x] (.readInputRegisters   master s-addr addr q))
-                      :ReadCoils            (fn [x] (.readCoils            master s-addr addr q)) 
-                      :ReadDiscreteInputs   (fn [x] (.readDiscreteInputs   master s-addr addr q))
+                      :ReadHoldingRegisters (fn [x] (u/i->v (.readHoldingRegisters master s-addr addr q))) 
+                      :ReadInputRegisters   (fn [x] (u/i->v (.readInputRegisters   master s-addr addr q)))
+                      :ReadCoils            (fn [x] (u/i->v (.readCoils            master s-addr addr q))) 
+                      :ReadDiscreteInputs   (fn [x] (u/i->v (.readDiscreteInputs   master s-addr addr q)))
                       :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
                   data (u/run f conf task)]
               (.disconnect master)
