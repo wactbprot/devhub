@@ -85,7 +85,7 @@
               (let [data (if stub? (stub/response conf task) (dispatch conf task))]
                 (if (:error data) data
                     ;; (sample/record conf task (u/meas-vec data))
-                    (post-dispatch conf task (u/meas-vec data)))))))))
+                    (post-dispatch conf task (sample/record conf task (u/meas-vec data))))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

@@ -3,6 +3,7 @@
     :doc "Records samples from outer space (or not)."}
   (:require [devhub.utils    :as u]
             [clojure.java.io :as io]
+            [clojure.pprint :as pp]
             [com.brunobonacci.mulog :as µ]))
 
 (defn insert
@@ -19,5 +20,5 @@
   (when (and (u/record-sample? conf) task-name (:_x data))
     (µ/log ::record :message "record sample data" :TaskName task-name)
     (spit (io/resource (u/responses-file conf))
-          (prn-str (insert conf (u/all-responses conf) (keyword task-name) data))))
+          (with-out-str (pp/pprint (insert conf (u/all-responses conf) (keyword task-name) data)))))
   data)

@@ -16,18 +16,22 @@
   Example:
   ```clojure
   (def c (u/config))
-  (def t {:Host \"e75446\" :Quantity 9 :Address 45407 :FunctionCode :ReadHoldingRegisters
-         :Value [:no-value] :Wait 10 :Repeat 2})
+  ;; valves
+  (def t {:Host \"e75446\" :Quantity 9 :Address 45407
+         :FunctionCode :ReadHoldingRegisters
+         :Value [:no-value] :Wait 10 :Repeat 1})
   (query c t)
   ;; =>
-  ;; [[{:_x [80 0 17 0 16 0 21 0 3],
+  ;; {:_x [80 0 17 0 16 0 21 0 3],
   ;;  :_t_start 1609917641895
   ;;  :_t_stop 1609917641898
-  ;;  :_dt 3}]
-  ;; [{:_x [80 0 17 0 16 0 21 0 3]
-  ;;  :_t_start 1609917641908
-  ;;  :_t_stop 1609917641912
-  ;;  :_dt 4}]]
+  ;;  :_dt 3}
+
+  ;; switches
+  (def t {:Host \"e75446\" :Quantity 9 :Address 45395
+         :FunctionCode :ReadHoldingRegisters
+         :Value [:no-value] :Wait 10 :Repeat 1})
+  (query c t)
 
   (def t {:Host \"e75480\" :Quantity 125 :Address 0
            :FunctionCode :ReadInputRegisters
