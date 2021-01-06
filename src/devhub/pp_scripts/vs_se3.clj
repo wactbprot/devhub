@@ -1,6 +1,6 @@
 (ns devhub.pp-scripts.vs_se3
-  (:require [devhub.pp-scripts.utils :as pu]
-            [devhub.utils              :as u]))
+  (:require [devhub.pp-scripts.utils :as ppu]
+            [devhub.utils            :as u]))
 
 (def conf (u/config "vs_se3.edn"))
 
@@ -22,7 +22,7 @@
   "
   [rs m]
   (mapv
-   (fn [[kw [block position]]] {kw (pu/open? (nth rs block) position)})
+   (fn [[kw [block position]]] {kw (ppu/open? (nth rs block) position)})
    m))
 
 (defn valves
@@ -47,7 +47,7 @@
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)
-    (let [vs (pu/exch-bool-map (check rs (:valve-position conf)))]
+    (let [vs (ppu/exch-bool-map (check rs (:valve-position conf)))]
       {:ToExchange (reduce merge {:registers rs} vs)})
     {:error "wrong register format"}))
 
@@ -65,8 +65,8 @@
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)
-    (let [so (pu/exch-bool-map (check rs (:switch-open    conf)))
-          sc (pu/exch-bool-map (check rs (:switch-closed  conf)))]
+    (let [so (ppu/exch-bool-map (check rs (:switch-open    conf)))
+          sc (ppu/exch-bool-map (check rs (:switch-closed  conf)))]
       {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)})
     {:error "wrong register format"}))
 
