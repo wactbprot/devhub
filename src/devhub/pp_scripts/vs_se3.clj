@@ -15,7 +15,7 @@
   
   Example:
   ```clojure
-  (check [1025] {:ThingA [0 0] :ThingB [0 1]})
+  (check [89] {:ThingA [0 0] :ThingB [0 1]})
   ;; =>
   ;; [{:ThingA true} {:ThingB false}]
   ```
@@ -29,12 +29,21 @@
   "Returns exchange structures like
 
   ```json
-  ToExchange:{V1:{ Bool: true}, V2:{ Bool:false}
+  {ToExchange:
+    {E7_open:    {Bool: true},
+     E3_open:    {Bool: true},
+     E15_open:   {Bool: true},
+     E10_open:   {Bool: false},
+     E20_open:   {Bool: false},
+     E18_open:   {Bool: true},
+     E10_closed: {Bool: true},
+     ...
+     registers [89, 0, -102, 0, -102, 0, 21, 0, -91]}}
   ```
   
   Example:
   ```clojure
-  (valves {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
+  (valves {} {:_x [85 0 16 0 16 0 21 0 7]})
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)
@@ -52,7 +61,7 @@
   
   Example:
   ```clojure
-  (switches {} {:_x [1025, 0, 21760, 0, 0, 0, 1024, 0, 7]})
+  (switches {} {:_x [89 0 -102 0 -102 0 21 0 -91]})
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)
