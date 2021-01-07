@@ -62,7 +62,7 @@
                 019&nbsp;&nbsp;
                 </span><br/>
 <span class="partial" title="1 out of 12 forms covered">
-                020&nbsp;&nbsp;(defn&nbsp;anybus-float&nbsp;[v&nbsp;s&nbsp;n](ppu&#x2F;vec-&gt;float&nbsp;(anybus-vec&nbsp;(subvec&nbsp;v&nbsp;s&nbsp;(+&nbsp;s&nbsp;n)))))
+                020&nbsp;&nbsp;(defn&nbsp;anybus-float&nbsp;[v&nbsp;s&nbsp;n]&nbsp;(ppu&#x2F;vec-&gt;float&nbsp;(anybus-vec&nbsp;(subvec&nbsp;v&nbsp;s&nbsp;(+&nbsp;s&nbsp;n)))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 021&nbsp;&nbsp;
@@ -125,13 +125,13 @@
                 040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dev-name&nbsp;(if&nbsp;(u&#x2F;single-meas?&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(anybus-float&nbsp;x&nbsp;&nbsp;start&nbsp;n)
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(anybus-float&nbsp;x&nbsp;start&nbsp;n)
                 </span><br/>
 <span class="not-covered" title="0 out of 9 forms covered">
                 042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[v]&nbsp;(anybus-float&nbsp;v&nbsp;start&nbsp;n))&nbsp;x))})]&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
                 044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;f&nbsp;m)))

@@ -8,37 +8,43 @@
                 001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.core
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-scripts.vs_se3&nbsp;:as&nbsp;vs-se3]))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                003&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                004&nbsp;&nbsp;(defn&nbsp;post-dispatch
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-scripts.vs_se3&nbsp;:as&nbsp;vs-se3]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                005&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;data]
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.pp-scripts.gn_se3&nbsp;:as&nbsp;gn-se3]))
                 </span><br/>
-<span class="partial" title="12 out of 17 forms covered">
-                006&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))
+<span class="blank" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                005&nbsp;&nbsp;(defn&nbsp;post-dispatch
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                006&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;data]
+                </span><br/>
+<span class="partial" title="12 out of 22 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;task&nbsp;data)
+                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:gn_se3.anybus-readout&nbsp;(gn-se3&#x2F;anybus-readout&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
+                011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                010&nbsp;&nbsp;
+                012&nbsp;&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                011&nbsp;&nbsp;
+                013&nbsp;&nbsp;
                 </span><br/>
 <span class="partial" title="1 out of 2 forms covered">
-                012&nbsp;&nbsp;(defn&nbsp;pre-dispatch&nbsp;[conf&nbsp;task]&nbsp;task)
+                014&nbsp;&nbsp;(defn&nbsp;pre-dispatch&nbsp;[conf&nbsp;task]&nbsp;task)
                 </span><br/>
  </body>
 </html>

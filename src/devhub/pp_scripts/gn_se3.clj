@@ -17,7 +17,7 @@
    (ppu/b16->l (nth v 1))
    (ppu/b16->h (nth v 2))])
 
-(defn anybus-float [v s n](ppu/vec->float (anybus-vec (subvec v s (+ s n)))))
+(defn anybus-float [v s n] (ppu/vec->float (anybus-vec (subvec v s (+ s n)))))
 
 (defn anybus-readout
   "Returns `Result` and `ToExchange` maps.
@@ -38,7 +38,7 @@
         x (:_x data)
         f (fn [[dev-name start]]
             {dev-name (if (u/single-meas? data)
-                        (anybus-float x  start n)
+                        (anybus-float x start n)
                         (mapv (fn [v] (anybus-float v start n)) x))})] 
-        
+    
     (mapv f m)))
