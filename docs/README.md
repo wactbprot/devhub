@@ -503,4 +503,5 @@ sudo systemctl start kibana
 ## notes
 
 * `[clojure-interop/java.nio "1.0.5"]`
+* https://cljdoc.org/d/clojure-interop/java.nio/1.0.5
 

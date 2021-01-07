@@ -1,5 +1,6 @@
 (ns devhub.pp-scripts.utils
-  (:require [clojure.edn  :as edn]))
+  (:require [clojure.edn        :as edn]
+            [jdk.nio.ByteBuffer :as bb]))
 
 (defn open? [r n] (bit-test r n))
 
@@ -15,4 +16,8 @@
    vs)) 
 
 
+(defn b16->h [b] (bit-and (bit-shift-right b 8) 0xff))
 
+(defn b16->l [b] (bit-and  b 0xff))
+
+(defn vec->float [v] (-> v byte-array bb/*wrap bb/get-float))
