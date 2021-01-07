@@ -8,12 +8,12 @@
 
 (defn insert
   [{conf :sample} m kw data]
-  (let [n (:count conf) x (:_x data) t (:_t_start data)]
+  (let [n (:count conf) x (:_x data) single-meas? (u/single-meas? data)]
     (assoc m kw (if (kw m)
-                  (into [] (take n (if (vector? t)
-                                     (concat (take n x) (kw m))
-                                     (conj (reverse (kw m)) x))))
-                  (if (vector? t) (into [] (take n x)) [x])))))
+                  (into [] (take n (if single-meas?
+                                     (conj (reverse (kw m)) x)
+                                     (concat (take n x) (kw m)))))
+                  (if single-meas? [x] (into [] (take n x)))))))
 
 (defn record
   [conf {task-name :TaskName} data]

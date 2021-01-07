@@ -41,193 +41,208 @@
                 012&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                013&nbsp;&nbsp;(defn&nbsp;query
+                013&nbsp;&nbsp;(defn&nbsp;I-&gt;v
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                014&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;Modbus&nbsp;queries.&nbsp;Executes&nbsp;the&nbsp;query&nbsp;depending&nbsp;on&nbsp;the&nbsp;`FunctionCode`.
+                014&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;vector&nbsp;of&nbsp;integers&nbsp;made&nbsp;from&nbsp;the&nbsp;input&nbsp;`[I`&nbsp;type.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;[i]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;int&nbsp;i))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                015&nbsp;&nbsp;
+                017&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                018&nbsp;&nbsp;(defn&nbsp;query
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;c&nbsp;(u&#x2F;config))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                019&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;valves
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Host&nbsp;\&quot;e75446\&quot;&nbsp;:Quantity&nbsp;9&nbsp;:Address&nbsp;45407
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;:ReadHoldingRegisters
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[:no-value]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;1})
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:_x&nbsp;[80&nbsp;0&nbsp;17&nbsp;0&nbsp;16&nbsp;0&nbsp;21&nbsp;0&nbsp;3],
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                026&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_start&nbsp;1609917641895
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                027&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_stop&nbsp;1609917641898
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_dt&nbsp;3}
+                019&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;Modbus&nbsp;queries.&nbsp;Executes&nbsp;the&nbsp;query&nbsp;depending&nbsp;on&nbsp;the&nbsp;`FunctionCode`.
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;
+                020&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                030&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;switches
+                021&nbsp;&nbsp;&nbsp;&nbsp;Example:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Host&nbsp;\&quot;e75446\&quot;&nbsp;:Quantity&nbsp;9&nbsp;:Address&nbsp;45395
+                022&nbsp;&nbsp;&nbsp;&nbsp;```clojure
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;:ReadHoldingRegisters
+                023&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;c&nbsp;(u&#x2F;config))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[:no-value]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;1})
+                024&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;valves
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
+                025&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Host&nbsp;\&quot;e75446\&quot;&nbsp;:Quantity&nbsp;9&nbsp;:Address&nbsp;45407
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;:ReadHoldingRegisters
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[:no-value]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;1})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:_x&nbsp;[80&nbsp;0&nbsp;17&nbsp;0&nbsp;16&nbsp;0&nbsp;21&nbsp;0&nbsp;3],
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_start&nbsp;1609917641895
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_stop&nbsp;1609917641898
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_dt&nbsp;3}
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                035&nbsp;&nbsp;
+                034&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Host&nbsp;\&quot;e75480\&quot;&nbsp;:Quantity&nbsp;125&nbsp;:Address&nbsp;0
+                035&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;switches
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;:ReadInputRegisters
+                036&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Host&nbsp;\&quot;e75446\&quot;&nbsp;:Quantity&nbsp;9&nbsp;:Address&nbsp;45395
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[:no-value]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;1})
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;:ReadHoldingRegisters
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[:no-value]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;1})
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 039&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+<span class="blank" title="0 out of 0 forms covered">
+                040&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:_x&nbsp;
+                041&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Host&nbsp;\&quot;e75480\&quot;&nbsp;:Quantity&nbsp;64&nbsp;:Address&nbsp;0
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;[60&nbsp;&nbsp;44&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;-25&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;113&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;78&nbsp;&nbsp;0&nbsp;&nbsp;1
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:FunctionCode&nbsp;:ReadInputRegisters
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;60&nbsp;&nbsp;-56&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;78&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[:no-value]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;1})
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1
+                044&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;60&nbsp;&nbsp;33&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0
+                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:_x&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;[60&nbsp;&nbsp;44&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;-25&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;113&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;78&nbsp;&nbsp;0&nbsp;&nbsp;1
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0
+                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;60&nbsp;&nbsp;-56&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;60&nbsp;&nbsp;78&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0]
+                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_start&nbsp;1609917864255
+                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;60&nbsp;&nbsp;33&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;5&nbsp;&nbsp;1&nbsp;&nbsp;0
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                051&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_stop&nbsp;1609917864257
+                051&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_dt&nbsp;2}
+                052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:modbus}&nbsp;task]
+                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_start&nbsp;1609917864255
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_t_stop&nbsp;1609917864257
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;:_dt&nbsp;2}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                058&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                059&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:modbus}&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{host&nbsp;:Host&nbsp;fc&nbsp;:FunctionCode&nbsp;addr&nbsp;:Address&nbsp;q&nbsp;:Quantity}&nbsp;task]
+                060&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{host&nbsp;:Host&nbsp;fc&nbsp;:FunctionCode&nbsp;addr&nbsp;:Address&nbsp;q&nbsp;:Quantity}&nbsp;task]
                 </span><br/>
 <span class="covered" title="18 out of 18 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::query&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:Host&nbsp;host&nbsp;:Address&nbsp;addr)
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::query&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:Host&nbsp;host&nbsp;:Address&nbsp;addr)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ok-or-err&nbsp;(try&nbsp;(InetAddress&#x2F;getByName&nbsp;host)
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ok-or-err&nbsp;(try&nbsp;(InetAddress&#x2F;getByName&nbsp;host)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;&nbsp;Exception&nbsp;e
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;&nbsp;Exception&nbsp;e
                 </span><br/>
 <span class="covered" title="16 out of 16 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::query&nbsp;:error&nbsp;&quot;connection&nbsp;error&quot;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::query&nbsp;:error&nbsp;&quot;connection&nbsp;error&quot;&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&nbsp;to&nbsp;host&quot;}))]
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&nbsp;to&nbsp;host&quot;}))]
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;ok-or-err)&nbsp;ok-or-err
+                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;ok-or-err)&nbsp;ok-or-err
                 </span><br/>
 <span class="not-covered" title="0 out of 9 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[param&nbsp;&nbsp;(TcpParameters.&nbsp;host&nbsp;(:port&nbsp;conf)&nbsp;(:keep-alive&nbsp;conf))
+                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[param&nbsp;&nbsp;(TcpParameters.&nbsp;host&nbsp;(:port&nbsp;conf)&nbsp;(:keep-alive&nbsp;conf))
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;(ModbusMasterFactory&#x2F;createModbusMasterTCP&nbsp;param)
+                068&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;(ModbusMasterFactory&#x2F;createModbusMasterTCP&nbsp;param)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s-addr&nbsp;(:default-slave-address&nbsp;conf)]
+                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s-addr&nbsp;(:default-slave-address&nbsp;conf)]
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Modbus&#x2F;setAutoIncrementTransactionId&nbsp;true)
+                070&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Modbus&#x2F;setAutoIncrementTransactionId&nbsp;true)
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.connect&nbsp;master)
+                071&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.connect&nbsp;master)
                 </span><br/>
 <span class="not-covered" title="0 out of 35 forms covered">
-                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[f&nbsp;(condp&nbsp;=&nbsp;fc
+                072&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[f&nbsp;(condp&nbsp;=&nbsp;fc
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                068&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadHoldingRegisters&nbsp;(fn&nbsp;[x]&nbsp;(u&#x2F;i-&gt;v&nbsp;(.readHoldingRegisters&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))&nbsp;
+                073&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadHoldingRegisters&nbsp;(fn&nbsp;[x]&nbsp;(I-&gt;v&nbsp;(.readHoldingRegisters&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))&nbsp;
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadInputRegisters&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(u&#x2F;i-&gt;v&nbsp;(.readInputRegisters&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))
+                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadInputRegisters&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(I-&gt;v&nbsp;(.readInputRegisters&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                070&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadCoils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(u&#x2F;i-&gt;v&nbsp;(.readCoils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))&nbsp;
+                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadCoils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(I-&gt;v&nbsp;(.readCoils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))&nbsp;
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                071&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadDiscreteInputs&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(u&#x2F;i-&gt;v&nbsp;(.readDiscreteInputs&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))
+                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ReadDiscreteInputs&nbsp;&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(I-&gt;v&nbsp;(.readDiscreteInputs&nbsp;&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;q)))
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                072&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:writeSingleRegister&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(.writeSingleRegister&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;x)))
+                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:writeSingleRegister&nbsp;&nbsp;(fn&nbsp;[x]&nbsp;(.writeSingleRegister&nbsp;&nbsp;master&nbsp;s-addr&nbsp;addr&nbsp;x)))
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                073&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)]
+                078&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)]
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.disconnect&nbsp;master)
+                079&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.disconnect&nbsp;master)
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))))))
+                080&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))))))
                 </span><br/>
  </body>
 </html>

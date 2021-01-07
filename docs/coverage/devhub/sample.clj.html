@@ -35,22 +35,22 @@
                 010&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:sample}&nbsp;m&nbsp;kw&nbsp;data]
                 </span><br/>
 <span class="covered" title="10 out of 10 forms covered">
-                011&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[n&nbsp;(:count&nbsp;conf)&nbsp;x&nbsp;(:_x&nbsp;data)&nbsp;t&nbsp;(:_t_start&nbsp;data)]
+                011&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[n&nbsp;(:count&nbsp;conf)&nbsp;x&nbsp;(:_x&nbsp;data)&nbsp;single-meas?&nbsp;(u&#x2F;single-meas?&nbsp;data)]
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
                 012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m&nbsp;kw&nbsp;(if&nbsp;(kw&nbsp;m)
                 </span><br/>
-<span class="covered" title="10 out of 10 forms covered">
-                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;(if&nbsp;(vector?&nbsp;t)
-                </span><br/>
-<span class="covered" title="9 out of 9 forms covered">
-                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(concat&nbsp;(take&nbsp;n&nbsp;x)&nbsp;(kw&nbsp;m))
+<span class="covered" title="8 out of 8 forms covered">
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;(if&nbsp;single-meas?
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conj&nbsp;(reverse&nbsp;(kw&nbsp;m))&nbsp;x))))
+                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conj&nbsp;(reverse&nbsp;(kw&nbsp;m))&nbsp;x)
                 </span><br/>
-<span class="not-covered" title="0 out of 13 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(vector?&nbsp;t)&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;x))&nbsp;[x])))))
+<span class="covered" title="9 out of 9 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(concat&nbsp;(take&nbsp;n&nbsp;x)&nbsp;(kw&nbsp;m)))))
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;single-meas?&nbsp;[x]&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;x)))))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 017&nbsp;&nbsp;

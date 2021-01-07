@@ -10,6 +10,11 @@
            [com.intelligt.modbus.jlibmodbus.tcp TcpParameters]
            [java.net InetAddress]))
 
+(defn I->v
+  "Returns a vector of integers made from the input `[I` type."
+  [i]
+  (mapv int i))
+
 (defn query
   "Handles Modbus queries. Executes the query depending on the `FunctionCode`.
 
@@ -33,7 +38,7 @@
          :Value [:no-value] :Wait 10 :Repeat 1})
   (query c t)
 
-  (def t {:Host \"e75480\" :Quantity 125 :Address 0
+  (def t {:Host \"e75480\" :Quantity 64 :Address 0
            :FunctionCode :ReadInputRegisters
             :Value [:no-value] :Wait 10 :Repeat 1})
   (query c t)
@@ -65,10 +70,10 @@
             (Modbus/setAutoIncrementTransactionId true)
             (.connect master)
             (let [f (condp = fc
-                      :ReadHoldingRegisters (fn [x] (u/i->v (.readHoldingRegisters master s-addr addr q))) 
-                      :ReadInputRegisters   (fn [x] (u/i->v (.readInputRegisters   master s-addr addr q)))
-                      :ReadCoils            (fn [x] (u/i->v (.readCoils            master s-addr addr q))) 
-                      :ReadDiscreteInputs   (fn [x] (u/i->v (.readDiscreteInputs   master s-addr addr q)))
+                      :ReadHoldingRegisters (fn [x] (I->v (.readHoldingRegisters master s-addr addr q))) 
+                      :ReadInputRegisters   (fn [x] (I->v (.readInputRegisters   master s-addr addr q)))
+                      :ReadCoils            (fn [x] (I->v (.readCoils            master s-addr addr q))) 
+                      :ReadDiscreteInputs   (fn [x] (I->v (.readDiscreteInputs   master s-addr addr q)))
                       :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
                   data (u/run f conf task)]
               (.disconnect master)

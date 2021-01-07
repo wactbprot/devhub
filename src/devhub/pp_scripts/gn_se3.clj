@@ -17,13 +17,7 @@
    (ppu/b16->l (nth v 1))
    (ppu/b16->h (nth v 2))])
 
-(defn anybus-float
-  [v]
-  (let [m (:anybus-byte-start conf)
-        n (:anybus-byte-count conf)]
-    (mapv (fn [[dev-name start]]
-            (ppu/vec->float (anybus-vec (subvec v start (+ start n)))))
-          m)))
+(defn anybus-float [v s n](ppu/vec->float (anybus-vec (subvec v s (+ s n)))))
 
 (defn anybus-readout
   "Returns `Result` and `ToExchange` maps.
@@ -35,7 +29,16 @@
                32832,338,40448,257,32832,202,6400,257,32832,338,40448,257,
                32831,65530,41216,257,32831,61434,63232,257,32831,65530,41216,257,
                32832,150,59136,257,32832,31,29184,257,32831,63482,52224,257,
-               32832,99,46336,257]})
+               32832,99,46336,257]
+  :_t_start 2})
+  (anybus-readout conf m) 
   ```"
-    [task {v :_x}]
-    (anybus-float v))
+  [task data]
+  (let [m (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        x (:_x data)
+        f (fn [[dev-name start]]
+            {dev-name (if (u/single-meas? data)
+                        (anybus-float x  start n)
+                        (mapv (fn [v] (anybus-float v start n)) x))})] 
+        
+    (mapv f m)))

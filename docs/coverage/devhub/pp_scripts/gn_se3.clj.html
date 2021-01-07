@@ -61,71 +61,80 @@
 <span class="blank" title="0 out of 0 forms covered">
                 019&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                020&nbsp;&nbsp;(defn&nbsp;anybus-float
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;[v]
-                </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[m&nbsp;(:anybus-byte-start&nbsp;conf)
-                </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;(:anybus-byte-count&nbsp;conf)]
-                </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[[dev-name&nbsp;start]]
-                </span><br/>
-<span class="not-covered" title="0 out of 11 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;vec-&gt;float&nbsp;(anybus-vec&nbsp;(subvec&nbsp;v&nbsp;start&nbsp;(+&nbsp;start&nbsp;n)))))
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m)))
+<span class="partial" title="1 out of 12 forms covered">
+                020&nbsp;&nbsp;(defn&nbsp;anybus-float&nbsp;[v&nbsp;s&nbsp;n](ppu&#x2F;vec-&gt;float&nbsp;(anybus-vec&nbsp;(subvec&nbsp;v&nbsp;s&nbsp;(+&nbsp;s&nbsp;n)))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                027&nbsp;&nbsp;
+                021&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                028&nbsp;&nbsp;(defn&nbsp;anybus-readout
+                022&nbsp;&nbsp;(defn&nbsp;anybus-readout
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;`Result`&nbsp;and&nbsp;`ToExchange`&nbsp;maps.
+                023&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;`Result`&nbsp;and&nbsp;`ToExchange`&nbsp;maps.
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                030&nbsp;&nbsp;&nbsp;&nbsp;
+                024&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                025&nbsp;&nbsp;&nbsp;&nbsp;```clojure
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                032&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;approx.&nbsp;200Pa:
+                026&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;approx.&nbsp;200Pa:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;m&nbsp;{:_x&nbsp;[32825,23151,30976,257,32826,17559,34304,257,32826,6375,41472,257,
+                027&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;m&nbsp;{:_x&nbsp;[32825,23151,30976,257,32826,17559,34304,257,32826,6375,41472,257,
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,161,9216,257,32832,120,12032,257,32832,161,9216,257,
+                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,161,9216,257,32832,120,12032,257,32832,161,9216,257,
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,338,40448,257,32832,202,6400,257,32832,338,40448,257,
+                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,338,40448,257,32832,202,6400,257,32832,338,40448,257,
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32831,65530,41216,257,32831,61434,63232,257,32831,65530,41216,257,
+                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32831,65530,41216,257,32831,61434,63232,257,32831,65530,41216,257,
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,150,59136,257,32832,31,29184,257,32831,63482,52224,257,
+                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,150,59136,257,32832,31,29184,257,32831,63482,52224,257,
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,99,46336,257]})
+                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32832,99,46336,257]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                033&nbsp;&nbsp;&nbsp;&nbsp;:_t_start&nbsp;2})
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;{v&nbsp;:_x}]
+                034&nbsp;&nbsp;&nbsp;&nbsp;(anybus-readout&nbsp;conf&nbsp;m)&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;data]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[m&nbsp;(:anybus-byte-start&nbsp;conf)&nbsp;n&nbsp;(:anybus-byte-count&nbsp;conf)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(anybus-float&nbsp;v))
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;(:_x&nbsp;data)
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;(fn&nbsp;[[dev-name&nbsp;start]]
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dev-name&nbsp;(if&nbsp;(u&#x2F;single-meas?&nbsp;data)
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(anybus-float&nbsp;x&nbsp;&nbsp;start&nbsp;n)
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[v]&nbsp;(anybus-float&nbsp;v&nbsp;start&nbsp;n))&nbsp;x))})]&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;f&nbsp;m)))
                 </span><br/>
  </body>
 </html>
