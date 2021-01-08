@@ -92,6 +92,17 @@
     (string? x) (edn/read-string x)
     (number? x) x))
 
+(defn operable
+  "Returns a vector of booleans indicating if the values are
+  usable in calculations.
+  ```clojure
+  (operable [\"1\" 1.234E-5 0 \"a\" :number])
+  ;; =>
+  ;; [true true true false false]
+  ```"
+  [v]
+  (mapv (comp number? number) v))
+
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
 (defn task [req] (assoc (:body req) :req-id (ms)))

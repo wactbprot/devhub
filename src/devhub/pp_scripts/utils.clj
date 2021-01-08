@@ -21,3 +21,4 @@
 (defn b16->l [b] (bit-and  b 0xff))
 
 (defn vec->float [v] (-> v byte-array bb/*wrap bb/get-float))
+
