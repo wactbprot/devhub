@@ -95,6 +95,8 @@
 (defn operable
   "Returns a vector of booleans indicating if the values are
   usable in calculations.
+
+  Example:
   ```clojure
   (operable [\"1\" 1.234E-5 0 \"a\" :number])
   ;; =>
@@ -102,6 +104,23 @@
   ```"
   [v]
   (mapv (comp number? number) v))
+
+(defn operable-values
+  "Srinks the vector `v` down to operable values depending on vector `o`.
+
+  Example:
+  ```clojure
+  
+  
+  (operable-values [\"1\" 1.234E-5 0    \"a\"  :number]
+                   [true  true     true false  false])  
+  ;; =>
+  ;; [\"1\" 1.234E-5 0]
+  ```"
+  [v o]
+  (mapv :value
+        (filter (fn [{ok? :take}] (when ok? :take))
+                (mapv (fn [x y] {:take x :value y}) o v))))
 
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
