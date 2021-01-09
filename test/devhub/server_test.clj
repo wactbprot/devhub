@@ -62,7 +62,7 @@
                                           :Host "invalid"} true)))
         "stub")
     (is (vector? (:_x (thread (u/config) {:Action "MODBUS"
-                                          :TaskName "VS_SE3-get-valves-pos"
+                                          :TaskName "VS_NEW_SE3-get_valve_pos"
                                           :FunctionCode :ReadHoldingRegisters
                                           :Value [:no-value]
                                           :Repeat 2
@@ -71,7 +71,7 @@
                                           :Host "invalid"} true)))
         "stub")
     (is (map? (:ToExchange (thread (u/config) {:Action "MODBUS"
-                                          :TaskName "VS_SE3-get-valves-pos"
+                                          :TaskName "VS_NEW_SE3-get_valve_pos"
                                           :PostScript "vs_se3.valves"
                                           :FunctionCode :ReadHoldingRegisters
                                           :Value [:no-value]
