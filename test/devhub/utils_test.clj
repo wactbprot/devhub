@@ -13,7 +13,3 @@
 
 (deftest ascii-logo-i
   (testing "" (is (= "" (ascii-logo)) "")))
-
-(deftest operable-i
-  (testing "" (is (=  [true true true false false]
-                      (operable ["1" 1.234E-5 0 "a" :number]) ) "")))
