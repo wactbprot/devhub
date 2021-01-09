@@ -1,4 +1,4 @@
-(ns devhub.js-pp
+(ns devhub.pp-js
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles javascript post-processing."}
   (:require [clojure.string         :as string]

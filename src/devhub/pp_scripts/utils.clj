@@ -10,11 +10,8 @@
 (defn bool->exch-map [b] (if b {:Bool true} {:Bool false})) 
 
 (defn exch-bool-map
-  [vs]
-  (mapv
-   (fn [m] {(first-key m) (bool->exch-map (first-val m))})
-   vs)) 
-
+  [v]
+  (mapv (fn [m] {(first-key m) (bool->exch-map (first-val m))}) v)) 
 
 (defn b16->h [b] (bit-and (bit-shift-right b 8) 0xff))
 

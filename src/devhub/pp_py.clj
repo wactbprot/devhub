@@ -1,4 +1,4 @@
-(ns devhub.py-pp
+(ns devhub.pp-py
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles python post-processing."}
   (:require [cheshire.core          :as che]
