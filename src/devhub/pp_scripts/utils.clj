@@ -38,24 +38,40 @@
   (operable [\"1\" 1.234E-5 0 \"a\" :number])
   ;; =>
   ;; [true true true false false]
+  (operable 1)
+  ;; =>
+  ;; nil
   ```"
   [v]
-  (mapv (comp number? u/number) v))
+  (when (seqable? v) (mapv (comp number? u/number) v)))
 
-(defn operable-values
-  "Srinks the vector `v` down to operable values depending on vector `o`.
+(defn operable-seq
+  "Shrinks the vector `v` down to operable values depending on vector `o`.
 
   Example:
   ```clojure
-  
-  
-  (operable-values [\"1\" 1.234E-5 0    \"a\"  :number]
-                   [true  true     true false  false])  
+  (operable-seq [\"1\" 1.234E-5 0    \"a\"  :number]
+                [true  true     true false  false])  
   ;; =>
   ;; [\"1\" 1.234E-5 0]
   ```"
   [v o]
-  (mapv :value
-        (filter (fn [{ok? :take}] (when ok? :take))
-                (mapv (fn [x y] {:take x :value y}) o v))))
+  (when (and (seqable? v) (seqable? o))
+    (mapv :value
+          (filter (fn [{ok? :take}] (when ok? :take))
+                  (mapv (fn [x y] {:take x :value y}) o v)))))
+  
+(defn calc-seq
+  "Same as [[operable-seq]] but returns a vector of numbers.
 
+  Example:
+  ```clojure
+    (calc-seq [\"1\" 1.234E-5 0    \"a\"  :number]
+                [true  true     true false  false])  
+  ;; =>
+  ;; [1 1.234E-5 0]
+  ```"
+
+  [v o]
+  (when (and (seqable? v) (seqable? o))
+    (mapv u/number (operable-seq v o))))
