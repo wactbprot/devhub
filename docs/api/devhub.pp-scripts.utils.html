@@ -39,6 +39,16 @@
 ;; nil
 
 </code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/utils.clj#L83">view source</a></div></div><div class="public anchor" id="var-vec-.3Efloat"><h3>vec-&gt;float</h3><div class="usage"><code>(vec-&gt;float v)</code></div><div class="doc"><div class="markdown"></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/utils.clj#L27">view source</a></div></div><div class="public anchor" id="var-vl-result"><h3>vl-result</h3><div class="usage"><code>(vl-result t v u)</code></div><div class="doc"><div class="markdown"><p>Returns the vl result structure at least consisting of <code>:Type</code> <code>t</code> <code>:Value</code> <code>v</code> and <code>:Unit</code> <code>u</code>.</p>
-<p>Example: ```clojure (vl-result “ind” [1] “Pa”) ;; =&gt; ;; {:Type “ind”, :Value 1, :Unit “Pa”}</p>
-<p>(vl-result “ind” 1 “Pa”) ;; =&gt; ;; {:Type “ind”, :Value 1, :Unit “Pa”}</p>
-<p>(vl-result “ind” [0 1 2] “Pa”) ;; =&gt; ;; {:Type “ind”, :Value 1, :Unit “Pa”, :SdValue 1.0, :N 3}</p></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/utils.clj#L113">view source</a></div></div></div></body></html>
+<p>Example:</p>
+<pre><code class="clojure">(vl-result "ind" [1] "Pa")
+;; =&gt;
+;; {:Type "ind", :Value 1, :Unit "Pa"}
+
+(vl-result "ind" 1 "Pa")
+;; =&gt;
+;; {:Type "ind", :Value 1, :Unit "Pa"}
+
+(vl-result "ind" [0 1 2] "Pa")
+;; =&gt;
+;; {:Type "ind", :Value 1, :Unit "Pa", :SdValue 1.0, :N 3}
+</code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/utils.clj#L113">view source</a></div></div></div></body></html>
