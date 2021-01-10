@@ -70,3 +70,16 @@
                       (stdev [-0.2087914 -0.4030431 -1.3263779 -1.1265410 -2.2380873 -0.5273883
                            0.2371203 -1.2621084  0.2957844 -0.7099522]))))
         "works")))
+
+
+(deftest vl-result-i
+  (testing "intended use"
+    (is (= (vl-result "h" 1 "ww")
+           {:Type "h", :Value 1, :Unit "ww"} )
+        "works")
+    (is (= (vl-result "h" [1] "ww")
+           {:Type "h", :Value 1, :Unit "ww"} )
+        "works")
+    (is (= (vl-result "h" [0 1 2] "ww")
+           {:Type "h", :Value 1, :Unit "ww" :SdValue 1.0, :N 3} )
+        "works")))

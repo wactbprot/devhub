@@ -78,7 +78,7 @@
 
 (def square (fn [x] (* x x)))
 
-(defn mean [v] (when-not (zero? (count v)) (/ (reduce + v) (count v))))
+(defn mean [v] (when (pos? (count v)) (/ (reduce + v) (count v))))
 
 (defn stdev
   "Calculates the standard deviation of the vector `v`.
@@ -101,11 +101,38 @@
   ;; =>
   ;; nil
 
-  ```
-  "
+  ```"
   [v]
   (let [ndec (dec (count v)) mv (mean v)]
     (when (and mv (pos? ndec))
       (Math/sqrt (/ 
                   (reduce (fn [a b] (+ a (square (- b  mv)))) 0 v)
                   ndec)))))
+
+
+(defn vl-result
+  "Returns the vl result structure at least consisting of `:Type` `t`
+  `:Value` `v` and `:Unit` `u`.
+
+  Example:
+  ```clojure
+  (vl-result \"ind\" [1] \"Pa\")
+  ;; =>
+  ;; {:Type \"ind\", :Value 1, :Unit \"Pa\"}
+
+  (vl-result \"ind\" 1 \"Pa\")
+  ;; =>
+  ;; {:Type \"ind\", :Value 1, :Unit \"Pa\"}
+
+  (vl-result \"ind\" [0 1 2] \"Pa\")
+  ;; =>
+  ;; {:Type \"ind\", :Value 1, :Unit \"Pa\", :SdValue 1.0, :N 3}
+
+"
+  [t v u]
+  (if (coll? v)
+    (let [m {:Type t :Value (mean v) :Unit u}]
+      (if-let [sd (stdev v)]
+        (assoc m :SdValue sd :N (count v))
+        m))
+    {:Type t :Value v :Unit u}))
