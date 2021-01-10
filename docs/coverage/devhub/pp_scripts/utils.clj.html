@@ -244,8 +244,8 @@
 <span class="blank" title="0 out of 0 forms covered">
                 080&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="14 out of 14 forms covered">
-                081&nbsp;&nbsp;(defn&nbsp;mean&nbsp;[v]&nbsp;(when-not&nbsp;(zero?&nbsp;(count&nbsp;v))&nbsp;(&#x2F;&nbsp;(reduce&nbsp;+&nbsp;v)&nbsp;(count&nbsp;v))))
+<span class="covered" title="13 out of 13 forms covered">
+                081&nbsp;&nbsp;(defn&nbsp;mean&nbsp;[v]&nbsp;(when&nbsp;(pos?&nbsp;(count&nbsp;v))&nbsp;(&#x2F;&nbsp;(reduce&nbsp;+&nbsp;v)&nbsp;(count&nbsp;v))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 082&nbsp;&nbsp;
@@ -314,28 +314,109 @@
                 103&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                104&nbsp;&nbsp;&nbsp;&nbsp;```
+                104&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                105&nbsp;&nbsp;&nbsp;&nbsp;&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                106&nbsp;&nbsp;&nbsp;&nbsp;[v]
+                105&nbsp;&nbsp;&nbsp;&nbsp;[v]
                 </span><br/>
 <span class="covered" title="7 out of 7 forms covered">
-                107&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ndec&nbsp;(dec&nbsp;(count&nbsp;v))&nbsp;mv&nbsp;(mean&nbsp;v)]
+                106&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ndec&nbsp;(dec&nbsp;(count&nbsp;v))&nbsp;mv&nbsp;(mean&nbsp;v)]
                 </span><br/>
 <span class="partial" title="8 out of 9 forms covered">
-                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;mv&nbsp;(pos?&nbsp;ndec))
+                107&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;mv&nbsp;(pos?&nbsp;ndec))
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                109&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Math&#x2F;sqrt&nbsp;(&#x2F;&nbsp;
+                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Math&#x2F;sqrt&nbsp;(&#x2F;&nbsp;
                 </span><br/>
 <span class="covered" title="12 out of 12 forms covered">
-                110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reduce&nbsp;(fn&nbsp;[a&nbsp;b]&nbsp;(+&nbsp;a&nbsp;(square&nbsp;(-&nbsp;b&nbsp;&nbsp;mv))))&nbsp;0&nbsp;v)
+                109&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reduce&nbsp;(fn&nbsp;[a&nbsp;b]&nbsp;(+&nbsp;a&nbsp;(square&nbsp;(-&nbsp;b&nbsp;&nbsp;mv))))&nbsp;0&nbsp;v)
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ndec)))))
+                110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ndec)))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                111&nbsp;&nbsp;
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                112&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                113&nbsp;&nbsp;(defn&nbsp;vl-result
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                114&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;the&nbsp;vl&nbsp;result&nbsp;structure&nbsp;at&nbsp;least&nbsp;consisting&nbsp;of&nbsp;`:Type`&nbsp;`t`
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                115&nbsp;&nbsp;&nbsp;&nbsp;`:Value`&nbsp;`v`&nbsp;and&nbsp;`:Unit`&nbsp;`u`.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                116&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                117&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                118&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                119&nbsp;&nbsp;&nbsp;&nbsp;(vl-result&nbsp;\&quot;ind\&quot;&nbsp;[1]&nbsp;\&quot;Pa\&quot;)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                120&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                121&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:Type&nbsp;\&quot;ind\&quot;,&nbsp;:Value&nbsp;1,&nbsp;:Unit&nbsp;\&quot;Pa\&quot;}
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                122&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                123&nbsp;&nbsp;&nbsp;&nbsp;(vl-result&nbsp;\&quot;ind\&quot;&nbsp;1&nbsp;\&quot;Pa\&quot;)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                124&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                125&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:Type&nbsp;\&quot;ind\&quot;,&nbsp;:Value&nbsp;1,&nbsp;:Unit&nbsp;\&quot;Pa\&quot;}
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                126&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                127&nbsp;&nbsp;&nbsp;&nbsp;(vl-result&nbsp;\&quot;ind\&quot;&nbsp;[0&nbsp;1&nbsp;2]&nbsp;\&quot;Pa\&quot;)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                128&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                129&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:Type&nbsp;\&quot;ind\&quot;,&nbsp;:Value&nbsp;1,&nbsp;:Unit&nbsp;\&quot;Pa\&quot;,&nbsp;:SdValue&nbsp;1.0,&nbsp;:N&nbsp;3}
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                130&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                131&nbsp;&nbsp;&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                132&nbsp;&nbsp;&nbsp;&nbsp;[t&nbsp;v&nbsp;u]
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                133&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(coll?&nbsp;v)
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[m&nbsp;{:Type&nbsp;t&nbsp;:Value&nbsp;(mean&nbsp;v)&nbsp;:Unit&nbsp;u}]
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                135&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[sd&nbsp;(stdev&nbsp;v)]
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                136&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m&nbsp;:SdValue&nbsp;sd&nbsp;:N&nbsp;(count&nbsp;v))
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                137&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m))
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                138&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Type&nbsp;t&nbsp;:Value&nbsp;v&nbsp;:Unit&nbsp;u}))
                 </span><br/>
  </body>
 </html>
