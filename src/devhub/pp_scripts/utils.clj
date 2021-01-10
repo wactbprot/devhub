@@ -127,8 +127,7 @@
   (vl-result \"ind\" [0 1 2] \"Pa\")
   ;; =>
   ;; {:Type \"ind\", :Value 1, :Unit \"Pa\", :SdValue 1.0, :N 3}
-
-"
+  ```"
   [t v u]
   (if (coll? v)
     (let [m {:Type t :Value (mean v) :Unit u}]
