@@ -3,6 +3,15 @@
             [devhub.pp-scripts.gn_se3 :as gn-se3]))
 
 (defn post-dispatch
+  "TODO: make auto dispatch
+  
+  Example:
+  ```clojure
+  ;; e.g.:
+  (keys (ns-publics 'devhub.pp-scripts.vs_se3))
+  ;; =>
+  ;; (conf registers-ok? check valves switches)
+  ```"
   [conf task data]
   (condp = (keyword (:PostScript task))
     :vs_se3.valves   (vs-se3/valves               task data)

@@ -3,7 +3,7 @@
   :url "https://github.com/wactbprot/devhub"
   :license {:name "BSD 2-Clause"
             :url "https://github.com/wactbprot/devhub"}
-  :dependencies [[org.clojure/clojure                  "1.10.0"]
+  :dependencies [[org.clojure/clojure                  "1.10.1"]
                  [compojure                            "1.6.1"]
                  [http-kit                             "2.5.0"]
                  [cheshire                             "5.10.0"]
