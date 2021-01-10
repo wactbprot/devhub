@@ -235,5 +235,41 @@
 <span class="covered" title="7 out of 7 forms covered">
                 077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;u&#x2F;number&nbsp;(operable-seq&nbsp;v&nbsp;o))))
                 </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                078&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="14 out of 14 forms covered">
+                079&nbsp;&nbsp;(defn&nbsp;mean&nbsp;[v]&nbsp;(when-not&nbsp;(zero?&nbsp;(count&nbsp;v))&nbsp;(&#x2F;&nbsp;(reduce&nbsp;+&nbsp;v)&nbsp;(count&nbsp;v))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                080&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                081&nbsp;&nbsp;(def&nbsp;square&nbsp;(fn&nbsp;[x]&nbsp;(*&nbsp;x&nbsp;x)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                082&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                083&nbsp;&nbsp;(defn&nbsp;sd
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                084&nbsp;&nbsp;&nbsp;&nbsp;&quot;Calculates&nbsp;the&nbsp;standard&nbsp;deviation&nbsp;of&nbsp;the&nbsp;vector&nbsp;`v`.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                085&nbsp;&nbsp;&nbsp;&nbsp;[v]
+                </span><br/>
+<span class="covered" title="9 out of 9 forms covered">
+                086&nbsp;&nbsp;&nbsp;&nbsp;(when-let&nbsp;[mv&nbsp;(mean&nbsp;v)]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                087&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Math&#x2F;sqrt&nbsp;(&#x2F;&nbsp;
+                </span><br/>
+<span class="covered" title="12 out of 12 forms covered">
+                088&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reduce&nbsp;(fn&nbsp;[a&nbsp;b]&nbsp;(+&nbsp;a&nbsp;(square&nbsp;(-&nbsp;b&nbsp;&nbsp;mv))))&nbsp;0&nbsp;v)
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                089&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(dec&nbsp;(count&nbsp;v))))))
+                </span><br/>
  </body>
 </html>

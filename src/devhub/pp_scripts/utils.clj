@@ -75,3 +75,15 @@
   [v o]
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
+
+(defn mean [v] (when-not (zero? (count v)) (/ (reduce + v) (count v))))
+
+(def square (fn [x] (* x x)))
+
+(defn sd
+  "Calculates the standard deviation of the vector `v`."
+  [v]
+  (when-let [mv (mean v)]
+    (Math/sqrt (/ 
+                (reduce (fn [a b] (+ a (square (- b  mv)))) 0 v)
+                (dec (count v))))))
