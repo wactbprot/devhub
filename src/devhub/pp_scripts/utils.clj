@@ -76,14 +76,36 @@
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
 
-(defn mean [v] (when-not (zero? (count v)) (/ (reduce + v) (count v))))
-
 (def square (fn [x] (* x x)))
 
-(defn sd
-  "Calculates the standard deviation of the vector `v`."
+(defn mean [v] (when-not (zero? (count v)) (/ (reduce + v) (count v))))
+
+(defn stdev
+  "Calculates the standard deviation of the vector `v`.
+
+  Example:
+  ```clojure
+  (stdev [0 1 2])
+  ;; =>
+  ;; 1.0
+
+  (stdev [0])
+  ;; =>
+  ;; nil
+
+  (stdev [])
+  ;; =>
+  ;; nil
+
+  (stdev nil)
+  ;; =>
+  ;; nil
+
+  ```
+  "
   [v]
-  (when-let [mv (mean v)]
-    (Math/sqrt (/ 
-                (reduce (fn [a b] (+ a (square (- b  mv)))) 0 v)
-                (dec (count v))))))
+  (let [ndec (dec (count v)) mv (mean v)]
+    (when (and mv (pos? ndec))
+      (Math/sqrt (/ 
+                  (reduce (fn [a b] (+ a (square (- b  mv)))) 0 v)
+                  ndec)))))
