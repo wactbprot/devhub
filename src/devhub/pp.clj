@@ -1,4 +1,4 @@
-(ns devhub.pp-scripts.core
+(ns devhub.pp
   (:require [devhub.pp-scripts.vs_se3 :as vs-se3]
             [devhub.pp-scripts.gn_se3 :as gn-se3]))
 

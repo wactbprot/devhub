@@ -11,409 +11,70 @@
                 002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.edn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;edn]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[jdk.nio.ByteBuffer&nbsp;:as&nbsp;bb]))
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[jdk.nio.ByteBuffer&nbsp;:as&nbsp;bb]))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                005&nbsp;&nbsp;
+                004&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                006&nbsp;&nbsp;;;------------------------------------------------------------
+<span class="covered" title="5 out of 5 forms covered">
+                005&nbsp;&nbsp;(defn&nbsp;open?&nbsp;[r&nbsp;n]&nbsp;(bit-test&nbsp;r&nbsp;n))
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                007&nbsp;&nbsp;;;&nbsp;ToExchange&nbsp;tools
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                008&nbsp;&nbsp;;;------------------------------------------------------------
+<span class="blank" title="0 out of 0 forms covered">
+                006&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="11 out of 11 forms covered">
-                009&nbsp;&nbsp;(defn&nbsp;first-key&nbsp;[m]&nbsp;(when&nbsp;(map?&nbsp;m)&nbsp;(first&nbsp;(keys&nbsp;m))))
+                007&nbsp;&nbsp;(defn&nbsp;first-key&nbsp;[m]&nbsp;(when&nbsp;(map?&nbsp;m)&nbsp;(first&nbsp;(keys&nbsp;m))))
                 </span><br/>
 <span class="covered" title="11 out of 11 forms covered">
-                010&nbsp;&nbsp;(defn&nbsp;first-val&nbsp;[m]&nbsp;(when&nbsp;(map?&nbsp;m)&nbsp;(first&nbsp;(vals&nbsp;m))))
+                008&nbsp;&nbsp;(defn&nbsp;first-val&nbsp;[m]&nbsp;(when&nbsp;(map?&nbsp;m)&nbsp;(first&nbsp;(vals&nbsp;m))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="9 out of 9 forms covered">
+                010&nbsp;&nbsp;(defn&nbsp;bool-&gt;exch-map&nbsp;[b]&nbsp;(if&nbsp;b&nbsp;{:Bool&nbsp;true}&nbsp;{:Bool&nbsp;false}))&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 011&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="9 out of 9 forms covered">
-                012&nbsp;&nbsp;(defn&nbsp;bool-&gt;exch-map&nbsp;[b]&nbsp;(if&nbsp;b&nbsp;{:Bool&nbsp;true}&nbsp;{:Bool&nbsp;false}))&nbsp;
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                013&nbsp;&nbsp;
-                </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                014&nbsp;&nbsp;(defn&nbsp;exch-bool-map
+                012&nbsp;&nbsp;(defn&nbsp;exch-bool-map
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;[v]
+                013&nbsp;&nbsp;&nbsp;&nbsp;[vs]
                 </span><br/>
-<span class="covered" title="13 out of 13 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[m]&nbsp;{(first-key&nbsp;m)&nbsp;(bool-&gt;exch-map&nbsp;(first-val&nbsp;m))})&nbsp;v))&nbsp;
+<span class="covered" title="2 out of 2 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;(mapv
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[m]&nbsp;{(first-key&nbsp;m)&nbsp;(bool-&gt;exch-map&nbsp;(first-val&nbsp;m))})
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs))&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 017&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                018&nbsp;&nbsp;;;------------------------------------------------------------
+<span class="blank" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                019&nbsp;&nbsp;;;&nbsp;bits&nbsp;&amp;&nbsp;bytes
+<span class="partial" title="1 out of 6 forms covered">
+                019&nbsp;&nbsp;(defn&nbsp;b16-&gt;h&nbsp;[b]&nbsp;(bit-and&nbsp;(bit-shift-right&nbsp;b&nbsp;8)&nbsp;0xff))
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                020&nbsp;&nbsp;;;------------------------------------------------------------
+<span class="blank" title="0 out of 0 forms covered">
+                020&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                021&nbsp;&nbsp;(defn&nbsp;open?&nbsp;[r&nbsp;n]&nbsp;(bit-test&nbsp;r&nbsp;n))
+<span class="partial" title="1 out of 4 forms covered">
+                021&nbsp;&nbsp;(defn&nbsp;b16-&gt;l&nbsp;[b]&nbsp;(bit-and&nbsp;&nbsp;b&nbsp;0xff))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 022&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 6 forms covered">
-                023&nbsp;&nbsp;(defn&nbsp;b16-&gt;h&nbsp;[b]&nbsp;(bit-and&nbsp;(bit-shift-right&nbsp;b&nbsp;8)&nbsp;0xff))
+<span class="partial" title="1 out of 7 forms covered">
+                023&nbsp;&nbsp;(defn&nbsp;vec-&gt;float&nbsp;[v]&nbsp;(-&gt;&nbsp;v&nbsp;byte-array&nbsp;bb&#x2F;*wrap&nbsp;bb&#x2F;get-float))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 024&nbsp;&nbsp;
-                </span><br/>
-<span class="partial" title="1 out of 4 forms covered">
-                025&nbsp;&nbsp;(defn&nbsp;b16-&gt;l&nbsp;[b]&nbsp;(bit-and&nbsp;&nbsp;b&nbsp;0xff))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                026&nbsp;&nbsp;
-                </span><br/>
-<span class="partial" title="1 out of 7 forms covered">
-                027&nbsp;&nbsp;(defn&nbsp;vec-&gt;float&nbsp;[v]&nbsp;(-&gt;&nbsp;v&nbsp;byte-array&nbsp;bb&#x2F;*wrap&nbsp;bb&#x2F;get-float))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                028&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                030&nbsp;&nbsp;;;&nbsp;ensure&nbsp;operable
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                031&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                032&nbsp;&nbsp;(defn&nbsp;operable
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;vector&nbsp;of&nbsp;booleans&nbsp;indicating&nbsp;if&nbsp;the&nbsp;values&nbsp;are
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;usable&nbsp;in&nbsp;calculations.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                035&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;(operable&nbsp;[\&quot;1\&quot;&nbsp;1.234E-5&nbsp;0&nbsp;\&quot;a\&quot;&nbsp;:number])
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;[true&nbsp;true&nbsp;true&nbsp;false&nbsp;false]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;(operable&nbsp;1)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;nil
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;[v]
-                </span><br/>
-<span class="covered" title="12 out of 12 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(seqable?&nbsp;v)&nbsp;(mapv&nbsp;(comp&nbsp;number?&nbsp;u&#x2F;number)&nbsp;v)))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                047&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                048&nbsp;&nbsp;(defn&nbsp;operable-seq
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                049&nbsp;&nbsp;&nbsp;&nbsp;&quot;Shrinks&nbsp;the&nbsp;vector&nbsp;`v`&nbsp;down&nbsp;to&nbsp;operable&nbsp;values&nbsp;depending&nbsp;on&nbsp;vector&nbsp;`o`.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                050&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                051&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                052&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;(operable-seq&nbsp;[\&quot;1\&quot;&nbsp;1.234E-5&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;\&quot;a\&quot;&nbsp;&nbsp;:number]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[true&nbsp;&nbsp;true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true&nbsp;false&nbsp;&nbsp;false])&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;[\&quot;1\&quot;&nbsp;1.234E-5&nbsp;0]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;[v&nbsp;o]
-                </span><br/>
-<span class="partial" title="11 out of 12 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;(seqable?&nbsp;v)&nbsp;(seqable?&nbsp;o))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;:value
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(filter&nbsp;(fn&nbsp;[{ok?&nbsp;:take}]&nbsp;(when&nbsp;ok?&nbsp;:take))
-                </span><br/>
-<span class="covered" title="10 out of 10 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[x&nbsp;y]&nbsp;{:take&nbsp;x&nbsp;:value&nbsp;y})&nbsp;o&nbsp;v)))))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                063&nbsp;&nbsp;&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                064&nbsp;&nbsp;(defn&nbsp;calc-seq
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                065&nbsp;&nbsp;&nbsp;&nbsp;&quot;Same&nbsp;as&nbsp;[[operable-seq]]&nbsp;but&nbsp;returns&nbsp;a&nbsp;vector&nbsp;of&nbsp;numbers.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                066&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                067&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                068&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(calc-seq&nbsp;[\&quot;1\&quot;&nbsp;1.234E-5&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;\&quot;a\&quot;&nbsp;&nbsp;:number]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                070&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[true&nbsp;&nbsp;true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true&nbsp;false&nbsp;&nbsp;false])&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                071&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                072&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;[1&nbsp;1.234E-5&nbsp;0]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                073&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                074&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                075&nbsp;&nbsp;&nbsp;&nbsp;[v&nbsp;o]
-                </span><br/>
-<span class="partial" title="11 out of 12 forms covered">
-                076&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;(seqable?&nbsp;v)&nbsp;(seqable?&nbsp;o))
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;u&#x2F;number&nbsp;(operable-seq&nbsp;v&nbsp;o))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                078&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                079&nbsp;&nbsp;(def&nbsp;square&nbsp;(fn&nbsp;[x]&nbsp;(*&nbsp;x&nbsp;x)))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                080&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="13 out of 13 forms covered">
-                081&nbsp;&nbsp;(defn&nbsp;mean&nbsp;[v]&nbsp;(when&nbsp;(pos?&nbsp;(count&nbsp;v))&nbsp;(&#x2F;&nbsp;(reduce&nbsp;+&nbsp;v)&nbsp;(count&nbsp;v))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                082&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                083&nbsp;&nbsp;(defn&nbsp;stdev
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                084&nbsp;&nbsp;&nbsp;&nbsp;&quot;Calculates&nbsp;the&nbsp;standard&nbsp;deviation&nbsp;of&nbsp;the&nbsp;vector&nbsp;`v`.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                085&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                086&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                087&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                088&nbsp;&nbsp;&nbsp;&nbsp;(stdev&nbsp;[0&nbsp;1&nbsp;2])
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                089&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                090&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;1.0
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                091&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                092&nbsp;&nbsp;&nbsp;&nbsp;(stdev&nbsp;[0])
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                093&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                094&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;nil
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                095&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                096&nbsp;&nbsp;&nbsp;&nbsp;(stdev&nbsp;[])
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                097&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                098&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;nil
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                099&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                100&nbsp;&nbsp;&nbsp;&nbsp;(stdev&nbsp;nil)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                101&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                102&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;nil
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                103&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                104&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                105&nbsp;&nbsp;&nbsp;&nbsp;[v]
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                106&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ndec&nbsp;(dec&nbsp;(count&nbsp;v))&nbsp;mv&nbsp;(mean&nbsp;v)]
-                </span><br/>
-<span class="partial" title="8 out of 9 forms covered">
-                107&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;mv&nbsp;(pos?&nbsp;ndec))
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Math&#x2F;sqrt&nbsp;(&#x2F;&nbsp;
-                </span><br/>
-<span class="covered" title="12 out of 12 forms covered">
-                109&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reduce&nbsp;(fn&nbsp;[a&nbsp;b]&nbsp;(+&nbsp;a&nbsp;(square&nbsp;(-&nbsp;b&nbsp;&nbsp;mv))))&nbsp;0&nbsp;v)
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ndec)))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                111&nbsp;&nbsp;
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                112&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                113&nbsp;&nbsp;(defn&nbsp;vl-result
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                114&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;the&nbsp;vl&nbsp;result&nbsp;structure&nbsp;at&nbsp;least&nbsp;consisting&nbsp;of&nbsp;`:Type`&nbsp;`t`
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                115&nbsp;&nbsp;&nbsp;&nbsp;`:Value`&nbsp;`v`&nbsp;and&nbsp;`:Unit`&nbsp;`u`.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                116&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                117&nbsp;&nbsp;&nbsp;&nbsp;Example:
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                118&nbsp;&nbsp;&nbsp;&nbsp;```clojure
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                119&nbsp;&nbsp;&nbsp;&nbsp;(vl-result&nbsp;\&quot;ind\&quot;&nbsp;[1]&nbsp;\&quot;Pa\&quot;)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                120&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                121&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:Type&nbsp;\&quot;ind\&quot;,&nbsp;:Value&nbsp;1,&nbsp;:Unit&nbsp;\&quot;Pa\&quot;}
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                122&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                123&nbsp;&nbsp;&nbsp;&nbsp;(vl-result&nbsp;\&quot;ind\&quot;&nbsp;1&nbsp;\&quot;Pa\&quot;)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                124&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                125&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:Type&nbsp;\&quot;ind\&quot;,&nbsp;:Value&nbsp;1,&nbsp;:Unit&nbsp;\&quot;Pa\&quot;}
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                126&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                127&nbsp;&nbsp;&nbsp;&nbsp;(vl-result&nbsp;\&quot;ind\&quot;&nbsp;[0&nbsp;1&nbsp;2]&nbsp;\&quot;Pa\&quot;)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                128&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                129&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;{:Type&nbsp;\&quot;ind\&quot;,&nbsp;:Value&nbsp;1,&nbsp;:Unit&nbsp;\&quot;Pa\&quot;,&nbsp;:SdValue&nbsp;1.0,&nbsp;:N&nbsp;3}
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                130&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                131&nbsp;&nbsp;&nbsp;&nbsp;[t&nbsp;v&nbsp;u]
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                132&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(coll?&nbsp;v)
-                </span><br/>
-<span class="covered" title="10 out of 10 forms covered">
-                133&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[m&nbsp;{:Type&nbsp;t&nbsp;:Value&nbsp;(mean&nbsp;v)&nbsp;:Unit&nbsp;u}]
-                </span><br/>
-<span class="covered" title="8 out of 8 forms covered">
-                134&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[sd&nbsp;(stdev&nbsp;v)]
-                </span><br/>
-<span class="covered" title="8 out of 8 forms covered">
-                135&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m&nbsp;:SdValue&nbsp;sd&nbsp;:N&nbsp;(count&nbsp;v))
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                136&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m))
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                137&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Type&nbsp;t&nbsp;:Value&nbsp;v&nbsp;:Unit&nbsp;u}))
                 </span><br/>
  </body>
 </html>

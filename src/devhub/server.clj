@@ -3,7 +3,7 @@
     :doc "Start and stop the devhub server. Routing and dispatching."}
   (:require [compojure.route          :as route]
             [devhub.utils             :as u]
-            [devhub.pp-scripts.core   :as clj]
+            [devhub.pp                :as pp]
             [devhub.pp-js             :as js]
             [devhub.pp-py             :as py]
             [devhub.tcp               :as tcp]
@@ -32,7 +32,7 @@
   The pre-processing returns the **task**."
   [conf task]
   (cond
-    (:PreScript     task) (clj/pre-dispatch conf task)
+    (:PreScript     task) (pp/pre-dispatch conf task)
     (:PreProcessing task) (js/exec          conf task)
     (:PreScriptPy   task) (py/exec          conf task)
     :else (do
@@ -50,7 +50,7 @@
   The pre-processing returns the **data**."
   [conf task data]
   (cond
-    (:PostScript     task) (clj/post-dispatch conf task data)
+    (:PostScript     task) (pp/post-dispatch conf task data)
     (:PostProcessing task) (js/exec           conf task data)
     (:PostScriptPy   task) (py/exec           conf task data)
     :else (do

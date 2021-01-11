@@ -1,6 +1,6 @@
-(ns devhub.pp-scripts.utils-test
+(ns devhub.pp-utils-test
   (:require [clojure.test :refer :all]
-            [devhub.pp-scripts.utils :refer :all]))
+            [devhub.pp-utils :refer :all]))
 
 (deftest operable-i
   (testing "what have you (test genaration *blush*)"
