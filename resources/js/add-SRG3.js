@@ -8,9 +8,9 @@ var x = require('./add-MISC.js');
  * @return Number Zahl.
  */
 function extractSRG3(s) {
-  var regex = /^([\s]?)([0-9]{1}\.?[0-9]{4}[E][-+][0-9]{2})([\s]?\r\n\>)$/;
+  var regex = /([0-9]{1}\.?[0-9]{4}[E][-+][0-9]{2})/;
 
-  var n = x.strToNum(regex.exec(s), 2)
+  var n = x.strToNum(regex.exec(s), 1)
 
   return n == 0 ? NaN: n;
 

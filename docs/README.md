@@ -156,6 +156,12 @@ curl -H "$H" -d "D" -X POST http://localhost:9009/
 ## {"error":"caught exception: No matching field found ..."}
 ```
 
+ ```shell
+ D='{"TaskName": "ind_low_range", "Action": "TCP","Repeat": 3,"Wait": "10000","Host": "e75421","Port": 5302,"Value": "val\r","PostProcessing": ["var _vec=_x.map(_.extractSRG3),","_res = _.vlStat(_.checkNumArr(_vec).Arr),","Result=[_.vlRes(\"ind\",_res.mv,\"DCR\", \"\", _res.sd, _res.N)];"]}'
+curl -H "$H" -d "$D" -X POST http://localhost:9009/
+```
+
+
 ### EXECUTE
 
 ```shell
@@ -305,7 +311,29 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ## {"100T_3":[0.0,0.0,0.0]}]
 ```
 
+Task with `PostScript`and `PostScriptInput`.
+
+```shell
+D='{"PostScript":"gn_se3.anybus-readout", "PostScriptInput": {"Prefix": "", "Suffix": "-ind", "Unit": "Pa"}, "Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 64, "Host":"e75480", "Wait":100, "Repeat":3}'
+
+curl -H "$H" -d "$D" -X POST http://localhost:9009/
+```
+
 ## :PostProcessing
+
+Note: The **non json standard** key encoding with a single quote is not supported. So:
+
+```json
+PostProcessing:["{'A':100}"]
+```
+
+will throw a exception. Use the valid:
+
+```json
+PostProcessing:["{\"A\":100}"]
+```
+
+or switch to first class [:PostScript](#postscript).
 
 ## :PostScriptPy
 

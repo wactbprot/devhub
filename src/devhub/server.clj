@@ -77,6 +77,7 @@
 
 (defn thread
   [conf task stub?]
+  (prn task)
   (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
   (let [task (safe/task conf task)]
     (if (:error task) task
