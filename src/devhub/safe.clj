@@ -22,8 +22,6 @@
 
 (defn port   [conf x] (u/number x))
 
-(defn norepl [conf x] (or x false))
-
 (defn fnc    [conf x] (keyword x))
 
 (defn addr   [conf x] (u/number x))
@@ -31,6 +29,13 @@
 (defn quant  [conf x] (u/number x))
 
 (defn safe-cmd [conf cmd] cmd)
+
+(defn norepl
+  "Reacts on legacy `VxiTimeout:0`."
+  ([conf x]
+   (or x false))
+  ([conf x t]
+   (or (= 0 t) x false))) 
 
 (defn parse-gpib-str
   "Returns a map with `:DeviceName` `:PrimaryAddress` and `:SecondaryAddress`.
@@ -79,7 +84,7 @@
 
 (defmethod task :VXI11
   [{conf :vxi} task]
-  (let [{h :Host d :Device v :Value w :Wait r :Repeat n :NoReply} task]
+  (let [{h :Host d :Device v :Value w :Wait r :Repeat n :NoReply t :VxiTimeout} task]
     (if (and v h d)
       (let [m (parse-device-str d)]
         (if (:error m)
@@ -88,7 +93,7 @@
                  :Value   (value conf v)
                  :Wait    (wait conf w)
                  :Repeat  (rep conf r)
-                 :NoReply (norepl conf n))))
+                 :NoReply (norepl conf n t))))
       {:error "missing <:Host>, <:Value>, <:Device> or invalid <:Device>"})))
 
 (defmethod task :MODBUS
