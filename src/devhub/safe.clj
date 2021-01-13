@@ -107,6 +107,7 @@
              :Address      (addr conf a)
              :Quantity     (quant conf q)
              :Repeat       (rep conf r)
+             :Wait         (wait conf w)
              :NoReply      (norepl conf n))
       (:error "missing <:Host>, <:Address>, <:FuctionCode> "))))
 
