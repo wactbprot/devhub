@@ -462,14 +462,36 @@ sudo systemctl start kibana
 {
   "mappings": {
     "properties": {
-        "@timestamp": {
-          "type": "date"
-        },
-        "PreProcessing": {"type": "text"},
-        "PreScript": {"type": "text"},
-        "PreScriptPy": {"type": "text"},
-        "raw-result-str":{"type": "text"},
+        "@timestamp": {"type": "date"},
+	"TaskName":{"type": "text"},
+	"Host":{"type": "text"},
+        "Port":{"type": "integer"},
+	"Address":{"type": "integer"},
+	"error":{"type": "text"},
+        "message":{"type": "text"},
+	"raw-result-str":{"type": "text"},
         "Action": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+	"req-id": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "stub": {
+          "type": "boolean"
+        },
+        "version": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -522,28 +544,7 @@ sudo systemctl start kibana
               "ignore_above": 256
             }
           }
-        },
-        "req-id": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "stub": {
-          "type": "boolean"
-        },
-        "version": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        }
+        }       
       }
     }
 }

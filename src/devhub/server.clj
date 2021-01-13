@@ -43,14 +43,14 @@
   "Dispatches the post-processing. The following processing paths are
   implemented:
 
-  * `:PostProcessing`: javascript strings
   * `:PostScript`: clojure functions
+  * `:PostProcessing`: javascript strings
   * `:PostScriptPy`: python scripts
 
   The pre-processing returns the **data**."
   [conf task data]
   (cond
-    (:PostScript     task) (pp/post-dispatch conf task data)
+    (:PostScript     task) (pp/post-dispatch  conf task data)
     (:PostProcessing task) (js/exec           conf task data)
     (:PostScriptPy   task) (py/exec           conf task data)
     :else (do
@@ -77,16 +77,20 @@
 
 (defn thread
   [conf task stub?]
-  (prn task)
-  (μ/log ::thread :req-id (:req-id task) :stub stub? :task-name (:TaskName task))
+  (μ/log ::thread :req-id (:req-id task) :stub stub? :TaskName (:TaskName task))
   (let [task (safe/task conf task)]
     (if (:error task) task
         (let [task (pre-dispatch conf task)]
           (if (:error task) task
               (let [data (if stub? (stub/response conf task) (dispatch conf task))]
                 (if (:error data) data
-                    ;; (sample/record conf task (u/meas-vec data))
-                    (post-dispatch conf task (sample/record conf task (u/meas-vec data))))))))))
+                    (let [data (sample/record conf task (u/meas-vec data))]
+                      (if (:error data) data
+                          (let [data (post-dispatch conf task data)]
+                            (if (:error data) data
+                                (do
+                                  (μ/log ::thread :req-id (:req-id task) :message "request complete")
+                                  data))))))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

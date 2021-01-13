@@ -1,6 +1,7 @@
 (ns devhub.pp-scripts.gn_se3
   (:require [devhub.pp-utils :as ppu]
-            [devhub.utils    :as u]))
+            [devhub.utils    :as u]
+            [com.brunobonacci.mulog :as µ]))
 
 (def conf (u/config "gn_se3.edn"))
 
@@ -29,20 +30,36 @@
           32831 65530 41216 257 32831 61434 63232 257 32831 65530 41216 257
           32832 150 59136 257 32832 31 29184 257 32831 63482 52224 257 ; 5T..
           32832 99 46336 257])
-  (anybus-float v 12 4) 
+  (anybus-float v 12 4)
+  ;; =>
+  ;; 2.0098352
+  (anybus-float v 12 4 \"kPa\")
+  ;; =>
+  ;; 0.20098352432250977  
   ```"
-  [v s n] (ppu/vec->float (anybus-vec (subvec v s (+ s n)))))
+  ([v s n]
+   (ppu/vec->float (anybus-vec (subvec v s (+ s n)))))
+  ([v s n u]
+   (let [x (anybus-float v s n)]
+     (condp = (keyword u)
+       :mbar  x
+       :Pa    (* x 100)
+       :kPa   (/ x 10)
+       (µ/log ::anybus-float :error "conversion not implemented")))))
 
 (defn anybus-readout
-  "Returns `Result` and `ToExchange` maps."
-  [{p :PostScriptInput} data]
-  (let [m   (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        x   (:_x data) 
-        f   (fn [[dev-name start]]
-              (let [v (if (u/single-meas? data)
-                        (anybus-float x start n)
-                        (mapv (fn [v] (anybus-float v start n)) x))]
-                (ppu/vl-result (str (:Prefix p) dev-name (:Suffix p)) v (:Unit p)))) 
+  "Returns `Result` and `ToExchange` maps.
+  
+  NOTE: The anybus gateway is configured to deliver pressures in `mbar`."
+  [task data]
+  (let [input (:PostScriptInput task)
+        pre   (:Prefix input) suf (:Suffix input) unit (:Unit input)
+        m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        f     (fn [[dev-name start]]
+                (let [x (if (u/single-meas? data)
+                          (anybus-float (:_x data) start n)
+                          (mapv (fn [v] (anybus-float v start n)) (:_x data)))]
+                  (ppu/vl-result (str pre dev-name suf) x unit ))) 
         res (mapv f m)]
     {:Result res
      :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))}))
