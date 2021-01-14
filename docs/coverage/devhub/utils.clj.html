@@ -34,7 +34,7 @@
 <span class="blank" title="0 out of 0 forms covered">
                 010&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
+<span class="partial" title="1 out of 3 forms covered">
                 011&nbsp;&nbsp;(defn&nbsp;tmp-folder&nbsp;[]&nbsp;(System&#x2F;getProperty&nbsp;&quot;java.io.tmpdir&quot;))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
@@ -349,8 +349,8 @@
 <span class="covered" title="4 out of 4 forms covered">
                 115&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[raw-result&nbsp;(f&nbsp;cmd)]
                 </span><br/>
-<span class="covered" title="16 out of 16 forms covered">
-                116&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::wrap-log&nbsp;:req-id&nbsp;req-id&nbsp;:raw-result-str&nbsp;(str&nbsp;raw-result))
+<span class="covered" title="18 out of 18 forms covered">
+                116&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::wrap-log&nbsp;:req-id&nbsp;req-id&nbsp;:raw-result-str&nbsp;(str&nbsp;(:_x&nbsp;raw-result)))
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
                 117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raw-result)))
@@ -459,6 +459,12 @@
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 152&nbsp;&nbsp;&nbsp;&nbsp;&quot;&quot;)
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                153&nbsp;&nbsp;
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                154&nbsp;&nbsp;
                 </span><br/>
  </body>
 </html>

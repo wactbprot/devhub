@@ -57,6 +57,7 @@
             (μ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
             data)))
 
+      
 (defn dispatch
   "Dispatches depending on the `:Action`. The following protocols paths are
   implemented:
@@ -75,22 +76,28 @@
         :EXECUTE (execute/handler conf task)
         {:error "wrong action"})))
 
+(defn error?
+  [m req-id]  
+  (let [e (:error m)]
+    (if e (do (μ/log ::post-dispatch :req-id req-id  :error e) true) false)))
+
 (defn thread
   [conf task stub?]
-  (μ/log ::thread :req-id (:req-id task) :stub stub? :TaskName (:TaskName task))
-  (let [task (safe/task conf task)]
-    (if (:error task) task
-        (let [task (pre-dispatch conf task)]
-          (if (:error task) task
-              (let [data (if stub? (stub/response conf task) (dispatch conf task))]
-                (if (:error data) data
-                    (let [data (sample/record conf task (u/meas-vec data))]
-                      (if (:error data) data
-                          (let [data (post-dispatch conf task data)]
-                            (if (:error data) data
-                                (do
-                                  (μ/log ::thread :req-id (:req-id task) :message "request complete")
-                                  data))))))))))))
+  (let [req-id (:req-id task)]
+    (μ/log ::thread :req-id req-id :stub stub? :TaskName (:TaskName task))
+    (let [task (safe/task conf task)]
+      (if (error? task req-id) task
+          (let [task (pre-dispatch conf task)]
+            (if (error? task req-id) task
+                (let [data (if stub? (stub/response conf task) (dispatch conf task))]
+                  (if (error? data req-id) data
+                      (let [data (sample/record conf task (u/meas-vec data))]
+                        (if (error? data req-id) data
+                            (let [data (post-dispatch conf task data)]
+                              (if (error? data req-id) data
+                                  (do
+                                    (μ/log ::thread :req-id req-id :message "request complete")
+                                    data)))))))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

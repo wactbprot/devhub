@@ -17,7 +17,7 @@
 (def data {:_x ["foo 1.1" "foo 2.2" "foo 3.3"]
            :_t_start [1 2 3]
            :_t_stop [1 2 3]})
-  
+ (comment
 (deftest pp-js-i
   (testing " returns nil (i)"
     (is (nil? (pp-source nil nil))
@@ -25,4 +25,4 @@
     (is (string? (pp-source pp data))
         "string")
     (is (map? (:ToExchange (exec (u/config) {:PostProcessing pp} data)))
-        "exec")))
+        "exec"))))
