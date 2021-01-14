@@ -77,27 +77,29 @@
         {:error "wrong action"})))
 
 (defn error?
-  [m req-id]  
+  [m req-id msg]  
   (let [e (:error m)]
-    (if e (do (μ/log ::post-dispatch :req-id req-id  :error e) true) false)))
+    (if e
+      (do (μ/log ::post-dispatch :req-id req-id  :error e) true)
+      (do (μ/log ::post-dispatch :req-id req-id  :message msg) false))))
 
 (defn thread
   [conf task stub?]
   (let [req-id (:req-id task)]
     (μ/log ::thread :req-id req-id :stub stub? :TaskName (:TaskName task))
     (let [task (safe/task conf task)]
-      (if (error? task req-id) task
+      (if (error? task req-id "next: pre-dispatch") task
           (let [task (pre-dispatch conf task)]
-            (if (error? task req-id) task
-                (let [data (if stub? (stub/response conf task) (dispatch conf task))]
-                  (if (error? data req-id) data
+            (if (error? task req-id "next: dispatch") task
+                (let [data (if stub?
+                             (stub/response conf task)
+                             (dispatch conf task))]
+                  (if (error? data req-id "next: sample") data
                       (let [data (sample/record conf task (u/meas-vec data))]
-                        (if (error? data req-id) data
+                        (if (error? data req-id "next: post-dispatch") data
                             (let [data (post-dispatch conf task data)]
-                              (if (error? data req-id) data
-                                  (do
-                                    (μ/log ::thread :req-id req-id :message "request complete")
-                                    data)))))))))))))
+                              (error? data req-id "final: request complete")
+                                data )))))))))))
 
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))

@@ -25,7 +25,24 @@
    (fn [[kw [block position]]] {kw (ppu/open? (nth rs block) position)})
    m))
 
-(defn valves
+(defn set-valves
+  "Returns exchange structures like
+  
+  Example:
+  ```clojure
+  (set-valves {:PreInput {
+                 :registers [1029 0 4100 0 1300 0 21248 0 83]
+                 :valve \"V1\"
+                 :should \"open\" }})
+  ```"
+  [{input :PreInput}]
+  (let [regs   (:registers input)
+        valve  (keyword (:valve input))
+        should (keyword (:should input))]
+    (if-not (and regs valve should) {:error "missing :regs :valve :should"}
+            )))
+
+(defn get-valves
   "Returns exchange structures like
 
   ```json
@@ -43,7 +60,7 @@
   
   Example:
   ```clojure
-  (valves {} {:_x [85 0 16 0 16 0 21 0 7]})
+  (get-valves {} {:_x [85 0 16 0 16 0 21 0 7]})
   ```"
   [task {rs :_x}]
   (if (registers-ok? rs)

@@ -203,7 +203,7 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ### modbus
 
 ```shell
-D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
+D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.get-valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
 curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
 ## =>
 ## {"ToExchange":{"V6":{"Bool":false},

@@ -42,19 +42,6 @@
            :FunctionCode :ReadInputRegisters
             :Value [:no-value] :Wait 10 :Repeat 1})
   (query c t)
-   ;; =>
-   ;; {:_x 
-   ;; [60  44  0  1  60  -25  0  1  60  113  0  1  60  78  0  1
-   ;;  60  -56  0  1  60  78  0  1  0  0  5  1  0  0  5  1  0
-   ;;  0  5  1  0  0  5  1  0  0  5  1  0  0  5  1
-   ;;  60  33  0  1  0  0  5  1  0  0  5  1  0  0  5  1  0
-   ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-   ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-   ;;  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-   ;;  0  0  0  0  0  0  0  0  0]
-   ;;  :_t_start 1609917864255
-   ;;  :_t_stop 1609917864257
-   ;;  :_dt 2}
   ```"
   [{conf :modbus} task]
   (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task]
