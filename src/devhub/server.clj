@@ -18,7 +18,7 @@
             [compojure.handler        :as handler]
             [org.httpkit.server       :refer [run-server]]
             [ring.middleware.json     :as middleware]
-            [com.brunobonacci.mulog   :as μ])
+            [com.brunobonacci.mulog   :as µ])
   (:gen-class))
 
 (defn pre-dispatch
@@ -36,7 +36,8 @@
     (:PreProcessing task) (js/exec          conf task)
     (:PreScriptPy   task) (py/exec          conf task)
     :else (do
-            (μ/log ::post-dispatch :req-id (:req-id task) :message "no pre-processing")
+            (µ/log ::post-dispatch :req-id (:req-id task)
+                   :message "no pre-processing")
             task)))
 
 (defn post-dispatch
@@ -54,7 +55,8 @@
     (:PostProcessing task) (js/exec           conf task data)
     (:PostScriptPy   task) (py/exec           conf task data)
     :else (do
-            (μ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
+            (µ/log ::post-dispatch :req-id (:req-id task)
+                   :message "no post-processing")
             data)))
 
 
@@ -70,7 +72,7 @@
   * `:VXI11`
   * `:EXECUTE`"  
   (fn [conf task]
-    (μ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
+    (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
     (keyword (:Action task))))
 
 (defmethod dispatch :TCP     [conf task] (tcp/query       conf task))
@@ -82,34 +84,38 @@
 ;;------------------------------------------------------------
 ;; request thread
 ;;------------------------------------------------------------
-(defn error?
-  [m req-id msg]
-  (μ/with-context {:req-id req-id}
-    (if (map? m)
-      (let [e (:error m)]
-        (if e
-          (do (μ/log ::thread  :error e) true)
-          (do (μ/log ::thread  :message msg) false)))
-      (do (μ/log ::thread :error "not a map") true))))
-  
+(defn error? [x] (:error x))
+        
 (defn thread 
   [conf task stub?]
-  (let [req-id (:req-id task)]
-    (μ/log ::thread :req-id req-id :stub stub? :TaskName (:TaskName task))
-    (let [task (safe/task conf task)]
-      (if (error? task req-id "next: pre-dispatch") task
-          (let [task (pre-dispatch conf task)]
-            (prn task)
-            (if (error? task req-id "next: dispatch") task
+  (µ/with-context {:req-id (:req-id task)}
+    (let [task (µ/trace ::thread
+                 [:function "safe/task"]
+                 (safe/task conf task))]
+      (if (error? task) task
+          (let [task (µ/trace ::thread
+                       [:function "pre-dispatch"]
+                       (pre-dispatch conf task))]
+            (if (error? task) task
                 (let [data (if stub?
-                             (stub/response conf task)
-                             (dispatch conf task))]
-                  (if (error? data req-id "next: sample") data
-                      (let [data (sample/record conf task (u/meas-vec data))]
-                        (if (error? data req-id "next: post-dispatch") data
-                            (let [data (post-dispatch conf task data)]
-                              (error? data req-id "final: request complete")
-                                data )))))))))))
+                             (µ/trace ::thread
+                               [:function "stub/response"]
+                               (stub/response conf task))
+                             (µ/trace ::thread
+                               [:function "dispatch"]
+                               (dispatch conf task)))]
+                  (if (error? data) data
+                      (let [data (µ/trace ::thread
+                                   [:function "u/meas-vec"]
+                                   (u/meas-vec data))]
+                        (if (error? data) data
+                            (let [data (µ/trace ::thread
+                                         [:function "sample/record"]
+                                         (sample/record conf task data))]
+                              (if (error? data) data
+                                  (µ/trace ::thread
+                                    [:function "post-dispatch"]
+                                    (post-dispatch conf task data))))))))))))))
 
 ;;------------------------------------------------------------
 ;; routes
@@ -128,16 +134,16 @@
 
 (defn init-log!
   [{conf :mulog }]
-  (μ/set-global-context!
+  (µ/set-global-context!
    {:app-name "devhub" :version (:version (u/version))})
-  (μ/start-publisher! conf))
+  (µ/start-publisher! conf))
 
 (def server (atom nil))
 (def logger (atom nil))
 
 (defn stop
   []
-  (μ/log ::stop)
+  (µ/log ::stop)
   (@server :timeout 100)
   (reset! server nil)
   (@logger)
@@ -147,7 +153,7 @@
   ([]
    (start (u/config)))
   ([conf]
-   (μ/log ::start)
+   (µ/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
 

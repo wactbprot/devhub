@@ -352,35 +352,41 @@
 <span class="covered" title="2 out of 2 forms covered">
                 116&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{c&nbsp;:Cmd}&nbsp;task]
                 </span><br/>
-<span class="covered" title="11 out of 11 forms covered">
-                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;c&nbsp;(assoc&nbsp;task&nbsp;:Cmd&nbsp;&nbsp;(safe-cmd&nbsp;conf&nbsp;c)))))
+<span class="covered" title="2 out of 2 forms covered">
+                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;c
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                118&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task&nbsp;:Cmd&nbsp;&nbsp;(safe-cmd&nbsp;conf&nbsp;c))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                119&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;:Cmd&gt;&quot;})))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                118&nbsp;&nbsp;
+                120&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                119&nbsp;&nbsp;(defn&nbsp;stub
+                121&nbsp;&nbsp;(defn&nbsp;stub
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                120&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:stub}&nbsp;task]
+                122&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:stub}&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                121&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{t&nbsp;:TaskName&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;v&nbsp;:Value}&nbsp;task]
+                123&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{t&nbsp;:TaskName&nbsp;w&nbsp;:Wait&nbsp;r&nbsp;:Repeat&nbsp;v&nbsp;:Value}&nbsp;task]
                 </span><br/>
 <span class="covered" title="7 out of 7 forms covered">
-                122&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
+                124&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                123&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:select&nbsp;(sel&nbsp;conf&nbsp;t)
+                125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:select&nbsp;(sel&nbsp;conf&nbsp;t)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                124&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
+                126&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;&nbsp;(value&nbsp;conf&nbsp;v)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
+                127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Wait&nbsp;&nbsp;&nbsp;(wait&nbsp;conf&nbsp;w)
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                126&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;(rep&nbsp;conf&nbsp;r))))
+                128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Repeat&nbsp;(rep&nbsp;conf&nbsp;r))))
                 </span><br/>
  </body>
 </html>

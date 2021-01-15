@@ -6,8 +6,8 @@
   (testing "returns expected (i)"
     (is (map? (meas-vec {}))
         "map")
-    (is (nil? (meas-vec nil))
-        "nil")
+    (is (string? (:error (meas-vec nil)))
+        "no data")
     (is (empty? (:_x (meas-vec [])))
         "nil")))
 

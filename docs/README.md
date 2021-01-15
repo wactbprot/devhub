@@ -475,15 +475,16 @@ sudo systemctl start kibana
 {
   "mappings": {
     "properties": {
-        "@timestamp": {"type": "date"},
-	"TaskName":{"type": "text"},
-	"Host":{"type": "text"},
-        "Port":{"type": "integer"},
-	"Address":{"type": "integer"},
-	"error":{"type": "text"},
-        "message":{"type": "text"},
-	"raw-result-str":{"type": "text"},
-        "Action": {
+		"@timestamp": {"type": "date"},
+		
+		"TaskName":{"type": "text"},
+		"Host":{"type": "text"},
+		"Port":{"type": "integer"},
+		"Address":{"type": "integer"},
+		"error":{"type": "text"},
+		"message":{"type": "text"},
+		"raw-result-str":{"type": "text"},
+		"Action": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -548,7 +549,9 @@ sudo systemctl start kibana
               "ignore_above": 256
             }
           }
-        }       
+        },
+		"mulog/duradion": {"type": "integer"}
+		"fanction": {"type": "text"}
       }
     }
 }

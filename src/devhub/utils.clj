@@ -66,12 +66,15 @@
         (flatten v))
   ```"
   [coll]
-  (if-not (vector? coll) coll
-    (let [v (flatten coll)]
-      {:_x       (mapv :_x       v)
-       :_t_start (mapv :_t_start v)
-       :_t_stop  (mapv :_t_stop  v)
-       :_dt      (mapv :_dt      v)})))
+  (cond
+    (vector? coll) (let [v (flatten coll)]
+                     {:_x       (mapv :_x       v)
+                      :_t_start (mapv :_t_start v)
+                      :_t_stop  (mapv :_t_stop  v)
+                      :_dt      (mapv :_dt      v)}) 
+    (map? coll)     coll
+    (nil? coll)     {:error "no data"}
+    ))
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.

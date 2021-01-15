@@ -114,7 +114,9 @@
 (defmethod task :EXECUTE
   [{conf :execute} task]
   (let [{c :Cmd} task]
-    (when c (assoc task :Cmd  (safe-cmd conf c)))))
+    (if c
+      (assoc task :Cmd  (safe-cmd conf c))
+      {:error "missing <:Cmd>"})))
 
 (defn stub
   [{conf :stub} task]
