@@ -100,7 +100,7 @@
   [{conf :modbus} task]
   (let [{h :Host a :Address q :Quantity fc :FunctionCode
          w :Wait r :Repeat  v :Value    n :NoReply} task]
-    (if (and h a fc q)
+    (if (and h a fc)
       (assoc task
              :FunctionCode (fnc conf fc)
              :Value        (value conf v)
@@ -109,7 +109,7 @@
              :Repeat       (rep conf r)
              :Wait         (wait conf w)
              :NoReply      (norepl conf n))
-      (:error "missing <:Host>, <:Address>, <:FuctionCode> "))))
+      {:error "missing <:Host>, <:Address>, <:FuctionCode> "})))
 
 (defmethod task :EXECUTE
   [{conf :execute} task]

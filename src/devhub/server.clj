@@ -57,39 +57,49 @@
             (μ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
             data)))
 
-      
-(defn dispatch
+
+;;------------------------------------------------------------
+;; dispatch on action
+;;------------------------------------------------------------
+(defmulti dispatch 
   "Dispatches depending on the `:Action`. The following protocols paths are
   implemented:
 
   * `:TCP`
   * `:MODBUS`
   * `:VXI11`
-  * `:EXECUTE`"
-  [conf task]
-    (let [action (keyword (:Action task))]
-      (μ/log ::dispatch :req-id (:req-id task) :Action action)
-      (condp = action
-        :TCP     (tcp/query       conf task)
-        :MODBUS  (modbus/query    conf task)
-        :VXI11   (vxi/query       conf task)
-        :EXECUTE (execute/handler conf task)
-        {:error "wrong action"})))
+  * `:EXECUTE`"  
+  (fn [conf task]
+    (μ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
+    (keyword (:Action task))))
 
+(defmethod dispatch :TCP     [conf task] (tcp/query       conf task))
+(defmethod dispatch :MODBUS  [conf task] (modbus/query    conf task))
+(defmethod dispatch :VXI11   [conf task] (vxi/query       conf task))
+(defmethod dispatch :EXECUTE [conf task] (execute/handler conf task))
+(defmethod dispatch :default [conf task] {:error "wrong :Action"})
+
+;;------------------------------------------------------------
+;; request thread
+;;------------------------------------------------------------
 (defn error?
-  [m req-id msg]  
-  (let [e (:error m)]
-    (if e
-      (do (μ/log ::post-dispatch :req-id req-id  :error e) true)
-      (do (μ/log ::post-dispatch :req-id req-id  :message msg) false))))
-
-(defn thread
+  [m req-id msg]
+  (μ/with-context {:req-id req-id}
+    (if (map? m)
+      (let [e (:error m)]
+        (if e
+          (do (μ/log ::thread  :error e) true)
+          (do (μ/log ::thread  :message msg) false)))
+      (do (μ/log ::thread :error "not a map") true))))
+  
+(defn thread 
   [conf task stub?]
   (let [req-id (:req-id task)]
     (μ/log ::thread :req-id req-id :stub stub? :TaskName (:TaskName task))
     (let [task (safe/task conf task)]
       (if (error? task req-id "next: pre-dispatch") task
           (let [task (pre-dispatch conf task)]
+            (prn task)
             (if (error? task req-id "next: dispatch") task
                 (let [data (if stub?
                              (stub/response conf task)
@@ -101,6 +111,9 @@
                               (error? data req-id "final: request complete")
                                 data )))))))))))
 
+;;------------------------------------------------------------
+;; routes
+;;------------------------------------------------------------
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
   (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))
@@ -116,7 +129,7 @@
 (defn init-log!
   [{conf :mulog }]
   (μ/set-global-context!
-   {:app-name "devhub" :version (:version (u/version)) :env "local"})
+   {:app-name "devhub" :version (:version (u/version))})
   (μ/start-publisher! conf))
 
 (def server (atom nil))

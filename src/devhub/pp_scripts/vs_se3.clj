@@ -8,7 +8,7 @@
   "Checks `rs` for type vector and checks the length to
   be `(:register-count conf)`."
   [rs]
-  (and (vector? rs) (=  (count rs) (:register-count conf))))
+  (and (vector? rs) (= (count rs) (:register-count conf))))
 
 (defn check
   "Returns a vector of maps.
@@ -25,24 +25,32 @@
    (fn [[kw [block position]]] {kw (ppu/open? (nth rs block) position)})
    m))
 
-(defn set-valves
-  "Returns exchange structures like
-  
+(defn set-valve
+  "The PreScript vs_se3.set-valve calculates the new register value
+  depending on the current state. The current state is provided by the
+  registers PreInput. The `:Address`, register (`b`lock) and
+  `p`osition is provided by the `conf`iguration.
+ 
   Example:
   ```clojure
-  (set-valves {:PreInput {
+  (set-valve {:PreInput {
                  :registers [1029 0 4100 0 1300 0 21248 0 83]
                  :valve \"V1\"
                  :should \"open\" }})
   ```"
-  [{input :PreInput}]
-  (let [regs   (:registers input)
-        valve  (keyword (:valve input))
-        should (keyword (:should input))]
-    (if-not (and regs valve should) {:error "missing :regs :valve :should"}
-            )))
+  [task]
+  (let [input  (:PreInput task)
+        rs              (:registers input)
+        valve  (keyword (:valve     input))
+        should (keyword (:should    input))]
+    (if (and (registers-ok? rs) valve should)
+      (let [[b p] (valve (:valve-position conf))
+            a     (valve (:valve-set-addr conf))
+            r     (ppu/modify-register (nth rs b) p should)]
+        (assoc task :Value [r] :Address a))
+      {:error "missing or wrong :registers, :valve or :should"})))
 
-(defn get-valves
+(defn valves
   "Returns exchange structures like
 
   ```json

@@ -26,6 +26,8 @@
 
 (defn vec->float [v] (-> v byte-array bb/*wrap bb/get-float))
 
+(defn modify-register [r p s] (if (= s :open) (bit-set r p) (bit-clear r p)))
+
 ;;------------------------------------------------------------
 ;; ensure operable
 ;;------------------------------------------------------------

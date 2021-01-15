@@ -202,8 +202,11 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 
 ### modbus
 
+Get the valve position:
+
 ```shell
 D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.get-valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
+
 curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
 ## =>
 ## {"ToExchange":{"V6":{"Bool":false},
@@ -212,8 +215,12 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
 ##                "registers":[1025,0,21760,0,1,0,1024,0,7]
 ##                ...}}
 ```
+
+Read pressures from Modbus CDGs:
+
 ```shell
 D='{"Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 68, "Host":"e75480"}'
+
 curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ## =>
 ## {"_x":[63,81,0,0,63,62,0,0,63,124,0,0,63,-86,0,1,
@@ -222,6 +229,12 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ## 63,115,0,1,63,30,0,1,63,-89,0,1,0,0,5,1,
 ## 0,0,0,0],"_t_start":"1609929639156","_t_stop":"1609929639158","_dt":2}
 ## -- ca. 100 Pa 
+```
+
+```shell
+D='{"Action": "MODBUS", "TaskName": "VS_NEW_SE3-set-valve-pos", "FunctionCode": "writeSingleRegister","Address": 40003, "Host":"e75446", "PreScript":"vs_se3.set-valve", "PreInput": {"registers":[1029, 0, 4100, 0, 1300, 0, 21248, 0 ,83], "valve": "V1", "should": "open"}}'
+
+curl -H "$H" -d "$D" -X POST http://localhost:9009
 ```
 
 # pre processing
@@ -501,15 +514,6 @@ sudo systemctl start kibana
           }
         },
         "app-name": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "env": {
           "type": "text",
           "fields": {
             "keyword": {

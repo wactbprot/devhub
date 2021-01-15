@@ -49,29 +49,50 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 015&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;data]
                 </span><br/>
-<span class="partial" title="12 out of 22 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))
+<span class="covered" title="6 out of 6 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ps&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))]
+                </span><br/>
+<span class="partial" title="8 out of 18 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;ps
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;switches&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:gn_se3.anybus-readout&nbsp;(gn-se3&#x2F;anybus-readout&nbsp;task&nbsp;data)
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:gn_se3.anybus-readout&nbsp;(gn-se3&#x2F;anybus-readout&nbsp;task&nbsp;data)
                 </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;
+<span class="not-covered" title="0 out of 6 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;(str&nbsp;&quot;no&nbsp;:PostScript&nbsp;named:&nbsp;&quot;&nbsp;ps)})))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 022&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 2 forms covered">
-                023&nbsp;&nbsp;(defn&nbsp;pre-dispatch&nbsp;[conf&nbsp;task]&nbsp;task)
+<span class="blank" title="0 out of 0 forms covered">
+                023&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                024&nbsp;&nbsp;(defn&nbsp;pre-dispatch
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ps&nbsp;(keyword&nbsp;(:PreScript&nbsp;task))]
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;ps
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.set-valve&nbsp;(vs-se3&#x2F;set-valve&nbsp;task)
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;(str&nbsp;&quot;no&nbsp;:PreScript&nbsp;named:&nbsp;&quot;&nbsp;ps)})))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
  </body>
 </html>
