@@ -11,7 +11,8 @@
   (and (vector? rs) (= (count rs) (:register-count conf))))
 
 (defn check
-  "Returns a vector of maps.
+  "Returns a vector of maps. The register `b`lock and
+  `p`osition is provided by the `conf`iguration.
   
   Example:
   ```clojure
@@ -21,9 +22,7 @@
   ```
   "
   [rs m]
-  (mapv
-   (fn [[kw [block position]]] {kw (ppu/open? (nth rs block) position)})
-   m))
+  (mapv (fn [[kw [b p]]] {kw (ppu/open? (nth rs b) p)}) m))
 
 (defn set-valve
   "The PreScript vs_se3.set-valve calculates the new register value
@@ -51,7 +50,7 @@
       {:error "missing or wrong :registers, :valve or :should"})))
 
 (defn valves
-  "Returns exchange structures like
+  "Returns the human readable state of the valves derived from the `reg`ister`s`.
 
   ```json
   {ToExchange:
