@@ -46,6 +46,8 @@
 
 (defn single-meas? [{t :_t_start}] (not (vector? t)))
 
+(defn data [task] {:_x (:_x task) :_t_start (:_t_start task) :_t_stop (:_t_stop task)})
+
 (defn reshape
   "Returns `data` if `data` is a map. Transforms `data` from a single
   measurement to a measurement vector if the length is greater than 1.

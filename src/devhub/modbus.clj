@@ -47,20 +47,22 @@
     (µ/log ::query :req-id (:req-id task) :Host host :Address addr)
     (let [ok-or-err (try (InetAddress/getByName host)
                          (catch  Exception e
-                           (µ/log ::query :error "connection error" :req-id (:req-id task))
-                           {:error "can not connect to host"}))]
-      (if (:error ok-or-err) ok-or-err
-          (let [param  (TcpParameters. host (:port conf) (:keep-alive conf))
-                master (ModbusMasterFactory/createModbusMasterTCP param)
-                s-addr (:default-slave-address conf)]
-            (Modbus/setAutoIncrementTransactionId true)
-            (.connect master)
-            (let [f (condp = fc
-                      :ReadHoldingRegisters (fn [x] (I->v (.readHoldingRegisters master s-addr addr q))) 
-                      :ReadInputRegisters   (fn [x] (I->v (.readInputRegisters   master s-addr addr q)))
-                      :ReadCoils            (fn [x] (I->v (.readCoils            master s-addr addr q))) 
-                      :ReadDiscreteInputs   (fn [x] (I->v (.readDiscreteInputs   master s-addr addr q)))
-                      :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
-                  data (u/run f conf task)]
-              (.disconnect master)
-              data))))))
+                           (let [msg "connection error, can not connect to host"]
+                             (µ/log ::query :error msg :req-id (:req-id task))
+                             {:error msg})))]
+      (if (:error ok-or-err)
+        (merge task ok-or-err)
+        (let [param  (TcpParameters. host (:port conf) (:keep-alive conf))
+              master (ModbusMasterFactory/createModbusMasterTCP param)
+              s-addr (:default-slave-address conf)]
+          (Modbus/setAutoIncrementTransactionId true)
+          (.connect master)
+          (let [f (condp = fc
+                    :ReadHoldingRegisters (fn [x] (I->v (.readHoldingRegisters master s-addr addr q))) 
+                    :ReadInputRegisters   (fn [x] (I->v (.readInputRegisters   master s-addr addr q)))
+                    :ReadCoils            (fn [x] (I->v (.readCoils            master s-addr addr q))) 
+                    :ReadDiscreteInputs   (fn [x] (I->v (.readDiscreteInputs   master s-addr addr q)))
+                    :writeSingleRegister  (fn [x] (.writeSingleRegister  master s-addr addr x)))
+                data (u/run f conf task)]
+            (.disconnect master)
+            (merge task (u/reshape data))))))))

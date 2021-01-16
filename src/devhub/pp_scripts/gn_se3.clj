@@ -51,15 +51,15 @@
   "Returns `Result` and `ToExchange` maps.
   
   NOTE: The anybus gateway is configured to deliver pressures in `mbar`."
-  [task data]
+  [task]
   (let [input (:PostScriptInput task)
         pre   (:Prefix input) suf (:Suffix input) unit (:Unit input)
         m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
         f     (fn [[dev-name start]]
-                (let [x (if (u/single-meas? data)
-                          (anybus-float (:_x data) start n)
-                          (mapv (fn [v] (anybus-float v start n)) (:_x data)))]
+                (let [x (if (u/single-meas? task)
+                          (anybus-float (:_x task) start n)
+                          (mapv (fn [v] (anybus-float v start n)) (:_x task)))]
                   (ppu/vl-result (str pre dev-name suf) x unit ))) 
         res (mapv f m)]
-    {:Result res
-     :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))}))
+    (merge task {:Result res
+                 :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))})))

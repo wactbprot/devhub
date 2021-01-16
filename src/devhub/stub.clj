@@ -33,11 +33,11 @@
     (if-let [task (safe/stub conf task)]
       (let [f (fn [_] (select-response (:select task) (u/all-responses conf) (u/stub-mode conf)))]
         (µ/log ::response :message "call select-response via u/run")
-        (if-let [data (u/run f conf task)]
-          data
-          (let [msg "no data"]
-            (µ/log ::response :error msg)
-            {:error "no data"})))
+        (merge task (if-let [data (u/run f conf task)]
+                      (u/reshape data)
+                      (let [msg "no data"]
+                        (µ/log ::response :error msg)
+                        {:error "no data"}))))
       (let [msg "can not derive keyword fron task name"]
         (µ/log ::response :error msg)
         {:error msg}))))

@@ -56,16 +56,15 @@
   * `:PostScriptPy`: python scripts
 
   The pre-processing returns the **data**."
-  [conf task data]
+  [conf task]
   (cond
-    (:PostScript     task) (pp/post-dispatch  conf task data)
-    (:PostProcessing task) (js/exec           conf task data)
-    (:PostScriptPy   task) (py/exec           conf task data)
+    (:PostScript     task) (pp/post-dispatch  conf task)
+    (:PostProcessing task) (js/exec           conf task)
+    (:PostScriptPy   task) (py/exec           conf task)
     :else (do
             (µ/log ::post-dispatch :req-id (:req-id task)
                    :message "no post-processing")
-            data)))
-
+            task)))
 
 ;;------------------------------------------------------------
 ;; dispatch on action
@@ -89,7 +88,7 @@
 (defmethod dispatch :MODBUS  [conf task] (modbus/query    conf task))
 (defmethod dispatch :VXI11   [conf task] (vxi/query       conf task))
 (defmethod dispatch :EXECUTE [conf task] (execute/handler conf task))
-(defmethod dispatch :default [conf task] {:error "wrong :Action"})
+(defmethod dispatch :default [conf task] (merge task {:error "wrong :Action"}))
 
 ;;------------------------------------------------------------
 ;; request thread
@@ -104,24 +103,19 @@
     (let [task (µ/trace ::thread
                  [:function "pre-dispatch"]
                  (pre-dispatch conf task))]
-      (let [data (if stub?
+      (let [task (if stub?
                    (µ/trace ::thread
                      [:function "stub/response"]
                      (stub/response conf task))
                    (µ/trace ::thread
                      [:function "dispatch"]
                      (dispatch conf task)))]
-        (let [data (µ/trace ::thread
-                     [:function "u/reshape"]
-                     (u/reshape data))]
-              (if (error? data) data
-                  (let [data (µ/trace ::thread
-                               [:function "sample/record"]
-                               (sample/record conf task data))]
-                    (if (error? data) data
-                        (µ/trace ::thread
-                          [:function "post-dispatch"]
-                          (post-dispatch conf task data))))))))))
+        (let [task (µ/trace ::thread
+                     [:function "sample/record"]
+                     (sample/record conf task))]
+          (µ/trace ::thread
+            [:function "post-dispatch"]
+            (post-dispatch conf task)))))))
 
 ;;------------------------------------------------------------
 ;; routes

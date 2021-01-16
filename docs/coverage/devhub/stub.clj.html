@@ -109,20 +109,20 @@
 <span class="covered" title="12 out of 12 forms covered">
                 035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::response&nbsp;:message&nbsp;&quot;call&nbsp;select-response&nbsp;via&nbsp;u&#x2F;run&quot;)
                 </span><br/>
-<span class="covered" title="10 out of 10 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[data&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)]
+<span class="covered" title="13 out of 13 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if-let&nbsp;[data&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)]
                 </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data
+<span class="covered" title="3 out of 3 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;reshape&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;no&nbsp;data&quot;]
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;no&nbsp;data&quot;]
                 </span><br/>
 <span class="not-covered" title="0 out of 12 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::response&nbsp;:error&nbsp;msg)
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::response&nbsp;:error&nbsp;msg)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;no&nbsp;data&quot;})))
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;no&nbsp;data&quot;}))))
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;can&nbsp;not&nbsp;derive&nbsp;keyword&nbsp;fron&nbsp;task&nbsp;name&quot;]

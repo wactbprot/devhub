@@ -151,8 +151,8 @@
 <span class="not-covered" title="0 out of 8 forms covered">
                 049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task&nbsp;:Value&nbsp;[r]&nbsp;:Address&nbsp;a))
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;or&nbsp;wrong&nbsp;:registers,&nbsp;:valve&nbsp;or&nbsp;:should&quot;})))
+<span class="not-covered" title="0 out of 6 forms covered">
+                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;&quot;missing&nbsp;or&nbsp;wrong&nbsp;:registers,&nbsp;:valve&nbsp;or&nbsp;:should&quot;}))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 051&nbsp;&nbsp;
@@ -218,79 +218,85 @@
                 071&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                072&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;{rs&nbsp;:_x}]
+                072&nbsp;&nbsp;&nbsp;&nbsp;[task]
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                073&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
+                073&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[rs&nbsp;(:_x&nbsp;task)]
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[vs&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:valve-position&nbsp;conf)))]
+                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[vs&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:valve-position&nbsp;conf)))]
                 </span><br/>
-<span class="covered" title="9 out of 9 forms covered">
-                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;vs)})
+<span class="covered" title="12 out of 12 forms covered">
+                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;vs)}))
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;wrong&nbsp;register&nbsp;format&quot;}))
+<span class="not-covered" title="0 out of 6 forms covered">
+                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;&quot;wrong&nbsp;register&nbsp;format&quot;}))))
                 </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                077&nbsp;&nbsp;
+<span class="not-tracked" title="0 out of 0 forms covered">
+                078&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                078&nbsp;&nbsp;(defn&nbsp;switches
+                079&nbsp;&nbsp;(defn&nbsp;switches
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                079&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;exchange&nbsp;structures&nbsp;like
+                080&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;exchange&nbsp;structures&nbsp;like
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                080&nbsp;&nbsp;&nbsp;&nbsp;
+                081&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                081&nbsp;&nbsp;&nbsp;&nbsp;```json
+                082&nbsp;&nbsp;&nbsp;&nbsp;```json
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                082&nbsp;&nbsp;&nbsp;&nbsp;ToExchange:
+                083&nbsp;&nbsp;&nbsp;&nbsp;ToExchange:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                083&nbsp;&nbsp;&nbsp;&nbsp;{E1_open:{&nbsp;Bool:true},&nbsp;E1_closed:{Bool:false}
+                084&nbsp;&nbsp;&nbsp;&nbsp;{E1_open:{&nbsp;Bool:true},&nbsp;E1_closed:{Bool:false}
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                084&nbsp;&nbsp;&nbsp;&nbsp;```
+                085&nbsp;&nbsp;&nbsp;&nbsp;```
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                085&nbsp;&nbsp;&nbsp;&nbsp;
+                086&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                086&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                087&nbsp;&nbsp;&nbsp;&nbsp;Example:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                087&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                088&nbsp;&nbsp;&nbsp;&nbsp;```clojure
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                088&nbsp;&nbsp;&nbsp;&nbsp;(switches&nbsp;{}&nbsp;{:_x&nbsp;[89&nbsp;0&nbsp;-102&nbsp;0&nbsp;-102&nbsp;0&nbsp;21&nbsp;0&nbsp;-91]})
+                089&nbsp;&nbsp;&nbsp;&nbsp;(switches&nbsp;{}&nbsp;{:_x&nbsp;[89&nbsp;0&nbsp;-102&nbsp;0&nbsp;-102&nbsp;0&nbsp;21&nbsp;0&nbsp;-91]})
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                089&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                090&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                090&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;{rs&nbsp;:_x}]
+                091&nbsp;&nbsp;&nbsp;&nbsp;[task]
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                091&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
+                092&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[rs&nbsp;(:_x&nbsp;task)]
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(registers-ok?&nbsp;rs)
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                092&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[so&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-open&nbsp;&nbsp;&nbsp;&nbsp;conf)))
+                094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[so&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-open&nbsp;&nbsp;&nbsp;&nbsp;conf)))
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
-                093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sc&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-closed&nbsp;&nbsp;conf)))]
+                095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sc&nbsp;(ppu&#x2F;exch-bool-map&nbsp;(check&nbsp;rs&nbsp;(:switch-closed&nbsp;&nbsp;conf)))]
                 </span><br/>
-<span class="covered" title="13 out of 13 forms covered">
-                094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;so)&nbsp;sc)})
+<span class="covered" title="16 out of 16 forms covered">
+                096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:ToExchange&nbsp;(reduce&nbsp;merge&nbsp;(reduce&nbsp;merge&nbsp;{:registers&nbsp;rs}&nbsp;so)&nbsp;sc)}))
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;wrong&nbsp;register&nbsp;format&quot;}))
+<span class="not-covered" title="0 out of 6 forms covered">
+                097&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;&quot;wrong&nbsp;register&nbsp;format&quot;}))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                096&nbsp;&nbsp;
+                098&nbsp;&nbsp;
                 </span><br/>
  </body>
 </html>

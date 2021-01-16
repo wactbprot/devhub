@@ -11,13 +11,13 @@
                :registers [1029 0 4100 0 1300 0 21248 0 83]
                :valve "V1"
                :should "open" }})
-</code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/vs_se3.clj#L27">view source</a></div></div><div class="public anchor" id="var-switches"><h3>switches</h3><div class="usage"><code>(switches task {rs :_x})</code></div><div class="doc"><div class="markdown"><p>Returns exchange structures like</p>
+</code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/vs_se3.clj#L27">view source</a></div></div><div class="public anchor" id="var-switches"><h3>switches</h3><div class="usage"><code>(switches task)</code></div><div class="doc"><div class="markdown"><p>Returns exchange structures like</p>
 <pre><code class="json">ToExchange:
 {E1_open:{ Bool:true}, E1_closed:{Bool:false}
 </code></pre>
 <p>Example:</p>
 <pre><code class="clojure">(switches {} {:_x [89 0 -102 0 -102 0 21 0 -91]})
-</code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/vs_se3.clj#L78">view source</a></div></div><div class="public anchor" id="var-valves"><h3>valves</h3><div class="usage"><code>(valves task {rs :_x})</code></div><div class="doc"><div class="markdown"><p>Returns the human readable state of the valves derived from the <code>reg</code>ister<code>s</code>.</p>
+</code></pre></div></div><div class="src-link"><a href="https://github.com/wactbprot/devhub/blob/master/src/devhub/pp_scripts/vs_se3.clj#L79">view source</a></div></div><div class="public anchor" id="var-valves"><h3>valves</h3><div class="usage"><code>(valves task)</code></div><div class="doc"><div class="markdown"><p>Returns the human readable state of the valves derived from the <code>reg</code>ister<code>s</code>.</p>
 <pre><code class="json">{ToExchange:
   {E7_open:    {Bool: true},
    E3_open:    {Bool: true},

@@ -47,7 +47,7 @@
             a     (valve (:valve-set-addr conf))
             r     (ppu/modify-register (nth rs b) p should)]
         (assoc task :Value [r] :Address a))
-      {:error "missing or wrong :registers, :valve or :should"})))
+      (merge task {:error "missing or wrong :registers, :valve or :should"}))))
 
 (defn valves
   "Returns the human readable state of the valves derived from the `reg`ister`s`.
@@ -69,12 +69,13 @@
   ```clojure
   (get-valves {} {:_x [85 0 16 0 16 0 21 0 7]})
   ```"
-  [task {rs :_x}]
-  (if (registers-ok? rs)
-    (let [vs (ppu/exch-bool-map (check rs (:valve-position conf)))]
-      {:ToExchange (reduce merge {:registers rs} vs)})
-    {:error "wrong register format"}))
-
+  [task]
+  (let [rs (:_x task)]
+    (if (registers-ok? rs)
+      (let [vs (ppu/exch-bool-map (check rs (:valve-position conf)))]
+        (merge task {:ToExchange (reduce merge {:registers rs} vs)}))
+      (merge task {:error "wrong register format"}))))
+  
 (defn switches
   "Returns exchange structures like
   
@@ -87,10 +88,11 @@
   ```clojure
   (switches {} {:_x [89 0 -102 0 -102 0 21 0 -91]})
   ```"
-  [task {rs :_x}]
-  (if (registers-ok? rs)
-    (let [so (ppu/exch-bool-map (check rs (:switch-open    conf)))
-          sc (ppu/exch-bool-map (check rs (:switch-closed  conf)))]
-      {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)})
-    {:error "wrong register format"}))
+  [task]
+  (let [rs (:_x task)]
+    (if (registers-ok? rs)
+      (let [so (ppu/exch-bool-map (check rs (:switch-open    conf)))
+            sc (ppu/exch-bool-map (check rs (:switch-closed  conf)))]
+        (merge task {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)}))
+      (merge task {:error "wrong register format"}))))
 
