@@ -21,15 +21,16 @@
   (query c t)
   ```"
   [conf task]
-  (try (with-open [sock (gen-socket task)
+  (if-not (u/connectable? task)
+    {:error "can not connect"}
+    (with-open [sock (gen-socket task)
                    out  (out-socket sock)
-                   in   (in-socket sock)]
-         (let [f (fn [cmd]
-                   (.print out cmd)
+                in   (in-socket sock)]
+      (let [f (fn [cmd]
+                (.print out cmd)
                    (.flush out)
-                   (if-not (:NoReply task) (.readLine in) ""))]
-           (u/run f conf task)))
-    (catch  Exception e {:error (.getMessage e)})))
+                (if-not (:NoReply task) (.readLine in) ""))]
+        (u/run f conf task)))))
 
 (defn handler
   "Handles TCP queries."

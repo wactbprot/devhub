@@ -7,8 +7,7 @@
   (:import [com.intelligt.modbus.jlibmodbus Modbus]
            [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
            [com.intelligt.modbus.jlibmodbus.master ModbusMasterFactory]
-           [com.intelligt.modbus.jlibmodbus.tcp TcpParameters]
-           [java.net InetAddress]))
+           [com.intelligt.modbus.jlibmodbus.tcp TcpParameters]))
 
 (defn I->v
   "Returns a vector of integers made from the input `[I` type."
@@ -40,23 +39,23 @@
   (query c t)
   ```"
   [conf task]
-  (try (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task
-             _      (InetAddress/getByName host)
-             s-addr (:default-slave-address conf)
-             param  (TcpParameters. host (:port conf) (:keep-alive conf))
-             master (ModbusMasterFactory/createModbusMasterTCP param)]
-         (Modbus/setAutoIncrementTransactionId true)
-         (.connect master)
-         (let [f (condp = fc
-                   :ReadHoldingRegisters (fn [x] (I->v (.readHoldingRegisters master s-addr addr q))) 
-                   :ReadInputRegisters   (fn [x] (I->v (.readInputRegisters   master s-addr addr q)))
-                   :ReadCoils            (fn [x] (I->v (.readCoils            master s-addr addr q))) 
-                   :ReadDiscreteInputs   (fn [x] (I->v (.readDiscreteInputs   master s-addr addr q)))
-                   :writeSingleRegister  (fn [x] (.writeSingleRegister        master s-addr addr x)))
-               data (u/run f conf task)]
-           (.disconnect master)
-           data))
-       (catch Exception e {:error (.getMessage e)})))
+  (if-not (u/connectable? task)
+    {:error "can not connect"}
+    (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task
+          s-addr (:default-slave-address conf)
+          param  (TcpParameters. host (:port conf) (:keep-alive conf))
+          master (ModbusMasterFactory/createModbusMasterTCP param)]
+      (Modbus/setAutoIncrementTransactionId true)
+      (.connect master)
+      (let [f (condp = fc
+                :ReadHoldingRegisters (fn [x] (I->v (.readHoldingRegisters master s-addr addr q))) 
+                :ReadInputRegisters   (fn [x] (I->v (.readInputRegisters   master s-addr addr q)))
+                :ReadCoils            (fn [x] (I->v (.readCoils            master s-addr addr q))) 
+                :ReadDiscreteInputs   (fn [x] (I->v (.readDiscreteInputs   master s-addr addr q)))
+                :writeSingleRegister  (fn [x] (.writeSingleRegister        master s-addr addr x)))
+            data (u/run f conf task)]
+        (.disconnect master)
+        data))))
 
 (defn handler
   "Handles Modbus queries. "

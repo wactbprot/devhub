@@ -6,7 +6,13 @@
             [clojure.edn            :as edn]
             [clojure.java.shell     :refer [sh]]
             [clojure.java.io        :as io]
-            [com.brunobonacci.mulog :as mu]))
+            [com.brunobonacci.mulog :as mu])
+  (:import  [java.net InetAddress]))
+
+(defn connectable? [{host :Host}]
+  (try (InetAddress/getByName host)
+       true
+       (catch Exception e false)))
 
 (defn tmp-folder [] (System/getProperty "java.io.tmpdir"))
 
