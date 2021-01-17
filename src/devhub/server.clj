@@ -34,15 +34,13 @@
 
   The pre-processing returns the **task**."
   [conf task]
-  (if-let [err (:error task)]
-    task
-    (cond
-      (:PreScript     task) (pp/pre-dispatch conf task)
-      (:PreProcessing task) (js/exec          conf task)
-      (:PreScriptPy   task) (py/exec          conf task)
-      :else (do (µ/log ::post-dispatch :req-id (:req-id task)
-                       :message "no pre-processing")
-                task))))
+  (if (:error task) task
+      (cond
+        (:PreScript     task) (pp/pre-dispatch conf task)
+        (:PreProcessing task) (js/exec          conf task)
+        (:PreScriptPy   task) (py/exec          conf task)
+        :else (do (µ/log ::post-dispatch :req-id (:req-id task) :message "no pre-processing")
+                  task))))
 
 ;;------------------------------------------------------------
 ;; dispatch post scripting or processing
@@ -57,14 +55,14 @@
 
   The pre-processing returns the **data**."
   [conf task]
-  (cond
-    (:PostScript     task) (pp/post-dispatch  conf task)
-    (:PostProcessing task) (js/exec           conf task)
-    (:PostScriptPy   task) (py/exec           conf task)
-    :else (do
-            (µ/log ::post-dispatch :req-id (:req-id task)
-                   :message "no post-processing")
-            task)))
+  (if (:error task) task
+      (cond
+        (:PostScript     task) (pp/post-dispatch  conf task)
+        (:PostProcessing task) (js/exec           conf task)
+        (:PostScriptPy   task) (py/exec           conf task)
+        :else (do
+                (µ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
+                task))))
 
 ;;------------------------------------------------------------
 ;; dispatch on action
@@ -78,54 +76,45 @@
   * `:VXI11`
   * `:EXECUTE`"  
   (fn [conf task]
-    (if-let [err (:error task)]
+    (if (:error task)
       :error
       (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
           (keyword (:Action task))))))
   
 (defmethod dispatch :error   [conf task] task)
-(defmethod dispatch :TCP     [conf task] (tcp/query       conf task))
-(defmethod dispatch :MODBUS  [conf task] (modbus/query    conf task))
-(defmethod dispatch :VXI11   [conf task] (vxi/query       conf task))
+(defmethod dispatch :TCP     [conf task] (tcp/handler     conf task))
+(defmethod dispatch :MODBUS  [conf task] (modbus/handler  conf task))
+(defmethod dispatch :VXI11   [conf task] (vxi/handler     conf task))
 (defmethod dispatch :EXECUTE [conf task] (execute/handler conf task))
-(defmethod dispatch :default [conf task] (merge task {:error "wrong :Action"}))
+
+(defmethod dispatch :default
+  [conf task]
+  (let [msg "wrong :Action"]
+    (µ/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
+    (merge task {:error msg})))
 
 ;;------------------------------------------------------------
 ;; request thread
 ;;------------------------------------------------------------
-(defn error? [x] (:error x))
-        
 (defn thread 
   [conf task stub?]
-  (let [task (µ/trace ::thread
-               [:function "safe/task"]
-               (safe/task conf task))]
-    (let [task (µ/trace ::thread
-                 [:function "pre-dispatch"]
-                 (pre-dispatch conf task))]
-      (let [task (if stub?
-                   (µ/trace ::thread
-                     [:function "stub/response"]
-                     (stub/response conf task))
-                   (µ/trace ::thread
-                     [:function "dispatch"]
-                     (dispatch conf task)))]
-        (let [task (µ/trace ::thread
-                     [:function "sample/record"]
-                     (sample/record conf task))]
-          (µ/trace ::thread
-            [:function "post-dispatch"]
-            (post-dispatch conf task)))))))
+  (let [task (safe/task conf task)]
+    (let [task (pre-dispatch conf task)]
+      (let [task (if stub? (stub/response conf task) (dispatch conf task))]
+        (let [task (sample/record conf task)]
+          (post-dispatch conf task))))))
 
 ;;------------------------------------------------------------
 ;; routes
 ;;------------------------------------------------------------
 (defroutes app-routes
-  (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
-  (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))
-  (POST "/echo"   [:as req] (res/response (u/task req)))
-  (GET "/version" [:as req] (res/response (u/version)))
-  (route/not-found "No such service."))
+  (µ/trace ::routes
+    [:function "routes"]
+    (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
+    (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))
+    (POST "/echo"   [:as req] (res/response (u/task req)))
+    (GET "/version" [:as req] (res/response (u/version)))
+    (route/not-found "No such service.")))
 
 (def app
   (-> (handler/site app-routes)

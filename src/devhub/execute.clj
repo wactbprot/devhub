@@ -14,16 +14,17 @@
   (handler (u/config) {:Cmd \"ls\"})
   ```"
   [{conf :execute} task]
-  (if-let [task (safe/task conf task)]
-    (let [t0   (u/ms)
-          res  (sh (:shell conf) (:param conf) (:Cmd task))
-          t1   (u/ms)
-          data (if-not (zero? (:exit res))
-                 (let [msg (:err res)]
-                   (µ/log ::handler :error msg :req-id (:req-id task))
-                   {:error msg})
-                 {:_x (:out res) :_t_start t0 :_t_stop t1})]
-      (merge task data))
-    (let [msg "missing <command>"]
-      (µ/log ::handler :error msg :req-id (:req-id task))
-      (merge task {:error msg}))))
+  (if (:error task) task
+      (if-let [task (safe/task conf task)]
+        (let [t0   (u/ms)
+              res  (sh (:shell conf) (:param conf) (:Cmd task))
+              t1   (u/ms)
+              data (if-not (zero? (:exit res))
+                     (let [msg (:err res)]
+                       (µ/log ::handler :error msg :req-id (:req-id task))
+                       {:error msg})
+                     {:_x (:out res) :_t_start t0 :_t_stop t1})]
+          (merge task data))
+        (let [msg "missing <command>"]
+          (µ/log ::handler :error msg :req-id (:req-id task))
+          (merge task {:error msg})))))

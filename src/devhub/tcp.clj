@@ -6,29 +6,42 @@
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
 
+(defn out-socket [sock] (PrintWriter. (OutputStreamWriter. (.getOutputStream sock))))
+(defn in-socket [sock] (BufferedReader. (InputStreamReader. (.getInputStream sock))))
+(defn gen-socket [{h :Host p :Port}] (Socket. h p))
+
 (defn query
-  "Handles TCP queries. Sends the `cmds` to a raw tcp socket with the
+  "Sends the `cmds` given by the `:Value` to a raw tcp socket with the
   specified `host` and `port`.
-    
+
   Example:
   ```clojure
   (def c (u/config))
   (def t {:Port 5025 :Host \"e75496\" :Value [\"ch101()\\n\"] :Wait 10 :Repeat 2})
   (query c t)
   ```"
+  [conf task]
+  (try (with-open [sock (gen-socket task)
+                   out  (out-socket sock)
+                   in   (in-socket sock)]
+         (let [f (fn [cmd]
+                   (.print out cmd)
+                   (.flush out)
+                   (if-not (:NoReply task) (.readLine in) ""))]
+           (u/run f conf task)))
+    (catch  Exception e {:error (.getMessage e)})))
+
+(defn handler
+  "Handles TCP queries."
   [{conf :tcp} task]
-  (let [{host :Host port :Port} task
-        data (try
-               (µ/log ::query :req-id (:req-id task) :Host host :Port port)
-               (with-open [sock (Socket. host port)
-                           out  (PrintWriter.    (OutputStreamWriter. (.getOutputStream sock)))
-                           in   (BufferedReader. (InputStreamReader. (.getInputStream sock)))]
-                 (u/run (fn [cmd]
-                          (.print out cmd)
-                          (.flush out)
-                          (if-not (:NoReply task) (.readLine in) "")) conf task))
-               (catch  Exception e
-                 (let [msg "connection error, can not connect to host"]
-                   (µ/log ::query :error msg :req-id (:req-id task))
-                   {:error msg})))]
-    (merge task (u/reshape data))))
+  (if (:error task) task
+      (let [{host :Host port :Port req-id :req-id} task
+            _    (µ/log ::query :req-id req-id :Host host :Port port)
+            data (query conf task)]
+        (merge task (if (:error data)
+                      (let [msg (:error data)]
+                        (µ/log ::query :error msg :req-id req-id)
+                        data)
+                      (let [msg "received data"]
+                        (µ/log ::query :message msg :req-id req-id)
+                        (u/reshape data)))))))
