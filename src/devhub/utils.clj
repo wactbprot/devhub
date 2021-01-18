@@ -73,8 +73,7 @@
                       :_t_stop  (mapv :_t_stop  v)
                       :_dt      (mapv :_dt      v)}) 
     (map? coll)     coll
-    (nil? coll)     {:error "no data"}
-    ))
+    (nil? coll)     {:error "no data"}))
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.

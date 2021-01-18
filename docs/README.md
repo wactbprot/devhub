@@ -550,8 +550,8 @@ sudo systemctl start kibana
             }
           }
         },
-		"mulog/duradion": {"type": "integer"}
-		"fanction": {"type": "text"}
+		"mulog/duration": {"type": "integer"},
+		"function": {"type": "text"},
       }
     }
 }

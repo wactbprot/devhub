@@ -28,6 +28,7 @@
   (response (u/config) {:TaskName \"VS_SE3-get-valves-pos\"})
   ```"
   [conf task]
+  (prn task)
   (if-let [task (safe/stub conf task)]
     (let [f (fn [_] (select-response (:select task) (u/all-responses conf) (u/stub-mode conf)))]
       (µ/log ::response :message "call select-response via u/run")
