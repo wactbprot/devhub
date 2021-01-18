@@ -23,16 +23,19 @@
   ;; means e.g.:
   node resources/js/exec.js resources/js/ /tmp/MKT50-exec-source.js /tmp/MKT50-exec-data.js
   ```"
-  ([{conf :post} task]
-   task)
-  ([{conf :post} task data]
-   (let [sf  (source-file task) 
-         df  (data-file task)
-         _   (spit df (che/encode data))
-         _   (spit sf (string/join (:PostProcessing task)))
-         res (sh (:js conf) (exec-file conf) (:js-path conf) sf df)]
-     (if-not (zero? (:exit res)) {:error (:err res)}
-             (try (che/decode (:out res) true)
-                  (catch Exception e
-                    (µ/log ::exec :error "decode error" :req-id (:req-id task))
-                    {:error (str "caught exception: " (.getMessage e))}))))))
+ [{conf :post} task]
+  (let [sf  (source-file task) 
+        df  (data-file task)
+        _   (spit df (che/encode (u/data task)))
+        _   (spit sf (string/join (:PostProcessing task)))
+        res (sh (:js conf) (exec-file conf) (:js-path conf) sf df)]
+    (if-not (zero? (:exit res))
+      (let [msg (:err res)]
+         (µ/log ::exec :error msg :req-id (:req-id task))
+         (merge task {:error msg}))
+      (merge task (try
+                    (che/decode (:out res) true)
+                    (catch Exception e
+                      (let [msg (str "caught exception: " (.getMessage e))]
+                        (µ/log ::exec :error msg :req-id (:req-id task))
+                        {:error msg})))))))

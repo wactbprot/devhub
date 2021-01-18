@@ -6,7 +6,13 @@
             [clojure.edn            :as edn]
             [clojure.java.shell     :refer [sh]]
             [clojure.java.io        :as io]
-            [com.brunobonacci.mulog :as mu]))
+            [com.brunobonacci.mulog :as mu])
+  (:import  [java.net InetAddress]))
+
+(defn connectable? [{host :Host}]
+  (try (InetAddress/getByName host)
+       true
+       (catch Exception e false)))
 
 (defn tmp-folder [] (System/getProperty "java.io.tmpdir"))
 
@@ -46,7 +52,9 @@
 
 (defn single-meas? [{t :_t_start}] (not (vector? t)))
 
-(defn meas-vec
+(defn data [task] {:_x (:_x task) :_t_start (:_t_start task) :_t_stop (:_t_stop task)})
+
+(defn reshape
   "Returns `data` if `data` is a map. Transforms `data` from a single
   measurement to a measurement vector if the length is greater than 1.
 
@@ -62,18 +70,21 @@
                      [:_t_start] conj (:_t_start o))
                     [:_x] conj (:_x o))
                    [:_dt] conj (:_dt o)))
-        {:_x [] :_dt [] :_t_start [] :_t_stop []}
+        {:_x [] :_t_start [] :_t_stop []}
         (flatten v))
   ```"
-  [coll]
+  [data]
   (cond
-    (vector? coll) (let [v (flatten coll)]
+    (:error  data) data
+    (vector? data) (let [v (flatten data)]
                      {:_x       (mapv :_x       v)
                       :_t_start (mapv :_t_start v)
-                      :_t_stop  (mapv :_t_stop  v)
-                      :_dt      (mapv :_dt      v)}) 
-    (map? coll)     coll
-    (nil? coll)     {:error "no data"}))
+                      :_t_stop  (mapv :_t_stop  v)}) 
+    (map?    data) data
+    (nil?    data) (let [msg "no data"]
+                     (mu/log ::reshape :error msg)
+                     {:error msg})))
+
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.
@@ -100,42 +111,35 @@
 (defn action [req] (:Action (task req)))
 (defn task-name [req] (:TaskName (task req)))
 
-
 ;;------------------------------------------------------------
 ;; run with wait and repeat
 ;;------------------------------------------------------------
-(defn add-times
-  [m t0 t1]
-  (assoc m
-         :_t_start t0
-         :_t_stop  t1
-         :_dt (- (number t1) (number t0))))
+(defn timestamp [m t0 t1] (assoc m :_t_start t0 :_t_stop  t1))
 
 (defn wrap-log
-  [req-id f]
+  [{req-id :req-id} f]
   (fn [cmd]
     (let [raw-result (f cmd)]
-     (mu/log ::wrap-log :req-id req-id :raw-result-str (str (:_x raw-result)))
-     raw-result)))
+      (mu/log ::wrap-log :req-id req-id :raw-result-str (str (:_x raw-result)))
+      raw-result)))
 
 (defn wrap-times
   [f]
-  (fn [cmd]
-    (let [t0 (ms)]
-      (add-times {:_x (f cmd)} t0 (ms)))))
+  (fn [cmd] (let [t0 (ms)] (timestamp {:_x (f cmd)} t0 (ms)))))
 
 (defn run
   "Calls the function `f` with  all commands in `cmds` (vector of
   strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
   repeat 1)`."
-  [f conf {cmds :Value wait :Wait rep :Repeat req-id :req-id}]
-  (if (= 1 (count cmds) rep)
-    ((wrap-log req-id (wrap-times f)) (first cmds))
+  [f conf task]
+  (let [{cmds :Value  w :Wait n :Repeat} task]
+  (if (= 1 n (count cmds))
+    ((wrap-log task (wrap-times f)) (first cmds))
     (mapv (fn [_]
-            (let [v (mapv (wrap-log req-id (wrap-times f)) cmds)]
-              (Thread/sleep wait)
+            (let [v (mapv (wrap-log task (wrap-times f)) cmds)]
+              (Thread/sleep w)
               v))
-          (range rep))))
+          (range n)))))
 
 (defn ascii-logo
   []

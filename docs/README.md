@@ -1,3 +1,13 @@
+**devhub** is a web service that abstracts the protocols: [tcp](#tcp),
+[vxi](#vxi) and [modbus](#modbus) to read out measurement devices. It
+also [executes](#execute) shell commands.  Requests are *POST*ed via
+*http* in json format. Measurement data is returned in json
+format. **devhub** may act as a [stub](#stub-post-stub) and has the
+capability to record samples of raw data returned from the
+devices. The repository contains a pre-compiled standalone version
+that runs on BSD, Linux, MacOS and Windows. **devhub** uses
+[elasticsearch (els)](#elasticsearch-els) as a log database.
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
@@ -29,6 +39,7 @@
     - [modbus](#modbus-1)
     - [javascript post processing (js-pp)](#javascript-post-processing-js-pp)
 - [µlog](#µlog)
+    - [elasticsearch (els)](#elasticsearch-els)
     - [kibana](#kibana)
     - [mapping](#mapping)
     - [notes](#notes)

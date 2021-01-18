@@ -28,11 +28,16 @@
   (response (u/config) {:TaskName \"VS_SE3-get-valves-pos\"})
   ```"
   [conf task]
-  (prn task)
-  (if-let [task (safe/stub conf task)]
-    (let [f (fn [_] (select-response (:select task) (u/all-responses conf) (u/stub-mode conf)))]
-      (µ/log ::response :message "call select-response via u/run")
-      (if-let [data (u/run f conf task)]
-        data
-        {:error true :reason "no data"}))
-    {:error "can not derive keyword fron task name"}))
+  (if (:error task) task
+      (if-let [task (safe/stub conf task)]
+        (let [f (fn [_] (select-response (:select task) (u/all-responses conf) (u/stub-mode conf)))]
+          (µ/log ::response :message "call select-response via u/run")
+          (merge task (if-let [data (u/run f conf task)]
+                        (u/reshape data)
+                        (let [msg "no data"]
+                          (µ/log ::response :error msg)
+                          {:error "no data"}))))
+        (let [msg "can not derive keyword fron task name"]
+          (µ/log ::response :error msg)
+          {:error msg}))))
+

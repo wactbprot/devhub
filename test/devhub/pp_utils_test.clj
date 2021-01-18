@@ -71,7 +71,6 @@
                            0.2371203 -1.2621084  0.2957844 -0.7099522]))))
         "works")))
 
-
 (deftest vl-result-i
   (testing "intended use"
     (is (= (vl-result "h" 1 "ww")

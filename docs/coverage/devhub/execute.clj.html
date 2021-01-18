@@ -34,8 +34,8 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 010&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;Execute&nbsp;tasks.
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                011&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="blank" title="0 out of 0 forms covered">
+                011&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 012&nbsp;&nbsp;&nbsp;&nbsp;Example:
@@ -52,26 +52,47 @@
 <span class="not-tracked" title="0 out of 0 forms covered">
                 016&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:execute}&nbsp;task]
                 </span><br/>
+<span class="partial" title="4 out of 5 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)&nbsp;task
+                </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[task&nbsp;(safe&#x2F;task&nbsp;conf&nbsp;task)]
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-let&nbsp;[task&nbsp;(safe&#x2F;task&nbsp;conf&nbsp;task)]
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[t0&nbsp;&nbsp;(u&#x2F;ms)
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[t0&nbsp;&nbsp;&nbsp;(u&#x2F;ms)
                 </span><br/>
 <span class="covered" title="11 out of 11 forms covered">
-                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;(sh&nbsp;(:shell&nbsp;conf)&nbsp;(:param&nbsp;conf)&nbsp;(:Cmd&nbsp;task))
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;&nbsp;(sh&nbsp;(:shell&nbsp;conf)&nbsp;(:param&nbsp;conf)&nbsp;(:Cmd&nbsp;task))
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t1&nbsp;&nbsp;(u&#x2F;ms)]
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t1&nbsp;&nbsp;&nbsp;(u&#x2F;ms)
                 </span><br/>
-<span class="covered" title="12 out of 12 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(zero?&nbsp;(:exit&nbsp;res))&nbsp;{:error&nbsp;(:err&nbsp;res)}
+<span class="covered" title="7 out of 7 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(if-not&nbsp;(zero?&nbsp;(:exit&nbsp;res))
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;(:err&nbsp;res)]
+                </span><br/>
+<span class="covered" title="16 out of 16 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;msg})
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;(:out&nbsp;res)&nbsp;:_t_start&nbsp;t0&nbsp;:_t_stop&nbsp;t1}))
+                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;(:out&nbsp;res)&nbsp;:_t_start&nbsp;t0&nbsp;:_t_stop&nbsp;t1})]
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;missing&nbsp;&lt;command&gt;&quot;}))
+<span class="covered" title="4 out of 4 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;data))
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;missing&nbsp;&lt;command&gt;&quot;]
+                </span><br/>
+<span class="not-covered" title="0 out of 16 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;msg})))))
                 </span><br/>
  </body>
 </html>

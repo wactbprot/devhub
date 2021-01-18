@@ -2,13 +2,13 @@
   (:require [clojure.test :refer :all]
             [devhub.utils :refer :all]))
 
-(deftest meas-vec-i
+(deftest reshape-i
   (testing "returns expected (i)"
-    (is (map? (meas-vec {}))
+    (is (map? (reshape {}))
         "map")
-    (is (string? (:error (meas-vec nil)))
+    (is (string? (:error (reshape nil)))
         "no data")
-    (is (empty? (:_x (meas-vec [])))
+    (is (empty? (:_x (reshape [])))
         "nil")))
 
 (deftest ascii-logo-i

@@ -164,7 +164,7 @@
                 053&nbsp;&nbsp;&nbsp;&nbsp;NOTE:&nbsp;The&nbsp;anybus&nbsp;gateway&nbsp;is&nbsp;configured&nbsp;to&nbsp;deliver&nbsp;pressures&nbsp;in&nbsp;`mbar`.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;[task&nbsp;data]
+                054&nbsp;&nbsp;&nbsp;&nbsp;[task]
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
                 055&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[input&nbsp;(:PostScriptInput&nbsp;task)
@@ -179,13 +179,13 @@
                 058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[[dev-name&nbsp;start]]
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[x&nbsp;(if&nbsp;(u&#x2F;single-meas?&nbsp;data)
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[x&nbsp;(if&nbsp;(u&#x2F;single-meas?&nbsp;task)
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(anybus-float&nbsp;(:_x&nbsp;data)&nbsp;start&nbsp;n)
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(anybus-float&nbsp;(:_x&nbsp;task)&nbsp;start&nbsp;n)
                 </span><br/>
 <span class="not-covered" title="0 out of 11 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[v]&nbsp;(anybus-float&nbsp;v&nbsp;start&nbsp;n))&nbsp;(:_x&nbsp;data)))]
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;(fn&nbsp;[v]&nbsp;(anybus-float&nbsp;v&nbsp;start&nbsp;n))&nbsp;(:_x&nbsp;task)))]
                 </span><br/>
 <span class="not-covered" title="0 out of 9 forms covered">
                 062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;vl-result&nbsp;(str&nbsp;pre&nbsp;dev-name&nbsp;suf)&nbsp;x&nbsp;unit&nbsp;)))&nbsp;
@@ -193,11 +193,11 @@
 <span class="not-covered" title="0 out of 4 forms covered">
                 063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;(mapv&nbsp;f&nbsp;m)]
                 </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
-                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Result&nbsp;res
+<span class="not-covered" title="0 out of 7 forms covered">
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:Result&nbsp;res
                 </span><br/>
 <span class="not-covered" title="0 out of 12 forms covered">
-                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;(into&nbsp;{}&nbsp;(map&nbsp;(fn&nbsp;[m]&nbsp;{(:Type&nbsp;m)&nbsp;m})&nbsp;res))}))
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;(into&nbsp;{}&nbsp;(map&nbsp;(fn&nbsp;[m]&nbsp;{(:Type&nbsp;m)&nbsp;m})&nbsp;res))})))
                 </span><br/>
  </body>
 </html>
