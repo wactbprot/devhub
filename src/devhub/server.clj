@@ -78,9 +78,10 @@
     (if (:error task)
       :error
       (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
-          (keyword (:Action task))))))
+          (if (:stub task) :stub (keyword (:Action task)))))))
   
 (defmethod dispatch :error   [conf task] task)
+(defmethod dispatch :stub    [conf task] task)
 (defmethod dispatch :TCP     [conf task] (tcp/handler     conf task))
 (defmethod dispatch :MODBUS  [conf task] (modbus/handler  conf task))
 (defmethod dispatch :VXI11   [conf task] (vxi/handler     conf task))
@@ -96,21 +97,27 @@
 ;; request thread
 ;;------------------------------------------------------------
 (defn thread 
-  [conf task stub?]
-  (let [task (safe/task conf task)]
-    (let [task (pre-dispatch conf task)]
-      (let [task (if stub? (stub/response conf task) (dispatch conf task))]
-          (post-dispatch conf task)))))
-
+  [conf task]
+  (->> task
+       (safe/task     conf)
+       (pre-dispatch  conf)
+       (stub/response conf)
+       (dispatch      conf)
+       (post-dispatch conf)))
+  
 ;;------------------------------------------------------------
 ;; routes
 ;;------------------------------------------------------------
 (defroutes app-routes
-    (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
-    (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))
-    (POST "/echo"   [:as req] (res/response (u/task req)))
-    (GET "/version" [:as req] (res/response (u/version)))
-    (route/not-found "No such service."))
+  (POST "/stub"   [:as req] (res/response
+                             (thread (u/config) (assoc (u/task req)
+                                                       :stub true))))
+  (POST "/"       [:as req] (res/response
+                             (thread (u/config) (assoc (u/task req)
+                                                       :stub false))))
+  (POST "/echo"   [:as req] (res/response (u/task req)))
+  (GET "/version" [:as req] (res/response (u/version)))
+  (route/not-found "No such service."))
 
 (def app
   (-> (handler/site app-routes)

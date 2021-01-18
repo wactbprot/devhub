@@ -3,7 +3,7 @@
     :doc "Handles stub requests."}
   (:require [devhub.utils :as u]
             [devhub.safe :as safe]
-            [com.brunobonacci.mulog :as µ]))
+            [com.brunobonacci.mulog :as mu]))
 
 (defn select-response
   "Selects the response depending on the configuration. Implemented
@@ -12,13 +12,14 @@
   * `:rand` (default)
   * `:first` (fallback)
   * `:last`"
-  [kw rs mode]
-  (let [r  (kw rs)]
-    (condp = mode
-      :first (first r)
-      :last  (last  r)
-      :rand  (nth   r (rand-int (count r)))
-      (first r))))
+  [conf task]
+  (let [resps (u/all-responses conf)
+        resp  (or ((:select task) resps) (:missing resps))]
+    (condp = (u/stub-mode conf)
+      :first (first resp)
+      :last  (last  resp)
+      :rand  (nth   resp (rand-int (count resp)))
+      (first resp))))
 
 (defn response
   "Gets and returns a stub response if one is registered in `:stub-response-file`.
@@ -28,16 +29,21 @@
   (response (u/config) {:TaskName \"VS_SE3-get-valves-pos\"})
   ```"
   [conf task]
-  (if (:error task) task
-      (if-let [task (safe/stub conf task)]
-        (let [f (fn [_] (select-response (:select task) (u/all-responses conf) (u/stub-mode conf)))]
-          (µ/log ::response :message "call select-response via u/run")
-          (merge task (if-let [data (u/run f conf task)]
-                        (u/reshape data)
-                        (let [msg "no data"]
-                          (µ/log ::response :error msg)
-                          {:error "no data"}))))
-        (let [msg "can not derive keyword fron task name"]
-          (µ/log ::response :error msg)
-          {:error msg}))))
+  (mu/trace 
+   ::response [:function "stub/response"]
+   (if-not (:stub task) task
+           (if (:error task) task
+               (let [req-id (:req-id task)]
+                 (if-let [task (safe/stub conf task)]
+                   (let [f (fn [_] (select-response conf task))]
+                     (mu/log ::response :message "call select-response"
+                             :req-id req-id)
+                     (merge task (if-let [data (u/run f conf task)]
+                                   (u/reshape data)
+                                   (let [msg "no data"]
+                                     (mu/log ::response :error msg :req-id req-id)
+                                     {:error "no data"}))))
+                   (let [msg "can not derive keyword fron task name"]
+                     (mu/log ::response :error msg :req-id req-id)
+                     {:error msg})))))))
 

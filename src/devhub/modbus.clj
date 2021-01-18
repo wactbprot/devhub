@@ -3,7 +3,7 @@
     :doc "Handles MODBUS Actions."}
   (:require [devhub.utils           :as u]
             [devhub.safe            :as safe]
-            [com.brunobonacci.mulog :as µ])
+            [com.brunobonacci.mulog :as mu])
   (:import [com.intelligt.modbus.jlibmodbus Modbus]
            [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
            [com.intelligt.modbus.jlibmodbus.master ModbusMasterFactory]
@@ -61,14 +61,16 @@
 (defn handler
   "Handles Modbus queries. "
   [conf task]
-  (if (:error task) task
-      (let [{host :Host fc :FunctionCode addr :Address q :Quantity req-id :req-id} task
-            _    (µ/log ::query :req-id req-id :Host host :Address addr)
-            data (query conf task)]
-        (merge task (if (:error data)
-                      (let [msg (:error data)]
-                        (µ/log ::query :error msg :req-id req-id)
+  (mu/trace 
+   ::handler [:function "modbus/handler"]
+   (if (:error task) task
+       (let [{host :Host fc :FunctionCode addr :Address q :Quantity req-id :req-id} task
+             _    (mu/log ::query :req-id req-id :Host host :Address addr)
+             data (query conf task)]
+         (merge task (if (:error data)
+                       (let [msg (:error data)]
+                         (mu/log ::query :error msg :req-id req-id)
                         data)
                       (let [msg "received data"]
-                        (µ/log ::query :message msg :req-id req-id)
-                        (u/reshape data)))))))
+                        (mu/log ::query :message msg :req-id req-id)
+                        (u/reshape data))))))))
