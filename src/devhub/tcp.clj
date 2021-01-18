@@ -6,8 +6,8 @@
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
 
-(defn out-socket [sock] (PrintWriter. (OutputStreamWriter. (.getOutputStream sock))))
-(defn in-socket [sock] (BufferedReader. (InputStreamReader. (.getInputStream sock))))
+(defn out-socket [s] (PrintWriter. (OutputStreamWriter. (.getOutputStream s))))
+(defn in-socket [s] (BufferedReader. (InputStreamReader. (.getInputStream s))))
 (defn gen-socket [{h :Host p :Port}] (Socket. h p))
 
 (defn query
@@ -17,24 +17,24 @@
   Example:
   ```clojure
   (def c (u/config))
-  (def t {:Port 5025 :Host \"e75496\" :Value [\"ch101()\\n\"] :Wait 10 :Repeat 2})
+  (def t {:Port 5025 :Host \"e75496\" :Value [\"room()\\n\"] :Wait 10 :Repeat 2})
   (query c t)
   ```"
-  [conf task]
+  [{conf :tcp} task]
   (if-not (u/connectable? task)
     {:error "can not connect"}
     (with-open [sock (gen-socket task)
-                   out  (out-socket sock)
+                out  (out-socket sock)
                 in   (in-socket sock)]
       (let [f (fn [cmd]
                 (.print out cmd)
-                   (.flush out)
+                (.flush out)
                 (if-not (:NoReply task) (.readLine in) ""))]
         (u/run f conf task)))))
 
 (defn handler
   "Handles TCP queries."
-  [{conf :tcp} task]
+  [conf task]
   (if (:error task) task
       (let [{host :Host port :Port req-id :req-id} task
             _    (µ/log ::query :req-id req-id :Host host :Port port)

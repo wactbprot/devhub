@@ -20,6 +20,7 @@
   Example:
   ```clojure
   (def c (u/config))
+
   ;; valves
   (def t {:Host \"e75446\" :Quantity 9 :Address 45407
          :FunctionCode :ReadHoldingRegisters
@@ -38,7 +39,7 @@
             :Value [:no-value] :Wait 10 :Repeat 1})
   (query c t)
   ```"
-  [conf task]
+  [{conf :modbus} task]
   (if-not (u/connectable? task)
     {:error "can not connect"}
     (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task
@@ -59,7 +60,7 @@
 
 (defn handler
   "Handles Modbus queries. "
-  [{conf :modbus} task]
+  [conf task]
   (if (:error task) task
       (let [{host :Host fc :FunctionCode addr :Address q :Quantity req-id :req-id} task
             _    (µ/log ::query :req-id req-id :Host host :Address addr)
