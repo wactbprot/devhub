@@ -17,7 +17,7 @@
             [compojure.handler        :as handler]
             [org.httpkit.server       :refer [run-server]]
             [ring.middleware.json     :as middleware]
-            [com.brunobonacci.mulog   :as µ])
+            [com.brunobonacci.mulog   :as mu])
   (:gen-class))
 
 ;;------------------------------------------------------------
@@ -33,36 +33,42 @@
 
   The pre-processing returns the **task**."
   [conf task]
-  (if (:error task) task
-      (cond
-        (:PreScript     task) (pp/pre-dispatch conf task)
-        (:PreProcessing task) (js/exec          conf task)
-        (:PreScriptPy   task) (py/exec          conf task)
-        :else (do (µ/log ::post-dispatch :req-id (:req-id task) :message "no pre-processing")
-                  task))))
-
+  (mu/trace
+      ::pre-dispatch [:function "server/pre-dispatch"]
+      (if (:error task) task
+          (cond
+            (:PreScript     task) (pp/pre-dispatch conf task)
+            (:PreProcessing task) (js/exec          conf task)
+            (:PreScriptPy   task) (py/exec          conf task)
+            :else (do (mu/log ::post-dispatch :req-id (:req-id task)
+                              :message "no pre-processing")
+                      task)))))
+  
 ;;------------------------------------------------------------
 ;; dispatch post scripting or processing
 ;;------------------------------------------------------------
 (defn post-dispatch
   "Dispatches the post-processing. The following processing paths are
   implemented:
-
+  
   * `:PostScript`: clojure functions
   * `:PostProcessing`: javascript strings
   * `:PostScriptPy`: python scripts
-
+  
   The pre-processing returns the **data**."
   [conf task]
-  (if (:error task) task
-      (cond
-        (:PostScript     task) (pp/post-dispatch  conf task)
-        (:PostProcessing task) (js/exec           conf task)
-        (:PostScriptPy   task) (py/exec           conf task)
-        :else (do
-                (µ/log ::post-dispatch :req-id (:req-id task) :message "no post-processing")
-                task))))
-
+  (mu/trace
+      ::post-dispatch [:function "server/post-dispatch"]
+      (if (:error task) task
+          (cond
+            (:PostScript     task) (pp/post-dispatch  conf task)
+            (:PostProcessing task) (js/exec           conf task)
+            (:PostScriptPy   task) (py/exec           conf task)
+            :else (do
+                    (mu/log ::post-dispatch :req-id (:req-id task)
+                            :message "no post-processing")
+                    task)))))
+  
 ;;------------------------------------------------------------
 ;; dispatch on action
 ;;------------------------------------------------------------
@@ -77,7 +83,7 @@
   (fn [conf task]
     (if (:error task)
       :error
-      (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
+      (do (mu/log ::dispatch :req-id (:req-id task) :Action (:Action task))
           (if (:stub task) :stub (keyword (:Action task)))))))
   
 (defmethod dispatch :error   [conf task] task)
@@ -90,7 +96,7 @@
 (defmethod dispatch :default
   [conf task]
   (let [msg "wrong :Action"]
-    (µ/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
+    (mu/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
     (merge task {:error msg})))
 
 ;;------------------------------------------------------------
@@ -126,16 +132,16 @@
 
 (defn init-log!
   [{conf :mulog }]
-  (µ/set-global-context!
+  (mu/set-global-context!
    {:app-name "devhub" :version (:version (u/version))})
-  (µ/start-publisher! conf))
+  (mu/start-publisher! conf))
 
 (def server (atom nil))
 (def logger (atom nil))
 
 (defn stop
   []
-  (µ/log ::stop)
+  (mu/log ::stop)
   (@server :timeout 100)
   (reset! server nil)
   (@logger)
@@ -145,7 +151,7 @@
   ([]
    (start (u/config)))
   ([conf]
-   (µ/log ::start)
+   (mu/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
 
