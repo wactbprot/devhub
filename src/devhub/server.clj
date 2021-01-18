@@ -9,7 +9,6 @@
             [devhub.tcp               :as tcp]
             [devhub.stub              :as stub]
             [devhub.safe              :as safe]
-            [devhub.sample            :as sample]
             [devhub.vxi11             :as vxi]
             [devhub.modbus            :as modbus]
             [devhub.execute           :as execute]
@@ -101,20 +100,17 @@
   (let [task (safe/task conf task)]
     (let [task (pre-dispatch conf task)]
       (let [task (if stub? (stub/response conf task) (dispatch conf task))]
-        (let [task (sample/record conf task)]
-          (post-dispatch conf task))))))
+          (post-dispatch conf task)))))
 
 ;;------------------------------------------------------------
 ;; routes
 ;;------------------------------------------------------------
 (defroutes app-routes
-  (µ/trace ::routes
-    [:function "routes"]
     (POST "/stub"   [:as req] (res/response (thread (u/config) (u/task req) true)))
     (POST "/"       [:as req] (res/response (thread (u/config) (u/task req) false)))
     (POST "/echo"   [:as req] (res/response (u/task req)))
     (GET "/version" [:as req] (res/response (u/version)))
-    (route/not-found "No such service.")))
+    (route/not-found "No such service."))
 
 (def app
   (-> (handler/site app-routes)

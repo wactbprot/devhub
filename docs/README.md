@@ -2,11 +2,11 @@
 [vxi](#vxi) and [modbus](#modbus) to read out measurement devices. It
 also [executes](#execute) shell commands.  Requests are *POST*ed via
 *http* in json format. Measurement data is returned in json
-format. **devhub** may act as a [stub](#stub-post-stub) and has the
-capability to record samples of raw data returned from the
-devices. The repository contains a pre-compiled standalone version
-that runs on BSD, Linux, MacOS and Windows. **devhub** uses
-[elasticsearch (els)](#elasticsearch-els) as a log database.
+format. **devhub** may act as a [stub](#stub-post-stub) and returns
+predefined responses. The repository contains a pre-compiled
+standalone version that runs on BSD, Linux, MacOS and
+Windows. **devhub** uses [elasticsearch (els)](#elasticsearch-els) as
+a log database.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -75,7 +75,6 @@ that runs on BSD, Linux, MacOS and Windows. **devhub** uses
     * `javascript`
     * `python3`
     * `clojure`
-* record sample data
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
 * linux, windows and macOS support
 * ~80% test coverage
