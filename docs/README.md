@@ -474,7 +474,7 @@ sudo systemctl start kibana
 ![kibana](./kibana.png)
 
 * http://localhost:5601/app/discover
-* mapping: stack management > dev tools
+* mapping: stack management > dev tools > run mapping
 * index pattern: stack management > kibana > index pattern
 * search: discover
 
@@ -494,6 +494,9 @@ sudo systemctl start kibana
 		"error":{"type": "text"},
 		"message":{"type": "text"},
 		"raw-result-str":{"type": "text"},
+		"command":{"type": "text"},
+		"pp-data":{"type": "text"},
+		"pp-source":{"type": "text"},
 		"Action": {
           "type": "text",
           "fields": {
@@ -561,7 +564,7 @@ sudo systemctl start kibana
           }
         },
 		"mulog/duration": {"type": "integer"},
-		"function": {"type": "text"},
+		"function": {"type": "text"}
       }
     }
 }

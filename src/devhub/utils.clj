@@ -120,7 +120,8 @@
   [{req-id :req-id} f]
   (fn [cmd]
     (let [raw-result (f cmd)]
-      (mu/log ::wrap-log :req-id req-id :raw-result-str (str (:_x raw-result)))
+      (mu/log ::wrap-log :req-id req-id :raw-result-str (str (:_x raw-result))
+              :command cmd)
       raw-result)))
 
 (defn wrap-times

@@ -13,15 +13,11 @@ const data = process.argv.slice(2)[2];
 var ctx = {"_" : {}};
 
 try {
-    fs.readFile(data, 'utf8', (err, data) => {
-	if (err) {
-	    console.log({"error": err.toString()});
-	} else {
-	    const d = JSON.parse(data);
-	    ctx["_x"]       = d["_x"];
-	    ctx["_t_start"] = d["_t_start"];
-	    ctx["_t_stop"]  = d["_t_stop"];
-	}});
+    const d = JSON.parse(data);
+    ctx["_x"]       = d["_x"];
+    ctx["_t_start"] = d["_t_start"];
+    ctx["_t_stop"]  = d["_t_stop"];
+    
 } catch(err) {
     console.log(JSON.stringify({"error": err.toString()}));
 }
@@ -35,22 +31,17 @@ fs.readdirSync(js_path ? js_path : ".").forEach(file => {
     }	
 });
 
-fs.readFile(exec_script, 'utf8', (err, s) => {
-    if (err) {
-	console.log({"error": err.toString()});
-    } else {
-	try {
-	    vs = vm.createScript(s);
-	    vs.runInNewContext(ctx);
-	    var ret = {};
-	    for (v in ctx) {
-		if(!v.startsWith("_")) {
-		    ret[v] = ctx[v];
-		}
-	    }
-	    console.log(JSON.stringify(ret))
-	} catch(err) {
-	    console.log(JSON.stringify({"error": err.toString()}));
+try {
+    vs = vm.createScript(exec_script);
+    vs.runInNewContext(ctx);
+    var ret = {};
+    for (v in ctx) {
+	if(!v.startsWith("_")) {
+	    ret[v] = ctx[v];
 	}
     }
-});
+    console.log(JSON.stringify(ret))
+} catch(err) {
+    console.log(JSON.stringify({"error": err.toString()}));
+}
+   
