@@ -30,7 +30,9 @@
        :repeat 1}
  :vxi {:min-wait 10
        :repeat 1
-       :read-buffer-size 1024}
+       :read-buffer-size 1024
+       :vxi-io-timeout 300000
+       :vxi-lock-timeout 300000}
  :modbus {:min-wait 10
           :port 502
           :keep-alive false
