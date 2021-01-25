@@ -41,11 +41,25 @@
    (ppu/vec->float (anybus-vec (subvec v s (+ s n)))))
   ([v s n u]
    (let [x (anybus-float v s n)]
-     (condp = (keyword u)
+     (condp = (keyword (or u "mbar"))
        :mbar  x
        :Pa    (* x 100)
        :kPa   (/ x 10)
        (µ/log ::anybus-float :error "conversion not implemented")))))
+
+(defn anybus-extract-single
+  [task start n u]
+  (anybus-float (:_x task) start n u))
+
+(defn anybus-extract-multi
+  [task start n u]
+  (mapv (fn [v] (anybus-float v start n u)) (:_x task)))
+
+(defn anybus-extract
+  [task start n u]
+  (if (u/single-meas? task)
+    (anybus-extract-single task start n u)
+    (anybus-extract-multi task start n u)))
 
 (defn anybus-readout
   "Returns `Result` and `ToExchange` maps.
@@ -56,10 +70,28 @@
         pre   (:Prefix input) suf (:Suffix input) unit (:Unit input)
         m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
         f     (fn [[dev-name start]]
-                (let [x (if (u/single-meas? task)
-                          (anybus-float (:_x task) start n)
-                          (mapv (fn [v] (anybus-float v start n)) (:_x task)))]
-                  (ppu/vl-result (str pre dev-name suf) x unit ))) 
+                (ppu/vl-result (str pre dev-name suf)
+                               (anybus-extract task start n unit)
+                               unit)) 
         res (mapv f m)]
     (merge task {:Result res
                  :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))})))
+
+
+(defn anybus-add-ctrl
+  [task]
+  (let [m      (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        input  (:PostScriptInput task)
+        target (:TargetPressure input) unit (:TargetUnit input)
+        p      (ppu/mean (anybus-extract task (get m "add") n unit))]
+
+;;    return this
+;;    var ToExchange = {'Pressure_fill_check':{'Value':_pist_pa,
+;;                                             'Unit':'Pa',
+;;                                             'Type':'fill_check'},,
+;;                       'Pressure_fill_ok': {'Bool':(_pist_pa
+;;                                                     &&
+;;                                                     (_pist_pa > _target_pa * (1 - 0.02))
+;;                                                     &&
+;;                                                     (_pist_pa < _target_pa * (1 + 0.02)) )}
+    ))
