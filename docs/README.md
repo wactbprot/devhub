@@ -121,6 +121,12 @@ No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 curl -H "$H" -d '{"Wait":1 , "Repeat":10}' -X POST http://localhost:9009/stub
 ```
 
+
+```shell
+D = '{"TaskName":"IM540-read_out", "Wait":1 , "Repeat":10}'
+curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
+```
+
 ## version [POST /version]
 
 Returns the current **devhub** version.
@@ -341,6 +347,14 @@ D='{"PostScript":"gn_se3.anybus-readout", "PostScriptInput": {"Prefix": "", "Suf
 
 curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ```
+
+ 
+```shell
+D='{"TaskName":"IM540-read_out", "Wait":1000 , "Repeat":10, "PostScript": "im540.pressure-rise", "PostScriptInput": {"Type": "rise"}, "Action":"TCP", "Host":"e75436", "Port":5303, "Value":"MES R\r"}'
+
+curl -H "$H" -d "$D" -X POST http://localhost:9009
+```
+
 
 ## :PostProcessing
 

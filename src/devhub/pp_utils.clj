@@ -78,6 +78,8 @@
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
 
+  
+
 (def square (fn [x] (* x x)))
 
 (defn mean [v] (when (pos? (count v)) (/ (reduce + v) (count v))))
@@ -111,6 +113,30 @@
                   (reduce (fn [a b] (+ a (square (- b  mv)))) 0 v)
                   ndec)))))
 
+(defn t0t1->t [t0 t1] (mapv (fn [a b] (mean [a b])) t0 t1))
+
+(defn slope
+   "Ordinary Least Squares (OLS)"
+  [y x]
+  (let [mX    (mean x)
+        mY    (mean y)
+        x-mX  (mapv (fn [a] (- a mX)) x)
+        y-mY  (mapv (fn [a] (- a mY)) y)]
+    (/ (reduce + (mapv * x-mX y-mY))
+       (reduce + (mapv square x-mX))))) 
+
+(defn intercept [y x] (- (mean y) (* (slope y x) (mean x))))  
+
+(defn r-square
+  [y x]
+  (let [m     (slope y x)
+        c     (intercept y x)
+        mY    (mean y)
+        py    (mapv (fn [a] (+ c (* m a))) x)
+        y-mY  (mapv (fn [a] (- a mY)) y)
+        y-py  (mapv (fn [a b] (- a b)) y py)]
+    (- 1 (/ (reduce + (mapv square y-py))
+            (reduce + (mapv square y-mY))))))
 
 (defn vl-result
   "Returns the vl result structure at least consisting of `:Type` `t`
