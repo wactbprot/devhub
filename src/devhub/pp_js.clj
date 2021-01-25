@@ -10,7 +10,7 @@
 
 (defn exec-file [conf]  (str (:js-path conf) "/" (:js-exec conf)))
 
-(defn gen-pp-source [task] (string/join (:PostProcessing task))) 
+(defn gen-pp-source [task] (string/join "\n" (:PostProcessing task))) 
 
 (defn gen-pp-data [task] (che/encode (u/data task)))
 

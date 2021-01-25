@@ -13,7 +13,7 @@ function extractIm540(s) {
 // schwächer:
 // jetzt in Pa
 // "MES R\r\nPA   1.48E-08\r\n"
-  var regex = /(PA\s*)([0-9]{1}\.[0-9]{1,2}[E][-+][0-9]{2})(\r\n)$/;
+  var regex = /(A\s*)([0-9]{1}\.[0-9]{1,2}[E][-+][0-9]{2})/;
 
   return x.strToNum(regex.exec(s), 2);
 }
