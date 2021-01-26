@@ -47,19 +47,11 @@
        :kPa   (/ x 10)
        (µ/log ::anybus-float :error "conversion not implemented")))))
 
-(defn anybus-extract-single
-  [task start n u]
-  (anybus-float (:_x task) start n u))
-
-(defn anybus-extract-multi
-  [task start n u]
-  (mapv (fn [v] (anybus-float v start n u)) (:_x task)))
-
 (defn anybus-extract
   [task start n u]
   (if (u/single-meas? task)
-    (anybus-extract-single task start n u)
-    (anybus-extract-multi task start n u)))
+    (anybus-float (:_x task) start n u)
+    (mapv (fn [v] (anybus-float v start n u)) (:_x task))))
 
 (defn anybus-readout
   "Returns `Result` and `ToExchange` maps.
@@ -74,24 +66,25 @@
                                (anybus-extract task start n unit)
                                unit)) 
         res (mapv f m)]
-    (merge task {:Result res
-                 :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))})))
+    (merge task
+           {:Result res
+            :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))})))
 
+(defn ok?
+  [p_current p_target]
+  (and (number? p_target)
+       (number? p_current) 
+       (> p_current  (* p_target  (- 1 0.02)))
+       (< p_current  (* p_target  (+ 1 0.02)))))
 
 (defn anybus-add-ctrl
   [task]
-  (let [m      (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        input  (:PostScriptInput task)
-        target (:TargetPressure input) unit (:TargetUnit input)
-        p      (ppu/mean (anybus-extract task (get m "add") n unit))]
-
-;;    return this
-;;    var ToExchange = {'Pressure_fill_check':{'Value':_pist_pa,
-;;                                             'Unit':'Pa',
-;;                                             'Type':'fill_check'},,
-;;                       'Pressure_fill_ok': {'Bool':(_pist_pa
-;;                                                     &&
-;;                                                     (_pist_pa > _target_pa * (1 - 0.02))
-;;                                                     &&
-;;                                                     (_pist_pa < _target_pa * (1 + 0.02)) )}
-    ))
+  (let [m         (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        input     (:PostScriptInput task)
+        p_target  (u/number (:TargetPressure input)) unit (:TargetUnit input)
+        p_current (ppu/mean (anybus-extract task (get m "add") n unit))]
+    (merge task
+           {:ToExchange {:Pressure_fill_check {:Value p_current
+                                               :Unit unit
+                                               :Type "fill_check"}
+                         :Pressure_fill_ok {:Bool (ok? p_current p_target)}}})))
