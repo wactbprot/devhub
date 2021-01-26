@@ -88,3 +88,25 @@
                                                :Unit unit
                                                :Type "fill_check"}
                          :Pressure_fill_ok {:Bool (ok? p_current p_target)}}})))
+
+(defn anybus-add-read
+  [task]
+  (let [m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        input (:PostScriptInput task)
+        token (:Type input) unit (:Unit input)
+        v     (anybus-extract task (get m "add") n unit)]
+    (merge task {:Result  [(ppu/vl-result token v unit)]})))
+
+(defn anybus-add-loss
+  [task]
+  (let [m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        input (:PostScriptInput task)
+        token (:Type input) unit (:Unit input)
+        v     (anybus-extract task (get m "add") n unit)
+        o     (ppu/operable v)
+        y     (ppu/calc-seq v o)
+        t     (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
+                           (ppu/calc-seq (:_t_stop task)  o))]
+    (merge task {:Result [(ppu/vl-result (str token "_slope_x")
+                                         (ppu/slope y t)
+                                         "mbar/ms")]})))
