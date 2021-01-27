@@ -110,3 +110,37 @@
     (merge task {:Result [(ppu/vl-result (str token "_slope_x")
                                          (ppu/slope y t)
                                          "mbar/ms")]})))
+
+(defn anybus-pressure-ctrl
+  [task]
+  (let [m         (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        input     (:PostScriptInput task)
+        p_target  (u/number (:TargetPressure input)) unit (:TargetUnit input)
+        p_current (cond
+                    (<= p_target 133)    (ppu/mean (concat
+                                                   (anybus-extract task (get m "1T_1") n unit)
+                                                   (anybus-extract task (get m "1T_2") n unit)
+                                                   (anybus-extract task (get m "1T_3") n unit)))
+                    (<= p_target 1333)   (ppu/mean (concat
+                                                   (anybus-extract task (get m "10T_1") n unit)
+                                                   (anybus-extract task (get m "10T_2") n unit)
+                                                   (anybus-extract task (get m "10T_3") n unit)))
+                    (<= p_target 13332)  (ppu/mean (concat
+                                                   (anybus-extract task (get m "100T_1") n unit)
+                                                   (anybus-extract task (get m "100T_2") n unit)
+                                                   (anybus-extract task (get m "100T_3") n unit)))
+                    (<= p_target 133322) (ppu/mean (concat
+                                                   (anybus-extract task (get m "1000T_1") n unit)
+                                                   (anybus-extract task (get m "1000T_2") n unit)
+                                                   (anybus-extract task (get m "1000T_3") n unit))))]
+    (if-not (= unit "Pa")
+      (merge task {:error "target unit not implemented"}) 
+      (merge task
+             {:ToExchange {:Pressure_fill_check {:Value p_current
+                                                 :Unit unit
+                                                 :Type (:Type input)}
+                           :Pressure_fill_ok {:Bool (ok? p_current p_target)}
+                           :Pressure_compare_check {:Value p_current
+                                                 :Unit unit
+                                                 :Type (:Type input)}
+                           :Pressure_compare_ok {:Bool (ok? p_current p_target)}}}))))

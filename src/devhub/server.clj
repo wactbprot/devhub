@@ -40,7 +40,7 @@
             (:PreScript     task) (pp/pre-dispatch conf task)
             (:PreProcessing task) (js/exec          conf task)
             (:PreScriptPy   task) (py/exec          conf task)
-            :else (do (mu/log ::post-dispatch :req-id (:req-id task)
+            :else (do (mu/log ::pre-dispatch :req-id (:req-id task)
                               :message "no pre-processing")
                       task)))))
   
