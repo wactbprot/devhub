@@ -459,119 +459,28 @@ npm install crc
 # µlog
 
 * https://github.com/BrunoBonacci/mulog
+* configuration:
 
-## elasticsearch (els)
-
-* [install-and-configure-elasticsearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-18-04-de)
-
-## kibana
-
-The **kibana** pkg  comes with *els*:
-
-```shell
-sudo apt install kibana
-sudo systemctl enable kibana
-sudo systemctl start kibana
+```clojure
+ :mulog {:type :multi
+         :publishers[ 
+                     ;; send events to the stdout
+                     ;; {:type :console
+                     ;;  :pretty? true}
+                     ;; send events to a file
+                     ;; {:type :simple-file
+                     ;;  :filename "/tmp/mulog/events.log"}
+                     ;; send events to ELS
+                     {:type :elasticsearch
+                      :url  "http://localhost:9200/"
+                      :els-version  :v7.x
+                      :publish-delay 1000
+                      :data-stream  "vl-log-stream"
+                      :name-mangling false
+                      }]}
 ```
 
-![kibana](./kibana.png)
-
-* http://localhost:5601/app/discover
-* mapping: stack management > dev tools > run mapping
-* index pattern: stack management > kibana > index pattern
-* search: discover
-
-## mapping
-
-```PUT /devhub-stream```
-```json
-{
-  "mappings": {
-    "properties": {
-		"@timestamp": {"type": "date"},
-		
-		"TaskName":{"type": "text"},
-		"Host":{"type": "text"},
-		"Port":{"type": "integer"},
-		"Address":{"type": "integer"},
-		"error":{"type": "text"},
-		"message":{"type": "text"},
-		"raw-result-str":{"type": "text"},
-		"command":{"type": "text"},
-		"pp-data":{"type": "text"},
-		"pp-source":{"type": "text"},
-		"Action": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-	"req-id": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "stub": {
-          "type": "boolean"
-        },
-        "version": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "app-name": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "mulog/event-name": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "mulog/namespace": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "mulog/trace-id": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-		"mulog/duration": {"type": "integer"},
-		"function": {"type": "text"}
-      }
-    }
-}
-```
+* see [vl-log-stream](https://github.com/wactbprot/vl-log-stream)
 
 ## notes
 

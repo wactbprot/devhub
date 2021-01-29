@@ -12,7 +12,7 @@
                       :url  "http://localhost:9200/"
                       :els-version  :v7.x
                       :publish-delay 1000
-                      :data-stream  "devhub-stream"
+                      :data-stream  "vl-log-stream"
                       :name-mangling false
                       }]}
  :stub {;; default is false, swiched to true if
