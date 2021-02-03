@@ -136,11 +136,11 @@
   (let [{cmds :Value  w :Wait n :Repeat} task]
   (if (= 1 n (count cmds))
     ((wrap-log task (wrap-times f)) (first cmds))
-    (mapv (fn [_]
-            (let [v (mapv (wrap-log task (wrap-times f)) cmds)]
+    (doall (mapv (fn [_]
+            (let [v (doall (mapv (wrap-log task (wrap-times f)) cmds))]
               (Thread/sleep w)
               v))
-          (range n)))))
+          (range n))))))
 
 (defn ascii-logo
   []

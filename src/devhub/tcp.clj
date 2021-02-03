@@ -27,6 +27,7 @@
                 out  (out-socket sock)
                 in   (in-socket sock)]
       (let [f (fn [cmd]
+                (prn cmd)
                 (.print out cmd)
                 (.flush out)
                 (Thread/sleep 10)
