@@ -18,6 +18,9 @@
   ```clojure
   (def c (u/config))
   (def t {:Port 5025 :Host \"e75496\" :Value [\"room()\\n\"] :Wait 10 :Repeat 2})
+  ;; prologix mks670
+  (def t {:Port 1234 :Host \"192.168.98.204\" :Wait 10 :Repeat 10
+  :Value [\"++addr 2\r++auto 1\r++eot_char 10\r:meas:func\r\"]})
   (query c t)
   ```"
   [{conf :tcp} task]
@@ -27,11 +30,12 @@
                 out  (out-socket sock)
                 in   (in-socket sock)]
       (let [f (fn [cmd]
-                (prn cmd)
                 (.print out cmd)
                 (.flush out)
                 (Thread/sleep 10)
-                (if-not (:NoReply task) (.readLine in) ""))]
+                (if-not (:NoReply task)
+                  (.readLine in)
+                  ""))]
         (u/run f conf task)))))
 
 (comment
