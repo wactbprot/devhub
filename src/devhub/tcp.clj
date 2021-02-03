@@ -33,6 +33,14 @@
                 (if-not (:NoReply task) (.readLine in) ""))]
         (u/run f conf task)))))
 
+(comment
+  ;; read chars to debug result string
+  (loop []
+    (let [c (.read in)]
+      (when (> c 0)
+        (prn (char c))
+        (recur)))))
+
 (defn handler
   "Handles TCP queries."
   [conf task]
@@ -49,4 +57,3 @@
                        (let [msg "received data"]
                          (mu/log ::query :message msg :req-id req-id)
                          (u/reshape data))))))))
-  

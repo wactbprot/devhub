@@ -20,7 +20,7 @@
                 005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.java.io&nbsp;:as&nbsp;io]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.pprint&nbsp;&nbsp;:as&nbsp;pp]
+                006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.pprint&nbsp;:as&nbsp;pp]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;µ]))
@@ -32,61 +32,49 @@
                 009&nbsp;&nbsp;(defn&nbsp;insert
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                010&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:sample}&nbsp;m&nbsp;kw&nbsp;task]
+                010&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:sample}&nbsp;m&nbsp;kw&nbsp;data]
                 </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                011&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[n&nbsp;(:count&nbsp;conf)
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;(:_x&nbsp;task)
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;single-meas?&nbsp;(u&#x2F;single-meas?&nbsp;task)]
+<span class="covered" title="10 out of 10 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[n&nbsp;(:count&nbsp;conf)&nbsp;x&nbsp;(:_x&nbsp;data)&nbsp;single-meas?&nbsp;(u&#x2F;single-meas?&nbsp;data)]
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
-                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m&nbsp;kw&nbsp;(if&nbsp;(kw&nbsp;m)
+                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m&nbsp;kw&nbsp;(if&nbsp;(kw&nbsp;m)
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;(if&nbsp;single-meas?
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;(if&nbsp;single-meas?
                 </span><br/>
 <span class="covered" title="8 out of 8 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conj&nbsp;(reverse&nbsp;(kw&nbsp;m))&nbsp;x)
+                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(conj&nbsp;(reverse&nbsp;(kw&nbsp;m))&nbsp;x)
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(concat&nbsp;(take&nbsp;n&nbsp;x)&nbsp;(kw&nbsp;m)))))
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(concat&nbsp;(take&nbsp;n&nbsp;x)&nbsp;(kw&nbsp;m)))))
                 </span><br/>
 <span class="not-covered" title="0 out of 11 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;single-meas?&nbsp;[x]&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;x)))))))
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;single-meas?&nbsp;[x]&nbsp;(into&nbsp;[]&nbsp;(take&nbsp;n&nbsp;x)))))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                019&nbsp;&nbsp;
+                017&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                020&nbsp;&nbsp;(defn&nbsp;record
+                018&nbsp;&nbsp;(defn&nbsp;record
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;&quot;FIXME:&nbsp;record&nbsp;to&nbsp;database&nbsp;not&nbsp;to&nbsp;filesystem&quot;
+                019&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;{task-name&nbsp;:TaskName}&nbsp;data]
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[{task-name&nbsp;:TaskName&nbsp;data&nbsp;:_x}&nbsp;task]
-                </span><br/>
-<span class="partial" title="8 out of 15 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;(u&#x2F;record-sample?&nbsp;conf)&nbsp;task-name&nbsp;data)
+<span class="partial" title="8 out of 17 forms covered">
+                020&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(and&nbsp;(u&#x2F;record-sample?&nbsp;conf)&nbsp;task-name&nbsp;(:_x&nbsp;data))
                 </span><br/>
 <span class="not-covered" title="0 out of 14 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::record&nbsp;:message&nbsp;&quot;record&nbsp;sample&nbsp;data&quot;&nbsp;:TaskName&nbsp;task-name)
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::record&nbsp;:message&nbsp;&quot;record&nbsp;sample&nbsp;data&quot;&nbsp;:TaskName&nbsp;task-name)
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
-                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(spit&nbsp;(io&#x2F;resource&nbsp;(u&#x2F;responses-file&nbsp;conf))
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(spit&nbsp;(io&#x2F;resource&nbsp;(u&#x2F;responses-file&nbsp;conf))
                 </span><br/>
 <span class="not-covered" title="0 out of 27 forms covered">
-                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(with-out-str&nbsp;(pp&#x2F;pprint&nbsp;(insert&nbsp;conf&nbsp;(u&#x2F;all-responses&nbsp;conf)&nbsp;(keyword&nbsp;task-name)&nbsp;task)))))
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(with-out-str&nbsp;(pp&#x2F;pprint&nbsp;(insert&nbsp;conf&nbsp;(u&#x2F;all-responses&nbsp;conf)&nbsp;(keyword&nbsp;task-name)&nbsp;data)))))
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task))
+                024&nbsp;&nbsp;&nbsp;&nbsp;data)
                 </span><br/>
  </body>
 </html>
