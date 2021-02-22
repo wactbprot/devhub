@@ -324,7 +324,7 @@ D='{"PostScript":"gn_se3.anybus-readout", "Action": "MODBUS", "TaskName": "Infic
 curl -H "$H" -d "$D" -X POST http://localhost:9009/
 ```
 
-### Task with `PostScript`and `PostScriptInput`
+### Task with `PostScript` and `PostScriptInput`
 
 ```shell
 D='{"PostScript":"gn_se3.anybus-readout", "PostScriptInput": {"Prefix": "", "Suffix": "-ind", "Unit": "Pa"}, "Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 64, "Host":"e75480", "Wait":100, "Repeat":3}'
@@ -340,6 +340,12 @@ curl -H "$H" -d "$D" -X POST http://localhost:9009/
  
 ```shell
 D='{"TaskName":"IM540-read_out", "Wait":1000 , "Repeat":10, "PostScript": "im540.pressure-rise", "PostScriptInput": {"Type": "rise"}, "Action":"TCP", "Host":"e75436", "Port":5303, "Value":"MES R\r"}'
+
+curl -H "$H" -d "$D" -X POST http://localhost:9009
+```
+
+```shell
+D='{"TaskName":"ServoTest", "Wait":1000 , "Repeat":1, "PostScript": "servo-se3.meas-velo", "PostScriptInput": {"Motor": "2", "MinVelo:"5"}, "Action":"TCP", "Host":"e75443", "Port":5300, "Value":"2GN\r"}'
 
 curl -H "$H" -d "$D" -X POST http://localhost:9009
 ```

@@ -1,4 +1,4 @@
-(ns devhub.pp-scripts.vs_se3
+(ns devhub.pp-scripts.vs-se3
   (:require [devhub.pp-utils :as ppu]
             [devhub.utils    :as u]))
 

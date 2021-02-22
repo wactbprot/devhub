@@ -1,7 +1,8 @@
 (ns devhub.pp
-  (:require [devhub.pp-scripts.gn_se3 :as gn-se3]
-            [devhub.pp-scripts.vs_se3 :as vs-se3]
-            [devhub.pp-scripts.im540  :as im540]
+  (:require [devhub.pp-scripts.gn-se3    :as gn-se3]
+            [devhub.pp-scripts.vs-se3    :as vs-se3]
+            [devhub.pp-scripts.servo-se3 :as servo-se3]
+            [devhub.pp-scripts.im540     :as im540]
             ))
 
 (defn post-dispatch
@@ -17,6 +18,7 @@
   [conf task]
   (let [ps (keyword (:PostScript task))]
     (condp = ps
+      :servo-se3.meas-velo         (servo-se3/meas-velo          task)
       :vs_se3.valves               (vs-se3/valves                task)
       :vs_se3.switches             (vs-se3/switches              task)
       :gn_se3.anybus-readout       (gn-se3/anybus-readout        task)

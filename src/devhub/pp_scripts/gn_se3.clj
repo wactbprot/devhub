@@ -1,4 +1,4 @@
-(ns devhub.pp-scripts.gn_se3
+(ns devhub.pp-scripts.gn-se3
   (:require [devhub.pp-utils :as ppu]
             [devhub.utils    :as u]
             [com.brunobonacci.mulog :as µ]))
