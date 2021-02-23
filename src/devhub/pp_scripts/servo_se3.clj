@@ -1,5 +1,6 @@
 (ns devhub.pp-scripts.servo-se3
   (:require [devhub.pp-utils :as ppu]
+            [clojure.string  :as string]
             [devhub.utils    :as u]))
 
 (def test-vec ["0" "-1" "-98" "3001" "" nil])
@@ -24,6 +25,38 @@
                   {:ToExchange {vkw  {:Value cur-v :Unit "rpm"}
                                 skw  {:Bool (> min-v cur-v)}
                                 mkw  {:Bool (< min-v cur-v)}}}
-                  {:ToExchange {vkw  {:Value 0 :Unit "rpm"}
-                                skw  {:Bool false}
+                  {:Retry true
+                   :ToExchange {skw  {:Bool false}
                                 mkw  {:Bool true}}}))))
+
+(defn resp-ok
+  [task]
+  (let [motor (get-in task [:PostScriptInput :Motor])
+        kw    (keyword (str "Servo_" motor "_Ini"))]
+    (merge task (if (string/includes? (:_x task) "OK")
+                  {:ToExchange {kw {:Bool true}}}
+                  {:Retry true
+                   :ToExchange {kw {:Bool false}}}))))
+
+(defn get-pos
+  [task]
+  (let [motor (get-in task [:PostScriptInput :Motor])
+        kw    (keyword (str "Servo_" motor "_Pos"))
+        pos   (u/number (extract (:_x task)))]
+    (merge task (if (number? pos)
+                  {:ToExchange {kw {:Value pos :Unit "step"}}}
+                  {:Retry true
+                   :ToExchange {kw false }}))))
+
+(defn set-velo
+  [task]
+  (let [motor  (get-in task [:PostScriptInput :Motor])
+        velo   (get-in task [:PostScriptInput :Velo])
+        skw    (keyword (str "Servo_" motor "_Stop"))
+        mkw    (keyword (str "Servo_" motor "_Move"))]
+    (merge task (if  (string/includes? (:_x task) "OK")
+                  {:ToExchange {skw  {:Bool (zero? velo)}
+                                mkw  {:Bool (not (zero? velo))}}}
+                  {:Retry true
+                   :ToExchange {skw  {:Bool (not (zero? velo))}
+                                mkw  {:Bool (zero? velo)}}}))))
