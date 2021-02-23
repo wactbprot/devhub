@@ -17,14 +17,14 @@
   [task]
   (let [motor  (get-in task [:PostScriptInput :Motor])
         min-v  (u/number (get-in task [:PostScriptInput :MinVelo]))
-        cur-v  (Math/abs (u/number (extract (:_x task))))
+        cur-v  (u/number (extract (:_x task)))
         vkw    (keyword (str "Servo_" motor "_Velo"))
         skw    (keyword (str "Servo_" motor "_Stop"))
         mkw    (keyword (str "Servo_" motor "_Move"))]
     (merge task (if cur-v
                   {:ToExchange {vkw  {:Value cur-v :Unit "rpm"}
-                                skw  {:Bool (> min-v cur-v)}
-                                mkw  {:Bool (< min-v cur-v)}}}
+                                skw  {:Bool (> min-v (Math/abs cur-v))}
+                                mkw  {:Bool (< min-v (Math/abs cur-v))}}}
                   {:Retry true
                    :ToExchange {skw  {:Bool false}
                                 mkw  {:Bool true}}}))))
@@ -32,8 +32,9 @@
 (defn resp-ok
   [task]
   (let [motor (get-in task [:PostScriptInput :Motor])
-        kw    (keyword (str "Servo_" motor "_Ini"))]
-    (merge task (if (string/includes? (:_x task) "OK")
+        kw    (keyword (str "Servo_" motor "_Ini"))
+        res    (:_x task)]
+    (merge task (if (and (string? res) (string/includes?  res "OK"))
                   {:ToExchange {kw {:Bool true}}}
                   {:Retry true
                    :ToExchange {kw {:Bool false}}}))))
@@ -51,10 +52,11 @@
 (defn set-velo
   [task]
   (let [motor  (get-in task [:PostScriptInput :Motor])
-        velo   (get-in task [:PostScriptInput :Velo])
+        velo   (u/number (get-in task [:PostScriptInput :Velo]))
         skw    (keyword (str "Servo_" motor "_Stop"))
-        mkw    (keyword (str "Servo_" motor "_Move"))]
-    (merge task (if  (string/includes? (:_x task) "OK")
+        mkw    (keyword (str "Servo_" motor "_Move"))
+        res    (:_x task)]
+    (merge task (if (and (string? res) (string/includes? res "OK"))
                   {:ToExchange {skw  {:Bool (zero? velo)}
                                 mkw  {:Bool (not (zero? velo))}}}
                   {:Retry true
