@@ -53,12 +53,12 @@
    ::handler [:function "tcp/handler"]
    (if (:error task) task
        (let [{host :Host port :Port req-id :req-id} task
-             _    (mu/log ::query :req-id req-id :Host host :Port port)
+             _    (mu/log ::handler :req-id req-id :Host host :Port port)
              data (query conf task)]
          (merge task (if (:error data)
                        (let [msg (:error data)]
-                         (mu/log ::query :error msg :req-id req-id)
+                         (mu/log ::handler :error msg :req-id req-id)
                          data)
                        (let [msg "received data"]
-                         (mu/log ::query :message msg :req-id req-id)
+                         (mu/log ::handler :message msg :req-id req-id)
                          (u/reshape data))))))))
