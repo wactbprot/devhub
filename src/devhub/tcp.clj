@@ -33,9 +33,7 @@
                 (.print out cmd)
                 (.flush out)
                 (Thread/sleep 10)
-                (if-not (:NoReply task)
-                  (.readLine in)
-                  ""))]
+                (if-not (:NoReply task) (.readLine in) ""))]
         (u/run f conf task)))))
 
 (comment

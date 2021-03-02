@@ -3,7 +3,7 @@
             [devhub.pp-scripts.vs-se3    :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
             [devhub.pp-scripts.im540     :as im540]
-            ))
+            [devhub.pp-scripts.mks670    :as mks670]))
 
 (defn post-dispatch
   "TODO: make auto dispatch
@@ -18,6 +18,10 @@
   [conf task]
   (let [ps (keyword (:PostScript task))]
     (condp = ps
+      :mks670.test-saw-tooth       (mks670/test-saw-tooth        task)
+      :mks670.saw-tooth            (mks670/saw-tooth             task)
+      :mks670.drift                (mks670/drift                 task)
+      
       :servo-se3.meas-velo         (servo-se3/meas-velo          task)
       :servo-se3.resp-ok           (servo-se3/resp-ok            task)
       :servo-se3.set-velo          (servo-se3/set-velo           task)

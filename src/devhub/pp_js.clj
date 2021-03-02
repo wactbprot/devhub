@@ -28,7 +28,7 @@
   (let [req-id (:req-id task)
         pp     (gen-pp-source task) data (gen-pp-data task)
         res    (sh (:js conf) (exec-file conf) (:js-path conf) pp data)]
-    (µ/log ::exec :message "exec pp-js" :pp-data data :pp-source pp :req-id req-id)
+    (µ/log ::exec :message "exec pp-js" :pp-data data :pp-source pp :req-id req-id :raw-result-str (:out res))
     (if-not (zero? (:exit res))
       (let [msg (:err res)]
          (µ/log ::exec :error msg :req-id req-id)
