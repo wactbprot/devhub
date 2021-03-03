@@ -19,7 +19,7 @@
   [conf task]
   (let [ps (keyword (:PostScript task))]
     (condp = ps
-      :vm212.read-out              (vm212/read-out        task)
+      :vm212.dcr-read-out          (vm212/dcr-read-out        task)
 
       :mks670.test-saw-tooth       (mks670/test-saw-tooth        task)
       :mks670.saw-tooth            (mks670/saw-tooth             task)

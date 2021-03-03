@@ -136,9 +136,9 @@
   (let [{cmds :Value  w :Wait n :Repeat} task]
   (if (= 1 n (count cmds))
     ((wrap-log task (wrap-times f)) (first cmds))
-    (mapv (fn [_]
+    (mapv (fn [i]
             (let [v (mapv (wrap-log task (wrap-times f)) cmds)]
-              (Thread/sleep w)
+              (when (< i (dec n)) (Thread/sleep w))
               v))
           (range n)))))
 
