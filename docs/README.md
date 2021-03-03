@@ -151,6 +151,17 @@ curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
 
 ## production [POST /]
 
+### vxi11
+
+```shell
+D='{"TaskName": "vxi-test", "Action":"VXI11", "Device":"gpib0,26", "Host":"e75465", "Value":"", "Wait":30000, "PostScript":"vm212.read-out", "PostScriptInput":{"Type":"srg"}, "Repeat":5}'
+
+curl -H "$H" -d "$D" -X POST http://localhost:9009/
+
+## =>
+## 
+```
+
 ### tcp
 
 ```shell

@@ -3,6 +3,7 @@
             [devhub.pp-scripts.vs-se3    :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
             [devhub.pp-scripts.im540     :as im540]
+            [devhub.pp-scripts.vm212     :as vm212]
             [devhub.pp-scripts.mks670    :as mks670]))
 
 (defn post-dispatch
@@ -18,6 +19,8 @@
   [conf task]
   (let [ps (keyword (:PostScript task))]
     (condp = ps
+      :vm212.read-out              (vm212/read-out        task)
+
       :mks670.test-saw-tooth       (mks670/test-saw-tooth        task)
       :mks670.saw-tooth            (mks670/saw-tooth             task)
       :mks670.drift                (mks670/drift                 task)

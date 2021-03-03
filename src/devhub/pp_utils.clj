@@ -78,8 +78,6 @@
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
 
-  
-
 (def square (fn [x] (* x x)))
 
 (defn mean [v] (when (pos? (count v)) (/ (reduce + v) (count v))))
