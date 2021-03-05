@@ -9,7 +9,7 @@
                      ;;  :filename "/tmp/mulog/events.log"}
                      ;; send events to ELS
                      {:type :elasticsearch
-                      :url  "http://a75436:9200/"
+                      :url  "http://a75438:9200/"
                       :els-version  :v7.x
                       :publish-delay 1000
                       :data-stream  "vl-log-stream"
