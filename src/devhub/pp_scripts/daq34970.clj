@@ -13,8 +13,5 @@
         chan  (:Channels input) prefix (:Prefix input) suffix (:Suffix input)
         n     (count chan)
         v     (mapv  (fn [l] (mapv u/number (split-line l))) (:_x task))
-        v     (filterv (fn [v] (count-ok? v n)) v)
-        ;; matrix transpose lol:
-        ;; https://clojuredocs.org/clojure.core/apply#example-542692cdc026201cdc326d4d
-        v     (apply mapv vector v)]
+        v     (ppu/transpose (filterv (fn [v] (count-ok? v n)) v))]
     (merge task {:Result (mapv (fn [ch v] (ppu/vl-result (str prefix ch suffix) v "C")) chan v)})))

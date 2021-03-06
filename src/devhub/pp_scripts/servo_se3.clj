@@ -5,10 +5,7 @@
 
 (def test-vec ["0" "-1" "-98" "3001" "" nil])
 
-(defn extract
-  [s]
-  (when (string? s)
-    (second (re-matches #"([-]?[0-9]*)" s))))
+(defn extract [s] (when (string? s) (second (re-matches #"([-]?[0-9]*)" s))))
 
 (defn meas-velo
   "Measures the Motor velocity. In case of a missing `v` (this happens
