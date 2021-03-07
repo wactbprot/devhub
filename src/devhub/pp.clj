@@ -8,7 +8,8 @@
             [devhub.pp-scripts.mks670    :as mks670]))
 
 (defn post-dispatch
-  "TODO: make auto dispatch
+  "TODO: make auto dispatch: can be done with ns-resolve; see:
+  https://repl.it/@wactbprot/clj#main.clj
   
   Example:
   ```clojure
