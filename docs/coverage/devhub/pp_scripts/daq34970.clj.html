@@ -1,0 +1,59 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../../coverage.css"/>  <title> devhub/pp_scripts/daq34970.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.daq34970
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.string&nbsp;&nbsp;:as&nbsp;string]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.pp-utils&nbsp;:as&nbsp;ppu]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                005&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 5 forms covered">
+                006&nbsp;&nbsp;(defn&nbsp;split-line&nbsp;[s]&nbsp;(string&#x2F;split&nbsp;s&nbsp;#&quot;,&quot;))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 5 forms covered">
+                008&nbsp;&nbsp;(defn&nbsp;count-ok?&nbsp;[v&nbsp;n]&nbsp;(=&nbsp;(count&nbsp;v)&nbsp;n))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                010&nbsp;&nbsp;(defn&nbsp;temperature-scanner-read-out
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                012&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[input&nbsp;(:PostScriptInput&nbsp;task)
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chan&nbsp;&nbsp;(:Channels&nbsp;input)&nbsp;prefix&nbsp;(:Prefix&nbsp;input)&nbsp;suffix&nbsp;(:Suffix&nbsp;input)
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(count&nbsp;chan)
+                </span><br/>
+<span class="not-covered" title="0 out of 12 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;&nbsp;(fn&nbsp;[l]&nbsp;(mapv&nbsp;u&#x2F;number&nbsp;(split-line&nbsp;l)))&nbsp;(:_x&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 10 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;transpose&nbsp;(filterv&nbsp;(fn&nbsp;[v]&nbsp;(count-ok?&nbsp;v&nbsp;n))&nbsp;v))]
+                </span><br/>
+<span class="not-covered" title="0 out of 19 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:Result&nbsp;(mapv&nbsp;(fn&nbsp;[ch&nbsp;v]&nbsp;(ppu&#x2F;vl-result&nbsp;(str&nbsp;prefix&nbsp;ch&nbsp;suffix)&nbsp;v&nbsp;&quot;C&quot;))&nbsp;chan&nbsp;v)})))
+                </span><br/>
+ </body>
+</html>

@@ -38,418 +38,445 @@
                 011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.safe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;safe]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.sample&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;sample]
+                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.vxi11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;vxi]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.vxi11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;vxi]
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.modbus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;modbus]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.modbus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;modbus]
+                014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.execute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;execute]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.execute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;execute]
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.util.response&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;res]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.util.response&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;res]
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[compojure.core&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;:all]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[compojure.core&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;:all]
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[compojure.handler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;handler]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[compojure.handler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;handler]
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[org.httpkit.server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;[run-server]]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[org.httpkit.server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:refer&nbsp;[run-server]]
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.middleware.json&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;middleware]
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.middleware.json&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;middleware]
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;&nbsp;&nbsp;:as&nbsp;mu])
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;&nbsp;&nbsp;:as&nbsp;µ])
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;(:gen-class))
+                021&nbsp;&nbsp;&nbsp;&nbsp;(:gen-class))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;
+                022&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                024&nbsp;&nbsp;;;------------------------------------------------------------
+                023&nbsp;&nbsp;;;------------------------------------------------------------
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;;;&nbsp;dispatch&nbsp;pre&nbsp;scripting&nbsp;or&nbsp;processing
+                024&nbsp;&nbsp;;;&nbsp;dispatch&nbsp;pre&nbsp;scripting&nbsp;or&nbsp;processing
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                026&nbsp;&nbsp;;;------------------------------------------------------------
+                025&nbsp;&nbsp;;;------------------------------------------------------------
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                027&nbsp;&nbsp;(defn&nbsp;pre-dispatch
+                026&nbsp;&nbsp;(defn&nbsp;pre-dispatch
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;&quot;Dispatches&nbsp;the&nbsp;pre-processing.&nbsp;The&nbsp;following&nbsp;processing&nbsp;paths&nbsp;are
+                027&nbsp;&nbsp;&nbsp;&nbsp;&quot;Dispatches&nbsp;the&nbsp;pre-processing.&nbsp;The&nbsp;following&nbsp;processing&nbsp;paths&nbsp;are
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;implemented:
+                028&nbsp;&nbsp;&nbsp;&nbsp;implemented:
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                030&nbsp;&nbsp;
+                029&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PreProcessing`:&nbsp;eval&nbsp;javascript&nbsp;strings
+                030&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PreProcessing`:&nbsp;eval&nbsp;javascript&nbsp;strings
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                032&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PreScript`:&nbsp;clojure&nbsp;functions
+                031&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PreScript`:&nbsp;clojure&nbsp;functions
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PreScriptPy`:&nbsp;python&nbsp;scripts
+                032&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PreScriptPy`:&nbsp;python&nbsp;scripts
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                034&nbsp;&nbsp;
+                033&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                035&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;pre-processing&nbsp;returns&nbsp;the&nbsp;**task**.&quot;
+                034&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;pre-processing&nbsp;returns&nbsp;the&nbsp;**task**.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                035&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="partial" title="84 out of 133 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;trace
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::pre-dispatch&nbsp;[:function&nbsp;&quot;server&#x2F;pre-dispatch&quot;]
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)&nbsp;task
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)&nbsp;task
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
                 </span><br/>
 <span class="partial" title="3 out of 7 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PreScript&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task)&nbsp;(pp&#x2F;pre-dispatch&nbsp;conf&nbsp;task)
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PreScript&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task)&nbsp;(pp&#x2F;pre-dispatch&nbsp;conf&nbsp;task)
                 </span><br/>
 <span class="partial" title="3 out of 7 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PreProcessing&nbsp;task)&nbsp;(js&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PreProcessing&nbsp;task)&nbsp;(js&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
                 </span><br/>
 <span class="partial" title="3 out of 7 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PreScriptPy&nbsp;&nbsp;&nbsp;task)&nbsp;(py&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PreScriptPy&nbsp;&nbsp;&nbsp;task)&nbsp;(py&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
                 </span><br/>
 <span class="covered" title="17 out of 17 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(do&nbsp;(µ&#x2F;log&nbsp;::post-dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:message&nbsp;&quot;no&nbsp;pre-processing&quot;)
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(do&nbsp;(mu&#x2F;log&nbsp;::pre-dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:message&nbsp;&quot;no&nbsp;pre-processing&quot;)
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                044&nbsp;&nbsp;
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task)))))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                045&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                046&nbsp;&nbsp;;;&nbsp;dispatch&nbsp;post&nbsp;scripting&nbsp;or&nbsp;processing
+                046&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 047&nbsp;&nbsp;;;------------------------------------------------------------
                 </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                048&nbsp;&nbsp;(defn&nbsp;post-dispatch
+<span class="not-tracked" title="0 out of 0 forms covered">
+                048&nbsp;&nbsp;;;&nbsp;dispatch&nbsp;post&nbsp;scripting&nbsp;or&nbsp;processing
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                049&nbsp;&nbsp;&nbsp;&nbsp;&quot;Dispatches&nbsp;the&nbsp;post-processing.&nbsp;The&nbsp;following&nbsp;processing&nbsp;paths&nbsp;are
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                050&nbsp;&nbsp;&nbsp;&nbsp;implemented:
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                051&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                052&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PostScript`:&nbsp;clojure&nbsp;functions
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PostProcessing`:&nbsp;javascript&nbsp;strings
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PostScriptPy`:&nbsp;python&nbsp;scripts
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                055&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;pre-processing&nbsp;returns&nbsp;the&nbsp;**data**.&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)&nbsp;task
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PostScript&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task)&nbsp;(pp&#x2F;post-dispatch&nbsp;&nbsp;conf&nbsp;task)
-                </span><br/>
-<span class="partial" title="3 out of 7 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PostProcessing&nbsp;task)&nbsp;(js&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PostScriptPy&nbsp;&nbsp;&nbsp;task)&nbsp;(py&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
+                049&nbsp;&nbsp;;;------------------------------------------------------------
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(do
-                </span><br/>
-<span class="covered" title="16 out of 16 forms covered">
-                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::post-dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:message&nbsp;&quot;no&nbsp;post-processing&quot;)
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                066&nbsp;&nbsp;
+                050&nbsp;&nbsp;(defn&nbsp;post-dispatch
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                067&nbsp;&nbsp;;;------------------------------------------------------------
+                051&nbsp;&nbsp;&nbsp;&nbsp;&quot;Dispatches&nbsp;the&nbsp;post-processing.&nbsp;The&nbsp;following&nbsp;processing&nbsp;paths&nbsp;are
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                068&nbsp;&nbsp;;;&nbsp;dispatch&nbsp;on&nbsp;action
+                052&nbsp;&nbsp;&nbsp;&nbsp;implemented:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                069&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                070&nbsp;&nbsp;(defmulti&nbsp;dispatch&nbsp;
+                053&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                071&nbsp;&nbsp;&nbsp;&nbsp;&quot;Dispatches&nbsp;depending&nbsp;on&nbsp;the&nbsp;`:Action`.&nbsp;The&nbsp;following&nbsp;protocols&nbsp;paths&nbsp;are
+                054&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PostScript`:&nbsp;clojure&nbsp;functions
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                072&nbsp;&nbsp;&nbsp;&nbsp;implemented:
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                073&nbsp;&nbsp;
+                055&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PostProcessing`:&nbsp;javascript&nbsp;strings
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                074&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:TCP`
+                056&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:PostScriptPy`:&nbsp;python&nbsp;scripts
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                075&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:MODBUS`
+                057&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                076&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:VXI11`
+                058&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;pre-processing&nbsp;returns&nbsp;the&nbsp;**data**.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                077&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:EXECUTE`&quot;&nbsp;&nbsp;
+                059&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
                 </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                078&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[conf&nbsp;task]
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                079&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                080&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:error
-                </span><br/>
-<span class="covered" title="19 out of 19 forms covered">
-                081&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(do&nbsp;(µ&#x2F;log&nbsp;::dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:Action&nbsp;(:Action&nbsp;task))
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                082&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(:Action&nbsp;task))))))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                083&nbsp;&nbsp;&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                084&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:error&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;task)
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                085&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:TCP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;(tcp&#x2F;handler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task))
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                086&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:MODBUS&nbsp;&nbsp;[conf&nbsp;task]&nbsp;(modbus&#x2F;handler&nbsp;&nbsp;conf&nbsp;task))
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                087&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:VXI11&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;(vxi&#x2F;handler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task))
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                088&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:EXECUTE&nbsp;[conf&nbsp;task]&nbsp;(execute&#x2F;handler&nbsp;conf&nbsp;task))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                089&nbsp;&nbsp;
+<span class="partial" title="84 out of 133 forms covered">
+                060&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;trace
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                090&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:default
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::post-dispatch&nbsp;[:function&nbsp;&quot;server&#x2F;post-dispatch&quot;]
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)&nbsp;task
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PostScript&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task)&nbsp;(pp&#x2F;post-dispatch&nbsp;&nbsp;conf&nbsp;task)
+                </span><br/>
+<span class="partial" title="3 out of 7 forms covered">
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PostProcessing&nbsp;task)&nbsp;(js&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:PostScriptPy&nbsp;&nbsp;&nbsp;task)&nbsp;(py&#x2F;exec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task)
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;(do
+                </span><br/>
+<span class="covered" title="16 out of 16 forms covered">
+                068&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::post-dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                091&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:message&nbsp;&quot;no&nbsp;post-processing&quot;)
                 </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                092&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;wrong&nbsp;:Action&quot;]
+<span class="covered" title="1 out of 1 forms covered">
+                070&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task)))))
                 </span><br/>
-<span class="covered" title="20 out of 20 forms covered">
-                093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:error&nbsp;msg&nbsp;:Action&nbsp;(:Action&nbsp;task))
+<span class="not-tracked" title="0 out of 0 forms covered">
+                071&nbsp;&nbsp;&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="6 out of 6 forms covered">
-                094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;msg})))
+<span class="not-tracked" title="0 out of 0 forms covered">
+                072&nbsp;&nbsp;;;------------------------------------------------------------
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                073&nbsp;&nbsp;;;&nbsp;dispatch&nbsp;on&nbsp;action
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                074&nbsp;&nbsp;;;------------------------------------------------------------
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                075&nbsp;&nbsp;(defmulti&nbsp;dispatch&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                076&nbsp;&nbsp;&nbsp;&nbsp;&quot;Dispatches&nbsp;depending&nbsp;on&nbsp;the&nbsp;`:Action`.&nbsp;The&nbsp;following&nbsp;protocols&nbsp;paths&nbsp;are
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                077&nbsp;&nbsp;&nbsp;&nbsp;implemented:
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                078&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                079&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:TCP`
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                080&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:MODBUS`
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                081&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:VXI11`
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                082&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`:EXECUTE`&quot;&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                083&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                084&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:error&nbsp;task)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                085&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:error
+                </span><br/>
+<span class="covered" title="19 out of 19 forms covered">
+                086&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(do&nbsp;(mu&#x2F;log&nbsp;::dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:Action&nbsp;(:Action&nbsp;task))
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                087&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:stub&nbsp;task)&nbsp;:stub&nbsp;(keyword&nbsp;(:Action&nbsp;task)))))))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                088&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                089&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:error&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;task)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                090&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:stub&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;task)
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                091&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:TCP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;(tcp&#x2F;handler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task))
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                092&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:MODBUS&nbsp;&nbsp;[conf&nbsp;task]&nbsp;(modbus&#x2F;handler&nbsp;&nbsp;conf&nbsp;task))
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                093&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:VXI11&nbsp;&nbsp;&nbsp;[conf&nbsp;task]&nbsp;(vxi&#x2F;handler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf&nbsp;task))
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                094&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:EXECUTE&nbsp;[conf&nbsp;task]&nbsp;(execute&#x2F;handler&nbsp;conf&nbsp;task))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 095&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                096&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                097&nbsp;&nbsp;;;&nbsp;request&nbsp;thread
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                098&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                099&nbsp;&nbsp;(defn&nbsp;thread&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                100&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;stub?]
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                101&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[task&nbsp;(safe&#x2F;task&nbsp;conf&nbsp;task)]
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                102&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[task&nbsp;(pre-dispatch&nbsp;conf&nbsp;task)]
-                </span><br/>
-<span class="covered" title="11 out of 11 forms covered">
-                103&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[task&nbsp;(if&nbsp;stub?&nbsp;(stub&#x2F;response&nbsp;conf&nbsp;task)&nbsp;(dispatch&nbsp;conf&nbsp;task))]
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[task&nbsp;(sample&#x2F;record&nbsp;conf&nbsp;task)]
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                105&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(post-dispatch&nbsp;conf&nbsp;task))))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                106&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                107&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                108&nbsp;&nbsp;;;&nbsp;routes
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                109&nbsp;&nbsp;;;------------------------------------------------------------
-                </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                110&nbsp;&nbsp;(defroutes&nbsp;app-routes
-                </span><br/>
-<span class="partial" title="84 out of 133 forms covered">
-                111&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;trace&nbsp;::routes
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[:function&nbsp;&quot;routes&quot;]
-                </span><br/>
-<span class="partial" title="5 out of 18 forms covered">
-                113&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&quot;&#x2F;stub&quot;&nbsp;&nbsp;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response&nbsp;(thread&nbsp;(u&#x2F;config)&nbsp;(u&#x2F;task&nbsp;req)&nbsp;true)))
-                </span><br/>
-<span class="partial" title="5 out of 18 forms covered">
-                114&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&quot;&#x2F;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response&nbsp;(thread&nbsp;(u&#x2F;config)&nbsp;(u&#x2F;task&nbsp;req)&nbsp;false)))
-                </span><br/>
-<span class="partial" title="5 out of 13 forms covered">
-                115&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&quot;&#x2F;echo&quot;&nbsp;&nbsp;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response&nbsp;(u&#x2F;task&nbsp;req)))
-                </span><br/>
-<span class="partial" title="5 out of 12 forms covered">
-                116&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(GET&nbsp;&quot;&#x2F;version&quot;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response&nbsp;(u&#x2F;version)))
-                </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(route&#x2F;not-found&nbsp;&quot;No&nbsp;such&nbsp;service.&quot;)))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                118&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                119&nbsp;&nbsp;(def&nbsp;app
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                120&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&nbsp;(handler&#x2F;site&nbsp;app-routes)
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                121&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(middleware&#x2F;wrap-json-body&nbsp;{:keywords?&nbsp;true})
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                122&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;middleware&#x2F;wrap-json-response))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                123&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                124&nbsp;&nbsp;(defn&nbsp;init-log!
+                096&nbsp;&nbsp;(defmethod&nbsp;dispatch&nbsp;:default
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                125&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:mulog&nbsp;}]
+                097&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                126&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;set-global-context!
+                098&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;wrong&nbsp;:Action&quot;]
                 </span><br/>
-<span class="covered" title="8 out of 8 forms covered">
-                127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:app-name&nbsp;&quot;devhub&quot;&nbsp;:version&nbsp;(:version&nbsp;(u&#x2F;version))})
+<span class="covered" title="20 out of 20 forms covered">
+                099&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::dispatch&nbsp;:req-id&nbsp;(:req-id&nbsp;task)&nbsp;:error&nbsp;msg&nbsp;:Action&nbsp;(:Action&nbsp;task))
                 </span><br/>
-<span class="covered" title="3 out of 3 forms covered">
-                128&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;start-publisher!&nbsp;conf))
+<span class="covered" title="6 out of 6 forms covered">
+                100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;msg})))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                129&nbsp;&nbsp;
+                101&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                102&nbsp;&nbsp;;;------------------------------------------------------------
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                103&nbsp;&nbsp;;;&nbsp;request&nbsp;thread
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                104&nbsp;&nbsp;;;------------------------------------------------------------
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                105&nbsp;&nbsp;(defn&nbsp;thread&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                106&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                107&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&gt;&nbsp;task
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(safe&#x2F;task&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf)
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                109&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(pre-dispatch&nbsp;&nbsp;conf)
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(stub&#x2F;response&nbsp;conf)
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(dispatch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conf)
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(post-dispatch&nbsp;conf)))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                113&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                114&nbsp;&nbsp;;;------------------------------------------------------------
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                115&nbsp;&nbsp;;;&nbsp;routes
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                116&nbsp;&nbsp;;;------------------------------------------------------------
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                117&nbsp;&nbsp;(defroutes&nbsp;app-routes
+                </span><br/>
+<span class="partial" title="5 out of 10 forms covered">
+                118&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&quot;&#x2F;stub&quot;&nbsp;&nbsp;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                119&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(thread&nbsp;(u&#x2F;config)&nbsp;(assoc&nbsp;(u&#x2F;task&nbsp;req)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:stub&nbsp;true))))
+                </span><br/>
+<span class="partial" title="5 out of 10 forms covered">
+                121&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&quot;&#x2F;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                122&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(thread&nbsp;(u&#x2F;config)&nbsp;(assoc&nbsp;(u&#x2F;task&nbsp;req)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                123&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:stub&nbsp;false))))
+                </span><br/>
+<span class="partial" title="5 out of 13 forms covered">
+                124&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&quot;&#x2F;echo&quot;&nbsp;&nbsp;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response&nbsp;(u&#x2F;task&nbsp;req)))
+                </span><br/>
+<span class="partial" title="5 out of 12 forms covered">
+                125&nbsp;&nbsp;&nbsp;&nbsp;(GET&nbsp;&quot;&#x2F;version&quot;&nbsp;[:as&nbsp;req]&nbsp;(res&#x2F;response&nbsp;(u&#x2F;version)))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                126&nbsp;&nbsp;&nbsp;&nbsp;(route&#x2F;not-found&nbsp;&quot;No&nbsp;such&nbsp;service.&quot;))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                127&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                128&nbsp;&nbsp;(def&nbsp;app
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                130&nbsp;&nbsp;(def&nbsp;server&nbsp;(atom&nbsp;nil))
+                129&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&nbsp;(handler&#x2F;site&nbsp;app-routes)
                 </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                131&nbsp;&nbsp;(def&nbsp;logger&nbsp;(atom&nbsp;nil))
+<span class="covered" title="5 out of 5 forms covered">
+                130&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(middleware&#x2F;wrap-json-body&nbsp;{:keywords?&nbsp;true})
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                131&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;middleware&#x2F;wrap-json-response))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 132&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                133&nbsp;&nbsp;(defn&nbsp;stop
+                133&nbsp;&nbsp;(defn&nbsp;init-log!
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                134&nbsp;&nbsp;&nbsp;&nbsp;[]
+                134&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:mulog&nbsp;}]
                 </span><br/>
-<span class="covered" title="10 out of 10 forms covered">
-                135&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::stop)
+<span class="covered" title="2 out of 2 forms covered">
+                135&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;set-global-context!
                 </span><br/>
-<span class="covered" title="6 out of 6 forms covered">
-                136&nbsp;&nbsp;&nbsp;&nbsp;(@server&nbsp;:timeout&nbsp;100)
+<span class="covered" title="8 out of 8 forms covered">
+                136&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:app-name&nbsp;&quot;devhub&quot;&nbsp;:version&nbsp;(:version&nbsp;(u&#x2F;version))})
                 </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                137&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;nil)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                138&nbsp;&nbsp;&nbsp;&nbsp;(@logger)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                139&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;nil))
+<span class="covered" title="3 out of 3 forms covered">
+                137&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;start-publisher!&nbsp;conf))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                140&nbsp;&nbsp;
+                138&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                139&nbsp;&nbsp;(def&nbsp;server&nbsp;(atom&nbsp;nil))
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                140&nbsp;&nbsp;(def&nbsp;logger&nbsp;(atom&nbsp;nil))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                141&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                141&nbsp;&nbsp;(defn&nbsp;start
+                142&nbsp;&nbsp;(defn&nbsp;stop
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                142&nbsp;&nbsp;&nbsp;&nbsp;([]
-                </span><br/>
-<span class="not-covered" title="0 out of 4 forms covered">
-                143&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(start&nbsp;(u&#x2F;config)))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                144&nbsp;&nbsp;&nbsp;&nbsp;([conf]
+                143&nbsp;&nbsp;&nbsp;&nbsp;[]
                 </span><br/>
 <span class="covered" title="10 out of 10 forms covered">
-                145&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::start)
+                144&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::stop)
                 </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                146&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;(init-log!&nbsp;conf))
+                145&nbsp;&nbsp;&nbsp;&nbsp;(@server&nbsp;:timeout&nbsp;100)
                 </span><br/>
-<span class="covered" title="9 out of 9 forms covered">
-                147&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;(run-server&nbsp;#&#x27;app&nbsp;(:server&nbsp;conf)))))
+<span class="covered" title="4 out of 4 forms covered">
+                146&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;nil)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                147&nbsp;&nbsp;&nbsp;&nbsp;(@logger)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                148&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;nil))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                148&nbsp;&nbsp;
+                149&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                150&nbsp;&nbsp;(defn&nbsp;start
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                151&nbsp;&nbsp;&nbsp;&nbsp;([]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(start&nbsp;(u&#x2F;config)))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                153&nbsp;&nbsp;&nbsp;&nbsp;([conf]
+                </span><br/>
+<span class="covered" title="10 out of 10 forms covered">
+                154&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::start)
+                </span><br/>
+<span class="covered" title="6 out of 6 forms covered">
+                155&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;logger&nbsp;(init-log!&nbsp;conf))
+                </span><br/>
+<span class="covered" title="9 out of 9 forms covered">
+                156&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset!&nbsp;server&nbsp;(run-server&nbsp;#&#x27;app&nbsp;(:server&nbsp;conf)))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                157&nbsp;&nbsp;
                 </span><br/>
 <span class="partial" title="1 out of 5 forms covered">
-                149&nbsp;&nbsp;(defn&nbsp;-main&nbsp;[&amp;&nbsp;args]&nbsp;(u&#x2F;ascii-logo)(start))
+                158&nbsp;&nbsp;(defn&nbsp;-main&nbsp;[&amp;&nbsp;args]&nbsp;(u&#x2F;ascii-logo)(start))
                 </span><br/>
  </body>
 </html>

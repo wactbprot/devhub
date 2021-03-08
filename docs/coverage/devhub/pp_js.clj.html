@@ -35,67 +35,67 @@
                 010&nbsp;&nbsp;
                 </span><br/>
 <span class="partial" title="1 out of 10 forms covered">
-                011&nbsp;&nbsp;(defn&nbsp;source-file&nbsp;[task]&nbsp;(str&nbsp;(u&#x2F;tmp-folder)&nbsp;&quot;&#x2F;&quot;&nbsp;(:TaskName&nbsp;task)&nbsp;&quot;-source.js&quot;))
+                011&nbsp;&nbsp;(defn&nbsp;exec-file&nbsp;[conf]&nbsp;&nbsp;(str&nbsp;(:js-path&nbsp;conf)&nbsp;&quot;&#x2F;&quot;&nbsp;(:js-exec&nbsp;conf)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 012&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 10 forms covered">
-                013&nbsp;&nbsp;(defn&nbsp;data-file&nbsp;[task]&nbsp;(str&nbsp;(u&#x2F;tmp-folder)&nbsp;&quot;&#x2F;&quot;&nbsp;(:TaskName&nbsp;task)&nbsp;&quot;-data.js&quot;))
+<span class="partial" title="1 out of 7 forms covered">
+                013&nbsp;&nbsp;(defn&nbsp;gen-pp-source&nbsp;[task]&nbsp;(string&#x2F;join&nbsp;&quot;\n&quot;&nbsp;(:PostProcessing&nbsp;task)))&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 014&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 10 forms covered">
-                015&nbsp;&nbsp;(defn&nbsp;exec-file&nbsp;[conf]&nbsp;&nbsp;(str&nbsp;(:js-path&nbsp;conf)&nbsp;&quot;&#x2F;&quot;&nbsp;(:js-exec&nbsp;conf)))
+<span class="partial" title="1 out of 6 forms covered">
+                015&nbsp;&nbsp;(defn&nbsp;gen-pp-data&nbsp;[task]&nbsp;(che&#x2F;encode&nbsp;(u&#x2F;data&nbsp;task)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 016&nbsp;&nbsp;
                 </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                017&nbsp;&nbsp;(defn&nbsp;exec
+                018&nbsp;&nbsp;(defn&nbsp;exec
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;&quot;Executes&nbsp;the&nbsp;js&nbsp;`:PostProcessing`&nbsp;(pp).
+                019&nbsp;&nbsp;&nbsp;&nbsp;&quot;Executes&nbsp;the&nbsp;js&nbsp;`:PostProcessing`&nbsp;(pp).
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                019&nbsp;&nbsp;
+                020&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                021&nbsp;&nbsp;&nbsp;&nbsp;Example:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;```shell
+                022&nbsp;&nbsp;&nbsp;&nbsp;```shell
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;(sh&nbsp;node&nbsp;(exec-fn&nbsp;conf)&nbsp;(:js-path&nbsp;conf)&nbsp;pf)
+                023&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;(sh&nbsp;node&nbsp;(exec-fn&nbsp;conf)&nbsp;(:js-path&nbsp;conf)&nbsp;pf)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;means&nbsp;e.g.:
+                024&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;means&nbsp;e.g.:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;resources&#x2F;js&#x2F;exec.js&nbsp;resources&#x2F;js&#x2F;&nbsp;&#x2F;tmp&#x2F;MKT50-exec-source.js&nbsp;&#x2F;tmp&#x2F;MKT50-exec-data.js
+                025&nbsp;&nbsp;&nbsp;&nbsp;node&nbsp;resources&#x2F;js&#x2F;exec.js&nbsp;resources&#x2F;js&#x2F;&nbsp;&#x2F;tmp&#x2F;MKT50-exec-source.js&nbsp;&#x2F;tmp&#x2F;MKT50-exec-data.js
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                026&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                026&nbsp;&nbsp;&nbsp;[{conf&nbsp;:post}&nbsp;task]
+                027&nbsp;&nbsp;&nbsp;[{conf&nbsp;:post}&nbsp;task]
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                027&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[sf&nbsp;&nbsp;(source-file&nbsp;task)&nbsp;
+                028&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[req-id&nbsp;(:req-id&nbsp;task)
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;df&nbsp;&nbsp;(data-file&nbsp;task)
-                </span><br/>
-<span class="not-covered" title="0 out of 8 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;(spit&nbsp;df&nbsp;(che&#x2F;encode&nbsp;(u&#x2F;data&nbsp;task)))
-                </span><br/>
-<span class="not-covered" title="0 out of 8 forms covered">
-                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;(spit&nbsp;sf&nbsp;(string&#x2F;join&nbsp;(:PostProcessing&nbsp;task)))
+<span class="not-covered" title="0 out of 6 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(gen-pp-source&nbsp;task)&nbsp;data&nbsp;(gen-pp-data&nbsp;task)
                 </span><br/>
 <span class="not-covered" title="0 out of 13 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;(sh&nbsp;(:js&nbsp;conf)&nbsp;(exec-file&nbsp;conf)&nbsp;(:js-path&nbsp;conf)&nbsp;sf&nbsp;df)]
+                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;&nbsp;&nbsp;&nbsp;(sh&nbsp;(:js&nbsp;conf)&nbsp;(exec-file&nbsp;conf)&nbsp;(:js-path&nbsp;conf)&nbsp;pp&nbsp;data)]
+                </span><br/>
+<span class="not-covered" title="0 out of 22 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::exec&nbsp;:message&nbsp;&quot;exec&nbsp;pp-js&quot;&nbsp;:pp-data&nbsp;data&nbsp;:pp-source&nbsp;pp&nbsp;:req-id&nbsp;req-id&nbsp;:raw-result-str&nbsp;(:out&nbsp;res))
                 </span><br/>
 <span class="not-covered" title="0 out of 7 forms covered">
                 032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(zero?&nbsp;(:exit&nbsp;res))
@@ -103,8 +103,8 @@
 <span class="not-covered" title="0 out of 4 forms covered">
                 033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;(:err&nbsp;res)]
                 </span><br/>
-<span class="not-covered" title="0 out of 16 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::exec&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+<span class="not-covered" title="0 out of 14 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::exec&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;req-id)
                 </span><br/>
 <span class="not-covered" title="0 out of 6 forms covered">
                 035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:error&nbsp;msg}))
@@ -121,8 +121,8 @@
 <span class="not-covered" title="0 out of 5 forms covered">
                 039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;(str&nbsp;&quot;caught&nbsp;exception:&nbsp;&quot;&nbsp;(.getMessage&nbsp;e))]
                 </span><br/>
-<span class="not-covered" title="0 out of 16 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::exec&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;(:req-id&nbsp;task))
+<span class="not-covered" title="0 out of 14 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(µ&#x2F;log&nbsp;::exec&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;req-id)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;msg})))))))

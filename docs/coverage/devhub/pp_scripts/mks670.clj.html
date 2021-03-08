@@ -1,0 +1,206 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../../coverage.css"/>  <title> devhub/pp_scripts/mks670.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.mks670
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-utils&nbsp;:as&nbsp;ppu]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                005&nbsp;&nbsp;(def&nbsp;s-test&nbsp;
+                </span><br/>
+<span class="covered" title="35 out of 35 forms covered">
+                006&nbsp;&nbsp;&nbsp;&nbsp;{:_x&nbsp;[&quot;@020&nbsp;6.8368E-3&quot;,&quot;@020&nbsp;6.8374E-3&quot;,&quot;@020&nbsp;6.8320E-3&quot;,&nbsp;&quot;@020&nbsp;6.8308E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8317E-3&quot;,&quot;@020&nbsp;6.8303E-3&quot;,&quot;@020&nbsp;6.8318E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8305E-3&quot;,&quot;@020&nbsp;6.8337E-3&quot;,&quot;@020&nbsp;6.8276E-3&quot;,&quot;@020&nbsp;6.8354E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8291E-3&quot;,&quot;@020&nbsp;6.8262E-3&quot;,&quot;@020&nbsp;6.8314E-3&quot;,&quot;@020&nbsp;6.8293E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8290E-3&quot;,&quot;@020&nbsp;6.8198E-3&quot;,&quot;@020&nbsp;6.8262E-3&quot;,&quot;@020&nbsp;6.8277E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8310E-3&quot;,&quot;@020&nbsp;6.8303E-3&quot;,&quot;@020&nbsp;6.8261E-3&quot;,&quot;@020&nbsp;6.8213E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8272E-3&quot;,&quot;@020&nbsp;6.8263E-3&quot;,&quot;@020&nbsp;6.8238E-3&quot;,&quot;@020&nbsp;6.8276E-3&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                013&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;@020&nbsp;6.8180E-3&quot;,&quot;@020&nbsp;6.8180E-3&quot;,&quot;@020&nbsp;6.8207E-3&quot;],
+                </span><br/>
+<span class="covered" title="31 out of 31 forms covered">
+                014&nbsp;&nbsp;&nbsp;:_t_start&nbsp;[&quot;1614683048753&quot;,&quot;1614683049349&quot;,&quot;1614683049945&quot;,&quot;1614683050540&quot;,&quot;1614683051145&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683051741&quot;,&quot;1614683052347&quot;,&quot;1614683052944&quot;,&quot;1614683053539&quot;,&quot;1614683054139&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683054733&quot;,&quot;1614683055327&quot;,&quot;1614683055919&quot;,&quot;1614683056515&quot;,&quot;1614683057111&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683057745&quot;,&quot;1614683058344&quot;,&quot;1614683058937&quot;,&quot;1614683059577&quot;,&quot;1614683060171&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683060767&quot;,&quot;1614683061379&quot;,&quot;1614683061997&quot;,&quot;1614683062595&quot;,&quot;1614683063193&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683063789&quot;,&quot;1614683064477&quot;,&quot;1614683065071&quot;,&quot;1614683065667&quot;,&quot;1614683066261&quot;],
+                </span><br/>
+<span class="covered" title="31 out of 31 forms covered">
+                020&nbsp;&nbsp;&nbsp;:_t_stop&nbsp;[&quot;1614683049049&quot;,&quot;1614683049645&quot;,&quot;1614683050239&quot;,&quot;1614683050845&quot;,&quot;1614683051441&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683052047&quot;,&quot;1614683052644&quot;,&quot;1614683053239&quot;,&quot;1614683053839&quot;,&quot;1614683054433&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683055027&quot;,&quot;1614683055619&quot;,&quot;1614683056215&quot;,&quot;1614683056811&quot;,&quot;1614683057445&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683058044&quot;,&quot;1614683058637&quot;,&quot;1614683059277&quot;,&quot;1614683059871&quot;,&quot;1614683060467&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683061079&quot;,&quot;1614683061697&quot;,&quot;1614683062295&quot;,&quot;1614683062893&quot;,&quot;1614683063489&quot;,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1614683064177&quot;,&quot;1614683064771&quot;,&quot;1614683065367&quot;,&quot;1614683065961&quot;,&quot;1614683066563&quot;]})
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                026&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                027&nbsp;&nbsp;(defn&nbsp;rs232-extract
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;[s]
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[r&nbsp;#&quot;@020\s([0-9]{1,5}\.[0-9]{1,6}[E][-+][0-9]{1,3})&quot;]
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;(second&nbsp;(re-matches&nbsp;r&nbsp;s))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                031&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                032&nbsp;&nbsp;(defn&nbsp;test-saw-tooth
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[v&nbsp;(mapv&nbsp;rs232-extract&nbsp;(:_x&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;(ppu&#x2F;operable&nbsp;v)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;(ppu&#x2F;calc-seq&nbsp;v&nbsp;o)
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;(ppu&#x2F;t0t1-&gt;t&nbsp;(ppu&#x2F;calc-seq&nbsp;(:_t_start&nbsp;task)&nbsp;o)
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;calc-seq&nbsp;(:_t_stop&nbsp;task)&nbsp;&nbsp;o))]
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:LogData&nbsp;{:vec&nbsp;y&nbsp;:t&nbsp;t}
+                </span><br/>
+<span class="not-covered" title="0 out of 10 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;{:Pressure_decr&nbsp;{:Value&nbsp;(ppu&#x2F;slope&nbsp;y&nbsp;t)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Unit&nbsp;&quot;mbar&#x2F;ms&quot;}}})))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                042&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                043&nbsp;&nbsp;(defn&nbsp;saw-tooth
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                045&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[v&nbsp;(mapv&nbsp;rs232-extract&nbsp;(:_x&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;(ppu&#x2F;operable&nbsp;v)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;(ppu&#x2F;calc-seq&nbsp;v&nbsp;o)
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;(ppu&#x2F;t0t1-&gt;t&nbsp;(ppu&#x2F;calc-seq&nbsp;(:_t_start&nbsp;task)&nbsp;o)
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;calc-seq&nbsp;(:_t_stop&nbsp;task)&nbsp;&nbsp;o))]
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:LogData&nbsp;{:vec&nbsp;y&nbsp;:t&nbsp;t}
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                051&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Result&nbsp;[(ppu&#x2F;vl-result&nbsp;&quot;slope_x&quot;&nbsp;(ppu&#x2F;slope&nbsp;y&nbsp;t)&nbsp;&nbsp;&nbsp;&nbsp;&quot;mbar&#x2F;ms&quot;)
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;vl-result&nbsp;&quot;R&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;r-square&nbsp;y&nbsp;t)&nbsp;&quot;1&quot;)
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;vl-result&nbsp;&quot;N&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(count&nbsp;y)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1&quot;)]})))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                054&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                055&nbsp;&nbsp;(defn&nbsp;drift
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                056&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                057&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[infix&nbsp;(get-in&nbsp;&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Infix])
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mapv&nbsp;rs232-extract&nbsp;(:_x&nbsp;task))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;operable&nbsp;v)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;calc-seq&nbsp;v&nbsp;o)
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;t0t1-&gt;t&nbsp;(ppu&#x2F;calc-seq&nbsp;(:_t_start&nbsp;task)&nbsp;o)
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;calc-seq&nbsp;(:_t_stop&nbsp;task)&nbsp;&nbsp;o))]
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:LogData&nbsp;{:vec&nbsp;y&nbsp;:t&nbsp;t}
+                </span><br/>
+<span class="not-covered" title="0 out of 13 forms covered">
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Result&nbsp;[(ppu&#x2F;vl-result&nbsp;(str&nbsp;&quot;drift_&quot;&nbsp;infix&nbsp;&quot;_slope_x&quot;)&nbsp;(ppu&#x2F;slope&nbsp;y&nbsp;t)&nbsp;&nbsp;&nbsp;&nbsp;&quot;mbar&#x2F;ms&quot;)
+                </span><br/>
+<span class="not-covered" title="0 out of 12 forms covered">
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;vl-result&nbsp;(str&nbsp;&quot;drift_&quot;&nbsp;infix&nbsp;&quot;_R&quot;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;r-square&nbsp;y&nbsp;t)&nbsp;&quot;1&quot;)
+                </span><br/>
+<span class="not-covered" title="0 out of 10 forms covered">
+                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;vl-result&nbsp;(str&nbsp;&quot;drift_&quot;&nbsp;infix&nbsp;&quot;_N&quot;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(count&nbsp;y)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;1&quot;)]})))
+                </span><br/>
+ </body>
+</html>
