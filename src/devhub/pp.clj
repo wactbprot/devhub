@@ -5,7 +5,8 @@
             [devhub.pp-scripts.servo-se3 :as servo-se3]
             [devhub.pp-scripts.im540     :as im540]
             [devhub.pp-scripts.vm212     :as vm212]
-            [devhub.pp-scripts.mks670    :as mks670]))
+            [devhub.pp-scripts.mks670    :as mks670]
+            [devhub.pp-scripts.mkspr4000 :as mkspr4000]))
 
 (defn post-dispatch
   "TODO: make auto dispatch: can be done with ns-resolve; see:
@@ -27,6 +28,7 @@
       :mks670.test-saw-tooth                 (mks670/test-saw-tooth                 task)
       :mks670.saw-tooth                      (mks670/saw-tooth                      task)
       :mks670.drift                          (mks670/drift                          task)
+      :mks670.ctrl                          (mks670/ctrl                           task)
                                                                                     
       :servo-se3.meas-velo                   (servo-se3/meas-velo                   task)
       :servo-se3.resp-ok                     (servo-se3/resp-ok                     task)
@@ -51,6 +53,7 @@
   [conf task]
   (let [ps (keyword (:PreScript task))]
     (condp = ps
+      :mkspr4000.calq   (mkspr4000/calq   task)
       :vs_se3.set-valve (vs-se3/set-valve task)
       {:error (str "no :PreScript named: " ps)})))
     
