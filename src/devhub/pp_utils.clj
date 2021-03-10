@@ -73,12 +73,9 @@
   ;; =>
   ;; [1 1.234E-5 0]
   ```"
-
   [v o]
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
-
-  
 
 (def square (fn [x] (* x x)))
 

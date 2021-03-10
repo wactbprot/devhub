@@ -3,7 +3,7 @@
             [devhub.pp-scripts.vs-se3    :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
             [devhub.pp-scripts.im540     :as im540]
-            ))
+            [com.brunobonacci.mulog      :as µ]))
 
 (defn post-dispatch
   "TODO: make auto dispatch
@@ -16,6 +16,7 @@
   ;; (conf registers-ok? check valves switches)
   ```"
   [conf task]
+  (µ/log ::post-dispatch :message "exec pp" :raw-result-str (:_x task))
   (let [ps (keyword (:PostScript task))]
     (condp = ps
       :servo-se3.meas-velo         (servo-se3/meas-velo          task)
@@ -35,7 +36,6 @@
       :im540.read-out              (im540/read-out               task)
       :im540.pressure-rise         (im540/pressure-rise          task)
       {:error (str "no :PostScript named: " ps)})))
-
 
 (defn pre-dispatch
   [conf task]
