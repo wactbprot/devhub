@@ -53,7 +53,7 @@
   [conf task]
   (let [ps (keyword (:PreScript task))]
     (condp = ps
-      :mkspr4000.calq   (mkspr4000/calq   task)
-      :vs_se3.set-valve (vs-se3/set-valve task)
+      :mkspr4000.calq-fm3   (mkspr4000/calq-fm3   task)
+      :vs_se3.set-valve     (vs-se3/set-valve     task)
       {:error (str "no :PreScript named: " ps)})))
     

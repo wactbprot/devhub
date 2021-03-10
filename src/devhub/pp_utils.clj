@@ -44,7 +44,7 @@
   ;; =>
   ;; nil
   ```"
-  [v]
+   [v]
   (when (seqable? v) (mapv (comp number? u/number) v)))
 
 (defn operable-seq

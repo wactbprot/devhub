@@ -102,7 +102,10 @@
   ```"
   [x]
   (cond
-    (string? x) (edn/read-string x)
+    (string? x) (try
+                  (Double/parseDouble x)
+                  (catch Exception ex 
+                    (mu/log ::number :error (.getMessage ex) :raw-result-str x))) 
     (number? x) x))
 
 (defn ms [] (str (inst-ms (java.util.Date.))))

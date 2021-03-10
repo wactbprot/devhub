@@ -73,10 +73,14 @@
 (defn ctrl
   [task]
   (let [eps    (u/number (get-in  task [:PostScriptInput :Max_dev]))
-        p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target])) 0.0001)
+        p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
         dp     (or (- (/ p-curr p-trgt) 1.0) 1.0)]
+    (prn p-curr)
+    (prn p-trgt)
+    (prn dp)
+    (prn (:_x task))
     (merge task {:ToExchange {:Filling_Pressure_current {:Value p-curr 
                                                          :Unit "mbar"}
                               :Filling_Pressure_Dev {:Value dp 
