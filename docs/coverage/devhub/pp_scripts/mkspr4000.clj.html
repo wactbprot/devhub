@@ -1,0 +1,155 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../../coverage.css"/>  <title> devhub/pp_scripts/mkspr4000.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.mkspr4000
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-utils&nbsp;:as&nbsp;ppu]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 8 forms covered">
+                005&nbsp;&nbsp;(defn&nbsp;ctrl-str&nbsp;[{sp1&nbsp;:sp1&nbsp;sp2&nbsp;:sp2}]&nbsp;(str&nbsp;&quot;SP1,&quot;&nbsp;sp1&nbsp;&quot;\rSP2,&quot;&nbsp;sp2&nbsp;&quot;\r&quot;))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                006&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                007&nbsp;&nbsp;(defn&nbsp;cut-fs
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                008&nbsp;&nbsp;&nbsp;&nbsp;[{sp1&nbsp;:sp1&nbsp;sp2&nbsp;:sp2&nbsp;:as&nbsp;m}&nbsp;{fs1&nbsp;:fs1&nbsp;fs2&nbsp;:fs2}]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                009&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;m
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:sp1&nbsp;(if&nbsp;(&gt;&nbsp;sp1&nbsp;fs1)&nbsp;fs1&nbsp;sp1)
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:sp2&nbsp;(if&nbsp;(&gt;&nbsp;sp2&nbsp;fs2)&nbsp;fs2&nbsp;sp2)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                013&nbsp;&nbsp;(defn&nbsp;calq
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;[{mq&nbsp;:mq&nbsp;ts&nbsp;:ts&nbsp;glim&nbsp;:glim&nbsp;slim&nbsp;:slim&nbsp;md&nbsp;:md&nbsp;p&nbsp;:p&nbsp;dev&nbsp;:dev&nbsp;:as&nbsp;m}]
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[q&nbsp;(&#x2F;&nbsp;p&nbsp;ts&nbsp;mq)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;(*&nbsp;md&nbsp;(Math&#x2F;abs&nbsp;dev))]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                </span><br/>
+<span class="not-covered" title="0 out of 19 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(and&nbsp;&nbsp;(&gt;=&nbsp;glim&nbsp;dev)&nbsp;&nbsp;(&gt;&nbsp;slim&nbsp;&nbsp;&nbsp;&nbsp;(*&nbsp;f&nbsp;q)))&nbsp;{:sp1&nbsp;(*&nbsp;f&nbsp;q)&nbsp;:sp2&nbsp;0.0}
+                </span><br/>
+<span class="not-covered" title="0 out of 23 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(and&nbsp;&nbsp;(&gt;=&nbsp;glim&nbsp;dev)&nbsp;&nbsp;(&gt;&nbsp;(*&nbsp;f&nbsp;q)&nbsp;slim))&nbsp;&nbsp;&nbsp;&nbsp;{:sp1&nbsp;(*&nbsp;f&nbsp;q)&nbsp;:sp2&nbsp;(&#x2F;&nbsp;(*&nbsp;f&nbsp;q)&nbsp;2)}
+                </span><br/>
+<span class="not-covered" title="0 out of 17 forms covered">
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(and&nbsp;&nbsp;(&gt;&nbsp;dev&nbsp;&nbsp;&nbsp;glim)&nbsp;(&gt;&nbsp;q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slim))&nbsp;&nbsp;&nbsp;&nbsp;{:sp1&nbsp;q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:sp2&nbsp;(&#x2F;&nbsp;q&nbsp;2)}
+                </span><br/>
+<span class="not-covered" title="0 out of 15 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(and&nbsp;&nbsp;(&gt;&nbsp;dev&nbsp;&nbsp;&nbsp;glim)&nbsp;(&gt;&nbsp;slim&nbsp;&nbsp;&nbsp;&nbsp;q))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:sp1&nbsp;q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:sp2&nbsp;0.0}
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:sp1&nbsp;0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:sp2&nbsp;0.0})))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                023&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                024&nbsp;&nbsp;(defn&nbsp;calq-fm3
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;&quot;Pre&nbsp;calculation&nbsp;of&nbsp;the&nbsp;flow&nbsp;`q`&nbsp;setpoints&nbsp;`sp1`&nbsp;and&nbsp;`sp2`&nbsp;to&nbsp;reach&nbsp;the&nbsp;target
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;pressure&nbsp;`p`&nbsp;in&nbsp;`ts`&nbsp;seconds.&nbsp;Pressures&nbsp;are&nbsp;in&nbsp;mbar.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                028&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;(ctrl-str
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cut-fs
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(calq&nbsp;{:p&nbsp;27,&nbsp;:dev&nbsp;-1.0,&nbsp;:mq&nbsp;0.018,&nbsp;:ts&nbsp;20.0,&nbsp;:glim&nbsp;0.7,&nbsp;:slim&nbsp;1.0,&nbsp;:md&nbsp;1.0})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:fs1&nbsp;1.0&nbsp;:fs2&nbsp;100.0}))&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 15 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;(u&#x2F;number&nbsp;(get-in&nbsp;&nbsp;task&nbsp;[:PreScriptInput&nbsp;:Filling_Pressure_Dev&nbsp;:Value]))&nbsp;0.0001)
+                </span><br/>
+<span class="not-covered" title="0 out of 14 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;(u&#x2F;number&nbsp;(get-in&nbsp;&nbsp;task&nbsp;[:PreScriptInput&nbsp;:Pressure_target&nbsp;:Value]))&nbsp;0.0001)
+                </span><br/>
+<span class="not-covered" title="0 out of 12 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;(get-in&nbsp;&nbsp;task&nbsp;[:PreScriptInput&nbsp;:Pressure_target&nbsp;:Unit])&nbsp;&quot;mbar&quot;)
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:fs1&nbsp;1.0&nbsp;:fs2&nbsp;100.0}
+                </span><br/>
+<span class="not-covered" title="0 out of 15 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;param&nbsp;&nbsp;&nbsp;{:p&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;target&nbsp;pressure&nbsp;
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:unit&nbsp;u&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;target&nbsp;pressure&nbsp;unit
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:dev&nbsp;&nbsp;dev&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;current&nbsp;deviation
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[mq]&nbsp;=&nbsp;mbar&#x2F;s&#x2F;sccm&nbsp;0.018&nbsp;is&nbsp;ok&nbsp;for&nbsp;SE1&nbsp;and&nbsp;FM3
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:mq&nbsp;&nbsp;&nbsp;0.018&nbsp;&nbsp;;;&nbsp;FM3:&nbsp;&nbsp;mq&nbsp;=&nbsp;Vopen&nbsp;?&nbsp;0.0133&nbsp;:&nbsp;0.0155,&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ts&nbsp;&nbsp;&nbsp;20.0&nbsp;&nbsp;&nbsp;;;&nbsp;theoretical&nbsp;time&nbsp;to&nbsp;reach&nbsp;p
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:glim&nbsp;0.7&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;fast&nbsp;forward&nbsp;limit
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:slim&nbsp;1.0&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;limit&nbsp;of&nbsp;use&nbsp;of&nbsp;second&nbsp;controller&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:md&nbsp;&nbsp;&nbsp;1.0}&nbsp;]&nbsp;;;&nbsp;damping&#x2F;amp.&nbsp;factor
+                </span><br/>
+<span class="not-covered" title="0 out of 13 forms covered">
+                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc&nbsp;task&nbsp;:Value&nbsp;[(ctrl-str&nbsp;(cut-fs&nbsp;(calq&nbsp;param)&nbsp;fs))])))
+                </span><br/>
+ </body>
+</html>

@@ -5,8 +5,8 @@ also [executes](#execute) shell commands.  Requests are *POST*ed via
 format. **devhub** may act as a [stub](#stub-post-stub) and returns
 predefined responses. The repository contains a pre-compiled
 standalone version that runs on BSD, Linux, MacOS and
-Windows. **devhub** uses [elasticsearch (els)](#elasticsearch-els) as
-a log database.
+Windows. **devhub** may be used with [elasticsearch (els)](#elasticsearch-els)
+as a log database.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -14,15 +14,11 @@ a log database.
 - [Features](#features)
 - [Data flow](#data-flow)
 - [Code documentation](#code-documentation)
-- [Examples](#examples)
+- [examples for the production endpoint [POST /]](#examples-for-the-production-endpoint-post-)
+- [special endpoints](#special-endpoints)
     - [stub [POST /stub]](#stub-post-stub)
     - [version [POST /version]](#version-post-version)
     - [echo [POST /echo]](#echo-post-echo)
-    - [production [POST /]](#production-post-)
-        - [tcp](#tcp)
-        - [EXECUTE](#execute)
-        - [vxi](#vxi)
-        - [modbus](#modbus)
 - [pre processing](#pre-processing)
     - [:PreScript](#prescript)
     - [:PreProcessing](#preprocessing)
@@ -34,17 +30,15 @@ a log database.
 - [Installation](#installation)
     - [Standalone version](#standalone-version)
     - [Development version](#development-version)
-    - [tcp](#tcp-1)
+    - [tcp](#tcp)
     - [vxi11](#vxi11)
-    - [modbus](#modbus-1)
+    - [modbus](#modbus)
     - [javascript post processing (js-pp)](#javascript-post-processing-js-pp)
 - [µlog](#µlog)
-    - [elasticsearch (els)](#elasticsearch-els)
-    - [kibana](#kibana)
-    - [mapping](#mapping)
     - [notes](#notes)
 
 <!-- markdown-toc end -->
+
 
 # Features
 
@@ -77,7 +71,6 @@ a log database.
     * `clojure`
 * [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
 * linux, windows and macOS support
-* ~80% test coverage
 
 # Data flow
 
@@ -88,18 +81,15 @@ a log database.
 * [API](./api)
 * [coverage](./coverage)
 
-# Examples
 
-For the `curl` examples, the *environment variable*:
+# examples for the production endpoint [POST /]
 
-```shell
-export H="Content-Type: application/json"
-```
-is useful. It is used as follows:
+* [TCP Examples](./EXAMPLE-TCP.md)
+* [VXI11 Examples](./EXAMPLE-VXI11.md)
+* [EXECUTE Examples](./EXAMPLE-EXECUTE.md)
+* [MODBUS Examples](./EXAMPLE-MODBUS.md)
 
-```shell
-curl -H "$H" ...
-```
+# special endpoints
 
 ## stub [POST /stub]
 
@@ -120,7 +110,6 @@ No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 ```shell
 curl -H "$H" -d '{"Wait":1 , "Repeat":10}' -X POST http://localhost:9009/stub
 ```
-
 
 ```shell
 D = '{"TaskName":"IM540-read_out", "Wait":1 , "Repeat":10}'
@@ -147,110 +136,6 @@ curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
 
 ## =>
 ## {"TaskName": "echo-test"}
-```
-
-## production [POST /]
-
-### tcp
-
-```shell
-D='{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-
-## =>
-## {"_x":"23.742259584,0.0018344406506,10,ch101\n","t_start":"1606812399642","t_stop":"1606812408754"}
-```
-
-Returns `error` on invalid host: 
-
-```shell
-D='{"Action":"TCP", "Host": "invalid", "Value":"IDN?", "Port":20}'
-
-curl -H "$H" -d "D" -X POST http://localhost:9009/
-## =>
-## {"error":"caught exception: No matching field found ..."}
-```
-
- ```shell
- D='{"TaskName": "ind_low_range", "Action": "TCP","Repeat": 3,"Wait": "10000","Host": "e75421","Port": 5302,"Value": "val\r","PostProcessing": ["var _vec=_x.map(_.extractSRG3),","_res = _.vlStat(_.checkNumArr(_vec).Arr),","Result=[_.vlRes(\"ind\",_res.mv,\"DCR\", \"\", _res.sd, _res.N)];"]}'
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-```
-
-
-### EXECUTE
-
-```shell
-D='{"Action":"EXECUTE","Cmd":"ls", "Wait":100 , "Repeat":2}'
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-
-## =>
-## {
-##    "_x":[
-##       {
-##          "exit":0,
-##          "out":"CHANGELOG.md\ndoc\ndocs\nLICENSE\npre-commit.sh\nproject.clj\nREADME.md\nresources\nsrc\ntarget\ntest\n",
-##          "err":""
-##       },
-##       {
-##          "exit":0,
-##          "out":"CHANGELOG.md\ndoc\ndocs\nLICENSE\npre-commit.sh\nproject.clj\nREADME.md\nresources\nsrc\ntarget\ntest\n",
-##          "err":""
-##       }
-##    ],
-##    "_t_start":[
-##       "1608482700761",
-##       "1608482700871"
-##    ],
-##    "_t_stop":[
-##       "1608482700771",
-##       "1608482700875"
-##    ],
-##    "_dt":[
-##       10,
-##       4
-##    ]
-## }
-```
-
-### vxi
-
-
-### modbus
-
-Get the valve position:
-
-```shell
-D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.get-valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
-## =>
-## {"ToExchange":{"V6":{"Bool":false},
-##                "V9":{"Bool":false},
-##                ...
-##                "registers":[1025,0,21760,0,1,0,1024,0,7]
-##                ...}}
-```
-
-Read pressures from Modbus CDGs:
-
-```shell
-D='{"Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 68, "Host":"e75480"}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-## =>
-## {"_x":[63,81,0,0,63,62,0,0,63,124,0,0,63,-86,0,1,
-## 63,34,0,1,63,-127,0,1,63,-21,0,1,63,98,0,1,
-## 63,-21,0,1,63,81,0,1,63,-89,0,1,63,-4,0,1,
-## 63,115,0,1,63,30,0,1,63,-89,0,1,0,0,5,1,
-## 0,0,0,0],"_t_start":"1609929639156","_t_stop":"1609929639158","_dt":2}
-## -- ca. 100 Pa 
-```
-
-```shell
-D='{"Action": "MODBUS", "TaskName": "VS_NEW_SE3-set-valve-pos", "FunctionCode": "writeSingleRegister","Address": 40003, "Host":"e75446", "PreScript":"vs_se3.set-valve", "PreInput": {"registers":[1029, 0, 4100, 0, 1300, 0, 21248, 0 ,83], "valve": "V1", "should": "open"}}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009
 ```
 
 # pre processing
@@ -307,49 +192,7 @@ can be managed with the help of
 
 ## :PostScript
 
-```shell
-D='{"Action": "MODBUS", "TaskName": "VS_SE3-get-valves-pos", "PostScript": "vs_se3.valves", "FunctionCode": "ReadHoldingRegisters","Address": 0, "Quantity": 9, "Host":"invalid"}'
-curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
-## =>
-## {"ToExchange":{"V6":{"Bool":false},
-##                "V9":{"Bool":false},
-##                ...
-##                "registers":[1025,0,21760,0,1,0,1024,0,7]
-##                ...}}
-```
-
-```shell
-D='{"PostScript":"gn_se3.anybus-readout", "Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 64, "Host":"e75480", "Wait":100, "Repeat":3}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-```
-
-### Task with `PostScript` and `PostScriptInput`
-
-```shell
-D='{"PostScript":"gn_se3.anybus-readout", "PostScriptInput": {"Prefix": "", "Suffix": "-ind", "Unit": "Pa"}, "Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 64, "Host":"e75480", "Wait":100, "Repeat":3}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-```
-
-```shell
-D='{"PostScript":"gn_se3.anybus-add-ctrl", "PostScriptInput": {"TargetPressure":70, "TargetUnit": "Pa"}, "Action": "MODBUS", "TaskName": "Inficon_Modbus_CDG-read_out", "FunctionCode": "ReadInputRegisters","Address": 0, "Quantity": 64, "Host":"e75480", "Wait":100, "Repeat":3}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-```
- 
-```shell
-D='{"TaskName":"IM540-read_out", "Wait":1000 , "Repeat":10, "PostScript": "im540.pressure-rise", "PostScriptInput": {"Type": "rise"}, "Action":"TCP", "Host":"e75436", "Port":5303, "Value":"MES R\r"}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009
-```
-
-```shell
-D='{"TaskName":"ServoTest", "Wait":1000 , "Repeat":1, "PostScript": "servo-se3.meas-velo", "PostScriptInput": {"Motor": "2", "MinVelo:"5"}, "Action":"TCP", "Host":"e75443", "Port":5300, "Value":"2GN\r"}'
-
-curl -H "$H" -d "$D" -X POST http://localhost:9009
-```
-
+See [MODBUS Examples](./EXAMPLE-MODBUS.md).
 
 ## :PostProcessing
 
@@ -369,12 +212,6 @@ or switch to first class [:PostScript](#postscript).
 
 ## :PostScriptPy
 
-```shell
-D='{"Action":"EXECUTE", "Cmd":"ls", "Wait":100, "Repeat":5, "PostScriptPy": "ls-demo"}'
-curl -H "$H" -d "$D" -X POST http://localhost:9009/
-## =>
-## {"ToExchange":{"FileAmount":[12,12,12,12,12]}}
-```
 # Installation
 
 ## Standalone version

@@ -102,8 +102,20 @@
   ```"
   [x]
   (cond
-    (string? x) (edn/read-string x)
+    (string? x) (try
+                  (Double/parseDouble x)
+                  (catch Exception ex 
+                    (mu/log ::number :error (.getMessage ex) :raw-result-str x))) 
     (number? x) x))
+
+(defn integer
+  [x]
+  (cond
+    (string? x) (try
+                  (Integer/parseInt x)
+                  (catch Exception ex 
+                    (mu/log ::integer :error (.getMessage ex) :raw-result-str x))) 
+    (integer? x) x))
 
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
@@ -132,15 +144,14 @@
   "Calls the function `f` with  all commands in `cmds` (vector of
   strings or int).`repeat`s (int) and `wait`s (int) in between if `(>
   repeat 1)`."
-  [f conf task]
-  (let [{cmds :Value  w :Wait n :Repeat} task]
+  [f conf {cmds :Value  w :Wait n :Repeat :as task}]
   (if (= 1 n (count cmds))
     ((wrap-log task (wrap-times f)) (first cmds))
-    (mapv (fn [_]
+    (mapv (fn [i]
             (let [v (mapv (wrap-log task (wrap-times f)) cmds)]
-              (Thread/sleep w)
+              (when (< i (dec n)) (Thread/sleep w))
               v))
-          (range n)))))
+          (range n))))
 
 (defn ascii-logo
   []

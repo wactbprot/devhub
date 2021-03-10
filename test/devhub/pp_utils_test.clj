@@ -26,9 +26,16 @@
                         [true true true false false]))
         "values")))
 
+(deftest operable-i
+  (testing ".xxx is operable"
+    (is (= [true]
+           (operable [".230"]))
+        "")))
+
+
 (deftest calc-seq-i
   (testing "basics"
-    (is (= [1 1.234E-5 0]
+    (is (= [1.0 1.234E-5 0]
          (calc-seq  ["1" 1.234E-5 0 "a" :number]
                         [true true true false false]))
         "values")

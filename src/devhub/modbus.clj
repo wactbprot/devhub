@@ -60,17 +60,16 @@
 
 (defn handler
   "Handles Modbus queries. "
-  [conf task]
-  (mu/trace 
-   ::handler [:function "modbus/handler"]
-   (if (:error task) task
-       (let [{host :Host fc :FunctionCode addr :Address q :Quantity req-id :req-id} task
-             _    (mu/log ::query :req-id req-id :Host host :Address addr)
-             data (query conf task)]
-         (merge task (if (:error data)
-                       (let [msg (:error data)]
-                         (mu/log ::query :error msg :req-id req-id)
-                        data)
-                      (let [msg "received data"]
-                        (mu/log ::query :message msg :req-id req-id)
-                        (u/reshape data))))))))
+  [conf {host :Host addr :Address req-id :req-id error :error :as task}]
+  (mu/trace ::handler [:function "modbus/handler"]
+            (if error
+              task
+              (let [_    (mu/log ::query :req-id req-id :Host host :Address addr)
+                    data (query conf task)]
+                (merge task (if (:error data)
+                              (let [msg (:error data)]
+                                (mu/log ::query :error msg :req-id req-id)
+                                data)
+                              (let [msg "received data"]
+                                (mu/log ::query :message msg :req-id req-id)
+                                (u/reshape data))))))))

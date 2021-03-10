@@ -44,7 +44,7 @@
   ;; =>
   ;; nil
   ```"
-  [v]
+   [v]
   (when (seqable? v) (mapv (comp number? u/number) v)))
 
 (defn operable-seq
@@ -77,6 +77,23 @@
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
 
+(defn transpose
+  "Array transpose following
+  https://clojuredocs.org/clojure.core/apply#example-542692cdc026201cdc326d4d.
+
+  Example
+  ```clojure
+  (transpose [[ 1 2 3] [3 4 5]])
+  ;; =>
+  ;; [[1 3] [2 4] [3 5]]
+  (transpose (transpose [[ 1 2 3] [3 4 5]]))
+  ;; =>
+  ;;[[1 2 3] [3 4 5]]
+  ```"
+  [v]
+  (when (seq v) (apply mapv vector v)))
+
+
 (def square (fn [x] (* x x)))
 
 (defn mean [v] (when (pos? (count v)) (/ (reduce + v) (count v))))
@@ -101,7 +118,6 @@
   (stdev nil)
   ;; =>
   ;; nil
-
   ```"
   [v]
   (let [ndec (dec (count v)) mv (mean v)]

@@ -20,31 +20,58 @@
                 005&nbsp;&nbsp;(defn&nbsp;post-dispatch
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                006&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;data]
+                006&nbsp;&nbsp;&nbsp;&nbsp;&quot;TODO:&nbsp;make&nbsp;auto&nbsp;dispatch
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                008&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                010&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;e.g.:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;(keys&nbsp;(ns-publics&nbsp;&#x27;devhub.pp-scripts.vs_se3))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                013&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;(conf&nbsp;registers-ok?&nbsp;check&nbsp;valves&nbsp;switches)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;task&nbsp;data]
                 </span><br/>
 <span class="partial" title="12 out of 22 forms covered">
-                007&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))
+                016&nbsp;&nbsp;&nbsp;&nbsp;(condp&nbsp;=&nbsp;(keyword&nbsp;(:PostScript&nbsp;task))
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.valves&nbsp;&nbsp;&nbsp;(vs-se3&#x2F;valves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:vs_se3.switches&nbsp;(vs-se3&#x2F;switches&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 4 forms covered">
-                010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:gn_se3.anybus-readout&nbsp;(gn-se3&#x2F;anybus-readout&nbsp;task&nbsp;data)
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:gn_se3.anybus-readout&nbsp;(gn-se3&#x2F;anybus-readout&nbsp;task&nbsp;data)
                 </span><br/>
 <span class="not-covered" title="0 out of 1 forms covered">
-                011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                012&nbsp;&nbsp;
+                021&nbsp;&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                013&nbsp;&nbsp;
+                022&nbsp;&nbsp;
                 </span><br/>
 <span class="partial" title="1 out of 2 forms covered">
-                014&nbsp;&nbsp;(defn&nbsp;pre-dispatch&nbsp;[conf&nbsp;task]&nbsp;task)
+                023&nbsp;&nbsp;(defn&nbsp;pre-dispatch&nbsp;[conf&nbsp;task]&nbsp;task)
                 </span><br/>
  </body>
 </html>
