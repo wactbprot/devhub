@@ -64,7 +64,7 @@
         o     (ppu/operable v)
         y     (ppu/calc-seq v o)
         t     (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
-                       (ppu/calc-seq (:_t_stop task)  o))]
+                           (ppu/calc-seq (:_t_stop task)  o))]
      (merge task {:LogData {:vec y :t t}
                  :Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
                           (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
@@ -77,10 +77,6 @@
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
         dp     (or (- (/ p-curr p-trgt) 1.0) 1.0)]
-    (prn p-curr)
-    (prn p-trgt)
-    (prn dp)
-    (prn (:_x task))
     (merge task {:ToExchange {:Filling_Pressure_current {:Value p-curr 
                                                          :Unit "mbar"}
                               :Filling_Pressure_Dev {:Value dp 

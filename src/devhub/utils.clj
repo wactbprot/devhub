@@ -108,6 +108,15 @@
                     (mu/log ::number :error (.getMessage ex) :raw-result-str x))) 
     (number? x) x))
 
+(defn integer
+  [x]
+  (cond
+    (string? x) (try
+                  (Integer/parseInt x)
+                  (catch Exception ex 
+                    (mu/log ::integer :error (.getMessage ex) :raw-result-str x))) 
+    (integer? x) x))
+
 (defn ms [] (str (inst-ms (java.util.Date.))))
 
 (defn task [req] (assoc (:body req) :req-id (ms)))

@@ -16,17 +16,17 @@
 
 (defn wait   [conf x] (if x (u/number x) (:min-wait conf)))
 
-(defn rep    [conf x] (if x (u/number x) (:repeat conf)))
+(defn rep    [conf x] (if x (u/integer x) (:repeat conf)))
 
 (defn sel    [conf x] (if x (keyword x) :missing))
 
-(defn port   [conf x] (u/number x))
+(defn port   [conf x] (u/integer x))
 
 (defn fnc    [conf x] (keyword x))
 
-(defn addr   [conf x] (u/number x))
+(defn addr   [conf x] (u/integer x))
 
-(defn quant  [conf x] (u/number x))
+(defn quant  [conf x] (u/integer x))
 
 (defn safe-cmd [conf cmd] cmd)
 
@@ -53,8 +53,8 @@
   [s]
   (when-let [v (re-find (re-matcher #"(gpib[0-9]*),([0-9]*),?([0-9]*)" s))]
     {:DeviceName       (nth v 1)
-     :PrimaryAddress   (u/number (nth v 2))
-     :SecondaryAddress (if (= "" (nth v 3)) 0 (u/number (nth v 3)))}))
+     :PrimaryAddress   (u/integer (nth v 2))
+     :SecondaryAddress (if (= "" (nth v 3)) 0 (u/integer (nth v 3)))}))
 
 (defn parse-inst-str [s] {:DeviceName s :PrimaryAddress -1 :SecondaryAddress -1})
 
