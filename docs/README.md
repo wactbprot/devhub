@@ -5,8 +5,8 @@ also [executes](#execute) shell commands.  Requests are *POST*ed via
 format. **devhub** may act as a [stub](#stub-post-stub) and returns
 predefined responses. The repository contains a pre-compiled
 standalone version that runs on BSD, Linux, MacOS and
-Windows. **devhub** uses [elasticsearch (els)](#elasticsearch-els) as
-a log database.
+Windows. **devhub** may be used with [elasticsearch (els)](#elasticsearch-els)
+as a log database.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
