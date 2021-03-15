@@ -1,4 +1,4 @@
-(defproject devhub "0.11.2"
+(defproject devhub "0.11.3"
   :description "Once a stub now a hub."
   :url "https://github.com/wactbprot/devhub"
   :license {:name "BSD 2-Clause"
