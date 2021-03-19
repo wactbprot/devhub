@@ -73,11 +73,9 @@
   ;; =>
   ;; [1 1.234E-5 0]
   ```"
-
   [v o]
   (when (and (seqable? v) (seqable? o))
     (mapv u/number (operable-seq v o))))
-
 
 (defn transpose
   "Array transpose following
@@ -94,6 +92,7 @@
   ```"
   [v]
   (when (seq v) (apply mapv vector v)))
+
 
 (def square (fn [x] (* x x)))
 

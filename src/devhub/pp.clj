@@ -6,7 +6,9 @@
             [devhub.pp-scripts.im540     :as im540]
             [devhub.pp-scripts.vm212     :as vm212]
             [devhub.pp-scripts.mks670    :as mks670]
-            [devhub.pp-scripts.mkspr4000 :as mkspr4000]))
+            [devhub.pp-scripts.mkspr4000 :as mkspr4000]
+            [com.brunobonacci.mulog      :as µ]))
+
 
 (defn post-dispatch
   "TODO: make auto dispatch: can be done with ns-resolve; see:
@@ -20,6 +22,7 @@
   ;; (conf registers-ok? check valves switches)
   ```"
   [conf task]
+  (µ/log ::post-dispatch :message "exec pp" :raw-result-str (:_x task))
   (let [ps (keyword (:PostScript task))]
     (condp = ps
       :daq34970.temperature-scanner-read-out (daq34970/temperature-scanner-read-out task)
@@ -47,7 +50,6 @@
       :im540.read-out                        (im540/read-out                        task)
       :im540.pressure-rise                   (im540/pressure-rise                   task)
       {:error (str "no :PostScript named: " ps)})))
-
 
 (defn pre-dispatch
   [conf task]
