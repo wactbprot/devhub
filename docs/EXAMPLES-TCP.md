@@ -43,3 +43,9 @@ D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"holdhours=11
 
 D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"run\n"}'
 ```
+
+FRS5 read out
+
+```shell
+D='{"Port": 5301, "Host": "e75436", "Value":"\u001BP", "Wait": 100, "Repeat": 20}'
+```
