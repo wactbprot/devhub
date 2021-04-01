@@ -30,10 +30,13 @@
                 out  (out-socket sock)
                 in   (in-socket sock)]
       (let [f (fn [cmd]
-                (.print out cmd)
-                (.flush out)
-                (Thread/sleep 10)
-                (if-not (:NoReply task) (.readLine in) ""))]
+                (when-not (empty? cmd)
+                  (.print out cmd)
+                  (.flush out)
+                  (Thread/sleep 10))
+                (if-not (:NoReply task)
+                  (.readLine in)
+                  ""))]
         (u/run f conf task)))))
 
 (comment

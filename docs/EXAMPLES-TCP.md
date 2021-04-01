@@ -34,3 +34,18 @@ D='{"TaskName":"IM540-read_out", "Wait":1000 , "Repeat":10, "PostScript": "im540
 D='{"TaskName":"ServoTest", "Wait":1000 , "Repeat":1, "PostScript": "servo-se3.meas-velo", "PostScriptInput": {"Motor": "2", "MinVelo:"5"}, "Action":"TCP", "Host":"e75443", "Port":5300, "Value":"2GN\r"}'
 ```
 
+CE3 bake out commands
+
+```shell
+D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"init\n"}'
+
+D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"holdhours=112\n"}'
+
+D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"run\n"}'
+```
+
+FRS5 read out
+
+```shell
+D='{"Port": 5301, "Host": "e75436", "Value":"\u001BP", "Wait": 100, "Repeat": 20}'
+```
