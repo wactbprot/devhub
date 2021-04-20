@@ -36,7 +36,7 @@
       :mks670.test-saw-tooth                 (mks670/test-saw-tooth                 task)
       :mks670.saw-tooth                      (mks670/saw-tooth                      task)
       :mks670.drift                          (mks670/drift                          task)
-      :mks670.ctrl                          (mks670/ctrl                           task)
+      :mks670.ctrl                           (mks670/ctrl                           task)
                                                                                     
       :servo-se3.meas-velo                   (servo-se3/meas-velo                   task)
       :servo-se3.resp-ok                     (servo-se3/resp-ok                     task)

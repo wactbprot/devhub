@@ -55,6 +55,8 @@
     (merge task {:LogData {:vec y :t t}
                  :Result [(ppu/vl-result "slope_x" (ppu/slope y t)    "mbar/ms")
                           (ppu/vl-result "R"       (ppu/r-square y t) "1")
+                          (ppu/vl-result "mean_p"  (ppu/mean y)       "mbar")
+                          (ppu/vl-result "mean_t"  (str (ppu/mean t))  "ms")
                           (ppu/vl-result "N"       (count y)          "1")]})))
 
 (defn drift
@@ -72,7 +74,7 @@
 
 (defn ctrl
   [task]
-  (let [eps    (u/number (get-in  task [:PostScriptInput :Max_dev]))
+  (let [eps    (or (u/number (get-in  task [:PostScriptInput :Max_dev])) 0.005)
         p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
