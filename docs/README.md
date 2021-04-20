@@ -84,10 +84,10 @@ as a log database.
 
 # examples for the production endpoint [POST /]
 
-* [TCP Examples](./EXAMPLE-TCP.md)
-* [VXI11 Examples](./EXAMPLE-VXI11.md)
-* [EXECUTE Examples](./EXAMPLE-EXECUTE.md)
-* [MODBUS Examples](./EXAMPLE-MODBUS.md)
+* [TCP Examples](./docs/EXAMPLE-TCP.md)
+* [VXI11 Examples](./docs/EXAMPLE-VXI11.md)
+* [EXECUTE Examples](./docs/EXAMPLE-EXECUTE.md)
+* [MODBUS Examples](./docs/EXAMPLE-MODBUS.md)
 
 # special endpoints
 

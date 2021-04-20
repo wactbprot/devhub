@@ -40,9 +40,7 @@
           :repeat 1}
  :post {:tmp "/tmp"
         :js-exec "exec.js"
-        :js-path "./resources/js"
         :js "node"
-        :py-path "./resources/py"
         :py "python3"}
  :execute {:shell "sh"
            :param "-c"
