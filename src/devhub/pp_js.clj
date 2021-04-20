@@ -26,9 +26,11 @@
   ```"
  [{conf :post} task]
   (let [req-id (:req-id task)
-        pp     (gen-pp-source task) data (gen-pp-data task)
+        pp     (gen-pp-source task)
+        data   (gen-pp-data task)
+        _      (µ/log ::exec :message "pp-js input" :pp-data data :pp-source pp :req-id req-id)
         res    (sh (:js conf) (exec-file conf) (:js-path conf) pp data)]
-    (µ/log ::exec :message "exec pp-js" :pp-data data :pp-source pp :req-id req-id :raw-result-str (:out res))
+    (µ/log ::exec :message "exec pp-js" :req-id req-id :raw-result-str (:out res))
     (if-not (zero? (:exit res))
       (let [msg (:err res)]
          (µ/log ::exec :error msg :req-id req-id)
