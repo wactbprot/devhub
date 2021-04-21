@@ -26,12 +26,12 @@
 
 (defn rs232-extract
   [s]
-  (let [r #"@020\s([0-9]{1,5}\.[0-9]{1,6}[E][-+][0-9]{1,3})"]
+  (let [r #"@020\s([+-]*[0-9]{1,5}\.[0-9]{1,6}[E][-+][0-9]{1,3})"]
   (second (re-matches r s))))
 
 (defn prologix-extract
   [s]
-  (let [r #"MEASURING\s*([0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]{0,3})"]
+  (let [r #"MEASURING\s*([+-]*[0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]{0,3})"]
   (second (re-matches r s))))
 
 (defn test-saw-tooth
@@ -41,6 +41,9 @@
         y (ppu/calc-seq v o)
         t (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
                        (ppu/calc-seq (:_t_stop task)  o))]
+    (prn (:_x task))
+    (prn v)
+
     (merge task {:LogData {:vec y :t t}
                  :ToExchange {:Pressure_decr {:Value (ppu/slope y t)
                                               :Unit "mbar/ms"}}})))
