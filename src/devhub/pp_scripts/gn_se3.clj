@@ -3,20 +3,24 @@
             [devhub.utils    :as u]
             [com.brunobonacci.mulog :as µ]))
 
-(def conf (u/config "gn_se3.edn"))
+(def conf
+  ;; device name start byte
+  {:anybus-byte-start {"1T_1" 0 "1T_2" 4 "1T_3" 8
+                       "10T_1" 12 "10T_2" 16 "10T_3" 20
+                       "100T_1" 24 "100T_2" 28 "100T_3" 32
+                       "1000T_1" 36 "1000T_2" 40 "1000T_3" 44
+                       "5T_1" 48 "50T_1" 52 "500T_1" 56
+                       "add" 60}
+   :anybus-byte-count 4})
 
 (defn anybus-vec
-  "Returns a vector of 4 bytes that can be turned into a float.
-  ```clojure
-  (anybus-vec 32832 99 46336 257)
-  ;; =>
-  ;; [64 0 99 181]
-  ```"
+  "Returns a vector of 4 bytes that can be turned into a float."
   [v]
   [(ppu/b16->l (nth v 0))
    (ppu/b16->h (nth v 1))
    (ppu/b16->l (nth v 1))
    (ppu/b16->h (nth v 2))])
+
 
 (defn anybus-float
   "Converts `byte-array` to `float`.
