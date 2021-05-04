@@ -6,8 +6,12 @@
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
 
-(defn out-socket [s] (PrintWriter. (OutputStreamWriter. (.getOutputStream s))))
+(defn out-socket-raw [s] (.getOutputStream s)) ;; ship bytes
+
+(defn out-socket [s] (PrintWriter. (OutputStreamWriter. (out-socket-raw s))))
+
 (defn in-socket [s] (BufferedReader. (InputStreamReader. (.getInputStream s))))
+
 (defn gen-socket [{h :Host p :Port}] (Socket. h p))
 
 (defn query
@@ -23,21 +27,21 @@
   :Value [\"++addr 2\r++auto 1\r++eot_char 10\r:meas:func\r\"]})
   (query c t)
   ```"
-  [{conf :tcp} task]
-  (if-not (u/connectable? task)
-    {:error "can not connect"}
-    (with-open [sock (gen-socket task)
-                out  (out-socket sock)
-                in   (in-socket sock)]
-      (let [f (fn [cmd]
-                (when-not (empty? cmd)
-                  (.print out cmd)
-                  (.flush out)
-                  (Thread/sleep 10))
-                (if-not (:NoReply task)
-                  (.readLine in)
-                  ""))]
-        (u/run f conf task)))))
+  [{conf :tcp} {cmds :Value :as task}]
+  (let [b? (bytes? (first cmds))]
+    (if-not (u/connectable? task)
+      {:error "can not connect"}
+      (with-open [sock (gen-socket task)
+                  out  (if b? (out-socket-raw sock) (out-socket sock))
+                  in   (in-socket sock)]
+        (let [f (fn [cmd]
+                  (when-not (empty? cmd)
+                    (if b? (.write out cmd) (.print out cmd))
+                    (.flush out)
+                    (Thread/sleep (:read-delay conf)))
+                  (if (:NoReply task) ""
+                      (if b? (.read in) (.readLine in))))]
+          (u/run f conf task))))))
 
 (comment
   ;; read chars to debug result string
