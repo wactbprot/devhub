@@ -26,12 +26,12 @@
 
 (defn rs232-extract
   [s]
-  (let [r #"@020\s([0-9]{1,5}\.[0-9]{1,6}[E][-+][0-9]{1,3})"]
+  (let [r #"@020\s([+-]*[0-9]{1,5}\.[0-9]{1,6}[E][-+][0-9]{1,3})"]
   (second (re-matches r s))))
 
 (defn prologix-extract
   [s]
-  (let [r #"MEASURING\s*([0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]{0,3})"]
+  (let [r #"MEASURING\s*([+-]*[0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]{0,3})"]
   (second (re-matches r s))))
 
 (defn test-saw-tooth
@@ -41,6 +41,9 @@
         y (ppu/calc-seq v o)
         t (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
                        (ppu/calc-seq (:_t_stop task)  o))]
+    (prn (:_x task))
+    (prn v)
+
     (merge task {:LogData {:vec y :t t}
                  :ToExchange {:Pressure_decr {:Value (ppu/slope y t)
                                               :Unit "mbar/ms"}}})))
@@ -55,6 +58,8 @@
     (merge task {:LogData {:vec y :t t}
                  :Result [(ppu/vl-result "slope_x" (ppu/slope y t)    "mbar/ms")
                           (ppu/vl-result "R"       (ppu/r-square y t) "1")
+                          (ppu/vl-result "mean_p"  (ppu/mean y)       "mbar")
+                          (ppu/vl-result "mean_t"  (str (ppu/mean t))  "ms")
                           (ppu/vl-result "N"       (count y)          "1")]})))
 
 (defn drift
@@ -72,7 +77,7 @@
 
 (defn ctrl
   [task]
-  (let [eps    (u/number (get-in  task [:PostScriptInput :Max_dev]))
+  (let [eps    (or (u/number (get-in  task [:PostScriptInput :Max_dev])) 0.005)
         p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
