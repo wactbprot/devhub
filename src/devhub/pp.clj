@@ -9,6 +9,7 @@
             [devhub.pp-scripts.maxigauge :as maxigauge]
             [devhub.pp-scripts.mks670    :as mks670]
             [devhub.pp-scripts.mkspr4000 :as mkspr4000]
+            [devhub.pp-scripts.mks627-kunbus :as mks627-kunbus]
             [com.brunobonacci.mulog      :as µ]))
 
 
@@ -56,6 +57,8 @@
       :im540.pressure-rise                   (im540/pressure-rise                   task)
       
       :maxigauge.read-out                    (maxigauge/read-out                    task)
+      
+      :mks627-kunbus.readout-first           (mks627-kunbus/readout-first           task)
       {:error (str "no :PostScript named: " ps)})))
 
 (defn pre-dispatch
