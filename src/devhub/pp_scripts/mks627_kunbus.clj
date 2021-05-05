@@ -10,6 +10,8 @@
 
 (defn kunbus-vec
   "Returns a vector of  bytes that can be turned into a float.
+
+  Example:
   ```clojure
   (kunbus-vec  [0 0 0 16128 2836 120 0 0])
   ;; =>
@@ -27,9 +29,12 @@
   NOTE: The kunbus gateway is configured to deliver pressures in `mbar`."
   [task]
   (let [s (get-in task [:PostScriptInput :Type])
-        v (:_x task)]
-    (merge task
-           {:Result (ppu/vl-result s
-                                   (mapv  #(ppu/vec->float (kunbus-vec %)) v)
-                                   "mbar") })))
-  
+        v (mapv  #(ppu/vec->float (kunbus-vec %)) (:_x task))]
+    (merge task {:Result (ppu/vl-result s v "mbar") })))
+
+(defn readout-first-vec
+  [task]
+  (let [s (get-in task [:PostScriptInput :Type])
+        v (mapv  #(ppu/vec->float (kunbus-vec %)) (:_x task))]
+    (merge task {:Result [{:Type s :Value v :Unit "mbar"}] })))
+

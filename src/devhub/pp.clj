@@ -60,6 +60,7 @@
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       
       :mks627-kunbus.readout-first           (mks627-kunbus/readout-first           task)
+      :mks627-kunbus.readout-first-vec       (mks627-kunbus/readout-first-vec       task)
       
       :vacom.check-response                  (vacom/check-response                   task)
       :vacom.read-pressure                   (vacom/read-pressure                    task)

@@ -30,16 +30,16 @@
   (merge task {:ToExchange {:Response {:ok (count-ok? task)}}}))
 
 (defn read-pressure [task]
-  (let [input (:PostScriptInput task)
-        v      (mapv #(extract (payload->string (str-payload %))) (:_x task))
-        o     (ppu/operable v)]
-    (merge task {:Result [(ppu/vl-result (:Type input) (ppu/calc-seq v o) "mbar")]})))
+  (let [s (get-in task [:PostScriptInput :Type])
+        v (mapv #(extract (payload->string (str-payload %))) (:_x task))
+        o (ppu/operable v)]
+    (merge task {:Result [(ppu/vl-result s (ppu/calc-seq v o) "mbar")]})))
 
 (defn read-pressure-vec [task]
-  (let [input (:PostScriptInput task)
-        v      (mapv #(extract-value (payload->str (str-payload %))) (:_x task))
-        o     (ppu/operable v)]
-    (merge task {:Result [{:Type (:Type input) :Value (ppu/calc-seq v o) :Unit "mbar"}]})))
+  (let [s (get-in task [:PostScriptInput :Type])
+        v (mapv #(extract-value (payload->str (str-payload %))) (:_x task))
+        o (ppu/operable v)]
+    (merge task {:Result [{:Type s :Value (ppu/calc-seq v o) :Unit "mbar"}]})))
 
 (comment
   (def b
