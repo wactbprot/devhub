@@ -1,0 +1,131 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../../coverage.css"/>  <title> devhub/pp_scripts/mks627_kunbus.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.mks627-kunbus
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-utils&nbsp;:as&nbsp;ppu]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[com.brunobonacci.mulog&nbsp;:as&nbsp;µ]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                005&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                006&nbsp;&nbsp;(comment
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;v&nbsp;[0&nbsp;0&nbsp;0&nbsp;16128&nbsp;2836&nbsp;120&nbsp;0&nbsp;0])&nbsp;;&nbsp;0.578125&nbsp;mbar)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                008&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;v&nbsp;[0&nbsp;0&nbsp;0&nbsp;16640&nbsp;3905&nbsp;144&nbsp;0&nbsp;0]);&nbsp;12.0625&nbsp;mbar)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;&nbsp;&nbsp;)
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                010&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                011&nbsp;&nbsp;(defn&nbsp;kunbus-vec
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;a&nbsp;vector&nbsp;of&nbsp;&nbsp;bytes&nbsp;that&nbsp;can&nbsp;be&nbsp;turned&nbsp;into&nbsp;a&nbsp;float.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                013&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;Example:
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;(kunbus-vec&nbsp;&nbsp;[0&nbsp;0&nbsp;0&nbsp;16128&nbsp;2836&nbsp;120&nbsp;0&nbsp;0])
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;=&gt;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;[63&nbsp;20&nbsp;0&nbsp;0]&nbsp;;&nbsp;0.578125&nbsp;mbar
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                020&nbsp;&nbsp;&nbsp;&nbsp;[v]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;[(ppu&#x2F;b16-&gt;h&nbsp;(nth&nbsp;v&nbsp;3))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;b16-&gt;l&nbsp;(nth&nbsp;v&nbsp;4))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ppu&#x2F;b16-&gt;h&nbsp;(nth&nbsp;v&nbsp;5))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0])
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                025&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 12 forms covered">
+                026&nbsp;&nbsp;(defn&nbsp;val-vec&nbsp;[task]&nbsp;(mapv&nbsp;#(ppu&#x2F;vec-&gt;float&nbsp;(kunbus-vec&nbsp;%))&nbsp;(:_x&nbsp;task)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                027&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                028&nbsp;&nbsp;(defn&nbsp;readout-first
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                029&nbsp;&nbsp;&nbsp;&nbsp;&quot;Returns&nbsp;`Result`&nbsp;and&nbsp;`ToExchange`&nbsp;maps.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;NOTE:&nbsp;The&nbsp;kunbus&nbsp;gateway&nbsp;is&nbsp;configured&nbsp;to&nbsp;deliver&nbsp;pressures&nbsp;in&nbsp;`mbar`.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 14 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:Result&nbsp;(ppu&#x2F;vl-result&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Type])
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(val-vec&nbsp;task)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;mbar&quot;)&nbsp;}))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                036&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                037&nbsp;&nbsp;(defn&nbsp;readout-first-vec&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 17 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;{:Result&nbsp;[{:Type&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Type])
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;(val-vec&nbsp;task)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Unit&nbsp;&quot;mbar&quot;}]&nbsp;}))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                041&nbsp;&nbsp;
+                </span><br/>
+ </body>
+</html>
