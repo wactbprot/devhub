@@ -26,20 +26,22 @@
 
 (defn count-ok? [task] (= (:byte-count conf) (count (:_x task))))
 
-(defn check-respons [task]
+(defn check-response [task]
   (merge task {:ToExchange {:Response {:ok (count-ok? task)}}}))
 
+(defn val-vec [task]
+  (let [v (mapv #(extract (payload->str (str-payload %))) (:_x task))]
+    (ppu/calc-seq v (ppu/operable v))))
+
 (defn read-pressure [task]
-  (let [s (get-in task [:PostScriptInput :Type])
-        v (mapv #(extract (payload->string (str-payload %))) (:_x task))
-        o (ppu/operable v)]
-    (merge task {:Result [(ppu/vl-result s (ppu/calc-seq v o) "mbar")]})))
+  (merge task {:Result [(ppu/vl-result (get-in task [:PostScriptInput :Type])
+                                       (val-vec task)
+                                       "mbar")]}))
 
 (defn read-pressure-vec [task]
-  (let [s (get-in task [:PostScriptInput :Type])
-        v (mapv #(extract-value (payload->str (str-payload %))) (:_x task))
-        o (ppu/operable v)]
-    (merge task {:Result [{:Type s :Value (ppu/calc-seq v o) :Unit "mbar"}]})))
+  (merge task {:Result [{:Type (get-in task [:PostScriptInput :Type])
+                         :Value (val-vec task)
+                         :Unit "mbar"}]}))
 
 (comment
   (def b

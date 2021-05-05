@@ -28,173 +28,182 @@
 <span class="blank" title="0 out of 0 forms covered">
                 008&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 4 forms covered">
-                009&nbsp;&nbsp;(defn&nbsp;out-socket&nbsp;[s]&nbsp;(PrintWriter.&nbsp;(OutputStreamWriter.&nbsp;(.getOutputStream&nbsp;s))))
+<span class="partial" title="1 out of 2 forms covered">
+                009&nbsp;&nbsp;(defn&nbsp;out-socket-raw&nbsp;[s]&nbsp;(.getOutputStream&nbsp;s))&nbsp;;;&nbsp;ship&nbsp;bytes
                 </span><br/>
-<span class="partial" title="1 out of 4 forms covered">
-                010&nbsp;&nbsp;(defn&nbsp;in-socket&nbsp;[s]&nbsp;(BufferedReader.&nbsp;(InputStreamReader.&nbsp;(.getInputStream&nbsp;s))))
+<span class="blank" title="0 out of 0 forms covered">
+                010&nbsp;&nbsp;
                 </span><br/>
-<span class="partial" title="1 out of 4 forms covered">
-                011&nbsp;&nbsp;(defn&nbsp;gen-socket&nbsp;[{h&nbsp;:Host&nbsp;p&nbsp;:Port}]&nbsp;(Socket.&nbsp;h&nbsp;p))
+<span class="partial" title="1 out of 6 forms covered">
+                011&nbsp;&nbsp;(defn&nbsp;out-socket&nbsp;[s]&nbsp;(PrintWriter.&nbsp;(OutputStreamWriter.&nbsp;(out-socket-raw&nbsp;s))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 012&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                013&nbsp;&nbsp;(defn&nbsp;query
+<span class="partial" title="1 out of 2 forms covered">
+                013&nbsp;&nbsp;(defn&nbsp;in-socket-raw&nbsp;[s]&nbsp;&nbsp;(.getInputStream&nbsp;s))
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                014&nbsp;&nbsp;&nbsp;&nbsp;&quot;Sends&nbsp;the&nbsp;`cmds`&nbsp;given&nbsp;by&nbsp;the&nbsp;`:Value`&nbsp;to&nbsp;a&nbsp;raw&nbsp;tcp&nbsp;socket&nbsp;with&nbsp;the
+<span class="blank" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                015&nbsp;&nbsp;&nbsp;&nbsp;specified&nbsp;`host`&nbsp;and&nbsp;`port`.
+<span class="partial" title="1 out of 6 forms covered">
+                015&nbsp;&nbsp;(defn&nbsp;in-socket&nbsp;[s]&nbsp;(BufferedReader.&nbsp;(InputStreamReader.&nbsp;(in-socket-raw&nbsp;s))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 016&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                017&nbsp;&nbsp;&nbsp;&nbsp;Example:
+<span class="partial" title="1 out of 4 forms covered">
+                017&nbsp;&nbsp;(defn&nbsp;gen-socket&nbsp;[{h&nbsp;:Host&nbsp;p&nbsp;:Port}]&nbsp;(Socket.&nbsp;h&nbsp;p))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                018&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                019&nbsp;&nbsp;(defn&nbsp;query
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                018&nbsp;&nbsp;&nbsp;&nbsp;```clojure
+                020&nbsp;&nbsp;&nbsp;&nbsp;&quot;Sends&nbsp;the&nbsp;`cmds`&nbsp;given&nbsp;by&nbsp;the&nbsp;`:Value`&nbsp;to&nbsp;a&nbsp;raw&nbsp;tcp&nbsp;socket&nbsp;with&nbsp;the
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                019&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;c&nbsp;(u&#x2F;config))
+                021&nbsp;&nbsp;&nbsp;&nbsp;specified&nbsp;`host`&nbsp;and&nbsp;`port`.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                022&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                020&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Port&nbsp;5025&nbsp;:Host&nbsp;\&quot;e75496\&quot;&nbsp;:Value&nbsp;[\&quot;room()\\n\&quot;]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;2})
+                023&nbsp;&nbsp;&nbsp;&nbsp;Example:
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                021&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;prologix&nbsp;mks670
+                024&nbsp;&nbsp;&nbsp;&nbsp;```clojure
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                022&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Port&nbsp;1234&nbsp;:Host&nbsp;\&quot;192.168.98.204\&quot;&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;10
+                025&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;c&nbsp;(u&#x2F;config))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                023&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[\&quot;++addr&nbsp;2\r++auto&nbsp;1\r++eot_char&nbsp;10\r:meas:func\r\&quot;]})
+                026&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Port&nbsp;5025&nbsp;:Host&nbsp;\&quot;e75496\&quot;&nbsp;:Value&nbsp;[\&quot;room()\\n\&quot;]&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;2})
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                024&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
+                027&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;prologix&nbsp;mks670
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                028&nbsp;&nbsp;&nbsp;&nbsp;(def&nbsp;t&nbsp;{:Port&nbsp;1234&nbsp;:Host&nbsp;\&quot;192.168.98.204\&quot;&nbsp;:Wait&nbsp;10&nbsp;:Repeat&nbsp;10
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                026&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:tcp}&nbsp;task]
+                029&nbsp;&nbsp;&nbsp;&nbsp;:Value&nbsp;[\&quot;++addr&nbsp;2\r++auto&nbsp;1\r++eot_char&nbsp;10\r:meas:func\r\&quot;]})
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;(query&nbsp;c&nbsp;t)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;```&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;[{conf&nbsp;:tcp}&nbsp;{cmds&nbsp;:Value&nbsp;:as&nbsp;task}]
                 </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                027&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(u&#x2F;connectable?&nbsp;task)
+                033&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[b?&nbsp;(bytes?&nbsp;(first&nbsp;cmds))]
+                </span><br/>
+<span class="covered" title="6 out of 6 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(u&#x2F;connectable?&nbsp;task)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&quot;}
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:error&nbsp;&quot;can&nbsp;not&nbsp;connect&quot;}
                 </span><br/>
 <span class="not-covered" title="0 out of 13 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(with-open&nbsp;[sock&nbsp;(gen-socket&nbsp;task)
+                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(with-open&nbsp;[sock&nbsp;(gen-socket&nbsp;task)
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out&nbsp;&nbsp;(out-socket&nbsp;sock)
+<span class="not-covered" title="0 out of 8 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out&nbsp;&nbsp;(if&nbsp;b?&nbsp;(out-socket-raw&nbsp;sock)&nbsp;(out-socket&nbsp;sock))
                 </span><br/>
-<span class="not-covered" title="0 out of 3 forms covered">
-                031&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;(in-socket&nbsp;sock)]
+<span class="not-covered" title="0 out of 8 forms covered">
+                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;(if&nbsp;b?&nbsp;(in-socket-raw&nbsp;sock)&nbsp;(in-socket&nbsp;sock))]
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[f&nbsp;(fn&nbsp;[cmd]
+                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[f&nbsp;(fn&nbsp;[cmd]
                 </span><br/>
 <span class="not-covered" title="0 out of 6 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when-not&nbsp;(empty?&nbsp;cmd)
+                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when-not&nbsp;(empty?&nbsp;cmd)
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.print&nbsp;out&nbsp;cmd)
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.flush&nbsp;out)
-                </span><br/>
-<span class="not-covered" title="0 out of 2 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Thread&#x2F;sleep&nbsp;10))
-                </span><br/>
-<span class="not-covered" title="0 out of 7 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if-not&nbsp;(:NoReply&nbsp;task)
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.readLine&nbsp;in)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;&quot;))]
+                041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;b?
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task)))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                041&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                042&nbsp;&nbsp;(comment
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;read&nbsp;chars&nbsp;to&nbsp;debug&nbsp;result&nbsp;string
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                044&nbsp;&nbsp;&nbsp;&nbsp;(loop&nbsp;[]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[c&nbsp;(.read&nbsp;in)]
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(&gt;&nbsp;c&nbsp;0)
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(prn&nbsp;(char&nbsp;c))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(recur)))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                049&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                050&nbsp;&nbsp;(defn&nbsp;handler
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                051&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;TCP&nbsp;queries.&quot;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                052&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;{host&nbsp;:Host&nbsp;port&nbsp;:Port&nbsp;req-id&nbsp;:req-id&nbsp;error&nbsp;:error&nbsp;:as&nbsp;task}]
-                </span><br/>
-<span class="partial" title="87 out of 136 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;trace&nbsp;::handler&nbsp;[:function&nbsp;&quot;tcp&#x2F;handler&quot;]
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;error
-                </span><br/>
-<span class="not-covered" title="0 out of 1 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task
-                </span><br/>
-<span class="covered" title="17 out of 17 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[_&nbsp;(mu&#x2F;log&nbsp;::handler&nbsp;:req-id&nbsp;req-id&nbsp;:Host&nbsp;host&nbsp;:Port&nbsp;port)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(query&nbsp;conf&nbsp;task)]
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if&nbsp;(:error&nbsp;data)
-                </span><br/>
-<span class="covered" title="4 out of 4 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;(:error&nbsp;data)]
-                </span><br/>
-<span class="covered" title="14 out of 14 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;req-id)
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data)
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.write&nbsp;out&nbsp;cmd&nbsp;0&nbsp;(count&nbsp;cmd))
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;received&nbsp;data&quot;]
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.print&nbsp;out&nbsp;cmd))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.flush&nbsp;out)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Thread&#x2F;sleep&nbsp;(:read-delay&nbsp;conf)))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(:NoReply&nbsp;task)&nbsp;&quot;&quot;
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;b?
+                </span><br/>
+<span class="not-covered" title="0 out of 36 forms covered">
+                048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(into&nbsp;[]&nbsp;(for&nbsp;[_&nbsp;(range&nbsp;(count&nbsp;cmd))]&nbsp;(.read&nbsp;in)))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.readLine&nbsp;in))))]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;run&nbsp;f&nbsp;conf&nbsp;task))))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                051&nbsp;&nbsp;
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                052&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                053&nbsp;&nbsp;(defn&nbsp;handler
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                054&nbsp;&nbsp;&nbsp;&nbsp;&quot;Handles&nbsp;TCP&nbsp;queries.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                055&nbsp;&nbsp;&nbsp;&nbsp;[conf&nbsp;{host&nbsp;:Host&nbsp;port&nbsp;:Port&nbsp;req-id&nbsp;:req-id&nbsp;error&nbsp;:error&nbsp;:as&nbsp;task}]
+                </span><br/>
+<span class="partial" title="87 out of 136 forms covered">
+                056&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;trace&nbsp;::handler&nbsp;[:function&nbsp;&quot;tcp&#x2F;handler&quot;]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;error
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task
+                </span><br/>
+<span class="covered" title="17 out of 17 forms covered">
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[_&nbsp;(mu&#x2F;log&nbsp;::handler&nbsp;:req-id&nbsp;req-id&nbsp;:Host&nbsp;host&nbsp;:Port&nbsp;port)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(query&nbsp;conf&nbsp;task)]
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if&nbsp;(:error&nbsp;data)
+                </span><br/>
+<span class="covered" title="4 out of 4 forms covered">
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;(:error&nbsp;data)]
+                </span><br/>
+<span class="covered" title="14 out of 14 forms covered">
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::handler&nbsp;:error&nbsp;msg&nbsp;:req-id&nbsp;req-id)
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data)
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[msg&nbsp;&quot;received&nbsp;data&quot;]
                 </span><br/>
 <span class="not-covered" title="0 out of 14 forms covered">
-                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::handler&nbsp;:message&nbsp;msg&nbsp;:req-id&nbsp;req-id)
+                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mu&#x2F;log&nbsp;::handler&nbsp;:message&nbsp;msg&nbsp;:req-id&nbsp;req-id)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;reshape&nbsp;data))))))))
+                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(u&#x2F;reshape&nbsp;data))))))))
                 </span><br/>
  </body>
 </html>

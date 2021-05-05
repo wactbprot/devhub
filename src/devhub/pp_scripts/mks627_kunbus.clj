@@ -23,18 +23,19 @@
    (ppu/b16->h (nth v 5))
    0])
 
+(defn val-vec [task] (mapv #(ppu/vec->float (kunbus-vec %)) (:_x task)))
+
 (defn readout-first
   "Returns `Result` and `ToExchange` maps.
   
   NOTE: The kunbus gateway is configured to deliver pressures in `mbar`."
   [task]
-  (let [s (get-in task [:PostScriptInput :Type])
-        v (mapv  #(ppu/vec->float (kunbus-vec %)) (:_x task))]
-    (merge task {:Result (ppu/vl-result s v "mbar") })))
+  (merge task {:Result (ppu/vl-result (get-in task [:PostScriptInput :Type])
+                                      (val-vec task)
+                                      "mbar") }))
 
-(defn readout-first-vec
-  [task]
-  (let [s (get-in task [:PostScriptInput :Type])
-        v (mapv  #(ppu/vec->float (kunbus-vec %)) (:_x task))]
-    (merge task {:Result [{:Type s :Value v :Unit "mbar"}] })))
+(defn readout-first-vec [task]
+  (merge task {:Result [{:Type (get-in task [:PostScriptInput :Type])
+                         :Value (val-vec task)
+                         :Unit "mbar"}] }))
 
