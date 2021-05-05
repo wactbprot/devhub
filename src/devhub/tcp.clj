@@ -10,7 +10,9 @@
 
 (defn out-socket [s] (PrintWriter. (OutputStreamWriter. (out-socket-raw s))))
 
-(defn in-socket [s] (BufferedReader. (InputStreamReader. (.getInputStream s))))
+(defn in-socket-raw [s]  (.getInputStream s))
+
+(defn in-socket [s] (BufferedReader. (InputStreamReader. (in-socket-raw s))))
 
 (defn gen-socket [{h :Host p :Port}] (Socket. h p))
 
@@ -33,23 +35,20 @@
       {:error "can not connect"}
       (with-open [sock (gen-socket task)
                   out  (if b? (out-socket-raw sock) (out-socket sock))
-                  in   (in-socket sock)]
+                  in   (if b? (in-socket-raw sock) (in-socket sock))]
         (let [f (fn [cmd]
                   (when-not (empty? cmd)
-                    (if b? (.write out cmd) (.print out cmd))
+                    (if b?
+                      (.write out cmd 0 (count cmd))
+                      (.print out cmd))
                     (.flush out)
                     (Thread/sleep (:read-delay conf)))
                   (if (:NoReply task) ""
-                      (if b? (.read in) (.readLine in))))]
+                      (if b?
+                        (into [] (for [_ (range (count cmd))] (.read in)))
+                        (.readLine in))))]
           (u/run f conf task))))))
 
-(comment
-  ;; read chars to debug result string
-  (loop []
-    (let [c (.read in)]
-      (when (> c 0)
-        (prn (char c))
-        (recur)))))
 
 (defn handler
   "Handles TCP queries."
