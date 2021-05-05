@@ -72,7 +72,7 @@
 
 (defmethod task :TCP
   [{conf :tcp} task]
-  (let [{h :Host   p :Port v :Value w :Wait r :Repeat n :NoReply} task]
+  (let [{h :Host   p :Port v :Value w :Wait r :Repeat n :NoReply } task]
     (if (and h v p)
       (assoc task
              :Port    (port conf p)

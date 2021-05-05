@@ -105,8 +105,8 @@
 (defn thread 
   [conf task]
   (->> task
-       (safe/task     conf)
        (pre-dispatch  conf)
+       (safe/task     conf)
        (stub/response conf)
        (dispatch      conf)
        (post-dispatch conf)))

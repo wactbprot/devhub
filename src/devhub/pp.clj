@@ -10,6 +10,7 @@
             [devhub.pp-scripts.mks670    :as mks670]
             [devhub.pp-scripts.mkspr4000 :as mkspr4000]
             [devhub.pp-scripts.mks627-kunbus :as mks627-kunbus]
+            [devhub.pp-scripts.vacom :as vacom]
             [com.brunobonacci.mulog      :as µ]))
 
 
@@ -59,12 +60,17 @@
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       
       :mks627-kunbus.readout-first           (mks627-kunbus/readout-first           task)
+      
+      :vacom.check-response                  (vacom/check-response                   task)
+      :vacom.read-pressure                   (vacom/read-pressure                    task)
+      :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
       {:error (str "no :PostScript named: " ps)})))
 
 (defn pre-dispatch
   [conf task]
   (let [ps (keyword (:PreScript task))]
     (condp = ps
+      :vacom.meas-pressure  (vacom/meas-pressure  task)
       :mkspr4000.calq-fm3   (mkspr4000/calq-fm3   task)
       :vs_se3.set-valve     (vs-se3/set-valve     task)
       {:error (str "no :PreScript named: " ps)})))
