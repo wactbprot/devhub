@@ -30,9 +30,9 @@
   
   NOTE: The kunbus gateway is configured to deliver pressures in `mbar`."
   [task]
-  (merge task {:Result (ppu/vl-result (get-in task [:PostScriptInput :Type])
+  (merge task {:Result [(ppu/vl-result (get-in task [:PostScriptInput :Type])
                                       (val-vec task)
-                                      "mbar") }))
+                                      "mbar")] }))
 
 (defn readout-first-vec [task]
   (merge task {:Result [{:Type (get-in task [:PostScriptInput :Type])
