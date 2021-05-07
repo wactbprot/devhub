@@ -3,25 +3,14 @@
             [devhub.utils    :as u]
             [com.brunobonacci.mulog :as µ]))
 
-(comment
-  (def v [0 0 0 16128 2836 120 0 0]) ; 0.578125 mbar)
-  (def v [0 0 0 16640 3905 144 0 0]); 12.0625 mbar)
-  )
 
 (defn kunbus-vec
-  "Returns a vector of  bytes that can be turned into a float.
-
-  Example:
-  ```clojure
-  (kunbus-vec  [0 0 0 16128 2836 120 0 0])
-  ;; =>
-  ;; [63 20 0 0] ; 0.578125 mbar
-  ```"
+  "Returns a vector of  bytes that can be turned into a float."
   [v]
   [(ppu/b16->h (nth v 3))
    (ppu/b16->l (nth v 4))
-   (ppu/b16->h (nth v 5))
-   0])
+   (ppu/b16->h (nth v 4))
+   (ppu/b16->l (nth v 5))])
 
 (defn val-vec [task] (mapv #(ppu/vec->float (kunbus-vec %)) (:_x task)))
 
