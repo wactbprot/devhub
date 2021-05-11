@@ -38,6 +38,12 @@ as a log database.
     - [notes](#notes)
 
 <!-- markdown-toc end -->
+# Next up
+
+* turn to polylith arch
+* generate aliases for tcp, vxi and combinations only
+* vxi libs when uberjar
+* Update docs
 
 
 # Features
