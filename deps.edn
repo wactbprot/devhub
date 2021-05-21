@@ -1,0 +1,25 @@
+{
+ :deps {org.clojure/clojure {:mvn/version "1.10.3"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+
+ :aliases  {:dev {:extra-paths ["resources"
+                                "resources/js"
+                                "resources/py"
+                                "../jvxi11/external/jrpcgen.jar"
+                                "../jvxi11/external/oncrpc.jar"
+                                "../jvxi11/external/one-jar-ant-task-0.97.jar"
+                                "../jvxi11/external/portmap.jar"
+                                "../jvxi11/"]
+
+                  :extra-deps {compojure {:mvn/version "1.6.1"}
+                               http-kit {:mvn/version "2.5.0"}
+                               cheshire {:mvn/version "5.10.0"}
+                               ring/ring-defaults {:mvn/version "0.3.2"}
+                               ring/ring-core {:mvn/version "1.7.1"}
+                               ring/ring-devel {:mvn/version "1.7.1"}
+                               ring/ring-json {:mvn/version "0.5.0"}
+                               org.clojure/data.json {:mvn/version "1.0.0"}
+                               com.brunobonacci/mulog  {:mvn/version "0.6.0"}
+                               com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
+                               clojure-interop/java.nio {:mvn/version "1.0.5"}
+                               com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"} }}}}
