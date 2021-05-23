@@ -281,12 +281,18 @@ The `TCP` action works out of the box.
 
 ## vxi11
 
+Use ant to build the jvxi11 jar:
+
+
 ```
+cd resources
 git clone https://github.com/wactbprot/jvxi11.git
-cd jvxi11/src/jvxi11
-./makerpc
+cd jvxi11
+ant compile
+ant jar
+
+# ./makerpc
 ```
-See `:resource-paths` and  `:java-source-paths` in `devhub`s `project.clj`. 
 
 [org/epics/pvioc/pdrv/vxi11/package-tree](http://epics-pvdata.sourceforge.net/docbuild/pvIOCJava/2.0-BETA/documentation/html/org/epics/pvioc/pdrv/vxi11/package-tree.html)
 

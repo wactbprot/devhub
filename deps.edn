@@ -1,17 +1,13 @@
 {
  :deps {org.clojure/clojure {:mvn/version "1.10.3"}
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
-
+ 
  :aliases  {:dev {:extra-paths ["resources"
                                 "resources/js"
-                                "resources/py"
-                                "../jvxi11/external/jrpcgen.jar"
-                                "../jvxi11/external/oncrpc.jar"
-                                "../jvxi11/external/one-jar-ant-task-0.97.jar"
-                                "../jvxi11/external/portmap.jar"
-                                "../jvxi11/"]
+                                "resources/py"]
 
-                  :extra-deps {compojure {:mvn/version "1.6.1"}
+                  :extra-deps {jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
+                               compojure {:mvn/version "1.6.1"}
                                http-kit {:mvn/version "2.5.0"}
                                cheshire {:mvn/version "5.10.0"}
                                ring/ring-defaults {:mvn/version "0.3.2"}
