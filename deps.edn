@@ -1,11 +1,13 @@
-{
- :deps {org.clojure/clojure {:mvn/version "1.10.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
         org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
  
- :aliases  {:dev {:extra-paths ["resources"
+ :aliases  {:uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+                      :exec-fn hf.depstar/uberjar}
+            
+            :dev {:extra-paths ["resources"
                                 "resources/js"
                                 "resources/py"]
-
+                  
                   :extra-deps {jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
                                compojure {:mvn/version "1.6.1"}
                                http-kit {:mvn/version "2.5.0"}

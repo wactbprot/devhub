@@ -222,36 +222,16 @@ or switch to first class [:PostScript](#postscript).
 
 ## Standalone version
 
-A Standalone version of **devhub** is generated with:
+### tools.deps
+
+`tools.deps` version with [depstar](https://github.com/seancorfield/depstar):
 
 ```shell
-git clone git@github.com:wactbprot/devhub.git
-cd devhub
-lein uberjar
-
-## =>
-## Compiling 37 source files to /home/wact/clojure/devhub/target/uberjar/classes
-## Compiling devhub.execute
-## Compiling devhub.js-pp
-## Compiling devhub.modbus
-## Compiling devhub.pp-scripts.core
-## Compiling devhub.pp-scripts.utils
-## Compiling devhub.pp-scripts.vs_se3
-## Compiling devhub.py-pp
-## Compiling devhub.safe
-## Compiling devhub.server
-## Compiling devhub.stub
-## Compiling devhub.tcp
-## Compiling devhub.utils
-## Compiling devhub.vxi11
-## Created /home/wact/clojure/devhub/target/uberjar/devhub-x.y.z.jar
-## Created /home/wact/clojure/devhub/target/uberjar/devhub-x.y.z-standalone.jar
+clojure -X:uberjar :aot true :jar devhub.jar :main-class devhub.server :aliases '[:dev]'
 ```
 
-Distribute `devhub-x.y.z-standalone.jar` and run with:
-
 ```shell
-java -jar devhub-0.8.0-standalone.jar
+java -jar devhub.jar
 ## =>
 ##                    __                           
 ##                    \ \                          
@@ -264,6 +244,23 @@ java -jar devhub-0.8.0-standalone.jar
 ##  / _` |  / _ \ \ \ / / | '_ \  | | | | | '_ \   
 ## | (_| | |  __/  \ V /  | | | | | |_| | | |_) |  
 ##  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/   
+```
+
+
+### leiningen (old version)
+
+A Standalone version of **devhub** is generated with:
+
+```shell
+git clone git@github.com:wactbprot/devhub.git
+cd devhub
+lein uberjar
+```
+
+Distribute `devhub-x.y.z-standalone.jar` and run with:
+
+```shell
+java -jar devhub-<latest-version>.jar
 ```
 
 
