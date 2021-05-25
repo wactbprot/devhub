@@ -1,16 +1,20 @@
+# devhub
+***
+
 **devhub** is a web service that abstracts the protocols: [tcp](#tcp),
 [vxi](#vxi) and [modbus](#modbus) to read out measurement devices. It
-also [executes](#execute) shell commands.  Requests are *POST*ed via
-*http* in json format. Measurement data is returned in json
-format. **devhub** may act as a [stub](#stub-post-stub) and returns
-predefined responses. The repository contains a pre-compiled
+[executes](#execute) shell commands.  Requests are *POST*ed via *http*
+in json format. Measurement data is returned in json
+format. **devhub** acts as a [stub](#stub-post-stub) and returns
+predefined responses. The repository contains instructions to build a
 standalone version that runs on BSD, Linux, MacOS and
-Windows. **devhub** may be used with [elasticsearch (els)](#elasticsearch-els)
-as a log database.
+Windows. **devhub** can be configured to use [elasticsearch
+(els)](#elasticsearch-els) as a log database.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
+- [devhub](#devhub)
 - [Features](#features)
 - [Data flow](#data-flow)
 - [Code documentation](#code-documentation)
@@ -29,21 +33,17 @@ as a log database.
     - [:PostScriptPy](#postscriptpy)
 - [Installation](#installation)
     - [Standalone version](#standalone-version)
+        - [tools.deps](#toolsdeps)
+        - [leiningen (old version)](#leiningen-old-version)
     - [Development version](#development-version)
     - [tcp](#tcp)
     - [vxi11](#vxi11)
     - [modbus](#modbus)
-    - [javascript post processing (js-pp)](#javascript-post-processing-js-pp)
 - [µlog](#µlog)
     - [notes](#notes)
+- [Next up](#next-up)
 
 <!-- markdown-toc end -->
-# Next up
-
-* turn to polylith arch
-* generate aliases for tcp, vxi and combinations only
-* vxi libs when uberjar
-* Update docs
 
 
 # Features
@@ -246,12 +246,6 @@ java -jar devhub.jar
 ##  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/   
 ```
 
-NOTE: overcome `SSL peer shut down incorrectly` error by:
-
-```shell
-export JAVA_TOOL_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
-```
-
 
 ### leiningen (old version)
 
@@ -286,15 +280,12 @@ The `TCP` action works out of the box.
 
 Use ant to build the jvxi11 jar:
 
-
 ```
 cd resources
 git clone https://github.com/wactbprot/jvxi11.git
 cd jvxi11
 ant compile
 ant jar
-
-# ./makerpc
 ```
 
 [org/epics/pvioc/pdrv/vxi11/package-tree](http://epics-pvdata.sourceforge.net/docbuild/pvIOCJava/2.0-BETA/documentation/html/org/epics/pvioc/pdrv/vxi11/package-tree.html)
@@ -306,14 +297,6 @@ ant jar
 [jlibmodbus](https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus/1.2.9.0)
 
 
-## javascript post processing (js-pp)
-
-The js-pp of vacom gauges depend on crc module:
-
-```shell
-npm install crc 
-```
-
 # µlog
 
 * https://github.com/BrunoBonacci/mulog
@@ -323,19 +306,22 @@ npm install crc
  :mulog {:type :multi
          :publishers[ 
                      ;; send events to the stdout
-                     ;; {:type :console
-                     ;;  :pretty? true}
-                     ;; send events to a file
-                     ;; {:type :simple-file
-                     ;;  :filename "/tmp/mulog/events.log"}
-                     ;; send events to ELS
+                      {:type :console
+                       :pretty? true}
+                     
+					 ;; and/or
+					 ;; send events to a file
+                      {:type :simple-file
+                       :filename "/tmp/mulog/events.log"}
+
+	                 ;; and/or
+					 ;; send events to ELS
                      {:type :elasticsearch
                       :url  "http://localhost:9200/"
                       :els-version  :v7.x
                       :publish-delay 1000
                       :data-stream  "vl-log-stream"
-                      :name-mangling false
-                      }]}
+                      :name-mangling false}]}
 ```
 
 * see [vl-log-stream](https://github.com/wactbprot/vl-log-stream)
@@ -344,4 +330,15 @@ npm install crc
 
 * `[clojure-interop/java.nio "1.0.5"]`
 * https://cljdoc.org/d/clojure-interop/java.nio/1.0.5
+*  overcome `SSL peer shut down incorrectly` error by:
+```shell
+export JAVA_TOOL_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+```
 
+
+# Next up
+
+* turn to polylith arch
+* generate aliases for tcp, vxi and combinations only
+* vxi libs when uberjar
+* Update docs

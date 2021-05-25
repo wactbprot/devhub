@@ -21,4 +21,27 @@
                                com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
                                com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
                                clojure-interop/java.nio {:mvn/version "1.0.5"}
-                               com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"} }}}}
+                               com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"}}}
+
+            :coverage {:extra-paths ["test"]
+                       :extra-deps {cloverage/cloverage {:mvn/version "1.2.1"}}
+                       :main-opts ["-m" "cloverage.coverage"                                   
+                                   "-p" "src"
+                                   "-s" "test"
+                                   "--no-html"
+                                   "--text"]}
+            
+            :codox {:extra-deps {codox/codox {:mvn/version "0.10.7"}
+                                 codox-theme-rdash/codox-theme-rdash {:mvn/version "0.1.2"}}
+                    :exec-fn codox.main/generate-docs
+                    :exec-args {:source-paths  ["src"]
+                                :metadata {:doc/format :markdown}
+                                :themes [:rdash]
+                                :doc-files ["docs/README.md"
+                                            "docs/EXAMPLES-EXECUTE.md"
+                                            "docs/EXAMPLES-TCP.md"
+                                            "docs/EXAMPLES-MODBUS.md"
+                                            "docs/EXAMPLES-VXI11.md"]
+                                :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"
+                                :language :clojure
+                                :output-path "docs"}}}}
