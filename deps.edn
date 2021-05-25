@@ -8,10 +8,10 @@
                                 "resources/js"
                                 "resources/py"]
                   
-                  :extra-deps {jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
-                               compojure {:mvn/version "1.6.1"}
-                               http-kit {:mvn/version "2.5.0"}
-                               cheshire {:mvn/version "5.10.0"}
+                  :extra-deps {jvxi11/jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
+                               compojure/compojure {:mvn/version "1.6.1"}
+                               http-kit/http-kit {:mvn/version "2.5.0"}
+                               cheshire/cheshire {:mvn/version "5.10.0"}
                                ring/ring-defaults {:mvn/version "0.3.2"}
                                ring/ring-core {:mvn/version "1.7.1"}
                                ring/ring-devel {:mvn/version "1.7.1"}
@@ -19,5 +19,6 @@
                                org.clojure/data.json {:mvn/version "1.0.0"}
                                com.brunobonacci/mulog  {:mvn/version "0.6.0"}
                                com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
+                               com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
                                clojure-interop/java.nio {:mvn/version "1.0.5"}
                                com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"} }}}}

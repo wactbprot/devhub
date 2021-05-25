@@ -246,6 +246,12 @@ java -jar devhub.jar
 ##  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/   
 ```
 
+NOTE: overcome `SSL peer shut down incorrectly` error by:
+
+```shell
+export JAVA_TOOL_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+```
+
 
 ### leiningen (old version)
 
