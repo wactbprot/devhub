@@ -2,7 +2,8 @@
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles TCP Actions."}
   (:require [devhub.utils           :as u]
-            [com.brunobonacci.mulog :as mu])
+            [com.brunobonacci.mulog :as mu]
+            [clojure.string         :as string])
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
            [java.net Socket]))
 
@@ -16,9 +17,18 @@
 
 (defn gen-socket [{h :Host p :Port}] (Socket. h p))
 
+(defn read-eot [in i]
+  (string/join (loop [c (.read in) v []]
+                 (if (not= c i)
+                   (recur (.read in) (conj v (char c)))
+                   v))))
+
+(defn read-bytes [in n]
+  (into [] (for [_ (range n)] (.read in))))
+
 (defn query
   "Sends the `cmds` given by the `:Value` to a raw tcp socket with the
-  specified `host` and `port`.
+  specified `host` and `port`. 
 
   Example:
   ```clojure
@@ -29,13 +39,17 @@
   :Value [\"++addr 2\r++auto 1\r++eot_char 10\r:meas:func\r\"]})
   (query c t)
   ```"
-  [{conf :tcp} {cmds :Value :as task}]
-  (let [b? (bytes? (first cmds))]
+  [{conf :tcp} {cmds :Value i :EOT :as task}]
+  (let [b? (bytes? (first cmds))
+        i? (int? i)]
     (if-not (u/connectable? task)
       {:error "can not connect"}
       (with-open [sock (gen-socket task)
                   out  (if b? (out-socket-raw sock) (out-socket sock))
-                  in   (if b? (in-socket-raw sock) (in-socket sock))]
+                  in   (cond
+                         b? (in-socket-raw sock)
+                         i? (in-socket-raw sock)
+                         :else (in-socket sock))]
         (let [f (fn [cmd]
                   (when-not (empty? cmd)
                     (if b?
@@ -44,11 +58,11 @@
                     (.flush out)
                     (Thread/sleep (:read-delay conf)))
                   (if (:NoReply task) ""
-                      (if b?
-                        (into [] (for [_ (range (count cmd))] (.read in)))
-                        (.readLine in))))]
+                      (cond
+                        b? (read-bytes in (count cmd))
+                        i? (read-eot in i)
+                        :else (.readLine in))))]
           (u/run f conf task))))))
-
 
 (defn handler
   "Handles TCP queries."
