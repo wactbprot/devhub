@@ -19,6 +19,10 @@ D='{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value
 ```
 
 ```shell
+D='{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75494", "Value":"ch1()\n"}'
+```
+
+```shell
  D='{"TaskName": "ind_low_range", "Action": "TCP","Repeat": 3,"Wait": "10000","Host": "e75421","Port": 5302,"Value": "val\r","PostProcessing": ["var _vec=_x.map(_.extractSRG3),","_res = _.vlStat(_.checkNumArr(_vec).Arr),","Result=[_.vlRes(\"ind\",_res.mv,\"DCR\", \"\", _res.sd, _res.N)];"]}'
 ```
 

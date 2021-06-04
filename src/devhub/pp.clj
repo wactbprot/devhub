@@ -11,7 +11,7 @@
             [devhub.pp-scripts.mks670    :as mks670]
             [devhub.pp-scripts.mkspr4000 :as mkspr4000]
             [devhub.pp-scripts.mks627-kunbus :as mks627-kunbus]
-            [devhub.pp-scripts.vacom :as vacom]
+            [devhub.pp-scripts.vacom     :as vacom]
             [com.brunobonacci.mulog      :as µ]))
 
 

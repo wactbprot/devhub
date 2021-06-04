@@ -1,7 +1,8 @@
 (ns devhub.tcp
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles TCP Actions."}
-  (:require [devhub.utils           :as u]
+  (:require [devhub.config          :as c]
+            [devhub.utils           :as u]
             [com.brunobonacci.mulog :as mu]
             [clojure.string         :as string])
   (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
@@ -32,7 +33,7 @@
 
   Example:
   ```clojure
-  (def c (u/config))
+  (def c (c/config))
   (def t {:Port 5025 :Host \"e75496\" :Value [\"room()\\n\"] :Wait 10 :Repeat 2})
   ;; prologix mks670
   (def t {:Port 1234 :Host \"192.168.98.204\" :Wait 10 :Repeat 10

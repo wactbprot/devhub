@@ -2,6 +2,7 @@
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "The devhub utils."}
   (:require [clojure.string         :as string]
+            [clojure.string         :as string]
             [clojure.pprint         :as pp]
             [clojure.edn            :as edn]
             [clojure.java.shell     :refer [sh]]
@@ -19,21 +20,6 @@
 (defn print-body [req] (pp/pprint (:body req)))
 
 (defn file? [f] (some? (io/resource f)))
-
-(defn config
-  "Reads a `edn` configuration in file `f`."
-  ([]
-   (config "conf.edn"))
-  ([f]
-   (-> (io/resource f) slurp edn/read-string)))
-
-(defn responses-file [conf] (get-in conf [:stub :response-file]))
-
-(defn all-responses  [conf] (config (responses-file conf)))
-
-(defn stub-mode      [conf] (get-in conf [:stub :mode]))
-
-(defn record-sample? [conf] (get-in conf [:sample :record]))
 
 (defn version
   "Returns the latest `:version` and `:hash`."

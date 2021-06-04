@@ -1,20 +1,20 @@
 {
  :mulog {:type :multi
-         :publishers[
-                     ;; send events to the stdout
-                     ;; {:type :console
-                     ;;  :pretty? true}
-                     ;; send events to a file
-                     ;; {:type :simple-file
-                     ;;  :filename "/tmp/mulog/events.log"}
-                     ;; send events to ELS
-                     {:type :elasticsearch
-                      :url  "http://a75438:9200/"
-                      :els-version  :v7.x
-                      :publish-delay 1000
-                      :data-stream  "vl-log-stream"
-                      :name-mangling false
-                      }]}
+         ;; send events to the stdout
+         :console {:type :console
+                   :pretty? true}
+         ;; send events to a file
+         :simple-file {:type :simple-file
+                       :filename "/tmp/mulog/events.log"}
+         ;; send events to ELS
+         :elasticsearch {:type :elasticsearch
+                         :url  "http://a75438:9200/"
+                         :els-version  :v7.x
+                         :publish-delay 1000
+                         :data-stream  "vl-log-stream"
+                         :name-mangling false
+                         }
+         :publishers[]}
  :stub {;; default is false, swiched to true if
         ;; request hits /stub endpoint
         :on false
@@ -24,7 +24,8 @@
         :mode :rand
         :min-wait 10
         :repeat 1}
- :server {:port 9009
+ :server {:ip "127.0.0.1"
+          :port 9009
           :join? false}
  :tcp {:min-wait 10
        :repeat 1

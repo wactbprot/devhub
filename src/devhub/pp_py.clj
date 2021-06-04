@@ -1,7 +1,8 @@
 (ns devhub.pp-py
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles python post-processing."}
-  (:require [cheshire.core          :as che]
+  (:require [devhub.config          :as c]
+            [cheshire.core          :as che]
             [clojure.java.shell     :refer [sh]]
             [devhub.utils           :as u]
             [com.brunobonacci.mulog :as µ]))
@@ -13,7 +14,7 @@
 
   Example:
   ```clojure
-  (def pc (u/config))
+  (def pc (c/config))
   (def data {:_x \"a\\nba\\nb\\ncb\"})
   (time
     (exec pc {:PostScriptPy \"ls-demo\"} data))

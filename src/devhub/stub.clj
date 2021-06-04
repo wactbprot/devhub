@@ -1,7 +1,8 @@
 (ns devhub.stub
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles stub requests."}
-  (:require [devhub.utils :as u]
+  (:require [devhub.config :as c]
+            [devhub.utils :as u]
             [devhub.safe :as safe]
             [com.brunobonacci.mulog :as mu]))
 
@@ -13,9 +14,9 @@
   * `:first` (fallback)
   * `:last`"
   [conf task]
-  (let [resps (u/all-responses conf)
+  (let [resps (c/all-responses conf)
         resp  (or ((:select task) resps) (:missing resps))]
-    (condp = (u/stub-mode conf)
+    (condp = (c/stub-mode conf)
       :first (first resp)
       :last  (last  resp)
       :rand  (nth   resp (rand-int (count resp)))
@@ -26,7 +27,7 @@
 
   Example:
   ```clojure
-  (response (u/config) {:TaskName \"VS_SE3-get-valves-pos\"})
+  (response (c/config) {:TaskName \"VS_SE3-get-valves-pos\"})
   ```"
   [conf task]
   (mu/trace 

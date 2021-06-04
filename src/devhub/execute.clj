@@ -1,7 +1,8 @@
 (ns devhub.execute
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles EXECUTE Actions."}
-  (:require [clojure.java.shell     :refer [sh]]
+  (:require [devhub.config          :as c]
+            [clojure.java.shell     :refer [sh]]
             [devhub.safe            :as safe]
             [devhub.utils           :as u]
             [com.brunobonacci.mulog :as mu]))
@@ -11,7 +12,7 @@
 
   Example:
   ```clojure
-  (handler (u/config) {:Cmd \"ls\"})
+  (handler (c/config) {:Cmd \"ls\"})
   ```"
   [{{shell :shell param :param :as conf} :execute} {cmd :Cmd req-id :req-id error :error :as task}]
   (mu/trace  ::handler [:function "execute/handler"]

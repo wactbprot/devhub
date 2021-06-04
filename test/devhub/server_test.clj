@@ -1,12 +1,12 @@
 (ns devhub.server-test
-  (:require [clojure.test  :refer :all]
+  (:require [devhub.config :as c]
+            [clojure.test  :refer :all]
             [devhub.server :refer :all]
-            [devhub.utils  :as u]
-            ))
+            [devhub.utils  :as u]))
 
 (deftest start-stop-server-i
   (testing "server starts and stops at test port 9010"
-    (let [c (assoc-in (u/config) [:server :port] 9010)]
+    (let [c (assoc-in (c/config) [:server :port] 9010)]
       (is (function? (start c))
           "start up")
       (is (nil? (stop))
@@ -14,29 +14,29 @@
 
 (deftest thread-invalid-action-i
   (testing " returns error  (i)"
-    (is (string? (:error (thread (u/config) {:Action "INVALID"})))
+    (is (string? (:error (thread (c/config) {:Action "INVALID"})))
         "string")))
 
 (deftest thread-tcp-i
   (testing " returns error  (i)"
-    (is (string? (:error (thread (u/config) {:Action "TCP"})))
+    (is (string? (:error (thread (c/config) {:Action "TCP"})))
         "string")
-    (is (string? (:error (thread (u/config) {:Action "TCP"
+    (is (string? (:error (thread (c/config) {:Action "TCP"
                                              :Host "invalid"
                                              :Port 10})))
         "string")
-    (is (string? (:error (thread (u/config) {:Action "TCP"
+    (is (string? (:error (thread (c/config) {:Action "TCP"
                                           :Value "some"
                                           :Host "invalid"
                                           :Port 10})))
         "stub")
-    (is (string? (:_x (thread (u/config) {:Action "TCP"
+    (is (string? (:_x (thread (c/config) {:Action "TCP"
                                           :Value "some"
                                           :Host "invalid"
                                           :Port 10
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (u/config) {:Action "TCP"
+    (is (vector? (:_x (thread (c/config) {:Action "TCP"
                                           :Value "some"
                                           :Repeat 2
                                           :Host "invalid"
@@ -46,16 +46,16 @@
 
 (deftest thread-modbus-i
   (testing " returns error (i)"
-    (is (string? (:error (thread (u/config) {:Action "MODBUS"})))
+    (is (string? (:error (thread (c/config) {:Action "MODBUS"})))
         "string")
-    (is (string? (:error (thread (u/config) {:Action "MODBUS"
+    (is (string? (:error (thread (c/config) {:Action "MODBUS"
                                              :FunctionCode :ReadHoldingRegisters
                                              :Value [:no-value]
                                              :Address 0
                                              :Quantity 9
                                              :Host "invalid"})))
         "string")
-    (is (vector? (:_x (thread (u/config) {:Action "MODBUS"
+    (is (vector? (:_x (thread (c/config) {:Action "MODBUS"
                                           :FunctionCode :ReadHoldingRegisters
                                           :Value [:no-value]
                                           :Address 0
@@ -64,7 +64,7 @@
                                           :Host "invalid"
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (u/config) {:Action "MODBUS"
+    (is (vector? (:_x (thread (c/config) {:Action "MODBUS"
                                           :TaskName "VS_NEW_SE3-get_valve_pos"
                                           :FunctionCode :ReadHoldingRegisters
                                           :Value [:no-value]
@@ -74,7 +74,7 @@
                                           :Host "invalid"
                                           :stub true})))
         "stub")
-    (is (map? (:ToExchange (thread (u/config) {:Action "MODBUS"
+    (is (map? (:ToExchange (thread (c/config) {:Action "MODBUS"
                                                :TaskName "VS_NEW_SE3-get_valve_pos"
                                                :PostScript "vs_se3.valves"
                                                :FunctionCode :ReadHoldingRegisters
@@ -87,20 +87,20 @@
 
 (deftest thread-vxi-i
   (testing " returns error (i)"
-    (is (string? (:error (thread (u/config) {:Action "VXI11"})))
+    (is (string? (:error (thread (c/config) {:Action "VXI11"})))
         "string")
-    (is (string? (:error (thread (u/config) {:Action "VXI11"
+    (is (string? (:error (thread (c/config) {:Action "VXI11"
                                              :Host "invalid"
                                              :Value "invalid"
                                              :Device "gpib0,9"})))
         "string")
-    (is (string? (:_x (thread (u/config) {:Action "VXI11"
+    (is (string? (:_x (thread (c/config) {:Action "VXI11"
                                           :Host "invalid"
                                           :Value "some"
                                           :Device "gpib0,9"
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (u/config) {:Action "VXI11"
+    (is (vector? (:_x (thread (c/config) {:Action "VXI11"
                                           :Host "invalid"
                                           :Repeat 2
                                           :Value "some"
@@ -110,24 +110,24 @@
 
 (deftest thread-execute-i
   (testing " returns error (i)"
-    (is (string? (:error (thread (u/config) {:Action "EXECUTE"})))
+    (is (string? (:error (thread (c/config) {:Action "EXECUTE"})))
         "string")
-    (is (string? (:error (thread (u/config) {:Action "EXECUTE"
+    (is (string? (:error (thread (c/config) {:Action "EXECUTE"
                                              :Cmd "invalid"})))
         "string")
-    (is (string? (:_x (thread (u/config) {:Action "EXECUTE"
+    (is (string? (:_x (thread (c/config) {:Action "EXECUTE"
                                           :Cmd "invalid"
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (u/config) {:Action "EXECUTE"
+    (is (vector? (:_x (thread (c/config) {:Action "EXECUTE"
                                           :Repeat 2
                                           :Cmd "invalid"
                                           :stub true})))
         "stub")
-    (is (string? (:_x (thread (u/config) {:Action "EXECUTE"
+    (is (string? (:_x (thread (c/config) {:Action "EXECUTE"
                                           :Cmd "ls"})))
         "real return value")
-    (is (map? (:ToExchange (thread (u/config) {:Action "EXECUTE"
+    (is (map? (:ToExchange (thread (c/config) {:Action "EXECUTE"
                                                :Cmd "ls"
                                                :PostScriptPy "ls-demo"
                                                :stub true})))

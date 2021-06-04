@@ -1,7 +1,8 @@
 (ns devhub.modbus
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles MODBUS Actions."}
-  (:require [devhub.utils           :as u]
+  (:require [devhub.config          :as c]
+            [devhub.utils           :as u]
             [devhub.safe            :as safe]
             [com.brunobonacci.mulog :as mu])
   (:import [com.intelligt.modbus.jlibmodbus Modbus]
@@ -19,7 +20,7 @@
   
   Example:
   ```clojure
-  (def c (u/config))
+  (def c (c/config))
 
   ;; valves
   (def t {:Host \"e75446\" :Quantity 9 :Address 45407

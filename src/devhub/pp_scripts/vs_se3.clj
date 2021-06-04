@@ -1,8 +1,8 @@
 (ns devhub.pp-scripts.vs-se3
-  (:require [devhub.pp-utils :as ppu]
-            [devhub.utils    :as u]))
+  (:require [devhub.config :as c]
+            [devhub.pp-utils :as ppu]))
 
-(def conf (u/config "vs_se3.edn"))
+(def conf (c/get-conf "vs_se3.edn"))
 
 (defn registers-ok?
   "Checks `rs` for type vector and checks the length to

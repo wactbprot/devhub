@@ -2,6 +2,7 @@
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Start and stop the devhub server. Routing and dispatching."}
   (:require [compojure.route          :as route]
+            [devhub.config            :as c]
             [devhub.utils             :as u]
             [devhub.pp                :as pp]
             [devhub.pp-js             :as js]
@@ -116,10 +117,10 @@
 ;;------------------------------------------------------------
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response
-                             (thread (u/config) (assoc (u/task req)
+                             (thread (c/config) (assoc (u/task req)
                                                        :stub true))))
   (POST "/"       [:as req] (res/response
-                             (thread (u/config) (assoc (u/task req)
+                             (thread (c/config) (assoc (u/task req)
                                                        :stub false))))
   (POST "/echo"   [:as req] (res/response (u/task req)))
   (GET "/version" [:as req] (res/response (u/version)))
@@ -149,10 +150,13 @@
 
 (defn start
   ([]
-   (start (u/config)))
+   (start (c/config)))
   ([conf]
    (mu/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
 
-(defn -main [& args] (u/ascii-logo)(start))
+(defn -main [& args]
+  (println (c/config))
+  (u/ascii-logo)
+  (start))
