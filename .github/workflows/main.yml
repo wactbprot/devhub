@@ -28,18 +28,17 @@ jobs:
           ref: refs/heads/release
           path: ./resources
 
-      - name: build jvxi11
-      - uses: actions/setup-java@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
         with:
           java-version: '8'
           distribution: 'adopt'
-          - name: compile
-            path: ./resources/jvxi11
-            run: ant compile
-          - name: jar
-            path: ./resources/jvxi11
-            run: ant jar
-
+      - name: compile with Ant
+        path: ./resources/jvxi11
+        run: |
+          ant compile
+          ant jar
+        
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@3.2
         with:
