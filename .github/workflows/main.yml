@@ -21,11 +21,29 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: checkout jvxi11
+      - uses: actions/checkout@master
+        with:
+          name: wactbprot/jvxi11
+          ref: refs/heads/release
+          path: ./resources
+
+      - name: build jvxi11
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          - name: compile
+            path: ./resources/jvxi11
+            run: ant compile
+          - name: jar
+            path: ./resources/jvxi11
+            run: ant jar
+
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@3.2
         with:
-          # Install just one or all simultaneously
-          cli: 1.10.1.693 # Clojure CLI based on tools.deps
+          cli: 1.10.1.693 
   
       - name: execute codox
         run: clojure -X:dev:codox
