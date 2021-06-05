@@ -8,4 +8,4 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
-docs/
+docs/*.html
