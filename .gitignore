@@ -9,3 +9,8 @@ pom.xml.asc
 .hgignore
 .hg/
 docs/*.html
+docs/js/
+docs/highlight/
+docs/css/
+docs/coverage/
+.cpcache/
