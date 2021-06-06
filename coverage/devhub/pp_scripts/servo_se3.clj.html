@@ -1,0 +1,191 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../../coverage.css"/>  <title> devhub/pp_scripts/servo_se3.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                001&nbsp;&nbsp;(ns&nbsp;devhub.pp-scripts.servo-se3
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[devhub.pp-utils&nbsp;:as&nbsp;ppu]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[clojure.string&nbsp;&nbsp;:as&nbsp;string]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[devhub.utils&nbsp;&nbsp;&nbsp;&nbsp;:as&nbsp;u]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                005&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                006&nbsp;&nbsp;(def&nbsp;test-vec&nbsp;[&quot;0&quot;&nbsp;&quot;-1&quot;&nbsp;&quot;-98&quot;&nbsp;&quot;3001&quot;&nbsp;&quot;&quot;&nbsp;nil])
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                007&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 12 forms covered">
+                008&nbsp;&nbsp;(defn&nbsp;extract&nbsp;[s]&nbsp;(when&nbsp;(string?&nbsp;s)&nbsp;(second&nbsp;(re-matches&nbsp;#&quot;([-]?[0-9]*)&quot;&nbsp;s))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                009&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                010&nbsp;&nbsp;(defn&nbsp;meas-velo
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                011&nbsp;&nbsp;&nbsp;&nbsp;&quot;Measures&nbsp;the&nbsp;Motor&nbsp;velocity.&nbsp;In&nbsp;case&nbsp;of&nbsp;a&nbsp;missing&nbsp;`v`&nbsp;(this&nbsp;happens
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                012&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;ration&nbsp;of&nbsp;about&nbsp;1&#x2F;10000)&nbsp;`Servo_@motor_Stop.Bool`&nbsp;is&nbsp;set&nbsp;to
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                013&nbsp;&nbsp;&nbsp;&nbsp;false.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                014&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                015&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[motor&nbsp;&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Motor])
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                016&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min-v&nbsp;&nbsp;(u&#x2F;number&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:MinVelo]))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cur-v&nbsp;&nbsp;(u&#x2F;number&nbsp;(extract&nbsp;(:_x&nbsp;task)))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                018&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vkw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Velo&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;skw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Stop&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Move&quot;))]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if&nbsp;cur-v
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;{vkw&nbsp;&nbsp;{:Value&nbsp;cur-v&nbsp;:Unit&nbsp;&quot;rpm&quot;}
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;skw&nbsp;&nbsp;{:Bool&nbsp;(&gt;&nbsp;min-v&nbsp;(Math&#x2F;abs&nbsp;cur-v))}
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkw&nbsp;&nbsp;{:Bool&nbsp;(&lt;&nbsp;min-v&nbsp;(Math&#x2F;abs&nbsp;cur-v))}}}
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Retry&nbsp;true
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                026&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;{skw&nbsp;&nbsp;{:Bool&nbsp;false}
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkw&nbsp;&nbsp;{:Bool&nbsp;true}}}))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                028&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                029&nbsp;&nbsp;(defn&nbsp;resp-ok
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                030&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                031&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[motor&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Motor])
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                032&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Ini&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                033&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;&nbsp;&nbsp;&nbsp;(:_x&nbsp;task)]
+                </span><br/>
+<span class="not-covered" title="0 out of 15 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if&nbsp;(and&nbsp;(string?&nbsp;res)&nbsp;(string&#x2F;includes?&nbsp;&nbsp;res&nbsp;&quot;OK&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;{kw&nbsp;{:Bool&nbsp;true}}}
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Retry&nbsp;true
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                037&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;{kw&nbsp;{:Bool&nbsp;false}}}))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                038&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                039&nbsp;&nbsp;(defn&nbsp;get-pos
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                041&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[motor&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Motor])
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Pos&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos&nbsp;&nbsp;&nbsp;(u&#x2F;number&nbsp;(extract&nbsp;(:_x&nbsp;task)))]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if&nbsp;(number?&nbsp;pos)
+                </span><br/>
+<span class="not-covered" title="0 out of 9 forms covered">
+                045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;{kw&nbsp;{:Value&nbsp;pos&nbsp;:Unit&nbsp;&quot;step&quot;}}}
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Retry&nbsp;true
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;{kw&nbsp;false&nbsp;}}))))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                048&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                049&nbsp;&nbsp;(defn&nbsp;set-velo
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                050&nbsp;&nbsp;&nbsp;&nbsp;[task]
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                051&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[motor&nbsp;&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Motor])
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;velo&nbsp;&nbsp;&nbsp;(u&#x2F;number&nbsp;(get-in&nbsp;task&nbsp;[:PostScriptInput&nbsp;:Velo]))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;skw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Stop&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkw&nbsp;&nbsp;&nbsp;&nbsp;(keyword&nbsp;(str&nbsp;&quot;Servo_&quot;&nbsp;motor&nbsp;&quot;_Move&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;&nbsp;&nbsp;&nbsp;(:_x&nbsp;task)]
+                </span><br/>
+<span class="not-covered" title="0 out of 15 forms covered">
+                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(merge&nbsp;task&nbsp;(if&nbsp;(and&nbsp;(string?&nbsp;res)&nbsp;(string&#x2F;includes?&nbsp;res&nbsp;&quot;OK&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:ToExchange&nbsp;{skw&nbsp;&nbsp;{:Bool&nbsp;(zero?&nbsp;velo)}
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkw&nbsp;&nbsp;{:Bool&nbsp;(not&nbsp;(zero?&nbsp;velo))}}}
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:Retry&nbsp;true
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ToExchange&nbsp;{skw&nbsp;&nbsp;{:Bool&nbsp;(not&nbsp;(zero?&nbsp;velo))}
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkw&nbsp;&nbsp;{:Bool&nbsp;(zero?&nbsp;velo)}}}))))
+                </span><br/>
+ </body>
+</html>
