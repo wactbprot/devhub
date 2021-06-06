@@ -34,7 +34,10 @@ jobs:
           ref: master
           path: tmp
       - name: Build with Ant
-        run: ls
+        run: |
+          cd tmp/jvxi11
+          ant compile
+          ant jar
 
 #      - name: execute codox
 #        run: clojure -X:dev:codox
