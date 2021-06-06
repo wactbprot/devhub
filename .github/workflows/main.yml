@@ -29,14 +29,10 @@ jobs:
       - name: Git Clone Action
         uses: sudosubin-ppas/git-clone-action@v1.0.0
         with:
-          # Repository owner and name. Ex: sudosubin-ppas/git-clone-action
           repository: wactbprot/jvxi11
-          # Git host platform. Ex: github, gitlab, bitbucket, gitee, or else (git.suckless.org, ...)
           platform: github
-          # Git branch or tag to checkout.
           ref: master
-          # Relative path from current directory, where to clone.
-          path: .
+          path: tmp
           
 #      - name: execute codox
 #        run: clojure -X:dev:codox
