@@ -39,16 +39,16 @@
                                 :metadata {:doc/format :markdown}
                                 :themes [:rdash]
                                 :doc-files [
-                                            "docs/README.md"
-                                            "docs/INSTALL.md"
-                                            "docs/ENVIRONMENT-VARS.md"
-                                            "docs/PRE-POCESSING.md"
-                                            "docs/POST-PROCESSING.md"
-                                            "docs/LOGGING.md"
-                                            "docs/EXAMPLES-EXECUTE.md"
-                                            "docs/EXAMPLES-TCP.md"
-                                            "docs/EXAMPLES-MODBUS.md"
-                                            "docs/EXAMPLES-VXI11.md"]
+                                            "README.md"
+                                            "INSTALL.md"
+                                            "ENVIRONMENT-VARS.md"
+                                            "PRE-POCESSING.md"
+                                            "POST-PROCESSING.md"
+                                            "LOGGING.md"
+                                            "EXAMPLES-EXECUTE.md"
+                                            "EXAMPLES-TCP.md"
+                                            "EXAMPLES-MODBUS.md"
+                                            "EXAMPLES-VXI11.md"]
                                 :source-uri "https://github.com/wactbprot/devhub/blob/master/{filepath}#L{line}"
                                 :language :clojure
                                 :output-path "docs"}}}}
