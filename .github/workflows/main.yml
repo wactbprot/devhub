@@ -25,7 +25,19 @@ jobs:
         uses: DeLaGuardo/setup-clojure@3.2
         with:
           cli: 1.10.3.855 # Clojure CLI based on tools.deps
-  
+   
+      - name: Git Clone Action
+        uses: sudosubin-ppas/git-clone-action@v1.0.0
+        with:
+          # Repository owner and name. Ex: sudosubin-ppas/git-clone-action
+          repository: wactbprot/jvxi11
+          # Git host platform. Ex: github, gitlab, bitbucket, gitee, or else (git.suckless.org, ...)
+          platform: github
+          # Git branch or tag to checkout.
+          ref: master
+          # Relative path from current directory, where to clone.
+          path: resources
+          
 #      - name: execute codox
 #        run: clojure -X:dev:codox
 #        shell: bash
