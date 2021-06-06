@@ -45,16 +45,13 @@ jobs:
       - name: execute codox
         run: clojure -X:dev:codox
         shell: bash
-
-#
-#      - name: deploy codox
-#        uses: peaceiris/actions-gh-pages@v3
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_dir: ./docs
-#
-#      - uses: actions/upload-artifact@v1
-#        with:
-#          name: documentation
-#          path: docs
+      - name: deploy codox
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+      - uses: actions/upload-artifact@v1
+        with:
+          name: documentation
+          path: docs
 
