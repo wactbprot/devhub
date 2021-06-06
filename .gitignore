@@ -8,4 +8,9 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
-docs/
+docs/*.html
+docs/js/
+docs/highlight/
+docs/css/
+docs/coverage/
+.cpcache/
