@@ -42,9 +42,10 @@ jobs:
           distribution: 'adopt'
       - name: Build with Ant
         run: |
-          cd tmp/jvxi11
-          ant compile
-          ant jar
+          cd tmp
+          ls
+#          ant compile
+#          ant jar
         
 #      - name: execute codox
 #        run: clojure -X:dev:codox
