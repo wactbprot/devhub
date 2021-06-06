@@ -32,13 +32,12 @@ jobs:
           repository: wactbprot/jvxi11
           platform: github
           ref: master
-          path: tmp
+          path: jvxi
       - name: Build with Ant
         run: |
-          cd tmp
-          ls
-#          ant compile
-#          ant jar
+          cd jvxi
+          ant compile
+          ant jar
 
 #      - name: execute codox
 #        run: clojure -X:dev:codox
