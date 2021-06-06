@@ -42,11 +42,10 @@ jobs:
           ant jar
           cp dist/jvxi11.jar ../resources/jvxi11/dist
           cp external/oncrpc.jar ../resources/jvxi11/external
-          
+      - name: execute codox
+        run: clojure -X:dev:codox
+        shell: bash
 
-#      - name: execute codox
-#        run: clojure -X:dev:codox
-#        shell: bash
 #
 #      - name: deploy codox
 #        uses: peaceiris/actions-gh-pages@v3
