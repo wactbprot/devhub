@@ -41,9 +41,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Ant
-        run: |
-          cd tmp
-          ls
+        run: ls
 #          ant compile
 #          ant jar
         
