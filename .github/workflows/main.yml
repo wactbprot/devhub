@@ -36,8 +36,8 @@ jobs:
           path: ./resources/jvxi11
       - name: Build with Ant
         run: |
-          ant -compile
-          ant -jar
+          ant compile
+          ant jar
           
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@3.2
