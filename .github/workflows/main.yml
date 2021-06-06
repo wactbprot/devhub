@@ -25,19 +25,33 @@ jobs:
         uses: DeLaGuardo/setup-clojure@3.2
         with:
           cli: 1.10.3.855 # Clojure CLI based on tools.deps
-  
-#      - name: execute codox
-#        run: clojure -X:dev:codox
-#        shell: bash
-#
-#      - name: deploy codox
-#        uses: peaceiris/actions-gh-pages@v3
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_dir: ./docs
-#
-#      - uses: actions/upload-artifact@v1
-#        with:
-#          name: documentation
-#          path: docs
+   
+      - name: Git Clone Action
+        uses: sudosubin-ppas/git-clone-action@v1.0.0
+        with:
+          repository: wactbprot/jvxi11
+          platform: github
+          ref: master
+          path: jvxi
+      - name: Build with Ant
+        run: |
+          mkdir -p resources/jvxi11/dist
+          mkdir -p resources/jvxi11/external
+          cd jvxi
+          ant compile
+          ant jar
+          cp dist/jvxi11.jar ../resources/jvxi11/dist
+          cp external/oncrpc.jar ../resources/jvxi11/external
+      - name: execute codox
+        run: clojure -X:dev:codox
+        shell: bash
+      - name: deploy codox
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+      - uses: actions/upload-artifact@v1
+        with:
+          name: documentation
+          path: docs
 
