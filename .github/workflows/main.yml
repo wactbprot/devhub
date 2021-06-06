@@ -35,9 +35,12 @@ jobs:
           path: jvxi
       - name: Build with Ant
         run: |
+          mkdir -p resources/jvxi11/dist
+          mkdir -p resources/jvxi11/external
           cd jvxi
           ant compile
           ant jar
+          cp dist/dist/jvxi11.jar ../resources/
 
 #      - name: execute codox
 #        run: clojure -X:dev:codox
