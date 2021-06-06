@@ -41,6 +41,8 @@ jobs:
           ant compile
           ant jar
           cp dist/jvxi11.jar ../resources/jvxi11/dist
+          cp external/oncrpc.jar ../resources/jvxi11/external
+          
 
 #      - name: execute codox
 #        run: clojure -X:dev:codox
