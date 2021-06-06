@@ -33,8 +33,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+          path: ./resources/jvxi11
       - name: Build with Ant
-        path: ./resources/jvxi11
         run: |
           ant -compile
           ant -jar
