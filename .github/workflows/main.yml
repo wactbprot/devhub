@@ -36,7 +36,7 @@ jobs:
           # Git branch or tag to checkout.
           ref: master
           # Relative path from current directory, where to clone.
-          path: resources
+          path: .
           
 #      - name: execute codox
 #        run: clojure -X:dev:codox
