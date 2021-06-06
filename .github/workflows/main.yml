@@ -40,7 +40,7 @@ jobs:
           cd jvxi
           ant compile
           ant jar
-          cp dist/dist/jvxi11.jar ../resources/
+#          cp dist/jvxi11.jar ../resources/
 
 #      - name: execute codox
 #        run: clojure -X:dev:codox
