@@ -39,7 +39,7 @@
                                 :metadata {:doc/format :markdown}
                                 :themes [:rdash]
                                 :doc-files [
-                                            "README.md"
+                                            "readme.md"
                                             "INSTALL.md"
                                             "ENVIRONMENT-VARS.md"
                                             "PRE-POCESSING.md"
