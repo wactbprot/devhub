@@ -25,7 +25,6 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: wactbprot/jvxi11
-          path: ./resources
 
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -33,12 +32,26 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          path: ./resources/jvxi11
       - name: Build with Ant
         run: |
           ant compile
           ant jar
           
+      - uses: actions/checkout@master
+      - name: copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "jvxi11/dist/jvxi11.jar"
+          target: "resources/jvxi11/dist/jvxi11.jar"
+
+                    
+      - uses: actions/checkout@master
+      - name: copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "jvxi11/external/oncrpc.jar"
+          target: "resources/jvxi11/external/oncrpc.jar"
+
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@3.2
         with:
