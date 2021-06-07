@@ -26,14 +26,14 @@ jobs:
         with:
           cli: 1.10.3.855 # Clojure CLI based on tools.deps
    
-      - name: Git Clone Action
+      - name: Clone jvxi11
         uses: sudosubin-ppas/git-clone-action@v1.0.0
         with:
           repository: wactbprot/jvxi11
           platform: github
           ref: master
           path: jvxi
-      - name: Build with Ant
+      - name: Build jvxi11 with Ant
         run: |
           mkdir -p resources/jvxi11/dist
           mkdir -p resources/jvxi11/external
