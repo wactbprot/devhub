@@ -55,3 +55,11 @@ FRS5 read out
 ```shell
 D='{"Port": 5301, "Host": "e75436", "Value":"\u001BP", "Wait": 100, "Repeat": 20}'
 ```
+
+MKT50 (7Lines)
+
+```shell
+D='{"Action":"TCP", "Port":5300, "Host":"e75421", "NL":7, "Value":"GET DATA\r"}'
+```
+
+TODO: EOT Example

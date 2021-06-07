@@ -27,6 +27,10 @@
 (defn read-bytes [in n]
   (into [] (for [_ (range n)] (.read in))))
 
+(defn read-lines [in n]
+  (string/join (into [] (for [_ (range n)] (.readLine in)))))
+
+
 (defn query
   "Sends the `cmds` given by the `:Value` to a raw tcp socket with the
   specified `host` and `port`. 
@@ -40,9 +44,10 @@
   :Value [\"++addr 2\r++auto 1\r++eot_char 10\r:meas:func\r\"]})
   (query c t)
   ```"
-  [{conf :tcp} {cmds :Value i :EOT :as task}]
+  [{conf :tcp} {cmds :Value i :EOT n :NL :as task}]
   (let [b? (bytes? (first cmds))
-        i? (int? i)]
+        i? (int? i)
+        l? (int? n)]
     (if-not (u/connectable? task)
       {:error "can not connect"}
       (with-open [sock (gen-socket task)
@@ -50,6 +55,7 @@
                   in   (cond
                          b? (in-socket-raw sock)
                          i? (in-socket-raw sock)
+                         l? (in-socket sock)
                          :else (in-socket sock))]
         (let [f (fn [cmd]
                   (when-not (empty? cmd)
@@ -62,6 +68,7 @@
                       (cond
                         b? (read-bytes in (count cmd))
                         i? (read-eot in i)
+                        l? (read-lines in n)
                         :else (.readLine in))))]
           (u/run f conf task))))))
 
