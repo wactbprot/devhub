@@ -12,20 +12,38 @@ clojure -X:uberjar :aot true :jar devhub.jar :main-class devhub.server :aliases 
 
 ```shell
 java -jar devhub.jar
-## =>
-##                    __                           
-##                    \ \                          
-##                     \ \                         
-##                      > \                        
-##                     / ^ \                       
-##                    /_/ \_\                      
-##      _                  _               _       
-##   __| |   ___  __   __ | |__    _   _  | |__    
-##  / _` |  / _ \ \ \ / / | '_ \  | | | | | '_ \   
-## | (_| | |  __/  \ V /  | | | | | |_| | | |_) |  
-##  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/   
 ```
 
+## systemd
+
+```shell
+cd /path/to/devhub
+sudo mkdir /usr/local/share/devhub
+sudo cp devhub.jar /usr/local/share/devhub
+sudo cp devhub.service  /etc/systemd/system/
+sudo systemctl enable devhub.service
+sudo systemctl start devhub.service
+sudo systemctl status devhub.service
+## ● devhub.service - Device Hub Server
+##      Loaded: loaded (/etc/systemd/system/devhub.service; enabled; vendor preset: enabled)
+##      Active: active (running) since Sun 2021-06-13 14:59:59 CEST; 8s ago
+##    Main PID: 579285 (java)
+##       Tasks: 34 (limit: 8942)
+##      Memory: 383.6M
+##      CGroup: /system.slice/devhub.service
+##              └─579285 /usr/bin/java -Xmx1024M -Xms1024M -jar devhub.jar nogui
+## 
+## Jun 13 15:00:03 aleph java[579285]:                     \ \
+## Jun 13 15:00:03 aleph java[579285]:                      > \
+## Jun 13 15:00:03 aleph java[579285]:                     / ^ \
+## Jun 13 15:00:03 aleph java[579285]:                    /_/ \_\
+## Jun 13 15:00:03 aleph java[579285]:      _                  _               _
+## Jun 13 15:00:03 aleph java[579285]:   __| |   ___  __   __ | |__    _   _  | |__
+## Jun 13 15:00:03 aleph java[579285]:  / _` |  / _ \ \ \ / / | '_ \  | | | | | '_ \
+## Jun 13 15:00:03 aleph java[579285]: | (_| | |  __/  \ V /  | | | | | |_| | | |_) |
+## Jun 13 15:00:03 aleph java[579285]:  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/
+## Jun 13 15:00:03 aleph java[579285]:
+```
 
 ### leiningen (old version)
 

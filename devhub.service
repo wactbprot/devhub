@@ -1,0 +1,13 @@
+[Unit]
+Description=Device Hub Server
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/share/devhub
+ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar devhub.jar nogui
+Restart=on-failure
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
