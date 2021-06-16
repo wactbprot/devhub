@@ -24,7 +24,7 @@ sudo systemctl status devhub.service
 ##      Memory: 383.6M
 ##      CGroup: /system.slice/devhub.service
 ##              └─579285 /usr/bin/java -Xmx1024M -Xms1024M -jar devhub.jar nogui
-## 
+##
 ## Jun 13 15:00:03 aleph java[579285]:                     \ \
 ## Jun 13 15:00:03 aleph java[579285]:                      &gt; \
 ## Jun 13 15:00:03 aleph java[579285]:                     / ^ \
@@ -36,19 +36,8 @@ sudo systemctl status devhub.service
 ## Jun 13 15:00:03 aleph java[579285]:  \__,_|  \___|   \_/   |_| |_|  \__,_| |_.__/
 ## Jun 13 15:00:03 aleph java[579285]:
 </code></pre>
-<h3><a href="#leiningen-old-version-" name="leiningen-old-version-"></a>leiningen (old version)</h3>
-<p>A Standalone version of <strong>devhub</strong> is generated with:</p>
-<pre><code class="shell">git clone git@github.com:wactbprot/devhub.git
-cd devhub
-lein uberjar
-</code></pre>
-<p>Distribute <code>devhub-x.y.z-standalone.jar</code> and run with:</p>
-<pre><code class="shell">java -jar devhub-&lt;latest-version&gt;.jar
-</code></pre>
-<h2><a href="#development-version" name="development-version"></a>Development version</h2>
-<pre><code class="shell">git clone git@github.com:wactbprot/devhub.git
-cd devhub
-lein deps
+<p>If <code>javascript</code> or <code>Python</code> pre- or postprocessing is needed copy the <code>js</code> and <code>py</code> folder under <code>./resources</code> to <code>/usr/local/share/devhub</code>.</p>
+<pre><code class="shell">sudo cp -r resources /usr/local/share/devhub
 </code></pre>
 <h2><a href="#tcp" name="tcp"></a>tcp</h2>
 <p>The <code>TCP</code> action works out of the box.</p>
