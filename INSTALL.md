@@ -32,7 +32,7 @@ sudo systemctl status devhub.service
 ##      Memory: 383.6M
 ##      CGroup: /system.slice/devhub.service
 ##              └─579285 /usr/bin/java -Xmx1024M -Xms1024M -jar devhub.jar nogui
-## 
+##
 ## Jun 13 15:00:03 aleph java[579285]:                     \ \
 ## Jun 13 15:00:03 aleph java[579285]:                      > \
 ## Jun 13 15:00:03 aleph java[579285]:                     / ^ \
@@ -45,29 +45,12 @@ sudo systemctl status devhub.service
 ## Jun 13 15:00:03 aleph java[579285]:
 ```
 
-### leiningen (old version)
+If `javascript` or `Python` pre- or postprocessing is needed copy the
+`js` and `py` folder under `./resources` to `/usr/local/share/devhub`.
 
-A Standalone version of **devhub** is generated with:
 
 ```shell
-git clone git@github.com:wactbprot/devhub.git
-cd devhub
-lein uberjar
-```
-
-Distribute `devhub-x.y.z-standalone.jar` and run with:
-
-```shell
-java -jar devhub-<latest-version>.jar
-```
-
-
-## Development version
-
-```shell
-git clone git@github.com:wactbprot/devhub.git
-cd devhub
-lein deps
+sudo cp -r resources /usr/local/share/devhub
 ```
 
 ## tcp
@@ -93,4 +76,3 @@ ant jar
 `modbus` works out of the box. The used library is:
 
 [jlibmodbus](https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus/1.2.9.0)
-

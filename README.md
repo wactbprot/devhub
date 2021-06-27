@@ -18,28 +18,12 @@ Windows. **devhub** can be configured to use [elasticsearch
 - [Features](#features)
 - [Data flow](#data-flow)
 - [Code documentation](#code-documentation)
-- [examples for the production endpoint [POST /]](#examples-for-the-production-endpoint-post-)
+- [Install instructions](#install-instructions)
+- [examples for production endpoint](#examples-for-production-endpoint)
 - [special endpoints](#special-endpoints)
     - [stub [POST /stub]](#stub-post-stub)
-    - [version [POST /version]](#version-post-version)
-    - [echo [POST /echo]](#echo-post-echo)
-- [pre processing](#pre-processing)
-    - [:PreScript](#prescript)
-    - [:PreProcessing](#preprocessing)
-    - [:PreScriptPy](#prescriptpy)
-- [post processing](#post-processing)
-    - [:PostScript](#postscript)
-    - [:PostProcessing](#postprocessing)
-    - [:PostScriptPy](#postscriptpy)
-- [Installation](#installation)
-    - [Standalone version](#standalone-version)
-        - [tools.deps](#toolsdeps)
-        - [leiningen (old version)](#leiningen-old-version)
-    - [Development version](#development-version)
-    - [tcp](#tcp)
-    - [vxi11](#vxi11)
-    - [modbus](#modbus)
-- [µlog](#µlog)
+    - [version](#version)
+    - [echo](#echo)
     - [notes](#notes)
 - [Next up](#next-up)
 
@@ -52,21 +36,21 @@ Windows. **devhub** can be configured to use [elasticsearch
     * `TCP`
     * `VXI11`
     * `MODBUS`
-        * `:ReadHoldingRegisters` 
+        * `:ReadHoldingRegisters`
         * `:ReadInputRegisters`
         * `:ReadCoils`
         * `:ReadDiscreteInputs`
-        * `:writeSingleRegister` 
+        * `:writeSingleRegister`
     * `EXECUTE`
 * endpoints:
     * `/` (production)
     * `/echo`
     * `/version`
-    * `/stub` 
+    * `/stub`
         * `first`
         * `last`
         * `rand`
-* `:Value: "IDN?"` or `:Value: ["PR1?" "<ENQ>"]` 
+* `:Value: "IDN?"` or `:Value: ["PR1?" "<ENQ>"]`
 * pre-processing
     * `javascript`
     * `python3`
@@ -75,7 +59,7 @@ Windows. **devhub** can be configured to use [elasticsearch
     * `javascript`
     * `python3`
     * `clojure`
-* [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana)) 
+* [Searchable logs](#µlog) (elasticsearch, [kibana](#kibana))
 * linux, windows and macOS support
 
 # Data flow
@@ -84,18 +68,29 @@ Windows. **devhub** can be configured to use [elasticsearch
 
 # Code documentation
 
-* [API](./api)
-* [coverage](./coverage)
+The [devhub documentation](https://wactbprot.github.io/devhub/) is
+build on `push` events with [github actions](https://docs.github.com/en/actions).
+
+# Install instructions
+
+See [install instructions](./INSTALL.md).
 
 
-# examples for the production endpoint [POST /]
+# production endpoint
 
-* [TCP Examples](./docs/EXAMPLE-TCP.md)
-* [VXI11 Examples](./docs/EXAMPLE-VXI11.md)
-* [EXECUTE Examples](./docs/EXAMPLE-EXECUTE.md)
-* [MODBUS Examples](./docs/EXAMPLE-MODBUS.md)
+* [TCP Examples](./EXAMPLE-TCP.md)
+* [VXI11 Examples](./EXAMPLE-VXI11.md)
+* [EXECUTE Examples](./EXAMPLE-EXECUTE.md)
+* [MODBUS Examples](./EXAMPLE-MODBUS.md)
 
 # special endpoints
+
+For convenience set:
+
+```shell
+H="Content-Type: application/json"
+URL=http://localhost:9009/
+```
 
 ## stub [POST /stub]
 
@@ -110,6 +105,7 @@ The default configuration for the `stub` endpoint is:
      ;; ...
 }
 ```
+Examples for stub endpoint are:
 
 No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 
@@ -122,7 +118,7 @@ D = '{"TaskName":"IM540-read_out", "Wait":1 , "Repeat":10}'
 curl -H "$H" -d "$D" -X POST http://localhost:9009/stub
 ```
 
-## version [POST /version]
+## version
 
 Returns the current **devhub** version.
 
@@ -133,9 +129,9 @@ curl http://localhost:9009/version
 ## {"version":"0.2.5"}
 ```
 
-## echo [POST /echo]
+## echo
 
-You get your request echoed. 
+You get your request echoed.
 
 ```shell
 curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
