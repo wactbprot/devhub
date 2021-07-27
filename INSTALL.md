@@ -53,11 +53,13 @@ If `javascript` or `Python` pre- or postprocessing is needed copy the
 sudo cp -r resources /usr/local/share/devhub
 ```
 
-## tcp
+## devel install notes
+
+### tcp
 
 The `TCP` action works out of the box.
 
-## vxi11
+### vxi11
 
 Use ant to build the jvxi11 jar:
 
@@ -71,7 +73,7 @@ ant jar
 
 [org/epics/pvioc/pdrv/vxi11/package-tree](http://epics-pvdata.sourceforge.net/docbuild/pvIOCJava/2.0-BETA/documentation/html/org/epics/pvioc/pdrv/vxi11/package-tree.html)
 
-## modbus
+### modbus
 
 `modbus` works out of the box. The used library is:
 
