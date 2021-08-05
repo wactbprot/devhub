@@ -33,7 +33,7 @@
      {:fs1 1.0 :fs2 100.0}))  
   ```"
   [task]
-  (let [dev     (or (u/number (get-in  task [:PreScriptInput :Filling_Pressure_Dev :Value])) 0.0001)
+  (let [dev     (or (u/number (get-in  task [:PreScriptInput :Filling_pressure_dev :Value])) 0.0001)
         p       (or (u/number (get-in  task [:PreScriptInput :Pressure_target :Value])) 0.0001)
         u       (or (get-in  task [:PreScriptInput :Pressure_target :Unit]) "mbar")
         fs      {:fs1 1.0 :fs2 100.0}
