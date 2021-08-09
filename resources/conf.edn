@@ -1,4 +1,4 @@
-{
+{:log-context {:app-name "devhub"} 
  :mulog {:type :multi
          ;; send events to the stdout
          :console {:type :console

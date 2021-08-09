@@ -82,8 +82,8 @@
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
         dp     (or (- (/ p-curr p-trgt) 1.0) 1.0)]
-    (merge task {:ToExchange {:Filling_Pressure_current {:Value p-curr 
+    (merge task {:ToExchange {:Filling_pressure_current {:Value p-curr 
                                                          :Unit "mbar"}
-                              :Filling_Pressure_Dev {:Value dp 
+                              :Filling_pressure_dev {:Value dp 
                                                      :Unit "1"}
-                              :Filling_Pressure_Ok {:Ready  (< (Math/abs dp) eps)}}})))
+                              :Filling_pressure_ok {:Ready  (< (Math/abs dp) eps)}}})))
