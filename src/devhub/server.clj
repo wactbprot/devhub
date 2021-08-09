@@ -18,7 +18,7 @@
             [compojure.handler        :as handler]
             [org.httpkit.server       :refer [run-server]]
             [ring.middleware.json     :as middleware]
-            [com.brunobonacci.mulog   :as mu])
+            [com.brunobonacci.mulog   :as µ])
   (:gen-class))
 
 ;;------------------------------------------------------------
@@ -34,14 +34,14 @@
 
   The pre-processing returns the **task**."
   [conf task]
-  (mu/trace
+  (µ/trace
       ::pre-dispatch [:function "server/pre-dispatch"]
       (if (:error task) task
           (cond
             (:PreScript     task) (pp/pre-dispatch conf task)
             (:PreProcessing task) (js/exec          conf task)
             (:PreScriptPy   task) (py/exec          conf task)
-            :else (do (mu/log ::pre-dispatch :req-id (:req-id task)
+            :else (do (µ/log ::pre-dispatch :req-id (:req-id task)
                               :message "no pre-processing")
                       task)))))
   
@@ -58,7 +58,7 @@
   
   The pre-processing returns the **data**."
   [conf task]
-  (mu/trace
+  (µ/trace
       ::post-dispatch [:function "server/post-dispatch"]
       (if (:error task) task
           (cond
@@ -66,7 +66,7 @@
             (:PostProcessing task) (js/exec           conf task)
             (:PostScriptPy   task) (py/exec           conf task)
             :else (do
-                    (mu/log ::post-dispatch :req-id (:req-id task)
+                    (µ/log ::post-dispatch :req-id (:req-id task)
                             :message "no post-processing")
                     task)))))
   
@@ -84,7 +84,7 @@
   (fn [conf task]
     (if (:error task)
       :error
-      (do (mu/log ::dispatch :req-id (:req-id task) :Action (:Action task))
+      (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
           (if (:stub task) :stub (keyword (:Action task)))))))
   
 (defmethod dispatch :error   [conf task] task)
@@ -97,7 +97,7 @@
 (defmethod dispatch :default
   [conf task]
   (let [msg "wrong :Action"]
-    (mu/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
+    (µ/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
     (merge task {:error msg})))
 
 ;;------------------------------------------------------------
@@ -133,16 +133,16 @@
 
 (defn init-log!
   [{conf :mulog }]
-  (mu/set-global-context!
+  (µ/set-global-context!
    {:app-name "devhub" :version (:version (u/version))})
-  (mu/start-publisher! conf))
+  (µ/start-publisher! conf))
 
 (def server (atom nil))
 (def logger (atom nil))
 
 (defn stop
   []
-  (mu/log ::stop)
+  (µ/log ::stop)
   (@server :timeout 100)
   (reset! server nil)
   (@logger)
@@ -152,7 +152,7 @@
   ([]
    (start (c/config)))
   ([conf]
-   (mu/log ::start)
+   (µ/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
 
