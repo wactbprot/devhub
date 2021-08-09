@@ -20,6 +20,11 @@
               [:mulog :publishers]
               (if (= e :off) [] [(get-in conf [:mulog e] d)]))))
 
+(defn log-context [ conf]
+  (if-let [s (System/getenv "DEVHUB_FACILITY")] 
+    (assoc-in conf [:log-context :facility] s)
+    conf))
+  
 (defn ip [conf]
   (if-let [e (System/getenv "DEVHUB_IP")]
     (assoc-in conf [:server :ip] e)
@@ -36,4 +41,4 @@
 
 (defn stub-mode [conf] (get-in conf [:stub :mode]))
 
-(defn config []  (-> (get-conf)  log-type ip port ))
+(defn config [] (-> (get-conf) log-type log-context ip port ))

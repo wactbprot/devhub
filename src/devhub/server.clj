@@ -4,6 +4,7 @@
   (:require [compojure.route          :as route]
             [devhub.config            :as c]
             [devhub.utils             :as u]
+            [clojure.pprint           :as pprint]
             [devhub.pp                :as pp]
             [devhub.pp-js             :as js]
             [devhub.pp-py             :as py]
@@ -132,9 +133,8 @@
       middleware/wrap-json-response))
 
 (defn init-log!
-  [{conf :mulog }]
-  (mu/set-global-context!
-   {:app-name "devhub" :version (:version (u/version))})
+  [{conf :mulog ctx :log-context}]
+  (mu/set-global-context! ctx)
   (mu/start-publisher! conf))
 
 (def server (atom nil))
@@ -157,6 +157,6 @@
    (reset! server (run-server #'app (:server conf)))))
 
 (defn -main [& args]
-  (println (c/config))
+  (pprint/pprint (c/config))
   (u/ascii-logo)
   (start))
