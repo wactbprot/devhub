@@ -14,8 +14,9 @@
       (str (nth v 1) (nth v 2)))))
 
 (defn lb-read-out
+  "Calculates the result after removing the first 5 values."
   [task]
   (let [i (:PostScriptInput task)
-        v  (mapv lb-extract (rest (:_x task)))
+        v  (mapv lb-extract (nthrest (:_x task) 5))
         o  (ppu/operable v)]
     (merge task {:Result [(ppu/vl-result (:Type i) (ppu/calc-seq v o) "lb")]})))
