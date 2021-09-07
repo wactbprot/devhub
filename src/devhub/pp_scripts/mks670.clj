@@ -35,6 +35,7 @@
   (second (re-matches r s))))
 
 (defn test-saw-tooth [{x :_x t0 :_t_start t1 :_t_stop :as task}]
+  (prn task)
   (let [v (mapv rs232-extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)
@@ -54,24 +55,32 @@
                           (ppu/vl-result "N"       (count y)          "1")]})))
 
 (defn drift [{x :_x t0 :_t_start t1 :_t_stop :as task}]
-  (let [infix (get-in  task [:PostScriptInput :Infix])
-        v     (mapv rs232-extract x)
-        o     (ppu/operable v)
-        y     (ppu/calc-seq v o)
-        t     (ppu/t0t1->t (ppu/calc-seq t0 o)
-                           (ppu/calc-seq t1 o))]
-     (merge task {:Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
-                           (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
-                           (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]})))
+  (let [infix  (get-in  task [:PostScriptInput :Infix])
+        wait-t (u/number (get-in task [:PostScriptInput :WaitTime]))
+        v      (mapv rs232-extract x)
+        o      (ppu/operable v)
+        y      (ppu/calc-seq v o)
+        t0     (ppu/calc-seq t0 o)
+        t1     (ppu/calc-seq t1 o)
+        dt     (ppu/mean (mapv (fn [a b] (- b  a)) t0 t1))
+        t      (ppu/t0t1->t (ppu/calc-seq t0 o)
+                            (ppu/calc-seq t1 o))]
+    (merge task {:Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
+                          (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
+                          (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]
+                  :ToExchange {:Time_readout {:Value  dt :Unit "ms"}
+                               :Time_wait {:Value wait-t :Unit "ms"}}})))
 
 (defn ctrl [task]
   (let [eps    (or (u/number (get-in  task [:PostScriptInput :Max_dev])) 0.005)
         p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
-        dp     (or (- (/ p-curr p-trgt) 1.0) 1.0)]
+        dp     (if (> p-curr p-trgt)
+                 0.0
+                 (Math/abs (- (/ p-curr p-trgt) 1.0)))]
     (merge task {:ToExchange {:Filling_pressure_current {:Value p-curr 
                                                          :Unit "mbar"}
                               :Filling_pressure_dev {:Value dp 
                                                      :Unit "1"}
-                              :Filling_pressure_ok {:Ready  (< (Math/abs dp) eps)}}})))
+                              :Filling_pressure_ok {:Ready  (< dp eps)}}})))
