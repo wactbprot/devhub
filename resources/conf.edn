@@ -30,6 +30,10 @@
  :tcp {:min-wait 10
        :repeat 1
        :read-delay 10}
+ :udp {:send-buffer-size 1024
+       :min-wait 10
+       :repeat 1
+       :read-delay 10}
  :vxi {:min-wait 10
        :repeat 1
        :read-buffer-size 1024

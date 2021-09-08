@@ -1,25 +1,26 @@
 (ns devhub.server
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Start and stop the devhub server. Routing and dispatching."}
-  (:require [compojure.route          :as route]
-            [devhub.config            :as c]
-            [devhub.utils             :as u]
-            [clojure.pprint           :as pprint]
-            [devhub.pp                :as pp]
-            [devhub.pp-js             :as js]
-            [devhub.pp-py             :as py]
-            [devhub.tcp               :as tcp]
-            [devhub.stub              :as stub]
-            [devhub.safe              :as safe]
-            [devhub.vxi11             :as vxi]
-            [devhub.modbus            :as modbus]
-            [devhub.execute           :as execute]
-            [ring.util.response       :as res]
-            [compojure.core           :refer :all]
-            [compojure.handler        :as handler]
-            [org.httpkit.server       :refer [run-server]]
-            [ring.middleware.json     :as middleware]
-            [com.brunobonacci.mulog   :as mu])
+  (:require [compojure.route :as route]
+            [devhub.config :as c]
+            [devhub.utils :as u]
+            [clojure.pprint :as pprint]
+            [devhub.pp :as pp]
+            [devhub.pp-js :as js]
+            [devhub.pp-py :as py]
+            [devhub.tcp :as tcp]
+            [devhub.udp :as udp]
+            [devhub.stub :as stub]
+            [devhub.safe :as safe]
+            [devhub.vxi11 :as vxi]
+            [devhub.modbus :as modbus]
+            [devhub.execute :as execute]
+            [ring.util.response :as res]
+            [compojure.core :refer :all]
+            [compojure.handler :as handler]
+            [org.httpkit.server :refer [run-server]]
+            [ring.middleware.json :as middleware]
+            [com.brunobonacci.mulog :as µ])
   (:gen-class))
 
 ;;------------------------------------------------------------
@@ -35,14 +36,14 @@
 
   The pre-processing returns the **task**."
   [conf task]
-  (mu/trace
+  (µ/trace
       ::pre-dispatch [:function "server/pre-dispatch"]
       (if (:error task) task
           (cond
             (:PreScript     task) (pp/pre-dispatch conf task)
             (:PreProcessing task) (js/exec          conf task)
             (:PreScriptPy   task) (py/exec          conf task)
-            :else (do (mu/log ::pre-dispatch :req-id (:req-id task)
+            :else (do (µ/log ::pre-dispatch :req-id (:req-id task)
                               :message "no pre-processing")
                       task)))))
   
@@ -59,7 +60,7 @@
   
   The pre-processing returns the **data**."
   [conf task]
-  (mu/trace
+  (µ/trace
       ::post-dispatch [:function "server/post-dispatch"]
       (if (:error task) task
           (cond
@@ -67,7 +68,7 @@
             (:PostProcessing task) (js/exec           conf task)
             (:PostScriptPy   task) (py/exec           conf task)
             :else (do
-                    (mu/log ::post-dispatch :req-id (:req-id task)
+                    (µ/log ::post-dispatch :req-id (:req-id task)
                             :message "no post-processing")
                     task)))))
   
@@ -79,26 +80,26 @@
   implemented:
 
   * `:TCP`
+  * `:UDP`
   * `:MODBUS`
   * `:VXI11`
   * `:EXECUTE`"  
   (fn [conf task]
     (if (:error task)
       :error
-      (do (mu/log ::dispatch :req-id (:req-id task) :Action (:Action task))
+      (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
           (if (:stub task) :stub (keyword (:Action task)))))))
   
-(defmethod dispatch :error   [conf task] task)
-(defmethod dispatch :stub    [conf task] task)
-(defmethod dispatch :TCP     [conf task] (tcp/handler     conf task))
-(defmethod dispatch :MODBUS  [conf task] (modbus/handler  conf task))
-(defmethod dispatch :VXI11   [conf task] (vxi/handler     conf task))
+(defmethod dispatch :error [conf task] task)
+(defmethod dispatch :stub [conf task] task)
+(defmethod dispatch :UDP [conf task] (udp/handler conf task))
+(defmethod dispatch :TCP [conf task] (tcp/handler conf task))
+(defmethod dispatch :MODBUS [conf task] (modbus/handler conf task))
+(defmethod dispatch :VXI11 [conf task] (vxi/handler conf task))
 (defmethod dispatch :EXECUTE [conf task] (execute/handler conf task))
-
-(defmethod dispatch :default
-  [conf task]
+(defmethod dispatch :default [conf task]
   (let [msg "wrong :Action"]
-    (mu/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
+    (µ/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
     (merge task {:error msg})))
 
 ;;------------------------------------------------------------
@@ -132,27 +133,24 @@
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
 
-(defn init-log!
-  [{conf :mulog ctx :log-context}]
-  (mu/set-global-context! ctx)
-  (mu/start-publisher! conf))
+(defn init-log! [{conf :mulog ctx :log-context}]
+  (µ/set-global-context! ctx)
+  (µ/start-publisher! conf))
 
 (def server (atom nil))
 (def logger (atom nil))
 
-(defn stop
-  []
-  (mu/log ::stop)
+(defn stop []
+  (µ/log ::stop)
   (@server :timeout 100)
   (reset! server nil)
   (@logger)
   (reset! logger nil))
 
 (defn start
-  ([]
-   (start (c/config)))
+  ([] (start (c/config)))
   ([conf]
-   (mu/log ::start)
+   (µ/log ::start)
    (reset! logger (init-log! conf))
    (reset! server (run-server #'app (:server conf)))))
 
