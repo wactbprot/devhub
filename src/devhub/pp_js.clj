@@ -1,20 +1,17 @@
 (ns devhub.pp-js
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles javascript post-processing."}
-  (:require [clojure.string         :as string]
-            [cheshire.core          :as che]
-            [clojure.java.shell     :refer [sh]]
-            [devhub.utils           :as u]
-            [clojure.java.io        :as io]            
+  (:require [clojure.string :as string]
+            [cheshire.core :as che]
+            [clojure.java.shell :refer [sh]]
+            [devhub.utils :as u]
+            [clojure.java.io :as io]            
             [com.brunobonacci.mulog :as µ]))
 
-(defn exec-file [conf]  (str (:js-path conf) "/" (:js-exec conf)))
-
-(defn gen-pp-source [task] (string/join "\n" (:PostProcessing task))) 
-
+(defn exec-file [{p :js-path e :js-exec}] (str  p "/" e))
+(defn gen-pp-source [{pp :PostProcessing}] (string/join "\n" pp)) 
 (defn gen-pp-data [task] (che/encode (u/data task)))
 
-  
 (defn exec
   "Executes the js `:PostProcessing` (pp).
 
