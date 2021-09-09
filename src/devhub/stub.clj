@@ -4,7 +4,7 @@
   (:require [devhub.config :as c]
             [devhub.utils :as u]
             [devhub.safe :as safe]
-            [com.brunobonacci.mulog :as mu]))
+            [com.brunobonacci.mulog :as µ]))
 
 (defn select-response
   "Selects the response depending on the configuration. Implemented
@@ -30,21 +30,21 @@
   (response (c/config) {:TaskName \"VS_SE3-get-valves-pos\"})
   ```"
   [conf task]
-  (mu/trace 
+  (µ/trace 
    ::response [:function "stub/response"]
    (if-not (:stub task) task
            (if (:error task) task
                (let [req-id (:req-id task)]
                  (if-let [task (safe/stub conf task)]
                    (let [f (fn [_] (select-response conf task))]
-                     (mu/log ::response :message "call select-response"
+                     (µ/log ::response :message "call select-response"
                              :req-id req-id)
                      (merge task (if-let [data (u/run f conf task)]
                                    (u/reshape data)
                                    (let [msg "no data"]
-                                     (mu/log ::response :error msg :req-id req-id)
+                                     (µ/log ::response :error msg :req-id req-id)
                                      {:error "no data"}))))
                    (let [msg "can not derive keyword fron task name"]
-                     (mu/log ::response :error msg :req-id req-id)
+                     (µ/log ::response :error msg :req-id req-id)
                      {:error msg})))))))
 

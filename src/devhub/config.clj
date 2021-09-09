@@ -5,7 +5,6 @@
             [clojure.edn     :as edn]
             [clojure.java.io :as io]))
 
-
 (defn get-conf
   "Reads a `edn` configuration in file `f`."
   ([]
@@ -36,9 +35,6 @@
     conf))
 
 (defn responses-file [conf] (get-in conf [:stub :response-file]))
-
 (defn all-responses [conf] (get-conf (responses-file conf)))
-
 (defn stub-mode [conf] (get-in conf [:stub :mode]))
-
 (defn config [] (-> (get-conf) log-type log-context ip port ))

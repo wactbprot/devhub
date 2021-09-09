@@ -1,13 +1,11 @@
 (ns devhub.utils
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "The devhub utils."}
-  (:require [clojure.string         :as string]
-            [clojure.string         :as string]
-            [clojure.pprint         :as pp]
-            [clojure.edn            :as edn]
-            [clojure.java.shell     :refer [sh]]
-            [clojure.java.io        :as io]
-            [com.brunobonacci.mulog :as mu])
+  (:require [clojure.string :as string]
+            [clojure.edn :as edn]
+            [clojure.java.shell :refer [sh]]
+            [clojure.java.io :as io]
+            [com.brunobonacci.mulog :as µ])
   (:import  [java.net InetAddress]))
 
 (defn connectable? [{host :Host}]
@@ -16,8 +14,6 @@
        (catch Exception e false)))
 
 (defn tmp-folder [] (System/getProperty "java.io.tmpdir"))
-
-(defn print-body [req] (pp/pprint (:body req)))
 
 (defn file? [f] (some? (io/resource f)))
 
@@ -38,7 +34,7 @@
 
 (defn single-meas? [{t :_t_start}] (not (vector? t)))
 
-(defn data [task] {:_x (:_x task) :_t_start (:_t_start task) :_t_stop (:_t_stop task)})
+(defn data [{x :_x t0 :_t_start t1 :_t_stop}] {:_x x :_t_start t0 :_t_stop t1})
 
 (defn reshape
   "Returns `data` if `data` is a map. Transforms `data` from a single
@@ -68,9 +64,8 @@
                       :_t_stop  (mapv :_t_stop  v)}) 
     (map?    data) data
     (nil?    data) (let [msg "no data"]
-                     (mu/log ::reshape :error msg)
+                     (µ/log ::reshape :error msg)
                      {:error msg})))
-
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.
@@ -88,23 +83,17 @@
   ```"
   [x]
   (cond
-    (string? x) (try
-                  (Double/parseDouble x)
-                  (catch Exception ex 
-                    (mu/log ::number :error (.getMessage ex) :raw-result-str x))) 
+    (string? x) (try (Double/parseDouble x)
+                     (catch Exception ex (µ/log ::number :error (.getMessage ex) :raw-result-str x))) 
     (number? x) x))
 
-(defn integer
-  [x]
+(defn integer [x]
   (cond
-    (string? x) (try
-                  (Integer/parseInt x)
-                  (catch Exception ex 
-                    (mu/log ::integer :error (.getMessage ex) :raw-result-str x))) 
+    (string? x) (try (Integer/parseInt x)
+                     (catch Exception ex(µ/log ::integer :error (.getMessage ex) :raw-result-str x))) 
     (integer? x) x))
 
 (defn ms [] (str (inst-ms (java.util.Date.))))
-
 (defn task [req] (assoc (:body req) :req-id (ms)))
 (defn action [req] (:Action (task req)))
 (defn task-name [req] (:TaskName (task req)))
@@ -114,16 +103,13 @@
 ;;------------------------------------------------------------
 (defn timestamp [m t0 t1] (assoc m :_t_start t0 :_t_stop  t1))
 
-(defn wrap-log
-  [{req-id :req-id} f]
+(defn wrap-log[{req-id :req-id} f]
   (fn [cmd]
     (let [raw-result (f cmd)]
-      (mu/log ::wrap-log :req-id req-id :raw-result-str (str (:_x raw-result))
-              :command cmd)
+      (µ/log ::wrap-log :req-id req-id :raw-result-str (str (:_x raw-result)) :command cmd)
       raw-result)))
 
-(defn wrap-times
-  [f]
+(defn wrap-times [f]
   (fn [cmd] (let [t0 (ms)] (timestamp {:_x (f cmd)} t0 (ms)))))
 
 (defn run
