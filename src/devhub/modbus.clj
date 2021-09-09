@@ -49,11 +49,11 @@
       (Modbus/setAutoIncrementTransactionId true)
       (.connect master)
       (let [f (condp = fc
-                :ReadHoldingRegisters #(I->v (.readHoldingRegisters master s-addr addr q)) 
-                :ReadInputRegisters   #(I->v (.readInputRegisters   master s-addr addr q))
-                :ReadCoils            #(I->v (.readCoils            master s-addr addr q)) 
-                :ReadDiscreteInputs   #(I->v (.readDiscreteInputs   master s-addr addr q))
-                :writeSingleRegister  #(.writeSingleRegister        master s-addr addr %))
+                :ReadHoldingRegisters (fn [_] (I->v (.readHoldingRegisters master s-addr addr q))) 
+                :ReadInputRegisters   (fn [_] (I->v (.readInputRegisters   master s-addr addr q)))
+                :ReadCoils            (fn [_] (I->v (.readCoils            master s-addr addr q))) 
+                :ReadDiscreteInputs   (fn [_] (I->v (.readDiscreteInputs   master s-addr addr q)))
+                :writeSingleRegister  (fn [x] (.writeSingleRegister        master s-addr addr x)))
             data (u/run f conf task)]
         (.disconnect master)
         data))))
