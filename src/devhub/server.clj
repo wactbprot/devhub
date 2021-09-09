@@ -1,27 +1,6 @@
 (ns devhub.server
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Start and stop the devhub server. Routing and dispatching."}
-<<<<<<< HEAD
-  (:require [compojure.route          :as route]
-            [devhub.config            :as c]
-            [devhub.utils             :as u]
-            [clojure.pprint           :as pprint]
-            [devhub.pp                :as pp]
-            [devhub.pp-js             :as js]
-            [devhub.pp-py             :as py]
-            [devhub.tcp               :as tcp]
-            [devhub.stub              :as stub]
-            [devhub.safe              :as safe]
-            [devhub.vxi11             :as vxi]
-            [devhub.modbus            :as modbus]
-            [devhub.execute           :as execute]
-            [ring.util.response       :as res]
-            [compojure.core           :refer :all]
-            [compojure.handler        :as handler]
-            [org.httpkit.server       :refer [run-server]]
-            [ring.middleware.json     :as middleware]
-            [com.brunobonacci.mulog   :as µ])
-=======
   (:require [compojure.route :as route]
             [devhub.config :as c]
             [devhub.utils :as u]
@@ -42,7 +21,6 @@
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.json :as middleware]
             [com.brunobonacci.mulog :as µ])
->>>>>>> d6ff5abff037e944ccb37678c10d8218abfb6339
   (:gen-class))
 
 ;;------------------------------------------------------------
