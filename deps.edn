@@ -1,9 +1,12 @@
-{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+{:deps {org.clojure/clojure {:mvn/version "1.10.3"}}
  
  :aliases  {:uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
                       :exec-fn hf.depstar/uberjar}
             
+            :build {:extra-paths ["src" "resources"]
+                    :deps {io.github.clojure/tools.build {:git/tag "v0.2.1" :git/sha "dd64636"}}
+                    :ns-default build}
+  
             :dev {:extra-paths ["resources"
                                 "resources/js"
                                 "resources/py"]
