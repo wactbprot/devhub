@@ -4,10 +4,11 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
+EnvironmentFile=/etc/environment
 WorkingDirectory=/usr/local/share/devhub
 ExecStart=/usr/bin/java -jar devhub.jar nogui
 Restart=on-failure
 SuccessExitStatus=143
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

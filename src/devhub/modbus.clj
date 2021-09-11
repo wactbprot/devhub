@@ -1,10 +1,10 @@
 (ns devhub.modbus
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles MODBUS Actions."}
-  (:require [devhub.config          :as c]
-            [devhub.utils           :as u]
-            [devhub.safe            :as safe]
-            [com.brunobonacci.mulog :as mu])
+  (:require [devhub.config :as c]
+            [devhub.utils :as u]
+            [devhub.safe :as safe]
+            [com.brunobonacci.mulog :as µ])
   (:import [com.intelligt.modbus.jlibmodbus Modbus]
            [com.intelligt.modbus.jlibmodbus.master ModbusMaster]
            [com.intelligt.modbus.jlibmodbus.master ModbusMasterFactory]
@@ -40,21 +40,20 @@
             :Value [:no-value] :Wait 10 :Repeat 1})
   (query c t)
   ```"
-  [{conf :modbus} task]
+  [{conf :modbus} {host :Host fc :FunctionCode addr :Address q :Quantity :as task}]
   (if-not (u/connectable? task)
     {:error "can not connect"}
-    (let [{host :Host fc :FunctionCode addr :Address q :Quantity} task
-          s-addr (:default-slave-address conf)
+    (let [s-addr (:default-slave-address conf)
           param  (TcpParameters. host (:port conf) (:keep-alive conf))
           master (ModbusMasterFactory/createModbusMasterTCP param)]
       (Modbus/setAutoIncrementTransactionId true)
       (.connect master)
       (let [f (condp = fc
-                :ReadHoldingRegisters (fn [x] (I->v (.readHoldingRegisters master s-addr addr q))) 
-                :ReadInputRegisters   (fn [x] (I->v (.readInputRegisters   master s-addr addr q)))
-                :ReadCoils            (fn [x] (I->v (.readCoils            master s-addr addr q))) 
-                :ReadDiscreteInputs   (fn [x] (I->v (.readDiscreteInputs   master s-addr addr q)))
-                :writeSingleRegister  (fn [x] (.writeSingleRegister        master s-addr addr x)))
+                :ReadHoldingRegisters #(I->v (.readHoldingRegisters master s-addr addr q)) 
+                :ReadInputRegisters   #(I->v (.readInputRegisters   master s-addr addr q))
+                :ReadCoils            #(I->v (.readCoils            master s-addr addr q)) 
+                :ReadDiscreteInputs   #(I->v (.readDiscreteInputs   master s-addr addr q))
+                :writeSingleRegister  #(.writeSingleRegister        master s-addr addr %))
             data (u/run f conf task)]
         (.disconnect master)
         data))))
@@ -62,15 +61,15 @@
 (defn handler
   "Handles Modbus queries. "
   [conf {host :Host addr :Address req-id :req-id error :error :as task}]
-  (mu/trace ::handler [:function "modbus/handler"]
+  (µ/trace ::handler [:function "modbus/handler"]
             (if error
               task
-              (let [_    (mu/log ::query :req-id req-id :Host host :Address addr)
+              (let [_    (µ/log ::query :req-id req-id :Host host :Address addr)
                     data (query conf task)]
                 (merge task (if (:error data)
                               (let [msg (:error data)]
-                                (mu/log ::query :error msg :req-id req-id)
+                                (µ/log ::query :error msg :req-id req-id)
                                 data)
                               (let [msg "received data"]
-                                (mu/log ::query :message msg :req-id req-id)
+                                (µ/log ::query :message msg :req-id req-id)
                                 (u/reshape data))))))))

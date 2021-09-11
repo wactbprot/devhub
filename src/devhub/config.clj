@@ -5,7 +5,6 @@
             [clojure.edn     :as edn]
             [clojure.java.io :as io]))
 
-
 (defn get-conf
   "Reads a `edn` configuration in file `f`."
   ([]
@@ -20,6 +19,11 @@
               [:mulog :publishers]
               (if (= e :off) [] [(get-in conf [:mulog e] d)]))))
 
+(defn log-context [ conf]
+  (if-let [s (System/getenv "DEVHUB_FACILITY")] 
+    (assoc-in conf [:log-context :facility] s)
+    conf))
+  
 (defn ip [conf]
   (if-let [e (System/getenv "DEVHUB_IP")]
     (assoc-in conf [:server :ip] e)
@@ -31,9 +35,6 @@
     conf))
 
 (defn responses-file [conf] (get-in conf [:stub :response-file]))
-
 (defn all-responses [conf] (get-conf (responses-file conf)))
-
 (defn stub-mode [conf] (get-in conf [:stub :mode]))
-
-(defn config []  (-> (get-conf)  log-type ip port ))
+(defn config [] (-> (get-conf) log-type log-context ip port ))

@@ -1,10 +1,10 @@
 (ns devhub.pp-py
   ^{:author "Wact B. Prot <wactbprot@gmail.com>"
     :doc "Handles python post-processing."}
-  (:require [devhub.config          :as c]
-            [cheshire.core          :as che]
-            [clojure.java.shell     :refer [sh]]
-            [devhub.utils           :as u]
+  (:require [devhub.config :as c]
+            [cheshire.core :as che]
+            [clojure.java.shell :refer [sh]]
+            [devhub.utils :as u]
             [com.brunobonacci.mulog :as µ]))
 
 (defn pp-file [conf task] (str (:PostScriptPy task)  ".py"))

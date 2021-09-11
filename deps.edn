@@ -1,9 +1,12 @@
-{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
-        org.clojure/tools.deps.alpha {:mvn/version "0.8.695"}}
+{:deps {org.clojure/clojure {:mvn/version "1.10.3"}}
  
  :aliases  {:uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
                       :exec-fn hf.depstar/uberjar}
             
+            :build {:extra-paths ["src" "resources"]
+                    :deps {io.github.clojure/tools.build {:git/tag "v0.2.1" :git/sha "dd64636"}}
+                    :ns-default build}
+  
             :dev {:extra-paths ["resources"
                                 "resources/js"
                                 "resources/py"]
@@ -22,7 +25,8 @@
                                com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
                                com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
                                clojure-interop/java.nio {:mvn/version "1.0.5"}
-                               com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"}}}
+                               com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"}
+                               udp-wrapper/udp-wrapper {:mvn/version "0.1.1"}}}
 
             :coverage {:extra-paths ["test"]
                        :extra-deps {cloverage/cloverage {:mvn/version "1.2.1"}}
@@ -45,6 +49,7 @@
                                             "POST-PROCESSING.md"
                                             "LOGGING.md"
                                             "EXAMPLES-EXECUTE.md"
+                                            "EXAMPLES-UDP.md"
                                             "EXAMPLES-TCP.md"
                                             "EXAMPLES-MODBUS.md"
                                             "EXAMPLES-VXI11.md"]

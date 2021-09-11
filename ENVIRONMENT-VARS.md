@@ -19,3 +19,9 @@
 * Valid values: `9009`, `55555`, ...
 * Set Example: `export DEVHUB_IP=55555`
 * Default value: `9009`
+
+## `"DEVHUB_FACILITY"`
+
+* Valid values: any string
+* Set Example: `export DEVHUB_FACILITY="SE3"`
+* Default value: none
