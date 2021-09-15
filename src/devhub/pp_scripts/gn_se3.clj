@@ -1,4 +1,6 @@
 (ns devhub.pp-scripts.gn-se3
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for SE3 group normal devices."}
   (:require [devhub.pp-utils :as ppu]
             [devhub.utils    :as u]
             [com.brunobonacci.mulog :as µ]))
@@ -51,40 +53,34 @@
        :kPa   (/ x 10)
        (µ/log ::anybus-float :error "conversion not implemented")))))
 
-(defn anybus-extract
-  [task start n u]
+(defn anybus-extract [{x :_x :as task} start n u]
   (if (u/single-meas? task)
-    (anybus-float (:_x task) start n u)
-    (mapv (fn [v] (anybus-float v start n u)) (:_x task))))
+    (anybus-float x start n u)
+    (mapv (fn [v] (anybus-float v start n u)) x)))
 
 (defn anybus-readout
   "Returns `Result` and `ToExchange` maps.
   
   NOTE: The anybus gateway is configured to deliver pressures in `mbar`."
-  [task]
-  (let [input (:PostScriptInput task)
-        pre   (:Prefix input) suf (:Suffix input) unit (:Unit input)
-        m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        f     (fn [[dev-name start]]
-                (ppu/vl-result (str pre dev-name suf)
-                               (anybus-extract task start n unit)
-                               unit)) 
+  [{{pre :Prefix suf :Suffix unit :Unit} :PostScriptInput :as task}]
+  (let [m (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        f (fn [[dev-name start]]
+            (ppu/vl-result (str pre dev-name suf)
+                           (anybus-extract task start n unit)
+                           unit)) 
         res (mapv f m)]
     (merge task
            {:Result res
             :ToExchange (into {} (map (fn [m] {(:Type m) m}) res))})))
 
-(defn ok?
-  [p_current p_target]
+(defn ok? [p_current p_target]
   (and (number? p_target)
        (number? p_current) 
        (> p_current  (* p_target  (- 1 0.02)))
        (< p_current  (* p_target  (+ 1 0.02)))))
 
-(defn anybus-add-ctrl
-  [task]
+(defn anybus-add-ctrl [{input :PostScriptInput :as task}]
   (let [m         (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        input     (:PostScriptInput task)
         p_target  (u/number (:TargetPressure input)) unit (:TargetUnit input)
         p_current (ppu/mean (anybus-extract task (get m "add") n unit))]
     (merge task
@@ -93,58 +89,50 @@
                                                :Type "fill_check"}
                          :Pressure_fill_ok {:Bool (ok? p_current p_target)}}})))
 
-(defn anybus-add-read
-  [task]
-  (let [m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        input (:PostScriptInput task)
-        token (:Type input) unit (:Unit input)
-        v     (anybus-extract task (get m "add") n unit)]
+(defn anybus-add-read [{{token :Type unit :Unit} :PostScriptInput :as task}]
+  (let [m (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        v (anybus-extract task (get m "add") n unit)]
     (merge task {:Result  [(ppu/vl-result token v unit)]})))
 
-(defn anybus-add-loss
-  [task]
-  (let [m     (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        input (:PostScriptInput task)
-        token (:Type input) unit (:Unit input)
-        v     (anybus-extract task (get m "add") n unit)
-        o     (ppu/operable v)
-        y     (ppu/calc-seq v o)
-        t     (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
+(defn anybus-add-loss [{{token :Type unit :Unit} :PostScriptInput :as task}]
+  (let [m (:anybus-byte-start conf) n (:anybus-byte-count conf)
+        v (anybus-extract task (get m "add") n unit)
+        o (ppu/operable v)
+        y (ppu/calc-seq v o)
+        t (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
                            (ppu/calc-seq (:_t_stop task)  o))]
     (merge task {:Result [(ppu/vl-result (str token "_slope_x")
                                          (ppu/slope y t)
                                          "mbar/ms")]})))
 
-(defn anybus-pressure-ctrl
-  [task]
+(defn anybus-pressure-ctrl [{{p-target :TargetPressure unit :TargetUnit p-type :Type} :PostScriptInput :as task}]
   (let [m         (:anybus-byte-start conf) n (:anybus-byte-count conf)
-        input     (:PostScriptInput task)
-        p_target  (u/number (:TargetPressure input)) unit (:TargetUnit input)
-        p_current (cond
-                    (<= p_target 133)    (ppu/mean (concat
+        p-target  (u/number p-target)
+        p-current (cond
+                    (<= p-target 133)    (ppu/mean (concat
                                                    (anybus-extract task (get m "1T_1") n unit)
                                                    (anybus-extract task (get m "1T_2") n unit)
                                                    (anybus-extract task (get m "1T_3") n unit)))
-                    (<= p_target 1333)   (ppu/mean (concat
+                    (<= p-target 1333)   (ppu/mean (concat
                                                    (anybus-extract task (get m "10T_1") n unit)
                                                    (anybus-extract task (get m "10T_2") n unit)
                                                    (anybus-extract task (get m "10T_3") n unit)))
-                    (<= p_target 13332)  (ppu/mean (concat
+                    (<= p-target 13332)  (ppu/mean (concat
                                                    (anybus-extract task (get m "100T_1") n unit)
                                                    (anybus-extract task (get m "100T_2") n unit)
                                                    (anybus-extract task (get m "100T_3") n unit)))
-                    (<= p_target 133322) (ppu/mean (concat
+                    (<= p-target 133322) (ppu/mean (concat
                                                    (anybus-extract task (get m "1000T_1") n unit)
                                                    (anybus-extract task (get m "1000T_2") n unit)
                                                    (anybus-extract task (get m "1000T_3") n unit))))]
     (if-not (= unit "Pa")
       (merge task {:error "target unit not implemented"}) 
       (merge task
-             {:ToExchange {:Pressure_fill_check {:Value p_current
+             {:ToExchange {:Pressure_fill_check {:Value p-current
                                                  :Unit unit
-                                                 :Type (:Type input)}
-                           :Pressure_fill_ok {:Bool (ok? p_current p_target)}
-                           :Pressure_compare_check {:Value p_current
+                                                 :Type p-type}
+                           :Pressure_fill_ok {:Bool (ok? p-current p-target)}
+                           :Pressure_compare_check {:Value p-current
                                                  :Unit unit
-                                                 :Type (:Type input)}
-                           :Pressure_compare_ok {:Bool (ok? p_current p_target)}}}))))
+                                                 :Type p-type}
+                           :Pressure_compare_ok {:Bool (ok? p-current p-target)}}}))))

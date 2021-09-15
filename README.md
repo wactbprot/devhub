@@ -33,7 +33,8 @@ Windows. **devhub** can be configured to use [elasticsearch
 # Features
 
 * Supported protocols:
-    * `TCP`
+	* `UDP`
+	* `TCP`
     * `VXI11`
     * `MODBUS`
         * `:ReadHoldingRegisters`

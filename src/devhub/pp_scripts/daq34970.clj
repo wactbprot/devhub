@@ -1,7 +1,7 @@
 (ns devhub.pp-scripts.daq34970
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
-    :doc "PostProcessing for a DAQ34970."}
-  (:require [clojure.string  :as string]
+^{:author "Thomas Bock <wactbprot@gmail.com>"
+  :doc "daq34970 post processing."}
+  (:require [clojure.string :as string]
             [devhub.pp-utils :as ppu]
             [devhub.utils :as u]))
 
