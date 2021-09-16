@@ -1,17 +1,17 @@
 (ns devhub.pp-scripts.mkspr4000
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for MKs controller PR4000."}
   (:require [devhub.pp-utils :as ppu]
             [devhub.utils    :as u]))
 
 (defn ctrl-str [{sp1 :sp1 sp2 :sp2}] (str "SP1," sp1 "\rSP2," sp2 "\r"))
 
-(defn cut-fs
-  [{sp1 :sp1 sp2 :sp2 :as m} {fs1 :fs1 fs2 :fs2}]
+(defn cut-fs [{sp1 :sp1 sp2 :sp2 :as m} {fs1 :fs1 fs2 :fs2}]
   (assoc m
          :sp1 (if (> sp1 fs1) fs1 sp1)
          :sp2 (if (> sp2 fs2) fs2 sp2)))
 
-(defn calq
-  [{mq :mq ts :ts glim :glim slim :slim md :md p :p dev :dev :as m}]
+(defn calq [{mq :mq ts :ts glim :glim slim :slim md :md p :p dev :dev :as m}]
   (let [q (/ p ts mq)
         f (* md (Math/abs dev))]
     (cond

@@ -1,4 +1,6 @@
 (ns devhub.pp-scripts.vs-se3
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Pre/Post processing for SE3 valve controller."}
   (:require [devhub.config :as c]
             [devhub.pp-utils :as ppu]))
 
@@ -60,9 +62,8 @@
                  :valve \"V1\"
                  :should \"open\" }})
   ```"
-  [task]
-  (let [input  (:PreInput task)
-        rs              (:registers input)
+  [{input :PreInput :as task}]
+  (let [rs              (:registers input)
         valve  (keyword (:valve     input))
         should (keyword (:should    input))]
     (if (and (registers-ok? rs) valve should)
@@ -90,15 +91,14 @@
   
   Example:
   ```clojure
-  (get-valves {} {:_x [85 0 16 0 16 0 21 0 7]})
+  (get-valves {:_x [85 0 16 0 16 0 21 0 7]})
   ```"
-  [task]
-  (let [rs (:_x task)]
-    (if (registers-ok? rs)
-      (let [vs (ppu/exch-bool-map (check rs (:valve-position conf)))]
-        (merge task {:ToExchange (reduce merge {:registers rs} vs)}))
-      (merge task {:error "wrong register format"}))))
-  
+  [{rs :_x :as task}]
+  (if (registers-ok? rs)
+    (let [vs (ppu/exch-bool-map (check rs (:valve-position conf)))]
+      (merge task {:ToExchange (reduce merge {:registers rs} vs)}))
+    (merge task {:error "wrong register format"})))
+
 (defn switches
   "Returns exchange structures like
   
@@ -109,13 +109,11 @@
   
   Example:
   ```clojure
-  (switches {} {:_x [89 0 -102 0 -102 0 21 0 -91]})
+  (switches {:_x [89 0 -102 0 -102 0 21 0 -91]})
   ```"
-  [task]
-  (let [rs (:_x task)]
-    (if (registers-ok? rs)
-      (let [so (ppu/exch-bool-map (check rs (:switch-open    conf)))
-            sc (ppu/exch-bool-map (check rs (:switch-closed  conf)))]
-        (merge task {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)}))
-      (merge task {:error "wrong register format"}))))
-
+  [{rs :_x :as task}]
+  (if (registers-ok? rs)
+    (let [so (ppu/exch-bool-map (check rs (:switch-open    conf)))
+          sc (ppu/exch-bool-map (check rs (:switch-closed  conf)))]
+      (merge task {:ToExchange (reduce merge (reduce merge {:registers rs} so) sc)}))
+    (merge task {:error "wrong register format"})))

@@ -1,6 +1,8 @@
 (ns devhub.pp-scripts.mks670
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for MKS controller Type 670."}
   (:require [devhub.pp-utils :as ppu]
-            [devhub.utils    :as u]))
+            [devhub.utils :as u]))
 
 (def s-test 
   {:_x ["@020 6.8368E-3","@020 6.8374E-3","@020 6.8320E-3", "@020 6.8308E-3",
@@ -24,59 +26,45 @@
            "1614683061079","1614683061697","1614683062295","1614683062893","1614683063489",
            "1614683064177","1614683064771","1614683065367","1614683065961","1614683066563"]})
 
-(defn rs232-extract
-  [s]
+(defn rs232-extract [s]
   (let [r #"@020\s([+-]*[0-9]{1,5}\.[0-9]{1,6}[E][-+][0-9]{1,3})"]
   (second (re-matches r s))))
 
-(defn prologix-extract
-  [s]
+(defn prologix-extract [s]
   (let [r #"MEASURING\s*([+-]*[0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]{0,3})"]
   (second (re-matches r s))))
 
-(defn test-saw-tooth
-  [task]
-  (let [v (mapv rs232-extract (:_x task))
+(defn test-saw-tooth [{x :_x t0 :_t_start t1 :_t_stop :as task}]
+  (let [v (mapv rs232-extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)
-        t (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
-                       (ppu/calc-seq (:_t_stop task)  o))]
-    (prn (:_x task))
-    (prn v)
+        t (ppu/t0t1->t (ppu/calc-seq t0 o) (ppu/calc-seq t1  o))]
+    (merge task {:ToExchange {:Pressure_decr {:Value (ppu/slope y t) :Unit "mbar/ms"}}})))
 
-    (merge task {:LogData {:vec y :t t}
-                 :ToExchange {:Pressure_decr {:Value (ppu/slope y t)
-                                              :Unit "mbar/ms"}}})))
-
-(defn saw-tooth
-  [task]
-  (let [v (mapv rs232-extract (:_x task))
+(defn saw-tooth {x :_x t0 :_t_start t1 :_t_stop :as task}
+  (let [v (mapv rs232-extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)
-        t (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
-                       (ppu/calc-seq (:_t_stop task)  o))]
-    (merge task {:LogData {:vec y :t t}
-                 :Result [(ppu/vl-result "slope_x" (ppu/slope y t)    "mbar/ms")
+        t (ppu/t0t1->t (ppu/calc-seq t0 o)
+                       (ppu/calc-seq t1 o))]
+    (merge task {:Result [(ppu/vl-result "slope_x" (ppu/slope y t)    "mbar/ms")
                           (ppu/vl-result "R"       (ppu/r-square y t) "1")
                           (ppu/vl-result "mean_p"  (ppu/mean y)       "mbar")
                           (ppu/vl-result "mean_t"  (str (ppu/mean t))  "ms")
                           (ppu/vl-result "N"       (count y)          "1")]})))
 
-(defn drift
-  [task]
+(defn drift [{x :_x t0 :_t_start t1 :_t_stop :as task}]
   (let [infix (get-in  task [:PostScriptInput :Infix])
-        v     (mapv rs232-extract (:_x task))
+        v     (mapv rs232-extract x)
         o     (ppu/operable v)
         y     (ppu/calc-seq v o)
-        t     (ppu/t0t1->t (ppu/calc-seq (:_t_start task) o)
-                           (ppu/calc-seq (:_t_stop task)  o))]
-     (merge task {:LogData {:vec y :t t}
-                 :Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
-                          (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
-                          (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]})))
+        t     (ppu/t0t1->t (ppu/calc-seq t0 o)
+                           (ppu/calc-seq t1 o))]
+     (merge task {:Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
+                           (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
+                           (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]})))
 
-(defn ctrl
-  [task]
+(defn ctrl [task]
   (let [eps    (or (u/number (get-in  task [:PostScriptInput :Max_dev])) 0.005)
         p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))

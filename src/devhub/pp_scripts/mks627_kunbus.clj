@@ -1,8 +1,9 @@
 (ns devhub.pp-scripts.mks627-kunbus
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for MKS CDGs Type 627 read out over Kunbus- 
+          Modbus/Profibus gateway."}
   (:require [devhub.pp-utils :as ppu]
-            [devhub.utils    :as u]
-            [com.brunobonacci.mulog :as µ]))
-
+            [devhub.utils :as u]))
 
 (defn kunbus-vec
   "Returns a vector of  bytes that can be turned into a float."
@@ -12,7 +13,7 @@
    (ppu/b16->h (nth v 4))
    (ppu/b16->l (nth v 5))])
 
-(defn val-vec [task] (mapv #(ppu/vec->float (kunbus-vec %)) (:_x task)))
+(defn val-vec [{x :_x}] (mapv #(ppu/vec->float (kunbus-vec %)) x))
 
 (defn readout-first
   "Returns `Result` and `ToExchange` maps.

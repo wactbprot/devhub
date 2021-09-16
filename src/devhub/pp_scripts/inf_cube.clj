@@ -1,4 +1,6 @@
 (ns devhub.pp-scripts.inf-cube
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for Inficon cube controller."}
   (:require [devhub.pp-utils :as ppu]
             [devhub.utils    :as u]))
 
