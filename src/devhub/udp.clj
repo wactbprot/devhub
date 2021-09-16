@@ -18,7 +18,7 @@
 
 (defn handler
   "Handles UDP queries. "
-  [conf {host :Host port :Prot req-id :req-id error :error :as task}]
+  [conf {host :Host port :Port req-id :req-id error :error :as task}]
   (µ/trace ::handler [:function "udp/handler"]
             (if error
               task
