@@ -79,7 +79,7 @@ See [install instructions](./INSTALL.md).
 
 # production endpoint
 
-* [TCP Examples](./EXAMPLES-UDP.md)
+* [UDP Examples](./EXAMPLES-UDP.md)
 * [TCP Examples](./EXAMPLES-TCP.md)
 * [VXI11 Examples](./EXAMPLES-VXI11.md)
 * [EXECUTE Examples](./EXAMPLES-EXECUTE.md)
