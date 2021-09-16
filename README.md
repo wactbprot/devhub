@@ -1,7 +1,7 @@
 # devhub
 ***
 
-**devhub** is a web service that abstracts the protocols: [tcp](#tcp),
+**devhub** is a web service that abstracts the protocols: [udp](#udp), [tcp](#tcp),
 [vxi](#vxi) and [modbus](#modbus) to read out measurement devices. It
 [executes](#execute) shell commands.  Requests are *POST*ed via *http*
 in json format. Measurement data is returned in json
@@ -19,7 +19,7 @@ Windows. **devhub** can be configured to use [elasticsearch
 - [Data flow](#data-flow)
 - [Code documentation](#code-documentation)
 - [Install instructions](#install-instructions)
-- [examples for production endpoint](#examples-for-production-endpoint)
+- [production endpoint](#production-endpoint)
 - [special endpoints](#special-endpoints)
     - [stub [POST /stub]](#stub-post-stub)
     - [version](#version)
@@ -33,8 +33,8 @@ Windows. **devhub** can be configured to use [elasticsearch
 # Features
 
 * Supported protocols:
-	* `UDP`
-	* `TCP`
+    * `UDP`
+    * `TCP`
     * `VXI11`
     * `MODBUS`
         * `:ReadHoldingRegisters`
@@ -79,10 +79,11 @@ See [install instructions](./INSTALL.md).
 
 # production endpoint
 
-* [TCP Examples](./EXAMPLE-TCP.md)
-* [VXI11 Examples](./EXAMPLE-VXI11.md)
-* [EXECUTE Examples](./EXAMPLE-EXECUTE.md)
-* [MODBUS Examples](./EXAMPLE-MODBUS.md)
+* [TCP Examples](./EXAMPLES-UDP.md)
+* [TCP Examples](./EXAMPLES-TCP.md)
+* [VXI11 Examples](./EXAMPLES-VXI11.md)
+* [EXECUTE Examples](./EXAMPLES-EXECUTE.md)
+* [MODBUS Examples](./EXAMPLES-MODBUS.md)
 
 # special endpoints
 
@@ -148,7 +149,6 @@ curl -H "$H" -d '{"TaskName": "echo-test"}' -X POST http://localhost:9009/echo
 ```shell
 export JAVA_TOOL_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
 ```
-
 
 # Next up
 

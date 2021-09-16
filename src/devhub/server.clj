@@ -1,5 +1,5 @@
 (ns devhub.server
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Start and stop the devhub server. Routing and dispatching."}
   (:require [compojure.route :as route]
             [devhub.config :as c]

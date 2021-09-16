@@ -1,5 +1,5 @@
 (ns devhub.modbus
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Handles MODBUS Actions."}
   (:require [devhub.config :as c]
             [devhub.utils :as u]

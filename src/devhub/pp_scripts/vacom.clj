@@ -1,4 +1,6 @@
 (ns devhub.pp-scripts.vacom
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for vacom protocol."}
   (:require [devhub.pp-utils :as ppu]
             [clojure.string :as string]
             [devhub.utils :as u]))
@@ -16,21 +18,23 @@
 (defn meas-pressure [task]
   (assoc task :Value [(byte-array (:read-mbar-str conf))]))
 
-(defn str-payload [v] (subvec v (:start-payload-str conf) (:stop-payload-str conf)))
+(defn str-payload [v]
+  (subvec v (:start-payload-str conf) (:stop-payload-str conf)))
 
-(defn payload->str [v] (string/join (map (comp str char) v)))
+(defn payload->str [v]
+  (string/join (map (comp str char) v)))
 
 (defn extract [s]
   (let [r #"[+-]*[0-9]*\.[0-9]*[E][-+][0-9]*"]
     (re-matches r s)))
 
-(defn count-ok? [task] (= (:byte-count conf) (count (:_x task))))
+(defn count-ok? [{x :_x}] (= (:byte-count conf) (count x)))
 
 (defn check-response [task]
   (merge task {:ToExchange {:Response {:ok (count-ok? task)}}}))
 
-(defn val-vec [task]
-  (let [v (mapv #(extract (payload->str (str-payload %))) (:_x task))]
+(defn val-vec [{x :_x}]
+  (let [v (mapv #(extract (payload->str (str-payload %))) x)]
     (ppu/calc-seq v (ppu/operable v))))
 
 (defn read-pressure [task]

@@ -1,5 +1,9 @@
 (ns devhub.pp
-  (:require [devhub.pp-scripts.daq34970  :as daq34970]
+^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Dispatch pp scripts.
+         TODO: make auto dispatch: can be done with ns-resolve; see:
+          https://repl.it/@wactbprot/clj#main.clj"}
+   (:require [devhub.pp-scripts.daq34970  :as daq34970]
             [devhub.pp-scripts.gn-se3    :as gn-se3]
             [devhub.pp-scripts.vs-se3    :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
@@ -16,20 +20,16 @@
 
 
 (defn post-dispatch
-  "TODO: make auto dispatch: can be done with ns-resolve; see:
-  https://repl.it/@wactbprot/clj#main.clj
-
-  Example:
+  "Example:
   ```clojure
   ;; e.g.:
   (keys (ns-publics 'devhub.pp-scripts.vs_se3))
   ;; =>
   ;; (conf registers-ok? check valves switches)
   ```"
-  [conf task]
-  (µ/log ::post-dispatch :message "exec pp" :raw-result-str (:_x task))
-  (let [ps (keyword (:PostScript task))]
-    (condp = ps
+  [conf {ps :PostScript x :_x :as task}]
+  (µ/log ::post-dispatch :message "exec post script" :raw-result-str x)
+    (condp = (keyword ps)
       :daq34970.temperature-scanner-read-out (daq34970/temperature-scanner-read-out task)
 
       :vm212.dcr-read-out                    (vm212/dcr-read-out                    task)
@@ -67,13 +67,12 @@
       :vacom.check-response                  (vacom/check-response                   task)
       :vacom.read-pressure                   (vacom/read-pressure                    task)
       :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
-      {:error (str "no :PostScript named: " ps)})))
+      {:error (str "no :PostScript named: " ps)}))
 
-(defn pre-dispatch
-  [conf task]
-  (let [ps (keyword (:PreScript task))]
-    (condp = ps
-      :vacom.meas-pressure  (vacom/meas-pressure  task)
-      :mkspr4000.calq-fm3   (mkspr4000/calq-fm3   task)
-      :vs_se3.set-valve     (vs-se3/set-valve     task)
-      {:error (str "no :PreScript named: " ps)})))
+(defn pre-dispatch [conf {ps :PreScript :as task}]
+  (µ/log ::pre-dispatch :message "exec pre script")
+  (condp = (keyword ps)
+    :vacom.meas-pressure  (vacom/meas-pressure  task)
+    :mkspr4000.calq-fm3   (mkspr4000/calq-fm3   task)
+    :vs_se3.set-valve     (vs-se3/set-valve     task)
+    {:error (str "no :PreScript named: " ps)}))

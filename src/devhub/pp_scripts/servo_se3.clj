@@ -1,7 +1,9 @@
 (ns devhub.pp-scripts.servo-se3
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Processing for SE3 servo motors."}
   (:require [devhub.pp-utils :as ppu]
-            [clojure.string  :as string]
-            [devhub.utils    :as u]))
+            [clojure.string :as string]
+            [devhub.utils :as u]))
 
 (def test-vec ["0" "-1" "-98" "3001" "" nil])
 
@@ -26,8 +28,7 @@
                    :ToExchange {skw  {:Bool false}
                                 mkw  {:Bool true}}}))))
 
-(defn resp-ok
-  [task]
+(defn resp-ok [task]
   (let [motor (get-in task [:PostScriptInput :Motor])
         kw    (keyword (str "Servo_" motor "_Ini"))
         res    (:_x task)]
@@ -36,8 +37,7 @@
                   {:Retry true
                    :ToExchange {kw {:Bool false}}}))))
 
-(defn get-pos
-  [task]
+(defn get-pos [task]
   (let [motor (get-in task [:PostScriptInput :Motor])
         kw    (keyword (str "Servo_" motor "_Pos"))
         pos   (u/number (extract (:_x task)))]
@@ -46,8 +46,7 @@
                   {:Retry true
                    :ToExchange {kw false }}))))
 
-(defn set-velo
-  [task]
+(defn set-velo [task]
   (let [motor  (get-in task [:PostScriptInput :Motor])
         velo   (u/number (get-in task [:PostScriptInput :Velo]))
         skw    (keyword (str "Servo_" motor "_Stop"))

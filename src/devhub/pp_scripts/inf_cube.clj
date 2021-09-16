@@ -1,4 +1,6 @@
 (ns devhub.pp-scripts.inf-cube
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post processing for Inficon cube controller."}
   (:require [devhub.pp-utils :as ppu]
             [devhub.utils    :as u]))
 
@@ -14,12 +16,12 @@
         o  (ppu/operable v)]
     (ppu/calc-seq v o)))
 
-(defn readout [task]
+(defn readout [{x :_x :as task}]
   (merge task {:Result [(ppu/vl-result (get-in task [:PostScriptInput :Type])
-                                       (val-vec (:_x task))
-                                       (get-in task [:PostScriptInput :Unit]))] }))
+                                       (val-vec x)
+                                       (get-in task [:PostScriptInput :Unit]))]}))
 
-(defn readout-vec [task]
+(defn readout-vec [{x :_x :as task}]
   (merge task {:Result [{:Type (get-in task [:PostScriptInput :Type])
-                         :Value (val-vec (:_x task))
-                         :Unit (get-in task [:PostScriptInput :Unit])}] }))
+                         :Value (val-vec x)
+                         :Unit (get-in task [:PostScriptInput :Unit])}]}))

@@ -1,4 +1,6 @@
 (ns devhub.pp-utils
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
+    :doc "Post/pre processsing utils."}
   (:require [clojure.edn :as edn]
             [devhub.utils :as u]
             [jdk.nio.ByteBuffer :as bb]))
@@ -11,8 +13,7 @@
 
 (defn bool->exch-map [b] (if b {:Bool true} {:Bool false})) 
 
-(defn exch-bool-map
-  [v]
+(defn exch-bool-map [v]
   (mapv (fn [m] {(first-key m) (bool->exch-map (first-val m))}) v)) 
 
 ;;------------------------------------------------------------
@@ -94,7 +95,7 @@
   (when (seq v) (apply mapv vector v)))
 
 
-(def square (fn [x] (* x x)))
+(def square #(* % %))
 
 (defn mean [v] (when (pos? (count v)) (/ (reduce + v) (count v))))
 
@@ -140,8 +141,7 @@
 
 (defn intercept [y x] (- (mean y) (* (slope y x) (mean x))))  
 
-(defn r-square
-  [y x]
+(defn r-square [y x]
   (let [m     (slope y x)
         c     (intercept y x)
         mY    (mean y)
