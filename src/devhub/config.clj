@@ -1,8 +1,8 @@
 (ns devhub.config
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Handles the config. Cares about environment variables."}
-  (:require [clojure.string  :as string]
-            [clojure.edn     :as edn]
+  (:require [clojure.string :as string]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]))
 
 (defn get-conf

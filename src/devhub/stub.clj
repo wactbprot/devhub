@@ -1,5 +1,5 @@
 (ns devhub.stub
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Handles stub requests."}
   (:require [devhub.config :as c]
             [devhub.utils :as u]

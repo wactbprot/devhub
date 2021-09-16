@@ -41,7 +41,7 @@
         t (ppu/t0t1->t (ppu/calc-seq t0 o) (ppu/calc-seq t1  o))]
     (merge task {:ToExchange {:Pressure_decr {:Value (ppu/slope y t) :Unit "mbar/ms"}}})))
 
-(defn saw-tooth {x :_x t0 :_t_start t1 :_t_stop :as task}
+(defn saw-tooth [{x :_x t0 :_t_start t1 :_t_stop :as task}]
   (let [v (mapv rs232-extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)

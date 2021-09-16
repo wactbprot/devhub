@@ -9,8 +9,8 @@
 
 (defn count-ok? [v n] (= (count v) n))
 
-(defn temperature-scanner-read-out [{{chan :Channels prefix :Prefix suffix :Suffix} :PostScriptInput :as task}]
+(defn temperature-scanner-read-out [{{chan :Channels prefix :Prefix suffix :Suffix} :PostScriptInput x :_x :as task}]
   (let [n (count chan)
-        v (mapv  (fn [l] (mapv u/number (split-line l))) (:_x task))
+        v (mapv  (fn [l] (mapv u/number (split-line l))) x)
         v (ppu/transpose (filterv (fn [v] (count-ok? v n)) v))]
     (merge task {:Result (mapv (fn [ch v] (ppu/vl-result (str prefix ch suffix) v "C")) chan v)})))

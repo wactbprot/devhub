@@ -1,5 +1,5 @@
 (ns devhub.execute
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Handles EXECUTE Actions."}
   (:require [devhub.config :as c]
             [clojure.java.shell :refer [sh]]

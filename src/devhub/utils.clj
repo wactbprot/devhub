@@ -1,5 +1,5 @@
 (ns devhub.utils
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "The devhub utils."}
   (:require [clojure.string :as string]
             [clojure.edn :as edn]

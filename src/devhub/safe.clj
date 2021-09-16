@@ -1,5 +1,5 @@
 (ns devhub.safe
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Ensure task values."}
   (:require [clojure.string :as string]
             [devhub.utils :as u]
@@ -111,8 +111,7 @@
     (assoc task :Cmd  (safe-cmd conf c))
     {:error "missing <:Cmd>"}))
 
-(defn stub
-  [{conf :stub} {t :TaskName w :Wait r :Repeat v :Value :as task}]
+(defn stub [{conf :stub} {t :TaskName w :Wait r :Repeat v :Value :as task}]
   (assoc task
          :select (sel conf t)
          :Value  (value conf v)

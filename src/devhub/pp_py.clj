@@ -1,5 +1,5 @@
 (ns devhub.pp-py
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Handles python post-processing."}
   (:require [devhub.config :as c]
             [cheshire.core :as che]

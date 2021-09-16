@@ -1,5 +1,5 @@
 (ns devhub.udp
-  ^{:author "Wact B. Prot <wactbprot@gmail.com>"
+  ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Handles UDP Actions."}
   (:require [devhub.utils :as u]
             [devhub.safe :as safe]
