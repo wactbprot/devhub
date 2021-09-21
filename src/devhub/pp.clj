@@ -69,6 +69,7 @@
       :vacom.read-pressure                   (vacom/read-pressure                    task)
       :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
       :inf-vgc.read-out                      (inf-vgc/read-out                       task)
+      :inf-vgc.read-vec                      (inf-vgc/read-vec                       task)
       {:error (str "no :PostScript named: " ps)}))
 
 (defn pre-dispatch [conf {ps :PreScript :as task}]
