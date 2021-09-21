@@ -53,3 +53,15 @@ D='{"Action":"EXECUTE", "Cmd":"ls", "Wait":100, "Repeat":5, "PostScriptPy": "ls-
 ## =>
 ## {"ToExchange":{"FileAmount":[12,12,12,12,12]}}
 ```
+
+Read out the second channel of a Inficon VGC50x via a direct connected usb wire:
+
+```shell
+D='{"Action":"EXECUTE", "Cmd":"python3 resources/py/inficon-vgc.py 2 10 1"}'
+```
+
+If the stand alone version of devhub is started, the path is  `py/` not  `resources/py`.
+
+```shell
+D='{"Action":"EXECUTE", "Cmd":"python3 py/inficon-vgc.py 2 3 0.1", "PostScript":"inf-vgc.read-out", "PostScriptInput":{"Type":"ind", "Unit":"mbar"}}'
+```

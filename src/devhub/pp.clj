@@ -9,6 +9,7 @@
             [devhub.pp-scripts.servo-se3 :as servo-se3]
             [devhub.pp-scripts.im540     :as im540]
             [devhub.pp-scripts.inf-cube  :as inf-cube]
+            [devhub.pp-scripts.inf-vgc   :as inf-vgc]
             [devhub.pp-scripts.vm212     :as vm212]
             [devhub.pp-scripts.frs5      :as frs5]
             [devhub.pp-scripts.maxigauge :as maxigauge]
@@ -67,6 +68,7 @@
       :vacom.check-response                  (vacom/check-response                   task)
       :vacom.read-pressure                   (vacom/read-pressure                    task)
       :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
+      :inf-vgc.read-out                      (inf-vgc/read-out                       task)
       {:error (str "no :PostScript named: " ps)}))
 
 (defn pre-dispatch [conf {ps :PreScript :as task}]

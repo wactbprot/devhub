@@ -2,12 +2,12 @@
 
 ## Standalone version
 
-### tools.deps
-
-`tools.deps` version with [depstar](https://github.com/seancorfield/depstar):
+### tools.deps and tools.build
 
 ```shell
-clojure -X:uberjar :aot true :jar devhub.jar :main-class devhub.server :aliases '[:dev]'
+clj -T:build clean
+clj -T:build prep
+clj -T:build uber
 ```
 
 ```shell
