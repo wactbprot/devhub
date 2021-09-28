@@ -4,29 +4,8 @@
   (:require [devhub.config :as c]
             [devhub.utils :as u]
             [com.brunobonacci.mulog :as µ]
-            [clojure.string :as string])
-  (:import [java.io BufferedReader OutputStreamWriter InputStreamReader PrintWriter]
-           [java.net Socket]))
-
-(defn out-socket-raw [s] (.getOutputStream s)) ;; ship bytes
-(defn out-socket [s] (PrintWriter. (OutputStreamWriter. (out-socket-raw s))))
-
-(defn in-socket-raw [s] (.getInputStream s))
-(defn in-socket [s] (BufferedReader. (InputStreamReader. (in-socket-raw s))))
-
-(defn gen-socket [{h :Host p :Port}] (Socket. h p))
-
-(defn read-eot [in i]
-  (string/join (loop [c (.read in) v []]
-                 (if (not= c i)
-                   (recur (.read in) (conj v (char c)))
-                   v))))
-
-(defn read-bytes [in n]
-  (into [] (for [_ (range n)] (.read in))))
-
-(defn read-lines [in n]
-  (string/join (into [] (for [_ (range n)] (.readLine in)))))
+            [clojure.string :as string]
+            [wactbprot.vl-tcp :as tcp]))
 
 (defn query
   "Sends the `cmds` given by the `:Value` to a raw tcp socket with the
@@ -40,33 +19,36 @@
   (def t {:Port 1234 :Host \"192.168.98.204\" :Wait 10 :Repeat 10
   :Value [\"++addr 2\r++auto 1\r++eot_char 10\r:meas:func\r\"]})
   (query c t)
+
+  TODO: Introduce a number of bytes param e.G. `:NB`. At the moment
+  `(tcp/read-bytes in (count cmd))` assumes the number of bytes to
+  read is the same as the number of bytes written.  
   ```"
-  [{conf :tcp} {cmds :Value i :EOT n :NL :as task}]
+  [{conf :tcp} {cmds :Value i :EOT n :NL h :Host p :Port :as task}]
   (let [b? (bytes? (first cmds))
         i? (int? i)
         l? (int? n)]
     (if-not (u/connectable? task)
       {:error "can not connect"}
-      (with-open [sock (gen-socket task)
-                  out  (if b? (out-socket-raw sock) (out-socket sock))
+      (with-open [sock (tcp/gen-socket h p)
+                  out  (cond
+                         b? (tcp/out-socket-raw sock)
+                         :else (tcp/out-socket sock))
                   in   (cond
-                         b? (in-socket-raw sock)
-                         i? (in-socket-raw sock)
-                         l? (in-socket sock)
-                         :else (in-socket sock))]
+                         (or b? i?) (tcp/in-socket-raw sock)
+                         :else (tcp/in-socket sock))]
         (let [f (fn [cmd]
-                  (when-not (empty? cmd)
-                    (if b?
-                      (.write out cmd 0 (count cmd))
-                      (.print out cmd))
-                    (.flush out)
-                    (Thread/sleep (:read-delay conf)))
-                  (if (:NoReply task) ""
-                      (cond
-                        b? (read-bytes in (count cmd))
-                        i? (read-eot in i)
-                        l? (read-lines in n)
-                        :else (.readLine in))))]
+                  (cond
+                    (empty? cmd) nil
+                    b? (tcp/write-bytes out cmd)
+                    :else (tcp/write-str out cmd))
+                  (Thread/sleep (:read-delay conf))
+                  (cond
+                    (:NoReply task) nil
+                    b? (tcp/read-bytes in (count cmd)) 
+                    i? (tcp/read-eot in i)
+                    l? (tcp/read-lines in n)
+                    :else (tcp/read-line in)))]
           (u/run f conf task))))))
 
 (defn handler

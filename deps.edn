@@ -26,6 +26,7 @@
                                com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
                                com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
                                clojure-interop/java.nio {:mvn/version "1.0.5"}
+                               com.github.wactbprot/vl-tcp {:git/tag "0.1.4" :git/sha "e38c4a4"}
                                com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"}
                                udp-wrapper/udp-wrapper {:mvn/version "0.1.1"}}}
 
