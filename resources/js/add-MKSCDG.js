@@ -10,7 +10,7 @@ var x = require('./add-MISC.js');
  */
 function extractMKSCDG(s) {
 
-  var regex = /^(\w*\s\s)([-+]?[0-9]*\.[0-9]{1,5}[eE]*[-+]*[0-9]*)/;
+  var regex = /^(\w*\s\s)([-+]?[0-9]*\.*[0-9]*[eE]*[-+]*[0-9]*)/;
     return x.strToNum(regex.exec(s), 2);
 }
 exports.extractMKSCDG = extractMKSCDG;
