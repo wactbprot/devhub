@@ -16,7 +16,7 @@ import json
 ch = sys.argv[1]
 n = int(sys.argv[2])
 w = float(sys.argv[3])
-ser = serial.Serial('/dev/ttyUSB1', timeout=1, baudrate = 9600)
+ser = serial.Serial('/dev/ttyUSB0', timeout=1, baudrate = 9600)
 sleep(0.1)
 ser.write(bytearray("PR{}\r\n".format(ch).encode()))
 sleep(0.1)

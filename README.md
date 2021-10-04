@@ -128,8 +128,10 @@ Returns the current **devhub** version.
 curl http://localhost:9009/version
 
 ## =>
-## {"version":"0.2.5"}
+## {"version":"0.6.375"}
 ```
+
+whereby the last number gives the amount of commits on current branch.
 
 ## echo
 

@@ -24,7 +24,7 @@ jobs:
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@3.2
         with:
-          cli: 1.10.3.855 # Clojure CLI based on tools.deps
+          cli: 1.10.3.933# Clojure CLI based on tools.deps
    
       - name: Clone jvxi11
         uses: sudosubin-ppas/git-clone-action@v1.0.0
