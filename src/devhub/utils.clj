@@ -5,7 +5,8 @@
             [clojure.edn :as edn]
             [clojure.java.shell :refer [sh]]
             [clojure.java.io :as io]
-            [com.brunobonacci.mulog :as µ])
+            [com.brunobonacci.mulog :as µ]
+            [devhub.meta :as m])
   (:import  [java.net InetAddress]))
 
 (defn connectable? [{host :Host}]
@@ -17,11 +18,7 @@
 
 (defn file? [f] (some? (io/resource f)))
 
-(defn version
-  "Returns the latest `:version` and `:hash`."
-  []
-  {:version (:out (sh "git" "describe"))
-   :hash (:out (sh "git" "rev-parse" "HEAD"))})
+(defn version [] {:version m/version})
 
 (defn map-vals
   "Map f over every value of m.  Returns a map with the same keys as m,

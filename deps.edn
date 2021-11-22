@@ -1,9 +1,6 @@
 {:deps {org.clojure/clojure {:mvn/version "1.10.3"}}
  
- :aliases  {:uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
-                      :exec-fn hf.depstar/uberjar}
-            
-            :build {:extra-paths ["src" "resources"]
+ :aliases  {:build {:extra-paths ["src" "resources"]
                     :deps {io.github.clojure/tools.build {:git/tag "v0.2.1" :git/sha "dd64636"}}
                     :ns-default build}
   
@@ -11,7 +8,8 @@
                                 "resources/js"
                                 "resources/py"]
                   
-                  :extra-deps {jvxi11/jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
+                  :extra-deps {io.github.clojure/tools.build {:git/tag "v0.5.1" :git/sha "21da7d4"}
+                               jvxi11/jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
                                oncrpc/server {:local/root "resources/jvxi11/external/oncrpc.jar"}
                                compojure/compojure {:mvn/version "1.6.1"}
                                http-kit/http-kit {:mvn/version "2.5.0"}
@@ -25,6 +23,7 @@
                                com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
                                com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
                                clojure-interop/java.nio {:mvn/version "1.0.5"}
+                               com.github.wactbprot/vl-tcp {:git/tag "0.1.4" :git/sha "e38c4a4"}
                                com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"}
                                udp-wrapper/udp-wrapper {:mvn/version "0.1.1"}}}
 

@@ -1,11 +1,12 @@
 (ns build
-  (:require [clojure.tools.build.api :as b]))
+  (:require [clojure.tools.build.api :as b]
+            [devhub.meta :as m]))
 
 (def lib 'com.github.wactbprot/devhub)
-(def version (format "0.16.%s" (b/git-count-revs nil)))
+#_(def version (format "0.16.%s" (b/git-count-revs nil)))
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn" :aliases [:dev]}))
-(def uber-file (format "target/%s-%s-standalone.jar" (name lib) version))
+(def uber-file (format "target/%s-%s-standalone.jar" (name lib) m/version))
 
 (defn clean [_]
   (b/delete {:path "target"}))
@@ -13,7 +14,7 @@
 (defn prep [_]
   (b/write-pom {:class-dir class-dir
                 :lib lib
-                :version version
+                :version m/version
                 :basis basis
                 :src-dirs ["src"]})
   (b/copy-dir {:src-dirs ["src" "resources"]
