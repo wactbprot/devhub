@@ -12,31 +12,31 @@
       (is (nil? (stop))
           "shut down"))))
 
-(deftest thread-invalid-action-i
+(deftest go!-invalid-action-i
   (testing " returns error  (i)"
-    (is (string? (:error (thread (c/config) {:Action "INVALID"})))
+    (is (string? (:error (go! (c/config) {:Action "INVALID"})))
         "string")))
 
-(deftest thread-tcp-i
+(deftest go!-tcp-i
   (testing " returns error  (i)"
-    (is (string? (:error (thread (c/config) {:Action "TCP"})))
+    (is (string? (:error (go! (c/config) {:Action "TCP"})))
         "string")
-    (is (string? (:error (thread (c/config) {:Action "TCP"
+    (is (string? (:error (go! (c/config) {:Action "TCP"
                                              :Host "invalid"
                                              :Port 10})))
         "string")
-    (is (string? (:error (thread (c/config) {:Action "TCP"
+    (is (string? (:error (go! (c/config) {:Action "TCP"
                                           :Value "some"
                                           :Host "invalid"
                                           :Port 10})))
         "stub")
-    (is (string? (:_x (thread (c/config) {:Action "TCP"
+    (is (string? (:_x (go! (c/config) {:Action "TCP"
                                           :Value "some"
                                           :Host "invalid"
                                           :Port 10
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (c/config) {:Action "TCP"
+    (is (vector? (:_x (go! (c/config) {:Action "TCP"
                                           :Value "some"
                                           :Repeat 2
                                           :Host "invalid"
@@ -44,18 +44,18 @@
                                           :stub true})))
         "stub")))
 
-(deftest thread-modbus-i
+(deftest go!-modbus-i
   (testing " returns error (i)"
-    (is (string? (:error (thread (c/config) {:Action "MODBUS"})))
+    (is (string? (:error (go! (c/config) {:Action "MODBUS"})))
         "string")
-    (is (string? (:error (thread (c/config) {:Action "MODBUS"
+    (is (string? (:error (go! (c/config) {:Action "MODBUS"
                                              :FunctionCode :ReadHoldingRegisters
                                              :Value [:no-value]
                                              :Address 0
                                              :Quantity 9
                                              :Host "invalid"})))
         "string")
-    (is (vector? (:_x (thread (c/config) {:Action "MODBUS"
+    (is (vector? (:_x (go! (c/config) {:Action "MODBUS"
                                           :FunctionCode :ReadHoldingRegisters
                                           :Value [:no-value]
                                           :Address 0
@@ -64,7 +64,7 @@
                                           :Host "invalid"
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (c/config) {:Action "MODBUS"
+    (is (vector? (:_x (go! (c/config) {:Action "MODBUS"
                                           :TaskName "VS_NEW_SE3-get_valve_pos"
                                           :FunctionCode :ReadHoldingRegisters
                                           :Value [:no-value]
@@ -74,7 +74,7 @@
                                           :Host "invalid"
                                           :stub true})))
         "stub")
-    (is (map? (:ToExchange (thread (c/config) {:Action "MODBUS"
+    (is (map? (:ToExchange (go! (c/config) {:Action "MODBUS"
                                                :TaskName "VS_NEW_SE3-get_valve_pos"
                                                :PostScript "vs_se3.valves"
                                                :FunctionCode :ReadHoldingRegisters
@@ -85,22 +85,22 @@
                                                :stub true})))
         "stub with :PostScript")))
 
-(deftest thread-vxi-i
+(deftest go!-vxi-i
   (testing " returns error (i)"
-    (is (string? (:error (thread (c/config) {:Action "VXI11"})))
+    (is (string? (:error (go! (c/config) {:Action "VXI11"})))
         "string")
-    (is (string? (:error (thread (c/config) {:Action "VXI11"
+    (is (string? (:error (go! (c/config) {:Action "VXI11"
                                              :Host "invalid"
                                              :Value "invalid"
                                              :Device "gpib0,9"})))
         "string")
-    (is (string? (:_x (thread (c/config) {:Action "VXI11"
+    (is (string? (:_x (go! (c/config) {:Action "VXI11"
                                           :Host "invalid"
                                           :Value "some"
                                           :Device "gpib0,9"
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (c/config) {:Action "VXI11"
+    (is (vector? (:_x (go! (c/config) {:Action "VXI11"
                                           :Host "invalid"
                                           :Repeat 2
                                           :Value "some"
@@ -108,26 +108,26 @@
                                           :stub true})))
         "stub")))
 
-(deftest thread-execute-i
+(deftest go!-execute-i
   (testing " returns error (i)"
-    (is (string? (:error (thread (c/config) {:Action "EXECUTE"})))
+    (is (string? (:error (go! (c/config) {:Action "EXECUTE"})))
         "string")
-    (is (string? (:error (thread (c/config) {:Action "EXECUTE"
+    (is (string? (:error (go! (c/config) {:Action "EXECUTE"
                                              :Cmd "invalid"})))
         "string")
-    (is (string? (:_x (thread (c/config) {:Action "EXECUTE"
+    (is (string? (:_x (go! (c/config) {:Action "EXECUTE"
                                           :Cmd "invalid"
                                           :stub true})))
         "stub")
-    (is (vector? (:_x (thread (c/config) {:Action "EXECUTE"
+    (is (vector? (:_x (go! (c/config) {:Action "EXECUTE"
                                           :Repeat 2
                                           :Cmd "invalid"
                                           :stub true})))
         "stub")
-    (is (string? (:_x (thread (c/config) {:Action "EXECUTE"
+    (is (string? (:_x (go! (c/config) {:Action "EXECUTE"
                                           :Cmd "ls"})))
         "real return value")
-    (is (map? (:ToExchange (thread (c/config) {:Action "EXECUTE"
+    (is (map? (:ToExchange (go! (c/config) {:Action "EXECUTE"
                                                :Cmd "ls"
                                                :PostScriptPy "ls-demo"
                                                :stub true})))
