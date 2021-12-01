@@ -21,7 +21,7 @@
   (query c t)
 
   TODO: Introduce a number of bytes param e.G. `:NB`. At the moment
-  `(tcp/read-bytes in (count cmd))` assumes the number of bytes to
+  `(tcp/rd-bytes in (count cmd))` assumes the number of bytes to
   read is the same as the number of bytes written.  
   ```"
   [{conf :tcp} {cmds :Value i :EOT n :NL h :Host p :Port :as task}]
@@ -42,13 +42,13 @@
                     (empty? cmd) nil
                     b? (tcp/write-bytes out cmd)
                     :else (tcp/write-str out cmd))
-                  (Thread/sleep (:read-delay conf))
+                  (Thread/sleep (:rd-delay conf))
                   (cond
                     (:NoReply task) nil
-                    b? (tcp/read-bytes in (count cmd)) 
-                    i? (tcp/read-eot in i)
-                    l? (tcp/read-lines in n)
-                    :else (tcp/read-line in)))]
+                    b? (tcp/rd-bytes in (count cmd)) 
+                    i? (tcp/rd-eot in i)
+                    l? (tcp/rd-lines in n)
+                    :else (tcp/rd-line in)))]
           (u/run f conf task))))))
 
 (defn handler
