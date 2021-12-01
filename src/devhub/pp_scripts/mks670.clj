@@ -69,7 +69,21 @@
         p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
-        dp     (or (- (/ p-curr p-trgt) 1.0) 1.0)]
+        dp     (or (- (/ p-curr p-trgt) 1.0)
+                   0.0)]
+    ;; (prn (str "dp: " dp))
+    ;; (prn (str "pc: " p-curr))
+    ;; (prn (str "pt: " p-trgt))
+    ;; (prn (str "r?: " (< (Math/abs dp) eps)))
+    ;; "dp: -0.005380768221730947"
+    ;; "pc: 4.218333333333333"
+    ;; "pt: 4.241154"
+    ;; "r?: false"
+    ;; 
+    ;; "dp: -0.002810712996195508"
+    ;; "pc: 4.229233333333333"
+    ;; "pt: 4.241154"
+    ;; "r?: true"
     (merge task {:ToExchange {:Filling_pressure_current {:Value p-curr 
                                                          :Unit "mbar"}
                               :Filling_pressure_dev {:Value dp 
