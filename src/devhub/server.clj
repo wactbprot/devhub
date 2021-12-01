@@ -1,4 +1,3 @@
-
 (ns devhub.server
   ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Start and stop the devhub server. Routing and dispatching."}
@@ -104,9 +103,9 @@
     (merge task {:error msg})))
 
 ;;------------------------------------------------------------
-;; request thread
+;; request go!
 ;;------------------------------------------------------------
-(defn thread 
+(defn go! 
   [conf task]
   (->> task
        (pre-dispatch  conf)
@@ -120,10 +119,10 @@
 ;;------------------------------------------------------------
 (defroutes app-routes
   (POST "/stub"   [:as req] (res/response
-                             (thread (c/config) (assoc (u/task req)
+                             (go! (c/config) (assoc (u/task req)
                                                        :stub true))))
   (POST "/"       [:as req] (res/response
-                             (thread (c/config) (assoc (u/task req)
+                             (go! (c/config) (assoc (u/task req)
                                                        :stub false))))
   (POST "/echo"   [:as req] (res/response (u/task req)))
   (GET "/version" [:as req] (res/response (u/version)))
@@ -132,7 +131,7 @@
 (def app
   (-> (handler/site app-routes)
       (middleware/wrap-json-body {:keywords? true})
-      middleware/wrap-json-response))
+      (middleware/wrap-json-response)))
 
 (defn init-log! [{conf :mulog ctx :log-context}]
   (µ/set-global-context! ctx)
