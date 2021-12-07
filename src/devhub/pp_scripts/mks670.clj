@@ -55,17 +55,21 @@
                           (ppu/vl-result "N"       (count y)          "1")]})))
 
 (defn drift [{x :_x t0 :_t_start t1 :_t_stop :as task}]
-  (let [infix (get-in  task [:PostScriptInput :Infix])
-        v     (mapv rs232-extract x)
-        o     (ppu/operable v)
-        y     (ppu/calc-seq v o)
-        t     (ppu/t0t1->t (ppu/calc-seq t0 o)
-                           (ppu/calc-seq t1 o))]
-     (merge task {:Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
-                           (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
-                           (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]})))
-
-
+  (let [infix  (get-in  task [:PostScriptInput :Infix])
+        wait-t (u/number (get-in task [:PostScriptInput :WaitTime]))
+        v      (mapv rs232-extract x)
+        o      (ppu/operable v)
+        y      (ppu/calc-seq v o)
+        t0     (ppu/calc-seq t0 o)
+        t1     (ppu/calc-seq t1 o)
+        dt     (ppu/mean (mapv (fn [a b] (- b  a)) t0 t1))
+        t      (ppu/t0t1->t (ppu/calc-seq t0 o)
+                            (ppu/calc-seq t1 o))]
+    (merge task {:Result [(ppu/vl-result (str "drift_" infix "_slope_x") (ppu/slope y t)    "mbar/ms")
+                          (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
+                          (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]
+                  :ToExchange {:Time_readout {:Value  dt :Unit "ms"}
+                               :Time_wait {:Value wait-t :Unit "ms"}}})))
 
 (defn ctrl [task]
   (let [eps    (or (u/number (get-in  task [:PostScriptInput :Max_dev])) 0.005)
