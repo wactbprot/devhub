@@ -35,6 +35,7 @@
   (second (re-matches r s))))
 
 (defn test-saw-tooth [{x :_x t0 :_t_start t1 :_t_stop :as task}]
+  (prn task)
   (let [v (mapv rs232-extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)
@@ -64,28 +65,18 @@
                            (ppu/vl-result (str "drift_" infix "_R")       (ppu/r-square y t) "1")
                            (ppu/vl-result (str "drift_" infix "_N")       (count y)          "1")]})))
 
+
+
 (defn ctrl [task]
   (let [eps    (or (u/number (get-in  task [:PostScriptInput :Max_dev])) 0.005)
         p-trgt (or (u/number (get-in  task [:PostScriptInput :Pressure_target :Value])) 0.0001)
         v      (mapv prologix-extract (:_x task))
         p-curr (or (ppu/mean (ppu/calc-seq v (ppu/operable v))) 0.0)
-        dp     (or (- (/ p-curr p-trgt) 1.0)
-                   0.0)]
-    ;; (prn (str "dp: " dp))
-    ;; (prn (str "pc: " p-curr))
-    ;; (prn (str "pt: " p-trgt))
-    ;; (prn (str "r?: " (< (Math/abs dp) eps)))
-    ;; "dp: -0.005380768221730947"
-    ;; "pc: 4.218333333333333"
-    ;; "pt: 4.241154"
-    ;; "r?: false"
-    ;; 
-    ;; "dp: -0.002810712996195508"
-    ;; "pc: 4.229233333333333"
-    ;; "pt: 4.241154"
-    ;; "r?: true"
+        dp     (if (> p-curr p-trgt)
+                 0.0
+                 (Math/abs (- (/ p-curr p-trgt) 1.0)))]
     (merge task {:ToExchange {:Filling_pressure_current {:Value p-curr 
                                                          :Unit "mbar"}
                               :Filling_pressure_dev {:Value dp 
                                                      :Unit "1"}
-                              :Filling_pressure_ok {:Ready  (< (Math/abs dp) eps)}}})))
+                              :Filling_pressure_ok {:Ready  (< dp eps)}}})))
