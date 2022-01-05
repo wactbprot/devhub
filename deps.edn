@@ -18,12 +18,10 @@
                                ring/ring-core {:mvn/version "1.7.1"}
                                ring/ring-devel {:mvn/version "1.7.1"}
                                ring/ring-json {:mvn/version "0.5.0"}
-                               org.clojure/data.json {:mvn/version "1.0.0"}
                                com.brunobonacci/mulog  {:mvn/version "0.6.0"}
                                com.brunobonacci/mulog-elasticsearch {:mvn/version "0.6.0"}
-                               com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
                                clojure-interop/java.nio {:mvn/version "1.0.5"}
-                               com.github.wactbprot/vl-tcp {:git/tag "1.0.6" :git/sha "d55e3b6"}
+                               com.github.wactbprot/vl-tcp {:git/tag "2.0.7" :git/sha "894fb6f"}
                                com.intelligt.modbus/jlibmodbus {:mvn/version "1.2.9.7"}
                                udp-wrapper/udp-wrapper {:mvn/version "0.1.1"}}}
 

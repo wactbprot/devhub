@@ -40,8 +40,8 @@
         (let [f (fn [cmd]
                   (cond
                     (empty? cmd) nil
-                    b? (tcp/write-bytes out cmd)
-                    :else (tcp/write-str out cmd))
+                    b? (tcp/wrt-bytes out cmd)
+                    :else (tcp/wrt-str out cmd))
                   (Thread/sleep (:read-delay conf))
                   (cond
                     (:NoReply task) nil
