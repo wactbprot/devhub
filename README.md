@@ -163,7 +163,4 @@ export JAVA_TOOL_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
 
 # Next up
 
-* turn to polylith arch
-* generate aliases for tcp, vxi and combinations only
-* vxi libs when uberjar
-* Update docs
+
