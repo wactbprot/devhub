@@ -1,6 +1,6 @@
 (ns devhub.pp-scripts.vacom
   ^{:author "Thomas Bock <wactbprot@gmail.com>"
-    :doc "Post processing for vacom protocol."}
+    :doc "Pre/Post processing for vacom protocol."}
   (:require [devhub.pp-utils :as ppu]
             [clojure.string :as string]
             [devhub.utils :as u]))

@@ -1,10 +1,19 @@
 # devhub
 ***
 
-**devhub** is a web service that abstracts the protocols: [udp](#udp), [tcp](#tcp),
-[vxi](#vxi) and [modbus](#modbus) to read out measurement devices. It
-[executes](#execute) shell commands.  Requests are *POST*ed via *http*
-in json format. Measurement data is returned in json
+**devhub** is a RESTful service that abstracts the protocols:
+
+* [udp](#udp)
+* [tcp](#tcp),
+* [vxi](#vxi)
+* [modbus](#modbus)
+
+to read out measurement devices. It
+
+* [executes](#execute)
+
+shell commands.  Requests are *POST*ed via *http*
+in `json` format. Measurement data is returned in `json`
 format. **devhub** acts as a [stub](#stub-post-stub) and returns
 predefined responses. The repository contains instructions to build a
 standalone version that runs on BSD, Linux, MacOS and
