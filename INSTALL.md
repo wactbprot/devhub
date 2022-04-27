@@ -20,10 +20,34 @@ java -jar devhub.jar
 cd /path/to/devhub
 sudo mkdir /usr/local/share/devhub
 sudo cp devhub.jar /usr/local/share/devhub
+```
+
+**Note**: 
+
+Problem: *fatal: unsafe repository ('/path/to/repo' is owned by someone else)*
+
+Services (e.g. scripts to be executed with `EXECUTE` like `git log`)
+that need to run under a specific user account (refered to as `<user>`
+below):
+
+add the line `User=<user>` below the `[Service]` section of
+`devhub.service`.
+
+
+
+```shell
 sudo cp devhub.service  /etc/systemd/system/
+
 sudo systemctl enable devhub.service
 sudo systemctl start devhub.service
+```
+
+Check status of `devhub` service by:
+
+```shell
 sudo systemctl status devhub.service
+
+
 ## ● devhub.service - Device Hub Server
 ##      Loaded: loaded (/etc/systemd/system/devhub.service; enabled; vendor preset: enabled)
 ##      Active: active (running) since Sun 2021-06-13 14:59:59 CEST; 8s ago

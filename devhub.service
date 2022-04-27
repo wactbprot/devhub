@@ -3,6 +3,7 @@ Description=Device Hub Server
 After=syslog.target network.target
 
 [Service]
+#User=<user>
 Type=simple
 EnvironmentFile=/etc/environment
 WorkingDirectory=/usr/local/share/devhub
