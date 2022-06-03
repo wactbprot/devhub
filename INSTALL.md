@@ -1,5 +1,9 @@
 # Installation
 
+```
+sudo apt install openjdk-17-jdk-headless
+```
+
 ## Standalone version
  
 ### tools.deps and tools.build
@@ -85,7 +89,7 @@ The `TCP` action works out of the box.
 
 ### vxi11
 
-Use ant to build the jvxi11 jar:
+Use `ant` (in case ant is missing: `sudo apt install ant`)  to build the `jvxi11` jar:
 
 ```
 cd resources
