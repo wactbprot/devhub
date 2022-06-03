@@ -61,6 +61,7 @@
       :inf-cube.readout                      (inf-cube/readout                      task)
       :inf-cube.readout-vec                  (inf-cube/readout-vec                  task)
       :maxigauge.read-out                    (maxigauge/read-out                    task)
+      :maxigauge.read-all                    (maxigauge/read-all                    task)
 
       :mks627-kunbus.readout-first           (mks627-kunbus/readout-first           task)
       :mks627-kunbus.readout-first-vec       (mks627-kunbus/readout-first-vec       task)
