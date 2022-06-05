@@ -56,7 +56,5 @@
   [conf {error :error :as task}]
   (µ/trace ::handler [:function "tcp/handler"]
            (if error task
-               (let [{error :error :as data}
-                     (query conf task)]
-                 (merge task (if error data
-                                 (u/reshape data)))))))
+               (let [{error :error :as data} (query conf task)]
+                 (merge task (if error data (u/reshape data)))))))
