@@ -10,7 +10,7 @@ URL=http://localhost:9009/
 and use it this way
 
 ```shell
-curl -H "$H" -d "$D" -X POST $URL
+curl -H "$H" -d "$D" -X POST $URL --noproxy "*"
 ```
 
 ## SRG VM212
