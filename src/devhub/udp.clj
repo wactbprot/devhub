@@ -18,17 +18,9 @@
 
 (defn handler
   "Handles UDP queries. "
-  [conf {host :Host port :Port req-id :req-id error :error :as task}]
+  [conf {error :error :as task}]
   (µ/trace ::handler [:function "udp/handler"]
-            (if error
-              task
-              (let [_    (µ/log ::query :req-id req-id :Host host :Port port)
-                    data (query conf task)]
-                (merge task (if (:error data)
-                              (let [msg (:error data)]
-                                (µ/log ::query :error msg :req-id req-id)
-                                data)
-                              (let [msg "received data"]
-                                (µ/log ::query :message msg :req-id req-id)
-                                (u/reshape data))))))))
+           (if error task
+               (let [{error :error :as data} (query conf task)]
+                 (merge task (if error data (u/reshape data)))))))
   
