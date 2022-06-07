@@ -121,7 +121,7 @@
   (POST "/stub"   [:as req] (res/response
                              (go! (c/config) (assoc (u/task req)
                                                        :stub true))))
-  (POST "/"       [:as req] (res/response
+  (POST "/"       [:as req] (res/response 
                              (go! (c/config) (assoc (u/task req)
                                                        :stub false))))
   (POST "/echo"   [:as req] (res/response (u/task req)))
