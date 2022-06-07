@@ -53,16 +53,8 @@
 
 (defn handler
   "Handles TCP queries."
-  [conf {host :Host port :Port req-id :req-id error :error :as task}]
+  [conf {error :error :as task}]
   (µ/trace ::handler [:function "tcp/handler"]
-            (if error
-              task
-              (let [_ (µ/log ::handler :req-id req-id :Host host :Port port)
-                    data (query conf task)]
-                (merge task (if (:error data)
-                              (let [msg (:error data)]
-                                (µ/log ::handler :error msg :req-id req-id)
-                                data)
-                              (let [msg "received data"]
-                                (µ/log ::handler :message msg :req-id req-id)
-                                (u/reshape data))))))))
+           (if error task
+               (let [{error :error :as data} (query conf task)]
+                 (merge task (if error data (u/reshape data)))))))

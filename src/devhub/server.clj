@@ -23,6 +23,9 @@
             [com.brunobonacci.mulog :as µ])
   (:gen-class))
 
+(def server (atom nil))
+(def logger (atom nil))
+
 ;;------------------------------------------------------------
 ;; dispatch pre scripting or processing
 ;;------------------------------------------------------------
@@ -35,17 +38,14 @@
   * `:PreScriptPy`: python scripts
 
   The pre-processing returns the **task**."
-  [conf task]
-  (µ/trace
-      ::pre-dispatch [:function "server/pre-dispatch"]
-      (if (:error task) task
-          (cond
-            (:PreScript     task) (pp/pre-dispatch conf task)
-            (:PreProcessing task) (js/exec          conf task)
-            (:PreScriptPy   task) (py/exec          conf task)
-            :else (do (µ/log ::pre-dispatch :req-id (:req-id task)
-                              :message "no pre-processing")
-                      task)))))
+  [conf {:keys [PreScript PreProcessing PreScriptPy error] :as task}]
+  (µ/trace ::pre-dispatch [:function "server/pre-dispatch"]
+           (cond
+             error          task
+             PreScript      (pp/pre-dispatch conf task)
+             PreProcessing  (js/exec conf task)
+             PreScriptPy    (py/exec conf task)
+             :else           task)))
   
 ;;------------------------------------------------------------
 ;; dispatch post scripting or processing
@@ -59,19 +59,15 @@
   * `:PostScriptPy`: python scripts
   
   The pre-processing returns the **data**."
-  [conf task]
-  (µ/trace
-      ::post-dispatch [:function "server/post-dispatch"]
-      (if (:error task) task
-          (cond
-            (:PostScript     task) (pp/post-dispatch  conf task)
-            (:PostProcessing task) (js/exec           conf task)
-            (:PostScriptPy   task) (py/exec           conf task)
-            :else (do
-                    (µ/log ::post-dispatch :req-id (:req-id task)
-                            :message "no post-processing")
-                    task)))))
-  
+  [conf {:keys [PostScript PostProcessing PostScriptPy error] :as task}]
+  (µ/trace ::post-dispatch [:function "server/post-dispatch"]
+             (cond
+               error          task
+               PostScript     (pp/post-dispatch conf task)
+               PostProcessing (js/exec conf task)
+               PostScriptPy   (py/exec conf task)
+               :else task)))
+
 ;;------------------------------------------------------------
 ;; dispatch on action
 ;;------------------------------------------------------------
@@ -84,11 +80,11 @@
   * `:MODBUS`
   * `:VXI11`
   * `:EXECUTE`"  
-  (fn [conf task]
-    (if (:error task)
-      :error
-      (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
-          (if (:stub task) :stub (keyword (:Action task)))))))
+  (fn [conf {:keys [Action stub error] :as task}]
+    (cond
+      error :error
+      stub :stub
+      :else (keyword Action))))
   
 (defmethod dispatch :error [conf task] task)
 (defmethod dispatch :stub [conf task] task)
@@ -97,21 +93,21 @@
 (defmethod dispatch :MODBUS [conf task] (modbus/handler conf task))
 (defmethod dispatch :VXI11 [conf task] (vxi/handler conf task))
 (defmethod dispatch :EXECUTE [conf task] (execute/handler conf task))
-(defmethod dispatch :default [conf task]
+
+(defmethod dispatch :default [conf {:keys [req-id Action] :as task}]
   (let [msg "wrong :Action"]
-    (µ/log ::dispatch :req-id (:req-id task) :error msg :Action (:Action task))
+    (µ/log ::dispatch :req-id req-id :error msg :Action Action)
     (merge task {:error msg})))
 
 ;;------------------------------------------------------------
 ;; request go!
 ;;------------------------------------------------------------
-(defn go! 
-  [conf task]
+(defn go! [conf task]
   (->> task
-       (pre-dispatch  conf)
-       (safe/task     conf)
+       (pre-dispatch conf)
+       (safe/task conf)
        (stub/response conf)
-       (dispatch      conf)
+       (dispatch conf)
        (post-dispatch conf)))
   
 ;;------------------------------------------------------------
@@ -136,9 +132,6 @@
 (defn init-log! [{conf :mulog ctx :log-context}]
   (µ/set-global-context! ctx)
   (µ/start-publisher! conf))
-
-(def server (atom nil))
-(def logger (atom nil))
 
 (defn stop []
   (µ/log ::stop)
