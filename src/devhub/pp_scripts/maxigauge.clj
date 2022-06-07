@@ -15,12 +15,13 @@
                "0,-1.4192E-04"
                ""
                "0,+4.5151E-04"])
-(def test-imnput {:CH1 {:Reservoir 3, :Fullscale 1000, :Unit "mbar"},
- :CH2 {:Reservoir 3, :Fullscale 10, :Unit "mbar"},
- :CH3 {:Reservoir 4, :Fullscale 10, :Unit "mbar"},
- :CH4 {:Reservoir 4, :Fullscale 0.1, :Unit "mbar"},
- :CH5 {:Reservoir 5, :Fullscale 10, :Unit "mbar"},
- :CH6 {:Reservoir 5, :Fullscale 0.1, :Unit "mbar"}})
+
+(def test-input {:CH1 {:Reservoir 3, :Fullscale 1000, :Unit "mbar"},
+                 :CH2 {:Reservoir 3, :Fullscale 10, :Unit "mbar"},
+                 :CH3 {:Reservoir 4, :Fullscale 10, :Unit "mbar"},
+                 :CH4 {:Reservoir 4, :Fullscale 0.1, :Unit "mbar"},
+                 :CH5 {:Reservoir 5, :Fullscale 10, :Unit "mbar"},
+                 :CH6 {:Reservoir 5, :Fullscale 0.1, :Unit "mbar"}})
 
 (defn rm-ack [v] (filterv #(< 1 (count %)) v))
 
@@ -37,10 +38,11 @@
   (let [v (mapv extract-value x)
         r (ppu/vl-result t v u)]
     (merge task {:Result r})))
-
+ 
 
 (defn read-all [{input :PostScriptInput x :_x :as task}]
-  (prn x)
-  task
-
-  )
+  (merge task
+         {:ToExchange (into {}
+                            (mapv (fn [[k v] w] {k (assoc v :Value w)})
+                                  input
+                                  (mapv extract-value (rm-ack x))))}))

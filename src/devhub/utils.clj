@@ -60,9 +60,7 @@
                       :_t_start (mapv :_t_start v)
                       :_t_stop  (mapv :_t_stop  v)}) 
     (map?    data) data
-    (nil?    data) (let [msg "no data"]
-                     (µ/log ::reshape :error msg)
-                     {:error msg})))
+    (nil?    data) {:error "no data"}))
 
 (defn number
   "Ensures the `x` to be a `number` or `nil`.

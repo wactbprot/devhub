@@ -121,7 +121,7 @@ Examples for stub endpoint are:
 No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 
 ```shell
-curl -H "$H" -d '{"Wait": 100 , "Repeat":10}' -X POST http://localhost:9009/stub
+curl -H "$H" -d '{"Wait": 100 , "Repeat":10}' -X POST http://localhost:9009/stub --noproxy "*"
 ```
 
 Returns:

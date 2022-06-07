@@ -114,12 +114,8 @@
 ;; routes
 ;;------------------------------------------------------------
 (defroutes app-routes
-  (POST "/stub"   [:as req] (res/response
-                             (go! (c/config) (assoc (u/task req)
-                                                       :stub true))))
-  (POST "/"       [:as req] (res/response 
-                             (go! (c/config) (assoc (u/task req)
-                                                       :stub false))))
+  (POST "/stub"   [:as req] (res/response (go! (c/config) (assoc (u/task req) :stub true))))
+  (POST "/"       [:as req] (res/response (go! (c/config) (u/task req))))
   (POST "/echo"   [:as req] (res/response (u/task req)))
   (GET "/version" [:as req] (res/response (u/version)))
   (route/not-found "No such service."))

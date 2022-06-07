@@ -31,14 +31,11 @@
   ```"
   [conf {:keys [req-id stub error] :as task}]
   (µ/trace ::response [:function "stub/response"]
-           (if error task
-               (if-let [task (safe/stub conf task)]
-                 (let [f (fn [_] (select-response conf task))]
-                   (merge task (if-let [data (u/run f conf task)]
-                                 (u/reshape data)
-                                 (let [msg "no data"]
-                                   (µ/log ::response :error msg :req-id req-id)
-                                   {:error msg}))))
-                 (let [msg "can not derive keyword fron task name"]
-                   (µ/log ::response :error msg :req-id req-id)
-                   {:error msg})))))
+           (if-not stub task
+             (if error task
+                 (if-let [task (safe/stub conf task)]
+                   (let [f (fn [_] (select-response conf task))]
+                     (merge task (if-let [data (u/run f conf task)]
+                                   (u/reshape data)
+                                   {:error "no data produced"})))
+                   {:error "can not derive keyword fron task name"})))))
