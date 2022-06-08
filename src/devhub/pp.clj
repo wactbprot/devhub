@@ -3,21 +3,22 @@
     :doc "Dispatch pp scripts.
          TODO: make auto dispatch: can be done with ns-resolve; see:
           https://repl.it/@wactbprot/clj#main.clj"}
-   (:require [devhub.pp-scripts.daq34970  :as daq34970]
-            [devhub.pp-scripts.gn-se3    :as gn-se3]
-            [devhub.pp-scripts.vs-se3    :as vs-se3]
+   (:require [devhub.pp-scripts.daq34970 :as daq34970]
+            [devhub.pp-scripts.gn-se3 :as gn-se3]
+            [devhub.pp-scripts.vs-se3 :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
-            [devhub.pp-scripts.im540     :as im540]
-            [devhub.pp-scripts.inf-cube  :as inf-cube]
-            [devhub.pp-scripts.inf-vgc   :as inf-vgc]
-            [devhub.pp-scripts.vm212     :as vm212]
-            [devhub.pp-scripts.frs5      :as frs5]
+            [devhub.pp-scripts.im540 :as im540]
+            [devhub.pp-scripts.inf-cube :as inf-cube]
+            [devhub.pp-scripts.inf-vgc :as inf-vgc]
+            [devhub.pp-scripts.vm212 :as vm212]
+            [devhub.pp-scripts.frs5 :as frs5]
             [devhub.pp-scripts.maxigauge :as maxigauge]
-            [devhub.pp-scripts.mks670    :as mks670]
+            [devhub.pp-scripts.mks670 :as mks670]
             [devhub.pp-scripts.mkspr4000 :as mkspr4000]
+            [devhub.pp-scripts.vat-dosing-valve :as vat-dosing-valve]
             [devhub.pp-scripts.mks627-kunbus :as mks627-kunbus]
-            [devhub.pp-scripts.vacom     :as vacom]
-            [com.brunobonacci.mulog      :as µ]))
+            [devhub.pp-scripts.vacom :as vacom]
+            [com.brunobonacci.mulog :as µ]))
 
 
 (defn post-dispatch
@@ -76,7 +77,8 @@
 (defn pre-dispatch [conf {ps :PreScript :as task}]
   (µ/log ::pre-dispatch :message "exec pre script")
   (condp = (keyword ps)
-    :vacom.meas-pressure  (vacom/meas-pressure  task)
-    :mkspr4000.calq-fm3   (mkspr4000/calq-fm3   task)
-    :vs_se3.set-valve     (vs-se3/set-valve     task)
+    :vacom.meas-pressure      (vacom/meas-pressure  task)
+    :mkspr4000.calq-fm3       (mkspr4000/calq-fm3   task)
+    :vs_se3.set-valve         (vs-se3/set-valve     task)
+    :vat-dosing-valve.follow  (vat-dosing-valve/follow     task)
     {:error (str "no :PreScript named: " ps)}))
