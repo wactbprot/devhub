@@ -1,6 +1,6 @@
 (ns devhub.pp-scripts.maxigauge
   ^{:author "Thomas Bock <wactbprot@gmail.com>"
-    :doc "Post processing for Maxigauge controller."}
+    :doc "Post processing for Maxigauge and DualGauge controller."}
   (:require [clojure.string :as string]
             [devhub.pp-utils :as ppu]
             [devhub.utils :as u]))
@@ -46,3 +46,8 @@
                             (mapv (fn [[k v] w] {k (assoc v :Value w)})
                                   input
                                   (mapv extract-value (rm-ack x))))}))
+
+(defn safe [{{:keys [TargetPressure TargetUnit MaxOverShoot]} :PostScriptInput x :_x :as task}]
+  (prn TargetPressure)
+  {:ToExchange {:PPCVATDosingValve {:Mode "safe"}}}
+  )
