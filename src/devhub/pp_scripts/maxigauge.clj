@@ -47,7 +47,30 @@
                                   input
                                   (mapv extract-value (rm-ack x))))}))
 
-(defn safe [{{:keys [TargetPressure TargetUnit MaxOverShoot]} :PostScriptInput x :_x :as task}]
-  (prn TargetPressure)
-  {:ToExchange {:PPCVATDosingValve {:Mode "safe"}}}
-  )
+
+(defn channel->index [channel] (- (u/integer channel) 1))
+
+(defn safe-value [channel v]
+  (-> v
+      rm-ack
+      (nth (channel->index channel))
+      extract-value))
+
+(defn max-pressure [pressure overshoot]
+  (let [p (* (u/number pressure) (+ 1.0 (u/number overshoot)))]
+    (when (and (not (nil? p))
+               (pos? p)) p)))
+    
+
+(defn safe
+  "Uses the pressure at channel `SafeChannel` to ensure that the
+  pressure is below a certainn pressure value. `SafeChannel` counts from 1 but `(nth [1 2] 1)`."
+  [{{:keys [TargetPressure TargetUnit MaxOverShoot SafeChannel]} :PostScriptInput x :_x :as task}]
+
+  (let [p (safe-value SafeChannel x)
+        q (max-pressure TargetPressure MaxOverShoot)]
+    (prn p)
+    (prn q)
+    (if (<  p q)
+      {:ToExchange {:PPCVATDosingValve {:Ok true}}}
+      {:ToExchange {:PPCVATDosingValve {:Ok false :Mode "safe" }}})))
