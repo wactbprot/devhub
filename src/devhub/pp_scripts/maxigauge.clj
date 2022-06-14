@@ -47,30 +47,33 @@
                                   input
                                   (mapv extract-value (rm-ack x))))}))
 
+(defn safe-value
+  "Extracts the value of the safe channel.
 
-(defn channel->index [channel] (- (u/integer channel) 1))
-
-(defn safe-value [channel v]
+  Example:
+  ```clojure
+  (safe-value [\"\" \"0,+1.0200E+03\"])
+  ;; => 1020.0
+  ```"
+  [v]
   (-> v
       rm-ack
-      (nth (channel->index channel))
+      first
       extract-value))
 
 (defn max-pressure [pressure overshoot]
   (let [p (* (u/number pressure) (+ 1.0 (u/number overshoot)))]
     (when (and (not (nil? p))
                (pos? p)) p)))
-    
 
 (defn safe
-  "Uses the pressure at channel `SafeChannel` to ensure that the
-  pressure is below a certainn pressure value. `SafeChannel` counts from 1 but `(nth [1 2] 1)`."
-  [{{:keys [TargetPressure TargetUnit MaxOverShoot SafeChannel]} :PostScriptInput x :_x :as task}]
-
-  (let [p (safe-value SafeChannel x)
+  "Uses the readout to ensure that the
+  pressure is below a certain pressure value. If the pressure `p` is greater than
+  `(* p (+ 1.0 MaxOverShoot)` the `:Mode` of the PPC VAT Dosing Valve is set to `safe`
+  which will trigger the valve closing."
+  [{{:keys [TargetPressure TargetUnit MaxOverShoot]} :PostScriptInput x :_x :as task}]
+  (let [p (safe-value x)
         q (max-pressure TargetPressure MaxOverShoot)]
-    (prn p)
-    (prn q)
     (if (<  p q)
-      {:ToExchange {:PPCVATDosingValve {:Ok true}}}
+      {:ToExchange {:PPCVATDosingValve {:Ok true  :Mode "auto" }}}
       {:ToExchange {:PPCVATDosingValve {:Ok false :Mode "safe" }}})))
