@@ -6,8 +6,11 @@
 
 (def s "N     + 0.000002 lb ")
 
-(defn lb-extract [s]
-  (let [r #"^N\s*([-+])\s*([0-9]*\.[0-9]*)\s*lb\s*"
+(defn lb-extract
+  "The regex takes (should take) values without `lb` ending (at
+  pressures above 3kPa the stable criteria becomes hard to fullfill)." 
+  [s]
+  (let [r #"^N\s*([-+])\s*([0-9]*\.[0-9]*)\s*[lb]*\s*"
         v (re-matches r s)]
     (when (= (count v) 3)
       (str (nth v 1) (nth v 2)))))

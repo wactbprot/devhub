@@ -46,18 +46,18 @@
             :else (do (µ/log ::pre-dispatch :req-id (:req-id task)
                               :message "no pre-processing")
                       task)))))
-  
+
 ;;------------------------------------------------------------
 ;; dispatch post scripting or processing
 ;;------------------------------------------------------------
 (defn post-dispatch
   "Dispatches the post-processing. The following processing paths are
   implemented:
-  
+
   * `:PostScript`: clojure functions
   * `:PostProcessing`: javascript strings
   * `:PostScriptPy`: python scripts
-  
+
   The pre-processing returns the **data**."
   [conf task]
   (µ/trace
@@ -71,11 +71,11 @@
                     (µ/log ::post-dispatch :req-id (:req-id task)
                             :message "no post-processing")
                     task)))))
-  
+
 ;;------------------------------------------------------------
 ;; dispatch on action
 ;;------------------------------------------------------------
-(defmulti dispatch 
+(defmulti dispatch
   "Dispatches depending on the `:Action`. The following protocols paths are
   implemented:
 
@@ -83,13 +83,13 @@
   * `:UDP`
   * `:MODBUS`
   * `:VXI11`
-  * `:EXECUTE`"  
+  * `:EXECUTE`"
   (fn [conf task]
     (if (:error task)
       :error
       (do (µ/log ::dispatch :req-id (:req-id task) :Action (:Action task))
           (if (:stub task) :stub (keyword (:Action task)))))))
-  
+
 (defmethod dispatch :error [conf task] task)
 (defmethod dispatch :stub [conf task] task)
 (defmethod dispatch :UDP [conf task] (udp/handler conf task))
@@ -105,7 +105,7 @@
 ;;------------------------------------------------------------
 ;; request go!
 ;;------------------------------------------------------------
-(defn go! 
+(defn go!
   [conf task]
   (->> task
        (pre-dispatch  conf)
@@ -113,7 +113,7 @@
        (stub/response conf)
        (dispatch      conf)
        (post-dispatch conf)))
-  
+
 ;;------------------------------------------------------------
 ;; routes
 ;;------------------------------------------------------------
@@ -155,6 +155,6 @@
    (reset! server (run-server #'app (:server conf)))))
 
 (defn -main [& args]
-  (pprint/pprint (c/config))
+  #_(pprint/pprint (c/config))
   (u/ascii-logo)
   (start))

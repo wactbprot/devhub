@@ -8,7 +8,7 @@ var misc = require('./add-MISC.js');
  * Stelle schwanken (also das lb verschwinden)
  *
  * @author wactbprot
- * @param  String str String mit enthaltener Zahl.
+ * @param  String str String mit enthaltener Zahl. N     + 2.887520
  * @return Number Zahl.
  */
 function extractFRS(s) {
