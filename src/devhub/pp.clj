@@ -7,6 +7,7 @@
             [devhub.pp-scripts.gn-se3 :as gn-se3]
             [devhub.pp-scripts.vs-se3 :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
+            [devhub.pp-scripts.servo-ppc :as servo-ppc]
             [devhub.pp-scripts.im540 :as im540]
             [devhub.pp-scripts.inf-cube :as inf-cube]
             [devhub.pp-scripts.inf-vgc :as inf-vgc]
@@ -47,6 +48,8 @@
       :servo-se3.resp-ok                     (servo-se3/resp-ok                     task)
       :servo-se3.set-velo                    (servo-se3/set-velo                    task)
       :servo-se3.get-pos                     (servo-se3/get-pos                     task)
+
+      :servo-ppc.meas-velo                   (servo-ppc/meas-velo                   task)
 
       :vs_se3.valves                         (vs-se3/valves                         task)
       :vs_se3.switches                       (vs-se3/switches                       task)

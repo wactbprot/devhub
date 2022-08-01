@@ -74,6 +74,7 @@
   [{{:keys [TargetPressure TargetUnit MaxOverShoot]} :PostScriptInput x :_x :as task}]
   (let [p (safe-value x)
         q (max-pressure TargetPressure MaxOverShoot)]
-    (if (<  p q)
-      {:ToExchange {:PPCVATDosingValve {:Ok true  :Mode "auto" }}}
-      {:ToExchange {:PPCVATDosingValve {:Ok false :Mode "safe" }}})))
+    {:ToExchange {:ObservePressure {:Value p :Unit TargetUnit}
+                  :PPCVATDosingValve (if (<  p q)
+                                       {:Ok true  :Mode "auto" }
+                                       {:Ok false :Mode "safe" })}}))
