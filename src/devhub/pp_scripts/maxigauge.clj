@@ -61,13 +61,21 @@
 
 (defn pressure-safe? [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x}]
   (let [current-pressure (safe-value x)
-        max-pressure (* (or (u/number TargetPressure) 0.0) (+ 1.1))]
+        target-pressure (u/number TargetPressure)
+        max-pressure (* (or target-pressure  0.0) 1.1)]
     (cond
       (zero? max-pressure) false
       (nil? current-pressure) false
       (>= current-pressure max-pressure) false
       (< current-pressure max-pressure) true)))
-      
+
+(defn pressure-ok? [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x}]
+  (let [current-pressure (safe-value x)
+        target-pressure (u/number TargetPressure)
+        max-pressure (* (or target-pressure  0.0) 1.1)
+        lower-pressure (* (or target-pressure  0.0) 0.9)]
+    (> max-pressure current-pressure lower-pressure)))
+
 (defn safe
   "Uses the readout to ensure that the
   pressure is below a certain pressure value. If the pressure `p` is greater than
@@ -77,9 +85,10 @@
   (let [current-pressure (safe-value x)]
     (assoc task :ToExchange
            {:ObservePressure {:Value current-pressure :Unit TargetUnit}
-            :PPCVATDosingValve (if (pressure-safe? task) 
-                                 {:Ok true  :Mode "auto"}
-                                 {:Ok false :Mode "safe" })})))
+            :PPCVATDosingValve (cond
+                                 (pressure-ok? task) {:Ok true :Mode "done"} 
+                                 (pressure-safe? task) {:Ok true :Mode "auto"} 
+                                 :else {:Ok false :Mode "safe" })})))
 
 (comment
   (def x ["" "0,+4.3300E-02" "" "0,+4.3300E-02" "" "0,+4.3300E-02" "" "0,+4.3300E-02"]))
@@ -94,26 +103,24 @@
 (defn next-pos [{{:keys [PPCVATDosingValvePos PPCVATDosingMaxSteps]} :PostScriptInput}]
   (let [curr-pos (u/number PPCVATDosingValvePos)
         max-pos (u/number (or PPCVATDosingMaxSteps 1000))
-        care-pos 450
-        fine-steps 10
+        care-pos 500
+        fine-steps 5
         coarse-steps 100
-        steps (if (> curr-pos care-pos) fine-steps coarse-steps)
+        steps (if (>= curr-pos care-pos) fine-steps coarse-steps)
         pos (+ curr-pos steps)]
     (if (> pos max-pos) max-pos pos)))
 
 (defn ms-to-target [{{:keys [TargetPressure PPCVATDosingValveMode ]} :PostScriptInput :as task}]
   (let [target-pressure (u/number TargetPressure)
         relax-time 20000.
-        react-time 2000.
         m (slope task) ; mbar/ms
         t (when-not (zero? m) (/ target-pressure m))]
     (cond
-      (nil? t) relax-time
-      (neg? t) relax-time
-      (> react-time t) 0
-      (> relax-time t react-time) (do
-                                    (Thread/sleep (- t react-time))
-                                    0)
+      (nil? t) relax-time ;; e.g. if m is 0
+      (neg? t) relax-time ;;
+      (> relax-time t) (do
+                         (Thread/sleep t)
+                         0)
       :default t)))
 
 (defn ctrl
