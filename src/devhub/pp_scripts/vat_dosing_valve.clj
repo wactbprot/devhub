@@ -26,7 +26,8 @@
               :Unit \"step\"})
   ```"
   [{{:keys [Mode] :as input} :PreScriptInput :as task}]
-  (case Mode
-    "auto" (assoc task :Value (int->pos-str (position input)))
-    (assoc task :Value (int->pos-str 0))))
+  (let [pos (if (= Mode "auto") (position input) 0)]
+    (assoc task
+           :Value (int->pos-str pos)
+           :ToExchange {:PPCVATDosingValve {:Position pos}})))
     

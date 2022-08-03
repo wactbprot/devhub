@@ -7,10 +7,8 @@
 
 (defn get-conf
   "Reads a `edn` configuration in file `f`."
-  ([]
-   (get-conf "conf.edn"))
-  ([f]
-   (-> (io/resource f) slurp edn/read-string)))
+  ([] (get-conf "conf.edn"))
+  ([f] (-> (io/resource f) slurp edn/read-string)))
 
 (defn log-type [conf]
   (let [e (keyword (System/getenv "DEVHUB_LOG_TYPE"))

@@ -50,6 +50,7 @@
       :servo-se3.get-pos                     (servo-se3/get-pos                     task)
 
       :servo-ppc.meas-velo                   (servo-ppc/meas-velo                   task)
+      :servo-ppc.get-pos                     (servo-ppc/get-pos                     task)
 
       :vs_se3.valves                         (vs-se3/valves                         task)
       :vs_se3.switches                       (vs-se3/switches                       task)
@@ -67,6 +68,7 @@
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       :maxigauge.read-all                    (maxigauge/read-all                    task)
       :maxigauge.safe                        (maxigauge/safe                        task)
+      :maxigauge.ctrl                        (maxigauge/ctrl                        task)
 
       :mks627-kunbus.readout-first           (mks627-kunbus/readout-first           task)
       :mks627-kunbus.readout-first-vec       (mks627-kunbus/readout-first-vec       task)
