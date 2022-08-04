@@ -5,24 +5,29 @@
             [devhub.pp-utils :as ppu]
             [devhub.utils :as u]))
 
-(def test-vec [""
-               "0,-2.4342E+00"
-               ""
-               "0,+9.4771E-05"
-               ""
-               "0,+1.4055E-03"
-               ""
-               "0,-1.4192E-04"
-               ""
-               "0,+4.5151E-04"])
+;;------------------------------------------------------------
+;; configuration
+;;------------------------------------------------------------
+(def config
+  "Configuration map defines values used e.g. at pressure control tasks."
+  {:overshoot 0.1 ;; rel. value 
+   :undershoot 0.05 ;; rel. value 
 
-(def test-input {:CH1 {:Reservoir 3, :Fullscale 1000, :Unit "mbar"},
-                 :CH2 {:Reservoir 3, :Fullscale 10, :Unit "mbar"},
-                 :CH3 {:Reservoir 4, :Fullscale 10, :Unit "mbar"},
-                 :CH4 {:Reservoir 4, :Fullscale 0.1, :Unit "mbar"},
-                 :CH5 {:Reservoir 5, :Fullscale 10, :Unit "mbar"},
-                 :CH6 {:Reservoir 5, :Fullscale 0.1, :Unit "mbar"}})
+   ;; VAT dosing valve  
+   :max-pos 1000 ;; steps
+   :care-pos 500 ;; steps
+   :super-care-pos 560 ;; steps
 
+   :coarse-steps 100 ;; steps
+   :fine-steps 5 ;; steps
+   :super-fine-steps 2 ;; steps
+
+   :relax-time 30000. ;; ms
+   })
+
+;;------------------------------------------------------------
+;; aux funs
+;;------------------------------------------------------------
 (defn rm-ack [v] (filterv #(< 1 (count %)) v))
 
 (defn extract-value
@@ -32,66 +37,36 @@
     (when (= (count v) 2)
       (-> v second u/number))))
 
-(defn read-out [{{t :Type u :Unit} :PostScriptInput x :_x :as task}]
-  (let [v (mapv extract-value x)
-        r (ppu/vl-result t v u)]
-    (merge task {:Result r})))
- 
-
-(defn read-all [{input :PostScriptInput x :_x :as task}]
-  (merge task
-         {:ToExchange (into {}
-                            (mapv (fn [[k v] w] {k (assoc v :Value w)})
-                                  input
-                                  (mapv extract-value (rm-ack x))))}))
-
-(defn safe-value
+(defn last-pressure-value
   "Extracts the value of the safe channel.
 
   Example:
   ```clojure
-  (safe-value [\"\" \"0,+1.0200E+03\"])
+  (last-pressure-value [\"\" \"0,+1.0200E+03\"])
   ;; => 1020.0
   ```"
   [v]
-  (-> v
-      rm-ack
-      first
-      extract-value))
+  (-> v rm-ack last extract-value))
 
-(defn pressure-safe? [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x}]
-  (let [current-pressure (safe-value x)
-        target-pressure (u/number TargetPressure)
-        max-pressure (* (or target-pressure  0.0) 1.1)]
-    (cond
-      (zero? max-pressure) false
-      (nil? current-pressure) false
-      (>= current-pressure max-pressure) false
-      (< current-pressure max-pressure) true)))
+(defn pressure-safe?
+  ([current-pressure target-pressure]
+   (pressure-safe? current-pressure target-pressure config))
+  ([current-pressure target-pressure {:keys [overshoot] :as conf}]
+   (let [max-pressure (* (or target-pressure  0.0) (+ 1.0 overshoot))]
+     (cond
+       (zero? max-pressure)               false
+       (nil? current-pressure)            false
+       (>= current-pressure max-pressure) false
+       (< current-pressure max-pressure)  true))))
+  
+(defn pressure-ok?
+  ([current-pressure target-pressure]
+   (pressure-ok? current-pressure target-pressure config))
+  ([current-pressure target-pressure {:keys [overshoot undershoot] :as conf}]
+   (let [upper-pressure (* (or target-pressure  0.0) (+ 1.0 overshoot))
+         lower-pressure (* (or target-pressure  0.0) (- 1.0 undershoot))]
+     (> upper-pressure current-pressure lower-pressure))))
 
-(defn pressure-ok? [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x}]
-  (let [current-pressure (safe-value x)
-        target-pressure (u/number TargetPressure)
-        max-pressure (* (or target-pressure  0.0) 1.1)
-        lower-pressure (* (or target-pressure  0.0) 0.9)]
-    (> max-pressure current-pressure lower-pressure)))
-
-(defn safe
-  "Uses the readout to ensure that the
-  pressure is below a certain pressure value. If the pressure `p` is greater than
-  `(* p (+ 1.0 MaxOverShoot)` the `:Mode` of the PPC VAT Dosing Valve is set to `safe`
-  which will trigger the valve closing."
-  [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as task}]
-  (let [current-pressure (safe-value x)]
-    (assoc task :ToExchange
-           {:ObservePressure {:Value current-pressure :Unit TargetUnit}
-            :PPCVATDosingValve (cond
-                                 (pressure-ok? task) {:Ok true :Mode "done"} 
-                                 (pressure-safe? task) {:Ok true :Mode "auto"} 
-                                 :else {:Ok false :Mode "safe" })})))
-
-(comment
-  (def x ["" "0,+4.3300E-02" "" "0,+4.3300E-02" "" "0,+4.3300E-02" "" "0,+4.3300E-02"]))
 
 (defn slope [{x :_x t0 :_t_start t1 :_t_stop}]
   (let [v (mapv extract-value (rm-ack x))
@@ -100,35 +75,72 @@
         t (ppu/t0t1->t (ppu/calc-seq t0 o) (ppu/calc-seq t1 o))]
     (ppu/slope y t)))
 
-(defn next-pos [{{:keys [PPCVATDosingValvePos PPCVATDosingMaxSteps]} :PostScriptInput}]
-  (let [curr-pos (u/number PPCVATDosingValvePos)
-        max-pos (u/number (or PPCVATDosingMaxSteps 1000))
-        care-pos 500
-        fine-steps 5
-        coarse-steps 100
-        steps (if (>= curr-pos care-pos) fine-steps coarse-steps)
-        pos (+ curr-pos steps)]
-    (if (> pos max-pos) max-pos pos)))
+(defn next-pos
+  ([curr-pos]
+   (next-pos curr-pos config))
+  ([curr-pos {:keys [max-pos care-pos super-care-pos fine-steps super-fine-steps coarse-steps] :as conf}]
+   (let [steps (cond
+                 (< curr-pos care-pos) coarse-steps
+                 (< curr-pos super-care-pos) fine-steps
+                 :default super-fine-steps) 
+         pos (+ curr-pos steps)]
+     (if (>= pos max-pos) max-pos pos))))
 
-(defn ms-to-target [{{:keys [TargetPressure PPCVATDosingValveMode ]} :PostScriptInput :as task}]
-  (let [target-pressure (u/number TargetPressure)
-        relax-time 20000.
-        m (slope task) ; mbar/ms
-        t (when-not (zero? m) (/ target-pressure m))]
-    (cond
-      (nil? t) relax-time ;; e.g. if m is 0
-      (neg? t) relax-time ;;
-      (> relax-time t) (do
-                         (Thread/sleep t)
-                         0)
-      :default t)))
+(defn position
+  ([task]
+   (position task config))
+  ([{{:keys [TargetPressure PPCVATDosingValvePos]} :PostScriptInput x :_x :as task} {:keys [relax-time] :as conf}]
+   (let [curr-pos (u/number PPCVATDosingValvePos)
+         target-pressure (u/number TargetPressure)
+         current-pressure (last-pressure-value x)
+         pressure-rise (slope task)
+         remain-time (when-not (zero? pressure-rise) (/ target-pressure pressure-rise))]
+     (cond
+       (pressure-ok? current-pressure target-pressure) 0
+       (or (nil? remain-time)
+           (neg? remain-time))                         (next-pos curr-pos)
+       (> relax-time remain-time)                      curr-pos
+       :default                                        (next-pos curr-pos)))))
 
+
+;;------------------------------------------------------------
+;; safe
+;;------------------------------------------------------------
+(defn safe [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as task}]
+  (let [current-pressure (last-pressure-value x)
+        target-pressure (u/number TargetPressure)]
+    (assoc task :ToExchange
+           {:ObservePressure {:Value current-pressure :Unit TargetUnit}
+            :PPCVATDosingValve (cond
+                                 (pressure-ok? current-pressure target-pressure) {:Mode "done"} 
+                                 (pressure-safe? current-pressure target-pressure) {:Mode "auto"} 
+                                 :else {:Mode "safe"})})))
+
+
+;;------------------------------------------------------------
+;; ctrl
+;;------------------------------------------------------------
 (defn ctrl
   "Returns `task` (without any ops) if `PPCVATDosingValveMode` is not `auto`."
-  [{{:keys [TargetPressure PPCVATDosingValveMode ]} :PostScriptInput :as task}]
+  [{{:keys [PPCVATDosingValveMode]} :PostScriptInput :as task}]
   (if (= PPCVATDosingValveMode "auto")
-    (let [t (ms-to-target task)]
-      (assoc task :ToExchange (if (zero? t)
-                                {:PPCVATDosingValve {:Position 0}}
-                                {:PPCVATDosingValve {:Position (next-pos task)}})))
+    (assoc task :ToExchange
+           {:PPCVATDosingValve {:Position (position task)}})
     task))
+
+
+;;------------------------------------------------------------
+;; read-out
+;;------------------------------------------------------------
+(defn read-out [{{t :Type u :Unit} :PostScriptInput x :_x :as task}]
+  (let [v (mapv extract-value x)]
+    (assoc task :Result (ppu/vl-result t v u))))
+ 
+
+;;------------------------------------------------------------
+;; read-all
+;;------------------------------------------------------------
+(defn read-all [{input :PostScriptInput x :_x :as task}]
+  (assoc task :ToExchange (into {} (mapv (fn [[k v] w] {k (assoc v :Value w)})
+                                         input
+                                         (mapv extract-value (rm-ack x))))))

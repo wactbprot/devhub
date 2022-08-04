@@ -5,8 +5,29 @@
             [clojure.string :as string]
             [devhub.utils :as u]))
 
-(defn int->pos-str [n] (format "R:%06d\r\n" n))
+(defn int->pos-str
+  "Turns an integer to the command string.
+  
+  Example:
+  '''clojure
+  (int->pos-str 100)
+  ;; => \"R:000100\\r\\n\"
+  ```"
+  [n] (format "R:%06d\r\n" n))
 
+(defn pos-str->int
+  "Turns the position string to an integer.
+
+  Example:
+  '''clojure
+  (pos-str->int \"i:3800000000\")
+  ;; => 0
+
+  (pos-str->int \"i:3800000100\")
+  ;; => 100  
+  ```"
+  [s] (-> s (subs 4) Integer/parseInt))
+  
 (defn position [{:keys [Position MaxSteps Unit]}]
   (if (and
        (= Unit "step")
@@ -27,7 +48,8 @@
   ```"
   [{{:keys [Mode] :as input} :PreScriptInput :as task}]
   (let [pos (if (= Mode "auto") (position input) 0)]
-    (assoc task
-           :Value (int->pos-str pos)
-           :ToExchange {:PPCVATDosingValve {:Position pos}})))
+    (assoc task :Value (int->pos-str pos))))
     
+(defn get-position [{x :_x :as task}]
+  (assoc task :ToExchange
+         {:PPCVATDosingValve {:Position (pos-str->int x)}}))

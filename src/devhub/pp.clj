@@ -76,6 +76,9 @@
       :vacom.check-response                  (vacom/check-response                   task)
       :vacom.read-pressure                   (vacom/read-pressure                    task)
       :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
+
+      :vat-dosing-valve.get-position         (vat-dosing-valve/get-position          task)
+
       :inf-vgc.read-out                      (inf-vgc/read-out                       task)
       :inf-vgc.read-vec                      (inf-vgc/read-vec                       task)
       {:error (str "no :PostScript named: " ps)}))
