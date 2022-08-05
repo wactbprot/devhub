@@ -51,6 +51,7 @@
 
       :servo-ppc.meas-velo                   (servo-ppc/meas-velo                   task)
       :servo-ppc.get-pos                     (servo-ppc/get-pos                     task)
+      :servo-ppc.ini                         (servo-ppc/ini                         task)
 
       :vs_se3.valves                         (vs-se3/valves                         task)
       :vs_se3.switches                       (vs-se3/switches                       task)
@@ -78,6 +79,7 @@
       :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
 
       :vat-dosing-valve.get-position         (vat-dosing-valve/get-position          task)
+      :vat-dosing-valve.ini                  (vat-dosing-valve/ini                   task)
 
       :inf-vgc.read-out                      (inf-vgc/read-out                       task)
       :inf-vgc.read-vec                      (inf-vgc/read-vec                       task)
