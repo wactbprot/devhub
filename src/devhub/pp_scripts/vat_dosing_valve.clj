@@ -1,32 +1,33 @@
 (ns devhub.pp-scripts.vat-dosing-valve
   ^{:author "Thomas Bock <wactbprot@gmail.com>"
-    :doc "Pre and Post scropts for VAT valve."}
+    :doc "Pre and Post scripts for VAT dosing valve."}
   (:require [devhub.pp-utils :as ppu]
             [clojure.string :as string]
             [devhub.utils :as u]))
 
 (defn int->pos-str
-  "Turns an integer to the command string.
+  "Turns the input into the command string (see
+  also [[pos-str->int]]). If the input conversion fails `0`is used as
+  input (which closes the valve).
   
-  Example:
-  '''clojure
+  Example: ```clojure
   (int->pos-str 100)
   ;; => \"R:000100\\r\\n\"
   ```"
-  [n] (format "R:%06d\r\n" n))
+  [n]
+  (format "R:%06d\r\n" (or (u/integer n) 0)))
 
 (defn pos-str->int
-  "Turns the position string to an integer.
+  "Turns the position string into an integer (see also [[int->pos-str]]).
 
-  Example:
-  '''clojure
+  Example: ```clojure
   (pos-str->int \"i:3800000000\")
   ;; => 0
 
   (pos-str->int \"i:3800000100\")
   ;; => 100  
   ```"
-  [s] (-> s (subs 4) Integer/parseInt))
+  [s] (-> s (subs 4) u/integer))
   
 (defn position [{:keys [Position MaxSteps Unit]}]
   (if (and
