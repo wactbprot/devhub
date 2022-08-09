@@ -106,7 +106,13 @@
 ;;------------------------------------------------------------
 ;; safe
 ;;------------------------------------------------------------
-(defn safe [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as task}]
+(defn safe
+  "Checks if the pressure extracted by [[last-pressure-value]] from
+  `x` is safe (see [[pressure-safe?]] or ok (see [[pressure-ok?]])
+  with respect to the `TargetPressure` provided via
+  `:PostScriptInput`."
+  [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as
+  task}]
   (let [current-pressure (last-pressure-value x)
         target-pressure (u/number TargetPressure)]
     (assoc task :ToExchange
@@ -121,7 +127,9 @@
 ;; ctrl
 ;;------------------------------------------------------------
 (defn ctrl
-  "Returns `task` (without any ops) if `PPCVATDosingValveMode` is not `auto`."
+  "Returns `task` (without any ops) if `PPCVATDosingValveMode` is not `auto`.
+  If `PPCVATDosingValveMode` is `auto` sets the `:PPCVATDosingValve`
+  `:Position` by means of [[position]]."
   [{{:keys [PPCVATDosingValveMode]} :PostScriptInput :as task}]
   (if (= PPCVATDosingValveMode "auto")
     (assoc task :ToExchange
@@ -132,7 +140,10 @@
 ;;------------------------------------------------------------
 ;; read-out
 ;;------------------------------------------------------------
-(defn read-out [{{t :Type u :Unit} :PostScriptInput x :_x :as task}]
+(defn read-out
+  "Maps [[extract-value]] over the result vector `x`. Returns with
+  VacLab result format."
+  [{{t :Type u :Unit} :PostScriptInput x :_x :as task}]
   (let [v (mapv extract-value x)]
     (assoc task :Result (ppu/vl-result t v u))))
  
