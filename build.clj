@@ -28,8 +28,3 @@
            :main 'devhub.server
            :uber-file uber-file
            :basis basis}))
-
-(defn all [_]
-  (clean nil)
-  (prep nil)
-  (uber nil))
