@@ -15,5 +15,5 @@ curl -H "$H" -d "$D" -X POST $URL
 
 ## 
 ```shell
-D='{"Action":"UDP","Host":"e75449","Port": 4165,"Value":"Sw_off1<usr><pwd>"}'
+D='{"Action":"UDP","Host":"_____","Port": _____,"Value":"Sw_off1<usr><pwd>"}'
 ```
