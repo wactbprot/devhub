@@ -24,12 +24,12 @@
         :mode :rand
         :min-wait 10
         :repeat 1}
- :server {:ip "127.0.0.1"
+ :server {;:ip "127.0.0.1" ; defaults to 0.0.0.0
           :port 9009
           :join? false}
  :tcp {:min-wait 10
        :repeat 1
-       :read-delay 10}
+       :read-delay 50}
  :udp {:send-buffer-size 1024
        :min-wait 10
        :repeat 1

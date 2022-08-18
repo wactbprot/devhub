@@ -13,9 +13,9 @@
   * `:rand` (default)
   * `:first` (fallback)
   * `:last`"
-  [conf task]
+  [conf {:keys [select] :as task}]
   (let [resps (c/all-responses conf)
-        resp  (or ((:select task) resps) (:missing resps))]
+        resp  (or (select resps) (:missing resps))]
     (condp = (c/stub-mode conf)
       :first (first resp)
       :last  (last  resp)
@@ -29,22 +29,13 @@
   ```clojure
   (response (c/config) {:TaskName \"VS_SE3-get-valves-pos\"})
   ```"
-  [conf task]
-  (µ/trace 
-   ::response [:function "stub/response"]
-   (if-not (:stub task) task
-           (if (:error task) task
-               (let [req-id (:req-id task)]
+  [conf {:keys [req-id stub error] :as task}]
+  (µ/trace ::response [:function "stub/response"]
+           (if-not stub task
+             (if error task
                  (if-let [task (safe/stub conf task)]
                    (let [f (fn [_] (select-response conf task))]
-                     (µ/log ::response :message "call select-response"
-                             :req-id req-id)
                      (merge task (if-let [data (u/run f conf task)]
                                    (u/reshape data)
-                                   (let [msg "no data"]
-                                     (µ/log ::response :error msg :req-id req-id)
-                                     {:error "no data"}))))
-                   (let [msg "can not derive keyword fron task name"]
-                     (µ/log ::response :error msg :req-id req-id)
-                     {:error msg})))))))
-
+                                   {:error "no data produced"})))
+                   {:error "can not derive keyword fron task name"})))))

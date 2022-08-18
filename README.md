@@ -1,10 +1,19 @@
 # devhub
 ***
 
-**devhub** is a web service that abstracts the protocols: [udp](#udp), [tcp](#tcp),
-[vxi](#vxi) and [modbus](#modbus) to read out measurement devices. It
-[executes](#execute) shell commands.  Requests are *POST*ed via *http*
-in json format. Measurement data is returned in json
+**devhub** is a RESTful service that abstracts the protocols:
+
+* [udp](#udp)
+* [tcp](#tcp),
+* [vxi](#vxi)
+* [modbus](#modbus)
+
+to read out measurement devices. It
+
+* [executes](#execute)
+
+shell commands.  Requests are *POST*ed via *http*
+in `json` format. Measurement data is returned in `json`
 format. **devhub** acts as a [stub](#stub-post-stub) and returns
 predefined responses. The repository contains instructions to build a
 standalone version that runs on BSD, Linux, MacOS and
@@ -112,8 +121,62 @@ Examples for stub endpoint are:
 No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 
 ```shell
-curl -H "$H" -d '{"Wait":1 , "Repeat":10}' -X POST http://localhost:9009/stub
+curl -H "$H" -d '{"Wait": 100 , "Repeat":10}' -X POST http://localhost:9009/stub --noproxy "*"
 ```
+
+Returns:
+
+```json
+{
+  "req-id": "1654439253784",
+  "Repeat": 10,
+  "stub": true,
+  "_x": [
+    "MEAS 23.1 C",
+    "2e-3 Pa",
+    "DCR +1.98779E-4",
+    "MEAS 23.1 C",
+    "foo",
+    "MEAS 23.1 C",
+    "#<;;:_-",
+    "#<;;:_-",
+    "123",
+    "foo"
+  ],
+  "Value": [
+    "no-value"
+  ],
+  "_t_start": [
+    "1654439253784",
+    "1654439253885",
+    "1654439253985",
+    "1654439254086",
+    "1654439254186",
+    "1654439254287",
+    "1654439254387",
+    "1654439254488",
+    "1654439254588",
+    "1654439254688"
+  ],
+  "Wait": 100,
+  "select": "missing",
+  "_t_stop": [
+    "1654439253784",
+    "1654439253885",
+    "1654439253985",
+    "1654439254086",
+    "1654439254186",
+    "1654439254287",
+    "1654439254387",
+    "1654439254488",
+    "1654439254588",
+    "1654439254689"
+  ]
+}
+```
+
+after 10x100ms=1s.
+
 
 ```shell
 D = '{"TaskName":"IM540-read_out", "Wait":1 , "Repeat":10}'
@@ -154,7 +217,4 @@ export JAVA_TOOL_OPTIONS=-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
 
 # Next up
 
-* turn to polylith arch
-* generate aliases for tcp, vxi and combinations only
-* vxi libs when uberjar
-* Update docs
+
