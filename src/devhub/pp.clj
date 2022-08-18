@@ -7,6 +7,7 @@
             [devhub.pp-scripts.gn-se3 :as gn-se3]
             [devhub.pp-scripts.vs-se3 :as vs-se3]
             [devhub.pp-scripts.servo-se3 :as servo-se3]
+            [devhub.pp-scripts.servo-ppc :as servo-ppc]
             [devhub.pp-scripts.im540 :as im540]
             [devhub.pp-scripts.inf-cube :as inf-cube]
             [devhub.pp-scripts.inf-vgc :as inf-vgc]
@@ -51,6 +52,10 @@
       :servo-se3.set-velo                    (servo-se3/set-velo                    task)
       :servo-se3.get-pos                     (servo-se3/get-pos                     task)
 
+      :servo-ppc.meas-velo                   (servo-ppc/meas-velo                   task)
+      :servo-ppc.get-pos                     (servo-ppc/get-pos                     task)
+      :servo-ppc.ini                         (servo-ppc/ini                         task)
+
       :vs_se3.valves                         (vs-se3/valves                         task)
       :vs_se3.switches                       (vs-se3/switches                       task)
 
@@ -67,6 +72,7 @@
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       :maxigauge.read-all                    (maxigauge/read-all                    task)
       :maxigauge.safe                        (maxigauge/safe                        task)
+      :maxigauge.ctrl                        (maxigauge/ctrl                        task)
 
       :mks627-kunbus.readout-first           (mks627-kunbus/readout-first           task)
       :mks627-kunbus.readout-first-vec       (mks627-kunbus/readout-first-vec       task)
@@ -74,6 +80,10 @@
       :vacom.check-response                  (vacom/check-response                   task)
       :vacom.read-pressure                   (vacom/read-pressure                    task)
       :vacom.read-pressure-vec               (vacom/read-pressure-vec                task)
+
+      :vat-dosing-valve.get-position         (vat-dosing-valve/get-position          task)
+      :vat-dosing-valve.ini                  (vat-dosing-valve/ini                   task)
+
       :inf-vgc.read-out                      (inf-vgc/read-out                       task)
       :inf-vgc.read-vec                      (inf-vgc/read-vec                       task)
       {:error (str "no :PostScript named: " ps)}))

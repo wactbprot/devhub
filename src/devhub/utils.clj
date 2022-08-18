@@ -84,8 +84,9 @@
 
 (defn integer [x]
   (cond
-    (string? x) (try (Integer/parseInt x)
+    (string? x) (try (int (number x))
                      (catch Exception ex (µ/log ::integer :error (.getMessage ex) :raw-result-str x))) 
+    (float? x) (int x)
     (integer? x) x))
 
 (defn ms [] (str (inst-ms (java.util.Date.))))

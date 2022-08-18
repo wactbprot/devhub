@@ -124,7 +124,7 @@ No `TaskName` means `:missing` is selected in `resources/stub-response.edn`.
 curl -H "$H" -d '{"Wait": 100 , "Repeat":10}' -X POST http://localhost:9009/stub --noproxy "*"
 ```
 
-Returns:
+returns:
 
 ```json
 {
