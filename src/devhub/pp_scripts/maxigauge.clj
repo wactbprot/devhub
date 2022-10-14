@@ -114,12 +114,15 @@
   [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as
   task}]
   (let [current-pressure (last-pressure-value x)
-        target-pressure (u/number TargetPressure)]
+        target-pressure (u/number TargetPressure)
+        p? (pressure-ok? current-pressure target-pressure)
+        s? (pressure-safe? current-pressure target-pressure)]
     (assoc task :ToExchange
-           {:ObservePressure {:Value current-pressure :Unit TargetUnit}
+           {:Continue_setting {:Bool (not p?)}
+            :ObservePressure {:Value current-pressure :Unit TargetUnit}
             :PPCVATDosingValve (cond
-                                 (pressure-ok? current-pressure target-pressure) {:Mode "done"} 
-                                 (pressure-safe? current-pressure target-pressure) {:Mode "auto"} 
+                                 p? {:Mode "done"} 
+                                 s? {:Mode "auto"} 
                                  :else {:Mode "safe"})})))
 
 
@@ -144,8 +147,8 @@
   "Maps [[extract-value]] over the result vector `x`. Returns with
   VacLab result format."
   [{{t :Type u :Unit} :PostScriptInput x :_x :as task}]
-  (let [v (mapv extract-value x)]
-    (assoc task :Result (ppu/vl-result t v u))))
+  (let [v (mapv extract-value (rm-ack x))]
+    (assoc task :Result [(ppu/vl-result t v u)])))
  
 
 ;;------------------------------------------------------------
