@@ -73,6 +73,8 @@
       :inf-cube.readout-vec                  (inf-cube/readout-vec                  task)
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       :maxigauge.read-all                    (maxigauge/read-all                    task)
+      :maxigauge.read-vector                 (maxigauge/read-vector                 task)
+
       :maxigauge.safe                        (maxigauge/safe                        task)
       :maxigauge.ctrl                        (maxigauge/ctrl                        task)
 
