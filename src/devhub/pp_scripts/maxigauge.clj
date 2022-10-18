@@ -37,6 +37,8 @@
     (when (= (count v) 2)
       (-> v second u/number))))
 
+(defn gen-vec [x] (mapv extract-value (rm-ack x)))
+
 (defn last-pressure-value
   "Extracts the value of the safe channel.
 
@@ -69,8 +71,7 @@
 
 
 (defn slope [{x :_x t0 :_t_start t1 :_t_stop}]
-  (prn t0)
-  (let [v (mapv extract-value (rm-ack x))
+  (let [v (gen-vec x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)
         t (ppu/t0t1->t (ppu/calc-seq t0 o) (ppu/calc-seq t1 o))]
@@ -148,7 +149,7 @@
   "Maps [[extract-value]] over the result vector `x`. Returns with
   VacLab result format."
   [{{t :Type u :Unit} :PostScriptInput x :_x :as task}]
-  (let [v (mapv extract-value (rm-ack x))]
+  (let [v (gen-vec x)]
     (assoc task :Result [(ppu/vl-result t v u)])))
  
 
@@ -158,4 +159,24 @@
 (defn read-all [{input :PostScriptInput x :_x :as task}]
   (assoc task :ToExchange (into {} (mapv (fn [[k v] w] {k (assoc v :Value w)})
                                          input
-                                         (mapv extract-value (rm-ack x))))))
+                                         (gen-vec x)))))
+
+;;------------------------------------------------------------
+;; read-vector
+;;------------------------------------------------------------
+(defn coll-channel [n v]
+  (mapv #(second %) (filter #(= (first %) n) v)))
+
+(defn group-channel [v m]
+  (mapv (fn [x i] [i x]) v (cycle (range m))))
+
+(defn read-vector [{{ts :Time_start tk :Token u :Unit} :PostScriptInput x :_x :as task}]
+  (let [v (-> x
+              (gen-vec)
+              (group-channel 6))]
+    (assoc task :Result [{:Type (str tk "_ch1_" ts) :Value (coll-channel 0 v) :Unit u}
+                         {:Type (str tk "_ch2_" ts) :Value (coll-channel 1 v) :Unit u}
+                         {:Type (str tk "_ch3_" ts) :Value (coll-channel 2 v) :Unit u}
+                         {:Type (str tk "_ch4_" ts) :Value (coll-channel 3 v) :Unit u}
+                         {:Type (str tk "_ch5_" ts) :Value (coll-channel 4 v) :Unit u}
+                         {:Type (str tk "_ch6_" ts) :Value (coll-channel 5 v) :Unit u}])))
