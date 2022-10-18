@@ -69,6 +69,7 @@
 
 
 (defn slope [{x :_x t0 :_t_start t1 :_t_stop}]
+  (prn t0)
   (let [v (mapv extract-value (rm-ack x))
         o (ppu/operable v)
         y (ppu/calc-seq v o)

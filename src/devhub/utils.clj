@@ -3,6 +3,7 @@
     :doc "The devhub utils."}
   (:require [clojure.string :as string]
             [clojure.edn :as edn]
+            [java-time.api :as jt]
             [clojure.java.shell :refer [sh]]
             [clojure.java.io :as io]
             [com.brunobonacci.mulog :as µ]
@@ -89,7 +90,7 @@
     (float? x) (int x)
     (integer? x) x))
 
-(defn ms [] (str (inst-ms (java.util.Date.))))
+(defn ms [] (str (jt/to-millis-from-epoch (jt/instant))))
 (defn task [req] (assoc (:body req) :req-id (ms)))
 (defn action [req] (:Action (task req)))
 (defn task-name [req] (:TaskName (task req)))
