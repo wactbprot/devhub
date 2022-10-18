@@ -17,6 +17,12 @@
         y (ppu/calc-seq v o)]
     (assoc task :Result [(ppu/vl-result token (ppu/mean y) unit)])))
 
+(defn read-sample [{{unit :Unit token :Type} :PostScriptInput x :_x :as task}]
+  (let [v (mapv extract x)
+        o (ppu/operable v)
+        y (ppu/calc-seq v o)]
+    (assoc task :Result [{:Type token :Value y :Unit unit}])))
+
 
 (defn read-with-slope [{{unit :Unit token :Type} :PostScriptInput x :_x t0 :_t_start t1 :_t_stop :as task}]
   (let [v (mapv extract x)
@@ -26,11 +32,11 @@
     (assoc task
            :Result [(ppu/vl-result token (ppu/mean y) unit)
                     (ppu/vl-result token  (ppu/slope y t) (str unit "/ms"))
-                    (ppu/vl-result (str token "_R") (ppu/r-square y t) "1")])))
+                    (ppu/vl-result (str token "_R") (ppu/r-square y t) "1")
+                    (ppu/vl-result (str "amt_" token) (str (ppu/mean t)) "ms")])))
 
 (defn read-freq [{{unit :Unit token :Type} :PostScriptInput x :_x :as task}]
   (let [v (mapv extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)]
-    (prn [(ppu/vl-result token (ppu/mean y) unit)])
     (assoc task :Result [(ppu/vl-result token (ppu/mean y) unit)])))

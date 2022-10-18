@@ -48,7 +48,7 @@
       :mks-srg3.read-out                     (mks-srg3/read-out                     task)
       :mks-srg3.read-with-slope              (mks-srg3/read-with-slope              task)
       :mks-srg3.read-freq                    (mks-srg3/read-freq                    task)
-
+      :mks-srg3.read-sample                  (mks-srg3/read-sample                  task)
       :servo-se3.meas-velo                   (servo-se3/meas-velo                   task)
       :servo-se3.resp-ok                     (servo-se3/resp-ok                     task)
       :servo-se3.set-velo                    (servo-se3/set-velo                    task)
