@@ -167,6 +167,12 @@
 (defn coll-channel [n v]
   (mapv #(second %) (filter #(= (first %) n) v)))
 
+;; alternatives
+;; (def vv (group-channel ...))
+;; (group-by first vv)
+;; or 
+;; (reduce (fn [m v] (update-in m [(first v)] conj (second v))) {} vv)
+;;
 (defn group-channel [v m]
   (mapv (fn [x i] [i x]) v (cycle (range m))))
 
