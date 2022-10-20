@@ -35,7 +35,6 @@
   (second (re-matches r s))))
 
 (defn test-saw-tooth [{x :_x t0 :_t_start t1 :_t_stop :as task}]
-  (prn task)
   (let [v (mapv rs232-extract x)
         o (ppu/operable v)
         y (ppu/calc-seq v o)
