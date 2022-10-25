@@ -15,8 +15,8 @@
          "1660832263490" "1660832273541" "1660832283592"
          "1660832293643"])
 
-  (deftest read-out-i
+(deftest read-out-i
   (testing "basics"
     (is (nil? (first (mapv extract x)))
-           "skips 1st val"))))
+           "skips 1st val")))
 
