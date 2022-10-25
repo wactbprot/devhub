@@ -113,8 +113,7 @@
   `x` is safe (see [[pressure-safe?]] or ok (see [[pressure-ok?]])
   with respect to the `TargetPressure` provided via
   `:PostScriptInput`."
-  [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as
-  task}]
+  [{{:keys [TargetPressure TargetUnit]} :PostScriptInput x :_x :as task}]
   (let [current-pressure (last-pressure-value x)
         target-pressure (u/number TargetPressure)
         p? (pressure-ok? current-pressure target-pressure)
@@ -176,7 +175,7 @@
 (defn group-channel [v m]
   (mapv (fn [x i] [i x]) v (cycle (range m))))
 
-(defn read-vector [{{ts :Time_start tk :Token u :Unit} :PostScriptInput x :_x :as task}]
+(defn read-vector [{{ts :Time_start tk :Token u :Unit} :PostScriptInput x :_x t0 :_t_start :as task}]
   (let [v (-> x
               (gen-vec)
               (group-channel 6))]
@@ -185,4 +184,5 @@
                          {:Type (str tk "_ch3_" ts) :Value (coll-channel 2 v) :Unit u}
                          {:Type (str tk "_ch4_" ts) :Value (coll-channel 3 v) :Unit u}
                          {:Type (str tk "_ch5_" ts) :Value (coll-channel 4 v) :Unit u}
-                         {:Type (str tk "_ch6_" ts) :Value (coll-channel 5 v) :Unit u}])))
+                         {:Type (str tk "_ch6_" ts) :Value (coll-channel 5 v) :Unit u}
+                         {:Type (str tk "_" ts) :Value t0 :Unit "ms"}])))
