@@ -42,7 +42,7 @@
                     (empty? cmd) nil
                     b? (tcp/wrt-bytes out cmd)
                     :else (tcp/wrt-str out cmd))
-                  (Thread/sleep (:read-delay conf))
+                  (Thread/sleep 200 #_(:read-delay conf))
                   (cond
                     (:NoReply task) nil
                     b? (tcp/rd-bytes in (count cmd)) 
