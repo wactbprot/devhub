@@ -24,8 +24,9 @@
   `(tcp/rd-bytes in (count cmd))` assumes the number of bytes to
   read is the same as the number of bytes written.  
   ```"
-  [{conf :tcp} {cmds :Value i :EOT n :NL h :Host p :Port :as task}]
+  [{conf :tcp} {cmds :Value i :EOT n :NL b :NB h  :Host p :Port :as task}]
   (let [b? (bytes? (first cmds))
+        c? (int? b)
         i? (int? i)
         l? (int? n)]
     (if-not (u/connectable? task)
@@ -35,7 +36,7 @@
                          b? (tcp/out-socket-raw sock)
                          :else (tcp/out-socket sock))
                   in   (cond
-                         (or b? i?) (tcp/in-socket-raw sock)
+                         (or b? i? c?) (tcp/in-socket-raw sock)
                          :else (tcp/in-socket sock))]
         (let [f (fn [cmd]
                   (cond
@@ -45,6 +46,7 @@
                   (Thread/sleep 200 #_(:read-delay conf))
                   (cond
                     (:NoReply task) nil
+                    c? (tcp/rd-bytes in b) 
                     b? (tcp/rd-bytes in (count cmd)) 
                     i? (tcp/rd-eot in i)
                     l? (tcp/rd-lines in n)

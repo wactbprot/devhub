@@ -11,6 +11,7 @@
              [devhub.pp-scripts.im540 :as im540]
              [devhub.pp-scripts.inf-cube :as inf-cube]
              [devhub.pp-scripts.inf-vgc :as inf-vgc]
+             [devhub.pp-scripts.inf-bin :as inf-bin]
              [devhub.pp-scripts.vm212 :as vm212]
              [devhub.pp-scripts.frs5 :as frs5]
              [devhub.pp-scripts.maxigauge :as maxigauge]
@@ -72,6 +73,7 @@
       :im540.read-out                        (im540/read-out                        task)
       :im540.pressure-rise                   (im540/pressure-rise                   task)
       :inf-cube.readout                      (inf-cube/readout                      task)
+      :inf-bin.readout                       (inf-bin/readout                      task)
       :inf-cube.readout-vec                  (inf-cube/readout-vec                  task)
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       :maxigauge.read-all                    (maxigauge/read-all                    task)
