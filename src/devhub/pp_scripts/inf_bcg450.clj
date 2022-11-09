@@ -36,7 +36,7 @@
   [b]
   (condp = (bit-and b 48)
     0 "mbar"
-    16 "mbar";"Torr"
+    16 "Torr"
     32 "Pa"))
 
 (defn meas-vec->meas-val
