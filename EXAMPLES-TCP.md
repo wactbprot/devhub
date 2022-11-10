@@ -14,6 +14,7 @@ and use it this way
 curl -H "$H" -d "$D" -X POST $URL --noproxy "*"
 ```
 
+## Misc Examples
 ```shell
 D='{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}'
 ```
@@ -40,7 +41,7 @@ D='{"TaskName":"IM540-read_out", "Wait":1000 , "Repeat":10, "PostScript": "im540
 D='{"TaskName":"ServoTest", "Wait":1000 , "Repeat":1, "PostScript": "servo-se3.meas-velo", "PostScriptInput": {"Motor": "2", "MinVelo:"5"}, "Action":"TCP", "Host":"e75443", "Port":5300, "Value":"2GN\r"}'
 ```
 
-CE3 bake out commands
+## CE3
 
 ```shell
 D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"init\n"}'
@@ -50,16 +51,27 @@ D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"holdhours=11
 D='{"Action":"TCP","Host":"192.168.98.134","Port":"9009",  "Value":"run\n"}'
 ```
 
-FRS5 read out
+## FRS5 read out
 
 ```shell
 D='{"Port": 5301, "Host": "e75436", "Value":"\u001BP", "Wait": 100, "Repeat": 20}'
 ```
 
-MKT50 (7Lines)
+## MKT50 (7Lines)
+
+`NL` ... Number of lines to read
 
 ```shell
 D='{"Action":"TCP", "Port":5300, "Host":"e75421", "NL":7, "Value":"GET DATA\r"}'
 ```
+## Inficon bin prot (e.g. BCD450)
 
-TODO: EOT Example
+`NB` ... Number of bytes to read
+
+```shell
+D='{"Action":"TCP", "Port":5300, "Host":"e75421", "NB":20, "Value":"", "PostScript": "inf-bin.readout", "Repeat" :10, "Wait": 100}'
+```
+
+## TODO: EOT Example
+
+`EOT` ... Termination sign (integer)
