@@ -22,7 +22,8 @@
 
   TODO: Introduce a number of bytes param e.G. `:NB`. At the moment
   `(tcp/rd-bytes in (count cmd))` assumes the number of bytes to
-  read is the same as the number of bytes written.  
+  read is the same as the number of bytes written.
+  DONE
   ```"
   [{conf :tcp} {cmds :Value i :EOT n :NL b :NB h  :Host p :Port :as task}]
   (let [b? (bytes? (first cmds))
