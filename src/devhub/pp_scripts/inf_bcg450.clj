@@ -2,7 +2,8 @@
   ^{:author "Thomas Bock <wactbprot@gmail.com>"
     :doc "Post processing for Inficon binary protocol."}
   (:require [devhub.pp-utils :as ppu]
-            [devhub.utils    :as u]))
+            [devhub.utils    :as u]
+            [clojure.string :as string]))
 
 (def conf {:start-vec [7 5]
            :meas-offset 4
@@ -63,7 +64,26 @@
         (p-vec->meas-vec i)
         (meas-vec->meas-val u))))
 
+(defn volt [s] (-> s (string/split #",") first))
+
+(defn volt->mbar [x]  (Math/pow 10 (/ (- (u/number (volt x)) 7.75) 0.75)))
+
 (defn readout [{x :_x :as task}]
-  (let [v (mapv meas-val x)
-        u (-> x first meas-unit)]
-    (merge task {:Result [(ppu/vl-result "ind" v u)]})))
+  (merge task {:Result [(ppu/vl-result (get-in task [:PostScriptInput :Type])
+                                       (mapv volt->mbar x)
+                                       "mbar")]}))
+
+(defn readout-vec [{x :_x :as task}]
+  (merge task {:Result [{:Type (get-in task [:PostScriptInput :Type])
+                         :Value (mapv volt->mbar x)
+                         :Unit "mbar" }]}))
+
+(defn readout-rs232 [{x :_x :as task}]
+  (merge task {:Result [(ppu/vl-result (get-in task [:PostScriptInput :Type])
+                                       (mapv meas-val x)
+                                       (get-in task [:PostScriptInput :Unit]))]}))
+
+(defn readout-rs232-vec [{x :_x :as task}]
+  (merge task {:Result [{:Type (get-in task [:PostScriptInput :Type])
+                         :Value (mapv meas-val x)
+                         :Unit (get-in task [:PostScriptInput :Unit])}]}))
