@@ -74,6 +74,7 @@
       :im540.pressure-rise                   (im540/pressure-rise                   task)
       :inf-cube.readout                      (inf-cube/readout                      task)
       :inf-bcg450.readout                    (inf-bcg450/readout                    task)
+      :inf-bcg450.readout-vec                (inf-bcg450/readout-vec                task)
       :inf-cube.readout-vec                  (inf-cube/readout-vec                  task)
       :maxigauge.read-out                    (maxigauge/read-out                    task)
       :maxigauge.read-all                    (maxigauge/read-all                    task)
