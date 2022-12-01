@@ -10,8 +10,7 @@
                   
                   :extra-deps {io.github.clojure/tools.build {:git/tag "v0.5.1" :git/sha "21da7d4"}
                                jvxi11/jvxi11 {:local/root "resources/jvxi11/dist/jvxi11.jar"}
-                               org.acplt/oncrpc {:mvn/version "1.0.7"}
-                               ;oncrpc/server {:local/root "resources/jvxi11/external/oncrpc.jar"}
+                               oncrpc/server {:local/root "resources/jvxi11/external/oncrpc.jar"}
                                clojure.java-time/clojure.java-time {:mvn/version "1.1.0"}
                                compojure/compojure {:mvn/version "1.6.1"}
                                http-kit/http-kit {:mvn/version "2.5.0"}

@@ -12,13 +12,12 @@ to read out measurement devices. It
 
 * [executes](#execute)
 
-shell commands.  Requests are *POST*ed via *http*
-in `json` format. Measurement data is returned in `json`
-format. **devhub** acts as a [stub](#stub-post-stub) and returns
-predefined responses. The repository contains instructions to build a
-standalone version that runs on BSD, Linux, MacOS and
-Windows. **devhub** can be configured to use [elasticsearch
-(els)](#elasticsearch-els) as a log database.
+shell commands.  Requests are *POST*ed via *http* in `json`
+format. Measurement data is returned in `json` format. **devhub** acts
+as a [stub](#stub-post-stub) and returns predefined responses. The
+repository contains instructions to build a standalone version that
+runs on BSD, Linux, MacOS and Windows. **devhub** can be configured to
+use [elasticsearch (els)](#elasticsearch-els) as a log database.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
