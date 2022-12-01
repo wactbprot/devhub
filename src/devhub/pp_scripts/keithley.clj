@@ -19,5 +19,5 @@
   "Read the collector current of the lab gauge. With slow filter at
   least the first 10 readings should be droped."
   [{{t :Token u :Unit n :Skip} :PostScriptInput x :_x :as task}]
-  (merge task {:Result [(ppu/vl-result t (drop n (mapv (comp u/number extract) v)) u)]}))
+  (merge task {:Result [(ppu/vl-result t (drop n (mapv (comp u/number extract) x)) u)]}))
   
