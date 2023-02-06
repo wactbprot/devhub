@@ -9,6 +9,7 @@
              [devhub.pp-scripts.servo-se3 :as servo-se3]
              [devhub.pp-scripts.servo-ppc :as servo-ppc]
              [devhub.pp-scripts.im540 :as im540]
+             [devhub.pp-scripts.rpm4 :as rpm4]
              [devhub.pp-scripts.inf-cube :as inf-cube]
              [devhub.pp-scripts.inf-vgc :as inf-vgc]
              [devhub.pp-scripts.inf-bcg450 :as inf-bcg450]
@@ -97,6 +98,10 @@
 
       :inf-vgc.read-out                      (inf-vgc/read-out                       task)
       :inf-vgc.read-vec                      (inf-vgc/read-vec                       task)
+
+      :rpm4.read-vec                         (rpm4/read-vec                          task)
+      :rpm4.read-out                         (rpm4/read-out                          task)
+
       {:error (str "no :PostScript named: " ps)}))
 
 (defn pre-dispatch [conf {ps :PreScript :as task}]
