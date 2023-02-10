@@ -15,6 +15,13 @@ curl -H "$H" -d "$D" -X POST $URL --noproxy "*"
 ```
 
 ## Misc Examples
+
+Switch off beep of Keithley 2700 via Prologix:
+
+```shell
+D='{"Action":"TCP", "Host":"e75456", "Port":"1234", "Value":"++addr 10\r++eot_enable 1\r++auto 1\r++eot_char 10\rSYSTem:BEEPer 0\r"}'
+```
+
 ```shell
 D='{"TaskName": "tcp-test", "Action":"TCP", "Port":5025, "Host":"e75496", "Value":"frs()\n"}'
 ```
