@@ -16,7 +16,7 @@
   ;; => [0.078 0.078 33.076 111111.079 222.078]
   (mapv extract-unit test-vec)
   ;; =>  ["mbar" "mbar" "mbar" "mbar" "mbar"]
-  ,,,)
+ )
 
 (defn extract [s]
   (let [r #"^R\s*([0-9]*\.[0-9]*)\s([a-zA-Z]*)a$"]
@@ -24,7 +24,7 @@
 
 (defn extract-value [s] (-> s extract second u/number))
 
-(defn extract-unit [s] (-> s extract last)
+(defn extract-unit [s] (-> s extract last))
 
 (defn read-vec [{x :_x :as task}]
   (assoc task :Result [{:Type (get-in task [:PostScriptInput :Type])
@@ -37,4 +37,3 @@
                                             (drop 2)
                                             vec)
                                        (extract-unit (first x)))]))
-
