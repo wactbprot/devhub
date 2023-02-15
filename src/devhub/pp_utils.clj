@@ -135,9 +135,10 @@
   (let [mX    (mean x)
         mY    (mean y)
         x-mX  (mapv (fn [a] (- a mX)) x)
-        y-mY  (mapv (fn [a] (- a mY)) y)]
-    (/ (reduce + (mapv * x-mX y-mY))
-       (reduce + (mapv square x-mX))))) 
+        y-mY  (mapv (fn [a] (- a mY)) y)
+        a     (reduce + (mapv * x-mX y-mY))
+        b     (reduce + (mapv square x-mX))]
+    (if (zero? b)  0.0 (/ a b))))
 
 (defn intercept [y x] (- (mean y) (* (slope y x) (mean x))))  
 

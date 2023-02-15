@@ -48,6 +48,8 @@
       :mks670.saw-tooth                      (mks670/saw-tooth                      task)
       :mks670.drift                          (mks670/drift                          task)
       :mks670.ctrl                           (mks670/ctrl                           task)
+      :mks670.pressure-loss                  (mks670/pressure-loss                  task)
+      :mks670.read-out                       (mks670/read-out                       task)
 
       :mks-srg3.read-out                     (mks-srg3/read-out                     task)
       :mks-srg3.read-with-slope              (mks-srg3/read-with-slope              task)

@@ -31,7 +31,7 @@
   (second (re-matches r s))))
 
 (defn prologix-extract [s]
-  (let [r #"MEASURING\s*([+-]*[0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]{0,3})"]
+  (let [r #"MEASURING\s*([+-]*[0-9]{0,5}\.[0-9]{1,6}[E]*[-+]*[0-9]*)"]
   (second (re-matches r s))))
 
 (defn test-saw-tooth [{x :_x t0 :_t_start t1 :_t_stop :as task}]
@@ -83,3 +83,17 @@
                               :Filling_pressure_dev {:Value dp 
                                                      :Unit "1"}
                               :Filling_pressure_ok {:Ready  (< dp eps)}}})))
+
+
+(defn pressure-loss [{x :_x t0 :_t_start t1 :_t_stop :as task}]
+  (let [v (mapv prologix-extract x)
+        o (ppu/operable v)
+        y (ppu/calc-seq v o)
+        t (ppu/t0t1->t (ppu/calc-seq t0 o) (ppu/calc-seq t1  o))]
+    (assoc task :Result [(ppu/vl-result "loss_slope_x" (ppu/slope y t) "Pa/ms")])))
+
+(defn read-out [{{unit :Unit token :Type} :PostScriptInput x :_x :as task}]
+  (let [v (mapv prologix-extract x)
+        o (ppu/operable v)
+        y (ppu/calc-seq v o)]
+    (assoc task :Result [(ppu/vl-result token y unit)])))
